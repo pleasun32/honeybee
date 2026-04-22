@@ -278,16 +278,6 @@
   
   .mt-sm { margin-top: 16px; } .mt-md { margin-top: 28px; } .mt-lg { margin-top: 40px; } .mb-sm { margin-bottom: 16px; } .mb-lg { margin-bottom: 32px; }
 </style>
-<script>
-  // Fallback Image Logic
-  function fallbackImg(el, type, className, inlineStyle) {
-    const div = document.createElement('div');
-    div.className = className + ' fallback-icon';
-    if (inlineStyle) div.style.cssText = inlineStyle;
-    div.innerHTML = type === 'honey' ? '🍯' : '🐝';
-    el.replaceWith(div);
-  }
-</script>
 </head>
 <body>
 
@@ -321,7 +311,7 @@
   </div>
 
   <div class="img-wrap">
-    <img src="bee.svg" alt="bee" class="bee-img anim-dance" onerror="fallbackImg(this, 'bee', 'bee-img anim-dance')">
+    <img src="bee.svg" alt="bee" class="bee-img anim-dance">
   </div>
 
   <div class="center mt-sm">
@@ -359,7 +349,7 @@
   </div>
 
   <div class="img-wrap" style="min-height: 100px;">
-    <img src="bee.svg" alt="bee" class="bee-img-small anim-hover" onerror="fallbackImg(this, 'bee', 'bee-img-small anim-hover')">
+    <img src="bee.svg" alt="bee" class="bee-img-small anim-hover">
   </div>
 
   <div class="center mt-sm">
@@ -451,7 +441,7 @@
   </div>
 
   <div class="img-wrap">
-    <img src="bee.svg" alt="bee" class="bee-img anim-dance" onerror="fallbackImg(this, 'bee', 'bee-img anim-dance')">
+    <img src="bee.svg" alt="bee" class="bee-img anim-dance">
   </div>
 
   <div class="card mt-sm">
@@ -510,8 +500,8 @@
 <section id="screen-loading" class="screen">
   <div class="center" style="margin-top: 18vh;">
     <div style="position: relative; display: inline-block;">
-      <img src="honeypot.svg" alt="honeypot" class="honey-img anim-hover" onerror="fallbackImg(this, 'honey', 'honey-img anim-hover')">
-      <img src="bee2.svg" alt="bee" class="anim-dance" style="width: 85px; position: absolute; right: -40px; top: -15px; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2));" onerror="fallbackImg(this, 'bee', 'anim-dance', 'width: 85px; position: absolute; right: -40px; top: -15px; font-size: 60px;')">
+      <img src="honeypot.svg" alt="honeypot" class="honey-img anim-hover">
+      <img src="bee2.svg" alt="bee" class="anim-dance" style="width: 85px; position: absolute; right: -40px; top: -15px; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2));">
     </div>
     
     <h2 id="loading-title" class="title-serif mt-lg" data-t="loading_title" style="font-size: 24px;">Executing structural analysis…</h2>
@@ -528,8 +518,8 @@
   </div>
 
   <div class="center mt-sm" style="position: relative; height: 140px;">
-    <img src="honeypot.svg" alt="honeypot" class="honey-img-small anim-dance" style="position: absolute; left: 50%; transform: translateX(-50%); z-index: 1;" onerror="fallbackImg(this, 'honey', 'honey-img-small anim-dance', 'position: absolute; left: 50%; transform: translateX(-50%); z-index: 1;')">
-    <img src="bee2.svg" alt="bee" class="anim-hover" style="width: 80px; position: absolute; left: 50%; transform: translateX(15px); top: 35px; z-index: 2;" onerror="fallbackImg(this, 'bee', 'anim-hover', 'width: 80px; position: absolute; left: 50%; transform: translateX(15px); top: 35px; z-index: 2; font-size: 60px;')">
+    <img src="honeypot.svg" alt="honeypot" class="honey-img-small anim-dance" style="position: absolute; left: 50%; transform: translateX(-50%); z-index: 1;">
+    <img src="bee2.svg" alt="bee" class="anim-hover" style="width: 80px; position: absolute; left: 50%; transform: translateX(15px); top: 35px; z-index: 2;">
   </div>
 
   <div class="center mt-md mb-lg">
@@ -565,7 +555,7 @@
   </div>
 
   <div class="img-wrap" style="min-height: 100px;">
-    <img src="bee2.svg" alt="bee" class="bee-img-small anim-hover" onerror="fallbackImg(this, 'bee', 'bee-img-small anim-hover')">
+    <img src="bee2.svg" alt="bee" class="bee-img-small anim-hover">
   </div>
 
   <div class="center mt-sm mb-lg">
