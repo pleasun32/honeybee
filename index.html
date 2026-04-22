@@ -1,44 +1,37 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>명리분석 꿀벌사주 — 당신의 운명을 꿰뚫어 봅니다</title>
+<title>Saju Analysis — Deep Insights</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Nunito:wght@400;600;700;800&family=Noto+Serif+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-<!-- =========================================================
-     🎨 [1. 디자인 및 스타일 (CSS)]
-     웹사이트의 색상, 폰트, 애니메이션, 버튼 모양을 결정합니다.
-     ========================================================= -->
 <style>
-  /* [1-1] 전체 색상 팔레트 (여기서 색상을 변경하세요) */
   :root {
-    --hanji: #FBF5E9;           /* 배경색 (한지 느낌) */
-    --hanji-deep: #F3E9D2;      /* 진한 배경색 */
-    --dancheong-red: #B03A2E;   /* 포인트 컬러 (단청 빨강) */
-    --dancheong-blue: #1B4F72;  /* 포인트 컬러 (단청 파랑) */
-    --dancheong-green: #1E8449; /* 포인트 컬러 (단청 초록) */
-    --ink: #2C1810;             /* 기본 글자색 (먹물 검정) */
-    --ink-soft: #5D4037;        /* 연한 글자색 */
-    --gold: #C88A1F;            /* 금색 */
-    --gold-light: #F4B942;      /* 밝은 금색 */
-    --plum: #A8577E;            /* 자두색 */
+    /* Premium Palette */
+    --hanji: #FBF5E9;           
+    --hanji-deep: #F3E9D2;      
+    --dancheong-red: #B03A2E;   
+    --dancheong-blue: #1B4F72;  
+    --dancheong-green: #1E8449; 
+    --ink: #2C1810;             
+    --ink-soft: #5D4037;        
+    --gold: #C88A1F;            
+    --gold-light: #F4B942;      
+    --plum: #A8577E;            
 
-    /* 꿀벌 상징 컬러 */
     --honey-100: #FFEDB3;
     --honey-200: #FFE082;
     --honey-400: #F4B942;
     --honey-600: #C88A1F;
     --bee-gray: #6B5D54;
 
-    /* 그림자 효과 */
     --shadow: 0 6px 18px rgba(44, 24, 16, 0.08);
     --shadow-lg: 0 12px 36px rgba(44, 24, 16, 0.12);
   }
   
-  /* [1-2] 기본 초기화 및 배경 설정 */
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { height: 100%; }
   body {
@@ -56,7 +49,7 @@
     overflow-x: hidden;
   }
 
-  /* [1-3] 배경 애니메이션 (흩날리는 벚꽃) */
+  /* Floating Flowers Animation */
   .flower-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
   .flower { position: absolute; top: -10%; font-size: 20px; opacity: 0.65; animation: fall linear infinite; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
   @keyframes fall {
@@ -66,115 +59,223 @@
     100% { transform: translateY(110vh) rotate(360deg) translateX(50px); opacity: 0; }
   }
 
-  /* [1-4] 레이아웃 및 화면 전환 효과 (서서히 나타나기) */
-  .app { max-width: 480px; margin: 0 auto; padding: 16px 20px 60px; min-height: 100vh; position: relative; z-index: 1; }
+  .title-serif { font-family: 'Fraunces', serif; }
+  
+  .app {
+    max-width: 480px; margin: 0 auto; padding: 16px 20px 60px;
+    min-height: 100vh; position: relative; z-index: 1;
+  }
+  
+  /* Pure Fade-in Transition */
   .screen { display: none; animation: fadeIn 0.7s ease-in-out; }
   .screen.active { display: flex; flex-direction: column; gap: 20px; }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  /* [1-5] 업로드된 이미지(꿀벌, 꿀단지) 크기 및 위치 설정 */
+  /* Uploaded Images Base Styles */
   .img-wrap { display: flex; justify-content: center; align-items: center; position: relative; margin: 10px 0; min-height: 140px; }
   .bee-img { width: 140px; height: 140px; object-fit: contain; filter: drop-shadow(0 12px 24px rgba(200, 138, 31, 0.25)); }
   .bee-img-small { width: 90px; height: 90px; object-fit: contain; filter: drop-shadow(0 8px 16px rgba(44, 24, 16, 0.15)); }
   .honey-img { width: 130px; height: 130px; object-fit: contain; filter: drop-shadow(0 12px 28px rgba(200, 138, 31, 0.3)); }
   .honey-img-small { width: 100px; height: 100px; object-fit: contain; filter: drop-shadow(0 8px 16px rgba(200, 138, 31, 0.2)); }
 
-  /* 캐릭터 애니메이션 효과 */
+  /* Animations */
   .anim-hover { animation: hover 3.5s ease-in-out infinite; }
   .anim-dance { animation: dance 4s ease-in-out infinite; }
   @keyframes hover { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-12px) rotate(2deg); } }
   @keyframes dance { 0%, 100% { transform: translateY(0) rotate(-4deg) scale(1); } 25% { transform: translateY(-8px) rotate(4deg) scale(1.02); } 50% { transform: translateY(-14px) rotate(-2deg) scale(1); } 75% { transform: translateY(-6px) rotate(5deg) scale(1.02); } }
 
-  /* [1-6] 텍스트 및 제목 폰트 스타일 */
-  .title-serif { font-family: 'Noto Serif KR', 'Fraunces', serif; }
-  h1 { font-family: 'Noto Serif KR', 'Fraunces', serif; font-size: 28px; font-weight: 700; line-height: 1.35; color: var(--ink); }
-  h2 { font-family: 'Noto Serif KR', 'Fraunces', serif; font-size: 22px; font-weight: 700; line-height: 1.4; color: var(--ink); }
+  /* Background Elements */
+  .bg-decor { position: fixed; pointer-events: none; z-index: 0; opacity: 0.15; font-family: serif; }
+  .bg-star-1 { top: 10%; left: 8%; font-size: 20px; color: var(--plum); }
+  .bg-star-2 { top: 25%; right: 10%; font-size: 16px; color: var(--gold); }
+  .bg-star-3 { bottom: 15%; left: 10%; font-size: 22px; color: var(--dancheong-blue); }
+
+  /* Typography */
+  h1 { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 700; line-height: 1.35; color: var(--ink); }
+  h2 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; line-height: 1.4; color: var(--ink); }
   h3 { font-size: 17px; font-weight: 700; color: var(--ink); }
   p { line-height: 1.65; color: var(--ink-soft); }
   .muted { color: var(--bee-gray); font-size: 13px; }
   .tagline { font-family: 'Fraunces', serif; font-style: italic; color: var(--honey-600); font-size: 15px; }
   .center { text-align: center; }
 
-  /* 상단 브랜드 로고 스탬프 */
   .brand-stamp {
-    display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; background: rgba(176, 58, 46, 0.06); border: 1px solid rgba(176, 58, 46, 0.15); border-radius: 6px; font-family: 'Noto Serif KR', serif; font-size: 11px; font-weight: 700; color: var(--dancheong-red); letter-spacing: 0.15em;
+    display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px;
+    background: rgba(176, 58, 46, 0.06); border: 1px solid rgba(176, 58, 46, 0.15);
+    border-radius: 6px; font-family: serif; font-size: 11px; font-weight: 700;
+    color: var(--dancheong-red); letter-spacing: 0.15em;
   }
   .brand-stamp::before { content: '❋'; font-size: 10px; }
 
-  /* 배경 꾸미기 요소 (별 모양 등) */
-  .bg-decor { position: fixed; pointer-events: none; z-index: 0; opacity: 0.15; font-family: 'Noto Serif KR', serif; }
-  .bg-star-1 { top: 10%; left: 8%; font-size: 20px; color: var(--plum); }
-  .bg-star-2 { top: 25%; right: 10%; font-size: 16px; color: var(--gold); }
-  .bg-star-3 { bottom: 15%; left: 10%; font-size: 22px; color: var(--dancheong-blue); }
-
-  /* [1-7] 버튼 및 입력폼 스타일 */
+  /* Language Switcher Dropdown */
   .lang-dropdown-wrapper { position: absolute; top: 16px; right: 20px; z-index: 100; }
-  .lang-select { appearance: none; -webkit-appearance: none; background: rgba(255, 255, 255, 0.95) url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%232C1810%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E") no-repeat right 12px top 50%; background-size: 10px auto; border: 1px solid rgba(200, 138, 31, 0.4); border-radius: 14px; padding: 8px 32px 8px 14px; font-size: 13px; font-weight: 700; color: var(--ink); cursor: pointer; box-shadow: var(--shadow); font-family: inherit; outline: none; }
+  .lang-select {
+    appearance: none; -webkit-appearance: none;
+    background: rgba(255, 255, 255, 0.95) url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%232C1810%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E") no-repeat right 12px top 50%;
+    background-size: 10px auto; border: 1px solid rgba(200, 138, 31, 0.4); border-radius: 14px;
+    padding: 8px 32px 8px 14px; font-size: 13px; font-weight: 700; color: var(--ink);
+    cursor: pointer; box-shadow: var(--shadow); font-family: inherit; outline: none;
+  }
+  .lang-select:focus { border-color: var(--honey-600); box-shadow: 0 0 0 3px rgba(200, 138, 31, 0.2); }
+
+  /* Navigation Bar */
   .nav-bar { display: flex; gap: 8px; align-items: center; justify-content: flex-start; margin-bottom: 8px; width: 100%; z-index: 50; position: relative; }
-  .back-pill { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px); border: 1px solid rgba(44, 24, 16, 0.15); padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; color: var(--ink); cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); transition: all 0.2s; font-family: inherit; }
-  .btn { display: inline-block; width: 100%; padding: 18px 24px; background: linear-gradient(135deg, var(--honey-400) 0%, var(--gold) 100%); color: var(--ink); border: none; border-radius: 16px; font-family: inherit; font-size: 18px; font-weight: 800; cursor: pointer; text-align: center; transition: all 0.2s; box-shadow: 0 8px 24px rgba(200, 138, 31, 0.4); letter-spacing: 0.02em; }
+  .back-pill {
+    background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px);
+    border: 1px solid rgba(44, 24, 16, 0.15); padding: 8px 16px; border-radius: 20px;
+    font-size: 13px; font-weight: 700; color: var(--ink); cursor: pointer; display: flex; align-items: center; gap: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05); transition: all 0.2s; font-family: inherit;
+  }
+  .back-pill:active { background: var(--honey-100); border-color: var(--honey-600); }
+
+  /* Premium Saju Intro Card */
+  .saju-intro {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.85) 0%, rgba(243, 233, 210, 0.7) 100%);
+    backdrop-filter: blur(12px); border: 1px solid rgba(200, 138, 31, 0.3);
+    border-radius: 20px; padding: 32px 24px; position: relative; overflow: hidden; box-shadow: var(--shadow-lg);
+  }
+  .saju-intro::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+    background: repeating-linear-gradient(90deg, var(--dancheong-red) 0 15px, var(--gold) 15px 30px, var(--dancheong-blue) 30px 45px);
+    opacity: 0.9;
+  }
+  .saju-label {
+    display: inline-block; font-family: serif; font-size: 12px; font-weight: 800;
+    color: var(--dancheong-red); letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 6px 12px; border: 1px solid rgba(176, 58, 46, 0.3); border-radius: 6px; margin-bottom: 16px; background: #fff;
+  }
+  
+  /* Five Elements & Pillars */
+  .five-elements { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding: 16px; background: rgba(255,255,255,0.7); border-radius: 14px; border: 1px solid rgba(0,0,0,0.05); }
+  .element { text-align: center; font-family: serif; }
+  .element-char { font-size: 24px; font-weight: 900; line-height: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  .element-name { font-size: 11px; color: var(--bee-gray); margin-top: 6px; letter-spacing: 0.05em; font-weight: 700;}
+  
+  .four-pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 20px; }
+  .pillar { background: rgba(255,255,255,0.8); border: 1px solid rgba(44, 24, 16, 0.15); border-radius: 12px; padding: 14px 6px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+  .pillar-label { font-family: serif; font-size: 11px; font-weight: 800; color: var(--bee-gray); letter-spacing: 0.05em; margin-bottom: 8px; }
+  .pillar-char-top { font-family: serif; font-size: 26px; font-weight: 900; color: var(--dancheong-red); line-height: 1.1; }
+  .pillar-char-bot { font-family: serif; font-size: 26px; font-weight: 900; color: var(--dancheong-blue); line-height: 1.1; margin-top: 4px; }
+  .pillar-divider { height: 1px; background: rgba(44, 24, 16, 0.15); margin: 8px 10px; }
+
+  /* Buttons */
+  .btn {
+    display: inline-block; width: 100%; padding: 18px 24px;
+    background: linear-gradient(135deg, var(--honey-400) 0%, var(--gold) 100%);
+    color: var(--ink); border: none; border-radius: 16px; font-family: inherit; font-size: 18px; font-weight: 800;
+    cursor: pointer; text-align: center; transition: all 0.2s; box-shadow: 0 8px 24px rgba(200, 138, 31, 0.4); letter-spacing: 0.02em;
+  }
+  .btn:active { transform: scale(0.97); box-shadow: 0 4px 12px rgba(200, 138, 31, 0.3); }
   .btn.secondary { background: #fff; box-shadow: var(--shadow); color: var(--ink-soft); font-size: 16px; border: 1px solid rgba(196, 138, 31, 0.3); }
 
-  /* [1-8] 카드 및 메뉴 그리드 스타일 (메뉴 버튼들) */
-  .saju-intro { background: linear-gradient(145deg, rgba(255, 255, 255, 0.85) 0%, rgba(243, 233, 210, 0.7) 100%); backdrop-filter: blur(12px); border: 1px solid rgba(200, 138, 31, 0.3); border-radius: 20px; padding: 32px 24px; position: relative; overflow: hidden; box-shadow: var(--shadow-lg); }
+  /* Menu Grid */
   .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
-  .menu-tile { background: #fff; border: 1px solid rgba(200, 138, 31, 0.25); border-radius: 20px; padding: 24px 18px; text-align: left; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; position: relative; overflow: hidden; font-family: inherit; }
-  .menu-tile .tile-icon { font-size: 32px; margin-bottom: 4px; }
-  .menu-tile .tile-title { font-family: 'Noto Serif KR', 'Fraunces', serif; font-size: 18px; font-weight: 800; color: var(--ink); line-height: 1.3;}
+  .menu-tile {
+    background: #fff; border: 1px solid rgba(200, 138, 31, 0.25); border-radius: 20px; padding: 24px 18px;
+    text-align: left; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: var(--shadow);
+    display: flex; flex-direction: column; gap: 8px; position: relative; overflow: hidden; font-family: inherit;
+  }
+  .menu-tile:active { transform: scale(0.96); }
+  .menu-tile::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--gold); opacity: 0.8; }
+  
+  .menu-tile .tile-icon { font-size: 32px; line-height: 1; margin-bottom: 4px; }
+  .menu-tile .tile-hanja { font-family: serif; font-size: 11px; color: var(--dancheong-red); font-weight: 800; letter-spacing: 0.15em; }
+  .menu-tile .tile-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 800; color: var(--ink); line-height: 1.3;}
   .menu-tile .tile-sub { font-size: 13px; color: var(--bee-gray); font-weight: 600; line-height: 1.4;}
-  .menu-tile .tile-price { position: absolute; top: 16px; right: 16px; font-size: 12px; font-weight: 900; padding: 6px 10px; border-radius: 10px; letter-spacing: 0.02em; }
-  .menu-tile.free { background: linear-gradient(145deg, #FFF8E7 0%, #FFEAB8 100%); grid-column: 1 / -1; flex-direction: row; align-items: center; padding: 20px; }
+  
+  /* Price Tags in Tiles */
+  .menu-tile .tile-price { position: absolute; top: 16px; right: 16px; font-size: 12px; font-weight: 900; padding: 6px 10px; border-radius: 10px; font-family: 'Nunito', sans-serif; letter-spacing: 0.02em; }
   .menu-tile.free .tile-price { background: var(--ink); color: var(--honey-200); }
   .menu-tile.paid .tile-price { background: #F3E9D2; color: var(--ink); border: 1px solid rgba(200,138,31,0.3); }
-  .menu-tile.full { grid-column: 1 / -1; background: linear-gradient(135deg, #2C1810 0%, #1A0E08 100%); border: none; box-shadow: 0 12px 30px rgba(44,24,16,0.3); padding: 32px 24px; }
-  .menu-tile.full .tile-title { color: #fff; font-size: 22px; }
-  .menu-tile.full .tile-sub { color: rgba(255,255,255,0.7); }
-  .menu-tile.full .tile-price { background: var(--honey-400); color: var(--ink); font-size: 14px; padding: 8px 12px; }
+  .menu-tile.full .tile-price { background: var(--honey-400); color: var(--ink); border: none; font-size: 14px; padding: 8px 12px; }
 
-  /* [1-9] 입력폼 및 에러 메시지 */
-  .card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border: 1px solid rgba(200, 138, 31, 0.25); border-radius: 20px; padding: 28px 24px; box-shadow: var(--shadow-lg); }
+  /* Free Banner Tile */
+  .menu-tile.free { background: linear-gradient(145deg, #FFF8E7 0%, #FFEAB8 100%); grid-column: 1 / -1; flex-direction: row; align-items: center; padding: 20px; }
+  .menu-tile.free::before { background: var(--dancheong-red); }
+  .menu-tile.free .tile-icon { font-size: 42px; margin-right: 12px; margin-bottom: 0; filter: drop-shadow(0 4px 8px rgba(200, 138, 31, 0.3)); }
+  
+  /* Premium Master Tile */
+  .menu-tile.full { grid-column: 1 / -1; background: linear-gradient(135deg, #2C1810 0%, #1A0E08 100%); border: none; box-shadow: 0 12px 30px rgba(44,24,16,0.3); padding: 32px 24px; }
+  .menu-tile.full::before { background: var(--honey-400); }
+  .menu-tile.full .tile-title { color: #fff; font-size: 22px; margin-top: 4px; }
+  .menu-tile.full .tile-sub { color: rgba(255,255,255,0.7); font-size: 14px;}
+  .menu-tile.full .tile-hanja { color: var(--honey-400); }
+
+  /* Input Form */
+  .card {
+    background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
+    border: 1px solid rgba(200, 138, 31, 0.25); border-radius: 20px; padding: 28px 24px; box-shadow: var(--shadow-lg);
+  }
   .field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
   .field label { font-size: 15px; font-weight: 800; color: var(--ink); padding-left: 4px; }
-  .field input[type="text"], .field input[type="date"], .field select { width: 100%; padding: 16px 18px; border: 2px solid rgba(44, 24, 16, 0.15); border-radius: 14px; font-family: inherit; font-size: 16px; font-weight: 600; background: #fff; outline: none; }
+  .field input[type="text"], .field input[type="date"], .field select {
+    width: 100%; padding: 16px 18px; border: 2px solid rgba(44, 24, 16, 0.15); border-radius: 14px;
+    font-family: inherit; font-size: 16px; font-weight: 600; background: #fff; transition: all 0.2s; color: var(--ink); outline: none;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+  }
+  .field input:focus, .field select:focus { border-color: var(--honey-600); box-shadow: 0 0 0 4px rgba(200, 138, 31, 0.15); }
+  
+  /* Time Checkbox Layout */
   .time-checkbox-wrap { display: flex; align-items: center; gap: 8px; padding-left: 4px; margin-top: -8px; margin-bottom: 20px; }
   .time-checkbox-wrap input[type="checkbox"] { transform: scale(1.3); margin: 0; cursor: pointer; accent-color: var(--honey-600); }
-  .error-msg { color: #FFF; background: var(--dancheong-red); font-size: 14px; font-weight: 700; text-align: center; display: none; padding: 14px; border-radius: 12px; margin-bottom: 20px; }
+  .time-checkbox-wrap label { font-size: 14px; color: var(--ink-soft); font-weight: 600; cursor: pointer; }
+  
+  .error-msg {
+    color: #FFF; background: var(--dancheong-red); font-size: 14px; font-weight: 700; text-align: center;
+    display: none; padding: 14px; border-radius: 12px; margin-bottom: 20px; animation: fadeIn 0.3s;
+    box-shadow: 0 6px 16px rgba(176, 58, 46, 0.3);
+  }
 
-  /* [1-10] 로딩, 결제창, 운세 결과창 전용 스타일 */
+  /* Loading */
   .loading-dots { display: inline-flex; gap: 8px; margin-top: 20px; }
   .loading-dots span { width: 12px; height: 12px; border-radius: 50%; background: var(--honey-600); animation: bounce 1.4s infinite; }
   .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
   .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
   @keyframes bounce { 0%, 80%, 100% { transform: translateY(0); opacity: 0.4; } 40% { transform: translateY(-10px); opacity: 1; } }
-  .benefit { display: flex; align-items: center; gap: 16px; padding: 18px 22px; background: #fff; border-radius: 18px; font-weight: 700; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);}
+
+  /* Paywall & Deep Report */
+  .benefit { display: flex; align-items: center; gap: 16px; padding: 18px 22px; background: #fff; border: 1px solid rgba(0,0,0,0.05); border-radius: 18px; font-size: 16px; font-weight: 700; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);}
+  .benefit-icon { font-size: 26px; }
+  
   .price-tag { text-align: center; padding: 10px 0 24px; border-bottom: 1px dashed rgba(0,0,0,0.15); margin-bottom: 24px;}
   .price-tag .amount { font-family: 'Fraunces', serif; font-size: 54px; font-weight: 800; color: var(--ink); letter-spacing: -0.02em;}
-  .pay-btn-global { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 18px; margin-bottom: 14px; border-radius: 16px; font-size: 17px; font-weight: 800; border: none; color: #fff; font-family: inherit;}
-  .btn-stripe { background: #635BFF; } .btn-paypal { background: #FFC439; color: #003087; }
+  .price-tag .currency { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 700; color: var(--honey-600); position: relative; top: -16px; margin-right: 4px;}
   
-  /* 운세 리포트 해설 영역 */
+  .pay-btn-global { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 18px; margin-bottom: 14px; border-radius: 16px; font-size: 17px; font-weight: 800; cursor: pointer; border: none; color: #fff; font-family: inherit;}
+  .btn-stripe { background: #635BFF; box-shadow: 0 8px 20px rgba(99, 91, 255, 0.35); }
+  .btn-paypal { background: #FFC439; color: #003087; box-shadow: 0 8px 20px rgba(255, 196, 57, 0.35); }
+
   .report-section { background: #fff; border-radius: 22px; padding: 32px 24px; margin-bottom: 20px; box-shadow: var(--shadow-lg); border: 1px solid rgba(0,0,0,0.06); }
-  .report-label { display: inline-block; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 800; margin-bottom: 16px; letter-spacing: 0.1em; }
-  .deep-text { font-size: 16px; color: var(--ink); line-height: 1.8; word-break: keep-all; font-weight: 500;}
-  .deep-text .category { display: block; font-weight: 800; font-size: 17px; margin: 18px 0 6px 0; border-bottom: 1px dashed rgba(0,0,0,0.1); }
+  .report-section.accent { border: 2px solid rgba(200,138,31,0.3); background: linear-gradient(to bottom, #fff, var(--hanji)); }
+  .report-label { display: inline-block; padding: 6px 14px; background: rgba(44, 24, 16, 0.08); border-radius: 8px; font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 16px; letter-spacing: 0.1em; text-transform: uppercase; }
+  
+  .daewun-box { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 20px; text-align: center; }
+  .daewun-item { background: #f9f9f9; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 14px 4px; font-family: serif; }
+  .daewun-age { font-size: 12px; color: var(--bee-gray); margin-bottom: 8px; font-weight: 700; }
+  .daewun-char { font-size: 22px; font-weight: 900; color: var(--ink); line-height: 1.25; }
+  .daewun-item.current { background: var(--honey-100); border-color: var(--honey-600); box-shadow: 0 6px 16px rgba(200, 138, 31, 0.3); transform: scale(1.08); z-index: 2; border-width: 2px;}
+
+  /* Premium Deep Report Styles */
+  .deep-text { font-size: 16px; color: var(--ink); font-weight: 500; line-height: 1.8; letter-spacing: -0.01em; word-break: keep-all; }
+  .deep-text strong { font-weight: 800; color: var(--dancheong-blue); }
+  .deep-text .category { display: block; font-weight: 800; font-size: 17px; margin: 18px 0 6px 0; color: var(--ink); padding-bottom: 4px; border-bottom: 1px dashed rgba(0,0,0,0.1); }
   .item-list { list-style: none; padding: 0; margin-top: 12px; }
   .item-list li { padding-left: 16px; position: relative; font-size: 15px; font-weight: 600; line-height: 1.6; margin-bottom: 8px; color: var(--ink-soft); }
   .item-list li::before { content: '•'; position: absolute; left: 0; color: var(--honey-600); font-weight: 900; font-size: 18px; top: -2px;}
-  .report-quote { border-left: 5px solid var(--honey-600); background: linear-gradient(90deg, rgba(200, 138, 31, 0.1) 0%, transparent 100%); padding: 20px 24px; margin: 24px 0; border-radius: 0 12px 12px 0; font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 800; line-height: 1.6; }
-  .hl { background: linear-gradient(180deg, transparent 60%, rgba(200, 138, 31, 0.35) 60%); font-weight: 800; padding: 0 2px; }
+
+  .report-quote {
+    border-left: 5px solid var(--honey-600); background: linear-gradient(90deg, rgba(200, 138, 31, 0.1) 0%, transparent 100%);
+    padding: 20px 24px; margin: 24px 0; border-radius: 0 12px 12px 0;
+    font-family: serif; font-size: 17px; font-weight: 800; color: var(--ink); line-height: 1.6;
+  }
+  .hl { background: linear-gradient(180deg, transparent 60%, rgba(200, 138, 31, 0.35) 60%); font-weight: 800; padding: 0 2px; color: var(--ink); }
   
-  /* 마진(여백) 유틸리티 */
   .mt-sm { margin-top: 16px; } .mt-md { margin-top: 28px; } .mt-lg { margin-top: 40px; } .mb-sm { margin-bottom: 16px; } .mb-lg { margin-bottom: 32px; }
-  /* 기타 오행 기둥(명식) 스타일 */
-  .five-elements, .four-pillars { margin-top: 20px; } .element-char, .pillar-char-top, .pillar-char-bot { font-weight: 900; font-family: 'Noto Serif KR', serif; }
-  .pillar { background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 14px 6px; text-align: center; }
-  .daewun-box { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; text-align: center; margin-top: 20px; }
-  .daewun-item { background: #f9f9f9; border-radius: 12px; padding: 14px 4px; font-family: 'Noto Serif KR', serif; }
 </style>
 </head>
 <body>
 
-<!-- 배경 애니메이션 요소 -->
+<!-- Floating Flowers Background -->
 <div class="flower-bg">
   <div class="flower" style="left: 10%; animation-duration: 12s; animation-delay: 0s;">🌸</div>
   <div class="flower" style="left: 35%; animation-duration: 15s; animation-delay: -5s;">🌸</div>
@@ -187,41 +288,47 @@
 <span class="bg-decor bg-star-2">☾</span>
 <span class="bg-decor bg-star-3">✦</span>
 
-<!-- 다국어 선택 드롭다운 -->
+<!-- Language Dropdown (English & Indonesian ONLY) -->
 <div class="lang-dropdown-wrapper">
   <select class="lang-select" id="lang-select" onchange="setLang(this.value)">
-    <option value="ko">🇰🇷 한국어</option>
     <option value="en">🇺🇸 English</option>
+    <option value="id">🇮🇩 Bahasa Indonesia</option>
   </select>
 </div>
 
-<!-- =========================================================
-     🖼️ [2. 화면 구성 (HTML)]
-     앱의 뼈대입니다. 눈에 보이는 버튼, 이미지, 텍스트의 구조를 정합니다.
-     ========================================================= -->
 <div class="app">
 
-<!-- 화면 1: 랜딩 (앱 처음 접속 시 보이는 메인 화면) -->
+<!-- ==================== SCREEN 1: LANDING ==================== -->
 <section id="screen-landing" class="screen active">
-  <div class="nav-bar"><button class="back-pill" onclick="goto('landing')">🏠 <span data-t="btn_home_only">홈으로</span></button></div>
+  <div class="nav-bar">
+    <button class="back-pill" onclick="goto('landing')">🏠 <span data-t="btn_home_only">Home</span></button>
+  </div>
 
-  <!-- 메인 꿀벌 이미지 -->
   <div class="img-wrap">
     <img src="bee.svg" alt="bee" class="bee-img anim-dance">
   </div>
 
   <div class="center mt-sm">
-    <span class="brand-stamp" data-t="brand_stamp">명리분석 · 四柱</span>
+    <span class="brand-stamp" data-t="brand_stamp">SAJU ANALYSIS · 四柱</span>
     <h1 class="mt-sm title-serif" data-t="hero_title">Your chart, told gently.</h1>
     <p class="tagline mt-sm" data-t="hero_tagline">— a little honey for your day</p>
   </div>
 
-  <!-- 사주 안내 문구 박스 -->
   <div class="saju-intro mt-md">
     <span class="saju-label" data-t="what_is_saju_label">What is Saju</span>
     <h2 class="title-serif mt-sm" data-t="what_is_saju_title">The Architecture of Your Fate</h2>
     <p class="mt-md" data-t="what_is_saju_p1">Saju (四柱) is an 800-year-old empirical system mapping your birth moment.</p>
     <p class="mt-sm" data-t="what_is_saju_p2">We extract the five elements flowing through your pillars to calculate your core drive and your 10-year Daewun.</p>
+    
+    <div class="five-elements mt-md">
+      <div class="element"><div class="element-char" style="color:var(--dancheong-green)">木</div><div class="element-name" data-t="el_wood">Wood</div></div>
+      <div class="element"><div class="element-char" style="color:var(--dancheong-red)">火</div><div class="element-name" data-t="el_fire">Fire</div></div>
+      <div class="element"><div class="element-char" style="color:var(--gold)">土</div><div class="element-name" data-t="el_earth">Earth</div></div>
+      <div class="element"><div class="element-char" style="color:#8E8E8E">金</div><div class="element-name" data-t="el_metal">Metal</div></div>
+      <div class="element"><div class="element-char" style="color:var(--dancheong-blue)">水</div><div class="element-name" data-t="el_water">Water</div></div>
+    </div>
+    <div style="text-align: center; font-size: 11px; color: var(--bee-gray); font-weight: 800; margin-top: 10px; letter-spacing: 0.1em;" data-t="five_elements_label">FIVE ELEMENTS · 五行</div>
+
     <p class="mt-md" style="font-weight: 700; color: var(--ink);" data-t="what_is_saju_p3">Deep insights, clearly explained.</p>
   </div>
 
@@ -229,9 +336,11 @@
   <p class="muted center mt-sm" data-t="disclaimer">For entertainment and self-reflection.</p>
 </section>
 
-<!-- 화면 2: 허브 (어떤 운세를 볼지 선택하는 메뉴 화면) -->
+<!-- ==================== SCREEN 2: HUB (Menu) ==================== -->
 <section id="screen-hub" class="screen">
-  <div class="nav-bar"><button class="back-pill" onclick="goto('landing')">🏠 <span data-t="btn_home_only">홈으로</span></button></div>
+  <div class="nav-bar">
+    <button class="back-pill" onclick="goto('landing')">🏠 <span data-t="btn_home_only">Home</span></button>
+  </div>
 
   <div class="img-wrap" style="min-height: 100px;">
     <img src="bee.svg" alt="bee" class="bee-img-small anim-hover">
@@ -239,60 +348,92 @@
 
   <div class="center mt-sm">
     <h2 class="title-serif" data-t="hub_pick_title">Pick your reading</h2>
+    <p class="tagline mt-sm" data-t="hub_pick_sub">— which wisdom calls you today?</p>
   </div>
 
-  <!-- 8개의 메뉴 버튼들 -->
   <div class="menu-grid">
     <button class="menu-tile free" onclick="openReading('daily')">
       <div class="tile-icon">🍯</div>
       <div style="flex: 1;">
-        <div class="tile-price" data-t="p_free" style="position: static; display: inline-block; margin-bottom: 4px;">무료</div>
-        <div class="tile-title" data-t="menu_daily">오늘의 일진</div>
-        <div class="tile-sub" data-t="menu_daily_sub">오늘 하루의 흉운 회피법</div>
+        <div class="tile-price" data-t="p_free" style="position: static; display: inline-block; margin-bottom: 4px;">FREE</div>
+        <div class="tile-title" data-t="menu_daily">Today's Flow</div>
+        <div class="tile-sub" data-t="menu_daily_sub">Daily energy shift</div>
       </div>
     </button>
+    
     <button class="menu-tile paid" onclick="openReading('yearly')">
-      <div class="tile-icon">🌅</div><div class="tile-price" data-t="p_yearly">₩4,900</div>
-      <div class="tile-title" data-t="menu_yearly">1년 운세</div><div class="tile-sub" data-t="menu_yearly_sub">2026년 흐름과 전략</div>
+      <div class="tile-hanja">新年運</div>
+      <div class="tile-icon">🌅</div>
+      <div class="tile-price" data-t="p_yearly">$4.99</div>
+      <div class="tile-title" data-t="menu_yearly">1-Year Fortune</div>
+      <div class="tile-sub" data-t="menu_yearly_sub">2026 Strategy & Flow</div>
     </button>
+    
     <button class="menu-tile paid" onclick="openReading('wealth')">
-      <div class="tile-icon">💰</div><div class="tile-price" data-t="p_wealth">₩3,900</div>
-      <div class="tile-title" data-t="menu_wealth">재물·투자운</div><div class="tile-sub" data-t="menu_wealth_sub">부(富)의 축적 방식</div>
+      <div class="tile-hanja">財物運</div>
+      <div class="tile-icon">💰</div>
+      <div class="tile-price" data-t="p_wealth">$3.99</div>
+      <div class="tile-title" data-t="menu_wealth">Wealth & Fortune</div>
+      <div class="tile-sub" data-t="menu_wealth_sub">Path to accumulation</div>
     </button>
+    
     <button class="menu-tile paid" onclick="openReading('love')">
-      <div class="tile-icon">🌸</div><div class="tile-price" data-t="p_std">₩2,900</div>
-      <div class="tile-title" data-t="menu_love">연애·인연운</div><div class="tile-sub" data-t="menu_love_sub">나에게 맞는 인연의 시기</div>
+      <div class="tile-hanja">戀愛</div>
+      <div class="tile-icon">🌸</div>
+      <div class="tile-price" data-t="p_std">$2.99</div>
+      <div class="tile-title" data-t="menu_love">Love & Romance</div>
+      <div class="tile-sub" data-t="menu_love_sub">Relationship vectors</div>
     </button>
+
     <button class="menu-tile paid" onclick="openReading('career')">
-      <div class="tile-icon">✨</div><div class="tile-price" data-t="p_std">₩2,900</div>
-      <div class="tile-title" data-t="menu_career">직업·승진운</div><div class="tile-sub" data-t="menu_career_sub">나의 성공 벡터</div>
+      <div class="tile-hanja">昇進運</div>
+      <div class="tile-icon">✨</div>
+      <div class="tile-price" data-t="p_std">$2.99</div>
+      <div class="tile-title" data-t="menu_career">Career & Success</div>
+      <div class="tile-sub" data-t="menu_career_sub">Your professional vector</div>
     </button>
+    
     <button class="menu-tile paid" onclick="openReading('academic')">
-      <div class="tile-icon">📚</div><div class="tile-price" data-t="p_std">₩2,900</div>
-      <div class="tile-title" data-t="menu_academic">학업·시험운</div><div class="tile-sub" data-t="menu_academic_sub">합격과 성취의 열쇠</div>
+      <div class="tile-hanja">學業運</div>
+      <div class="tile-icon">📚</div>
+      <div class="tile-price" data-t="p_std">$2.99</div>
+      <div class="tile-title" data-t="menu_academic">Academic & Exams</div>
+      <div class="tile-sub" data-t="menu_academic_sub">Focus and achievements</div>
     </button>
+    
     <button class="menu-tile paid" onclick="openReading('health')">
-      <div class="tile-icon">🍃</div><div class="tile-price" data-t="p_std">₩2,900</div>
-      <div class="tile-title" data-t="menu_health">건강·기질</div><div class="tile-sub" data-t="menu_health_sub">타고난 신체 취약점</div>
+      <div class="tile-hanja">健康</div>
+      <div class="tile-icon">🍃</div>
+      <div class="tile-price" data-t="p_std">$2.99</div>
+      <div class="tile-title" data-t="menu_health">Health Analysis</div>
+      <div class="tile-sub" data-t="menu_health_sub">Elemental balance</div>
     </button>
+
     <button class="menu-tile full" onclick="openReading('full')">
-      <div class="tile-icon">📖</div><div class="tile-price" data-t="p_full">₩15,000</div>
-      <div class="tile-title" data-t="menu_full">총해부 마스터 리포트</div><div class="tile-sub" data-t="menu_full_sub">모든 풀이를 총망라한 평생 지침서</div>
+      <div class="tile-hanja">總合解剖</div>
+      <div class="tile-icon">📖</div>
+      <div class="tile-price" data-t="p_full">$14.99</div>
+      <div class="tile-title" data-t="menu_full">Master Saju Report</div>
+      <div class="tile-sub" data-t="menu_full_sub">Deepest 8-area reading</div>
     </button>
   </div>
 </section>
 
-<!-- 화면 3: 입력폼 (생년월일 입력 화면) -->
+<!-- ==================== SCREEN 3: INPUT FORM ==================== -->
 <section id="screen-input" class="screen">
   <div class="nav-bar">
-    <button class="back-pill" onclick="goto('landing')">🏠</button>
-    <button class="back-pill" onclick="goto('hub')">← <span data-t="back_to_menu">뒤로</span></button>
+    <button class="back-pill" onclick="goto('landing')">🏠 <span data-t="btn_home_only">Home</span></button>
+    <button class="back-pill" onclick="goto('hub')">← <span data-t="back_to_menu">Menu</span></button>
   </div>
 
-  <div class="img-wrap"><img src="bee.svg" alt="bee" class="bee-img anim-dance"></div>
+  <div class="img-wrap">
+    <img src="bee.svg" alt="bee" class="bee-img anim-dance">
+  </div>
 
   <div class="card mt-sm">
-    <div class="center mb-lg"><h3 data-t="onb_intro" style="font-size: 18px;">정보 입력</h3></div>
+    <div class="center mb-lg">
+      <h3 data-t="onb_intro" style="font-size: 18px;">Enter your details</h3>
+    </div>
     
     <div class="field">
       <label data-t="label_name">Name (Optional)</label>
@@ -303,28 +444,28 @@
       <input type="date" id="input-date" required />
     </div>
     
-    <!-- 태어난 시간 입력부 -->
+    <!-- Time Input -->
     <div class="field" style="margin-bottom: 8px;">
       <label><span data-t="label_time">Birth time</span></label>
       <select id="input-time">
         <option value="" disabled selected data-t="time_opt_placeholder">Select time</option>
-        <option value="ja" data-t="time_opt_ja">자시</option>
-        <option value="chuk" data-t="time_opt_chuk">축시</option>
-        <option value="in" data-t="time_opt_in">인시</option>
-        <option value="myo" data-t="time_opt_myo">묘시</option>
-        <option value="jin" data-t="time_opt_jin">진시</option>
-        <option value="sa" data-t="time_opt_sa">사시</option>
-        <option value="o" data-t="time_opt_o">오시</option>
-        <option value="mi" data-t="time_opt_mi">미시</option>
-        <option value="shin" data-t="time_opt_shin">신시</option>
-        <option value="yu" data-t="time_opt_yu">유시</option>
-        <option value="sul" data-t="time_opt_sul">술시</option>
-        <option value="hae" data-t="time_opt_hae">해시</option>
+        <option value="ja">23:30 ~ 01:29</option>
+        <option value="chuk">01:30 ~ 03:29</option>
+        <option value="in">03:30 ~ 05:29</option>
+        <option value="myo">05:30 ~ 07:29</option>
+        <option value="jin">07:30 ~ 09:29</option>
+        <option value="sa">09:30 ~ 11:29</option>
+        <option value="o">11:30 ~ 13:29</option>
+        <option value="mi">13:30 ~ 15:29</option>
+        <option value="shin">15:30 ~ 17:29</option>
+        <option value="yu">17:30 ~ 19:29</option>
+        <option value="sul">19:30 ~ 21:29</option>
+        <option value="hae">21:30 ~ 23:29</option>
       </select>
     </div>
     <div class="time-checkbox-wrap">
       <input type="checkbox" id="input-time-unknown" onchange="toggleTimeInput(this)">
-      <label for="input-time-unknown" data-t="time_unknown_check">모름 (시간 제외)</label>
+      <label for="input-time-unknown" data-t="time_unknown_check">I don't know my birth time</label>
     </div>
 
     <div class="field mb-sm">
@@ -335,30 +476,31 @@
       </select>
     </div>
     
-    <!-- 오류 메시지 노출 공간 -->
     <div id="form-error" class="error-msg"></div>
-    <button class="btn mt-sm" onclick="submitInput()" data-t="onb_submit">분석 시작</button>
+    
+    <button class="btn mt-sm" onclick="submitInput()" data-t="onb_submit">Generate Analysis</button>
   </div>
 </section>
 
-<!-- 화면 4: 로딩 화면 (사주 분석 중 연출) -->
+<!-- ==================== SCREEN 4: LOADING ==================== -->
 <section id="screen-loading" class="screen">
   <div class="center" style="margin-top: 18vh;">
     <div style="position: relative; display: inline-block;">
       <img src="honeypot.svg" alt="honeypot" class="honey-img anim-hover">
       <img src="bee2.svg" alt="bee" class="anim-dance" style="width: 85px; position: absolute; right: -40px; top: -15px; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2));">
     </div>
-    <h2 id="loading-title" class="title-serif mt-lg" data-t="loading_title" style="font-size: 24px;">분석중...</h2>
+    
+    <h2 id="loading-title" class="title-serif mt-lg" data-t="loading_title" style="font-size: 24px;">Executing structural analysis…</h2>
     <div class="loading-dots"><span></span><span></span><span></span></div>
-    <p class="muted mt-md" data-t="loading_sub" style="font-size: 15px;">잠시만 기다려주세요.</p>
+    <p class="muted mt-md" data-t="loading_sub" style="font-size: 15px;">Calculating Daewun shifts.</p>
   </div>
 </section>
 
-<!-- 화면 5: 결제 유도 (Paywall) 화면 -->
+<!-- ==================== SCREEN 5: PAYWALL ==================== -->
 <section id="screen-paywall" class="screen">
   <div class="nav-bar">
-    <button class="back-pill" onclick="goto('landing')">🏠</button>
-    <button class="back-pill" onclick="goto('hub')">← <span data-t="back_to_menu">뒤로</span></button>
+    <button class="back-pill" onclick="goto('landing')">🏠 <span data-t="btn_home_only">Home</span></button>
+    <button class="back-pill" onclick="goto('hub')">← <span data-t="back_to_menu">Menu</span></button>
   </div>
 
   <div class="center mt-sm" style="position: relative; height: 140px;">
@@ -368,27 +510,34 @@
 
   <div class="center mt-md mb-lg">
     <h1 id="paywall-title" style="font-size: 28px;">Premium Reading</h1>
-    <p class="tagline mt-sm" id="paywall-sub" data-t="paywall_sub">심층 분석 리포트</p>
+    <p class="tagline mt-sm" id="paywall-sub" data-t="paywall_sub">A deep look, written just for you.</p>
   </div>
+
+  <div class="benefit"><div class="benefit-icon">💡</div><div data-t="pw_benefit1">Deep structural analysis</div></div>
+  <div class="benefit"><div class="benefit-icon">📈</div><div data-t="pw_benefit2">10-year Daewun mapping</div></div>
+  <div class="benefit"><div class="benefit-icon">♾️</div><div data-t="pw_benefit3">Yours forever</div></div>
 
   <div class="card mt-md">
     <div class="price-tag">
-      <!-- 동적으로 가격이 바뀌는 부분 -->
       <span class="currency" id="pw-currency">$</span><span class="amount" id="pw-amount">2.99</span>
-      <div class="muted mt-sm" data-t="price_desc" style="font-weight: 800; font-size: 14px;">평생 소장</div>
+      <div class="muted mt-sm" data-t="price_desc" style="font-weight: 800; font-size: 14px;">One-time · Instant access</div>
     </div>
+
     <div class="pay-section">
-      <button class="pay-btn-global btn-stripe" onclick="startCheckout()">💳 <span data-t="pay_stripe">결제하기</span></button>
+      <span class="pay-label" data-t="pay_label" style="font-size: 13px; font-weight: 800; color: var(--bee-gray); margin-bottom: 12px; display: block;">Secure Checkout</span>
+      <button class="pay-btn-global btn-stripe" onclick="startCheckout()">💳 <span data-t="pay_stripe">Pay with Stripe</span></button>
+      <button class="pay-btn-global btn-paypal" onclick="startCheckout()">🔵 <span data-t="pay_paypal">Pay with PayPal</span></button>
     </div>
   </div>
-  <button class="btn secondary mt-md" onclick="goto('hub')" data-t="maybe_later">나중에 볼게요</button>
+
+  <button class="btn secondary mt-md" onclick="goto('hub')" data-t="maybe_later">Maybe later</button>
 </section>
 
-<!-- 화면 6: 최종 운세 결과 화면 -->
+<!-- ==================== SCREEN 6: RESULT & UPSELL ==================== -->
 <section id="screen-result" class="screen">
   <div class="nav-bar">
-    <button class="back-pill" onclick="goto('landing')">🏠</button>
-    <button class="back-pill" onclick="goto('hub')">← <span data-t="back_to_menu">메뉴</span></button>
+    <button class="back-pill" onclick="goto('landing')">🏠 <span data-t="btn_home_only">Home</span></button>
+    <button class="back-pill" onclick="goto('hub')">← <span data-t="back_to_menu">Menu</span></button>
   </div>
 
   <div class="img-wrap" style="min-height: 100px;">
@@ -396,42 +545,37 @@
   </div>
 
   <div class="center mt-sm mb-lg">
-    <h1 class="title-serif" id="result-title" style="font-size: 30px;">결과 제목</h1>
+    <h1 class="title-serif" id="result-title" style="font-size: 30px;">Title</h1>
   </div>
 
-  <!-- 사용자의 사주 8글자 렌더링 영역 (목업) -->
+  <!-- Saju Blueprint Box -->
   <div class="saju-intro" id="result-pillars-box" style="padding: 24px;">
-    <span class="saju-label" data-t="your_saju_label">Your Saju</span>
+    <span class="saju-label" data-t="your_saju_label">Your Saju Blueprint</span>
     <div class="four-pillars" id="result-pillars"></div>
   </div>
 
-  <!-- [핵심] 실제 해설 텍스트가 조립되어 들어가는 빈 공간 -->
+  <!-- Dynamic Content Area -->
   <div id="result-content" class="mt-lg"></div>
 
-  <!-- 하단 다른 운세 보기 유도 (업셀링) -->
+  <!-- UPSELL SECTION (Only shown if NOT master report) -->
   <div id="upsell-section">
     <div class="center mt-lg mb-sm" style="padding-top: 40px; border-top: 2px dashed rgba(200,138,31,0.3);">
-      <h2 class="title-serif mt-sm" data-t="explore_title" style="font-size: 26px;">다른 운세 보기</h2>
+      <p style="font-size: 12px; color: var(--dancheong-red); font-weight: 900; letter-spacing: 0.2em;" data-t="explore_label">EXPLORE</p>
+      <h2 class="title-serif mt-sm" data-t="explore_title" style="font-size: 26px;">Your chart holds more</h2>
     </div>
+
     <div class="menu-grid mb-lg">
       <button class="menu-tile" onclick="openReading('wealth')"><div class="tile-icon">💰</div><div class="tile-title" data-t="menu_wealth">Wealth</div></button>
       <button class="menu-tile" onclick="openReading('love')"><div class="tile-icon">🌸</div><div class="tile-title" data-t="menu_love">Love</div></button>
+      <button class="menu-tile full" onclick="openReading('full')"><div class="tile-icon">📖</div><div class="tile-title" data-t="menu_full">Master Report</div></button>
     </div>
   </div>
 </section>
 
 </div>
 
-<!-- =========================================================
-     ⚙️ [3. 앱 동작 로직 (JavaScript)]
-     버튼 클릭 시 화면 이동, 오류 검사 등을 담당합니다.
-     ========================================================= -->
 <script>
-let currentLang = 'ko';          // 현재 설정된 언어
-let currentReadingType = 'daily'; // 사용자가 선택한 운세 종류
-let userInfo = null;             // 사용자 입력 정보 저장
-
-// '모름' 체크박스 클릭 시 시간 선택칸 비활성화 함수
+// --- Time Input Toggler ---
 function toggleTimeInput(checkbox) {
   const selectBox = document.getElementById('input-time');
   if (checkbox.checked) {
@@ -442,13 +586,247 @@ function toggleTimeInput(checkbox) {
   }
 }
 
-// 다국어 번역 가져오기 함수
-function getT(key) { return (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key]) || TRANSLATIONS['en'][key] || key; }
+// --- Dynamic Pricing Data ---
+const PRICES = {
+  en: { yearly: '4.99', wealth: '3.99', love: '2.99', career: '2.99', academic: '2.99', health: '2.99', full: '14.99' },
+  id: { yearly: 'Rp 75.000', wealth: 'Rp 59.000', love: 'Rp 45.000', career: 'Rp 45.000', academic: 'Rp 45.000', health: 'Rp 45.000', full: 'Rp 229.000' }
+};
+const CURRENCIES = { en: '$', id: '' };
 
-// 언어 변경 시 화면 텍스트 실시간 적용 함수
+function getPriceAmount(lang, type) {
+  const p = PRICES[lang] || PRICES['en'];
+  return p[type] || '2.99';
+}
+
+function getCurrencySymbol(lang) {
+  return CURRENCIES[lang] !== undefined ? CURRENCIES[lang] : '$';
+}
+
+// --- HASHING LOGIC FOR DIFFERENT RESULTS ---
+// 사용자 정보로 고유값을 생성하여 3가지 다른 운세 프로필(0, 1, 2) 중 하나를 고정 배정
+function getArchetype() {
+  if (!userInfo) return 0;
+  const rawStr = (userInfo.name || "") + userInfo.date + userInfo.time;
+  let hash = 0;
+  for (let i = 0; i < rawStr.length; i++) {
+      hash = rawStr.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return Math.abs(hash) % 3;
+}
+
+// --- TRANSLATIONS (English & Indonesian Only) ---
+// Contains 3 different, highly specific, and sometimes harsh personality profiles.
+const TRANSLATIONS = {
+  en: {
+    // UI Elements
+    brand_stamp: "SAJU ANALYSIS · 四柱", hero_title: "Deep Saju Analysis.", hero_tagline: "— piercing insight, delivered gently",
+    what_is_saju_label: "What is Saju", what_is_saju_title: "The Architecture of Your Fate",
+    what_is_saju_p1: "Saju (四柱) is an 800-year-old empirical system mapping your birth moment.",
+    what_is_saju_p2: "We extract the five elements flowing through your pillars to calculate your core drive and your 10-year Daewun.",
+    what_is_saju_p3: "We provide sharp, realistic, and highly actionable analysis. No toxic positivity.",
+    five_elements_label: "FIVE ELEMENTS · 五行", el_wood: "Wood", el_fire: "Fire", el_earth: "Earth", el_metal: "Metal", el_water: "Water",
+    cta_check_saju: "Check my Saju", disclaimer: "For self-reflection and guidance.",
+    btn_home_only: "Home", back_to_menu: "Menu", hub_pick_title: "Pick your reading", hub_pick_sub: "— which wisdom calls you today?", explore_label: "EXPLORE", explore_title: "Your chart holds more",
+    onb_intro: "Enter details for calculation.", label_name: "Name (Optional)", label_date: "Birth date", label_time: "Birth time", time_unknown_check: "I don't know my birth time", time_opt_placeholder: "Select time", label_gender: "Gender", gender_f: "Female", gender_m: "Male", onb_submit: "Generate Analysis",
+    loading_title: "Executing structural analysis…", loading_sub: "Calculating Daewun shifts and element balances.",
+    
+    p_free: "FREE",
+    menu_daily: "Today's Flow", menu_daily_sub: "Daily energy shift", 
+    menu_yearly: "1-Year Fortune", menu_yearly_sub: "2026 Strategy & Flow", 
+    menu_love: "Love & Romance", menu_love_sub: "Relationship vectors", 
+    menu_wealth: "Wealth & Fortune", menu_wealth_sub: "Path to accumulation", 
+    menu_career: "Career & Success", menu_career_sub: "Your professional vector", 
+    menu_academic: "Academic & Exams", menu_academic_sub: "Focus and achievements", 
+    menu_health: "Health Vulnerabilities", menu_health_sub: "Elemental balance", 
+    menu_full: "Master Saju Report", menu_full_sub: "Deepest 8-area reading",
+    
+    paywall_sub: "A deep, unfiltered look, written just for you.", pw_benefit1: "Deep structural analysis", pw_benefit2: "10-year Daewun mapping", pw_benefit3: "Yours forever, read anytime", price_desc: "One-time payment · Instant access", pay_label: "Secure Checkout", pay_stripe: "Pay with Stripe", pay_paypal: "Pay with PayPal", maybe_later: "Maybe later", your_saju_label: "Your Saju Blueprint",
+    err_req_date: "Please enter your birth date.", err_req_time: "Please select time or check 'Unknown'.",
+    r_daily_title: "Today's Flow", r_yearly_title: "2026 Fortune & Strategy", r_wealth_title: "Wealth & Fortune", r_love_title: "Love & Romance", r_career_title: "Career & Success", r_academic_title: "Academic & Exams", r_health_title: "Health Analysis", r_full_title: "Master Report",
+    
+    // ----------------------------------------------------------------------
+    // ARCHETYPE 0: THE OVERTHINKER (Water/Wood) - Needs action, lacks execution
+    // ----------------------------------------------------------------------
+    mock_daily_head_0: "Stop overthinking. Start acting.", 
+    mock_daily_body_0: "The energy today forces you to break out of your head. You have been analyzing a situation to death. Execute today, even if it is only 60% perfect. Hesitation will literally cost you money today.",
+    sec_1_title_0: "1. Innate Chart: The Frozen Lake", 
+    sec_1_body_0: "You resemble a massive tree rooted in the middle of a freezing winter lake. Your mind is overflowing with brilliant ideas and meticulous plans, but translating them into real-world action feels incredibly difficult. This stagnation is not a lack of capability; it is a fatal hesitation. Waiting for 'perfect timing' is your biggest trap and greatest weakness.",
+    sec_2_title_0: "2. Daewun Shift: The Ice Melts", 
+    sec_2_body_0: "<div class='report-quote'>\"The sun finally rises over your frozen chart.\"</div>You are approaching a monumental turning point. The Fire and Earth elements—your absolute favorable elements—will surge over the next decade. Your suppressed potential will erupt. During this phase, remaining a passive employee will waste your luck. You must seek independence.",
+    sec_yearly_title_0: "2026 Yearly Strategy",
+    sec_yearly_body_0: "2026 brings intense Fire energy, actively melting your frozen chart. This is the year to finally break out of stagnation. Networking and bold career moves will yield highly positive returns, but only if you actually take the first step.",
+    sec_wealth_title_0: "Wealth Vector",
+    sec_wealth_body_0: "You are not built to climb the corporate ladder by flattering superiors. Your wealth comes from undeniable, deep expertise. However, your hesitation often lets others steal your financial opportunities. Focus heavily on real estate and documented assets.",
+    sec_career_title_0: "Career Vector",
+    sec_career_body_0: "General administrative roles will suffocate you. Aim for specialized professions, consulting, or strategic planning where you hold irreplaceable intellectual property. Stop waiting for someone to promote you; promote yourself.",
+    sec_academic_title_0: "Academic Vector",
+    sec_academic_body_0: "Your chart has strong Receptivity (Water), meaning you have immense focus for studying. However, tension blocks you during actual execution. Stop studying the same material repeatedly and focus on practical output.",
+    sec_love_title_0: "Love & Destiny",
+    sec_love_body_0: "You are instinctively drawn to deep, intellectual connections. Superficial dating drains you. To thrive, you need a partner who possesses the warmth (Fire) and stability (Earth) that your chart lacks—someone who pulls you out of your head and into reality.",
+    sec_health_title_0: "Health Vector",
+    sec_health_body_0: "The overabundance of Water makes you prone to cold circulation, lethargy, and kidney sensitivity. Avoid excessively cold environments. Heat therapy (like half-baths) will vastly improve your physical and mental fortune.",
+    sec_advice_title_0: "Harsh Advice & Keys", 
+    sec_advice_body_0: "<span class='category'>[Harsh Reality Check]</span> Your ideas are worthless if they never leave your notebook. Execute at 60% readiness. Make it a daily habit to walk in the sunlight for 30 minutes to physically absorb the Fire element.<br><br><span class='category'>[Lucky Vectors]</span><ul class='item-list'><li><strong>Colors:</strong> Vibrant Reds, Oranges, Yellows. Avoid all-black.</li><li><strong>Numbers:</strong> 2, 7, 5, 0</li><li><strong>Direction:</strong> South</li><li><strong>Items:</strong> Warm ambient lighting, Gold accessories.</li></ul>",
+    
+    // ----------------------------------------------------------------------
+    // ARCHETYPE 1: THE IMPULSIVE WILDFIRE (Fire/Earth) - Explosive but lacks patience
+    // ----------------------------------------------------------------------
+    mock_daily_head_1: "Hold your tongue and wait.", 
+    mock_daily_body_1: "Your impulsive energy is dangerously high today. Do not send that angry email or make that sudden purchase. Wait 24 hours. The energy today rewards patience and punishes emotional reactions.",
+    sec_1_title_1: "1. Innate Chart: The Blazing Wildfire", 
+    sec_1_body_1: "You are a blazing wildfire on an open plain. You possess explosive energy, immense charisma, and the ability to start projects with incredible passion. However, your biggest flaw is impatience and a lack of consistency. You burn bridges as fast as you build them. If you do not learn to control your temper and see things through to the end, your massive potential will just turn into ash.",
+    sec_2_title_1: "2. Daewun Shift: Learning Restraint", 
+    sec_2_body_1: "<div class='report-quote'>\"The fire must be contained to forge a sword.\"</div>You are entering a Daewun phase that demands structure (Water/Metal). Your past habit of relying purely on talent and brute force will no longer work. You will be humbled by bureaucratic or structural forces. This is a crucial time to learn discipline. If you master patience now, massive authority awaits you.",
+    sec_yearly_title_1: "2026 Yearly Strategy",
+    sec_yearly_body_1: "2026 will test your patience. You will face delays and obstacles that trigger your anger. Do NOT quit your job or end relationships impulsively this year. Strategic waiting is your best investment.",
+    sec_wealth_title_1: "Wealth Vector",
+    sec_wealth_body_1: "You are at a high risk of losing money to impulsive investments, scams, or 'get-rich-quick' schemes because you hate slow growth. You MUST lock your money in illiquid assets like bonds or long-term deposits so you cannot touch it emotionally.",
+    sec_career_title_1: "Career Vector",
+    sec_career_body_1: "You clash easily with authority figures because you hate being told what to do. You belong in leadership, sales, or entrepreneurial roles where you control the pace. But remember, a leader without diplomacy is just a tyrant.",
+    sec_academic_title_1: "Academic Vector",
+    sec_academic_body_1: "You are a sprinter, not a marathon runner. You cram the night before and rely on quick wits. For major exams, you must force yourself into a highly structured environment (like a strict study group) because your self-discipline is poor.",
+    sec_love_title_1: "Love & Destiny",
+    sec_love_body_1: "Your relationships start with fiery passion but often end in explosive arguments. You need a partner with strong Water/Metal energy—someone calm, rational, and unbothered by your dramatic outbursts. Stop seeking constant excitement in love.",
+    sec_health_title_1: "Health Vector",
+    sec_health_body_1: "Your fiery nature makes you prone to high blood pressure, heart palpitations, and severe burnout. You run on adrenaline until you crash. You desperately need cooling activities like swimming, meditation, or simply sleeping more.",
+    sec_advice_title_1: "Harsh Advice & Keys", 
+    sec_advice_body_1: "<span class='category'>[Harsh Reality Check]</span> Your temper and impatience are the only things stopping you from being rich. Force yourself to wait 24 hours before making any major life or financial decision.<br><br><span class='category'>[Lucky Vectors]</span><ul class='item-list'><li><strong>Colors:</strong> Cool Blues, Blacks, Whites. Avoid red.</li><li><strong>Numbers:</strong> 1, 6, 4, 9</li><li><strong>Direction:</strong> North</li><li><strong>Items:</strong> Silver accessories, water features (aquariums, humidifiers).</li></ul>",
+
+    // ----------------------------------------------------------------------
+    // ARCHETYPE 2: THE RIGID SWORD (Metal/Water) - Stubborn, perfectionist, isolated
+    // ----------------------------------------------------------------------
+    mock_daily_head_2: "Bend, or you will break.", 
+    mock_daily_body_2: "Today will present a situation that challenges your rules. Your instinct will be to fight and prove you are right. Let it go. Agreeing to a compromise today will save you a massive headache next week.",
+    sec_1_title_2: "1. Innate Chart: The Unyielding Sword", 
+    sec_1_body_2: "You are an unyielding sword forged in cold ice. You are incredibly competent, precise, and hold yourself (and others) to impossible standards. However, your extreme stubbornness and rigidity push people away. You often isolate yourself because you believe no one else can do things correctly. This intellectual arrogance is your biggest obstacle to true success.",
+    sec_2_title_2: "2. Daewun Shift: The Melting Process", 
+    sec_2_body_2: "<div class='report-quote'>\"Even the sharpest blade rusts if left alone in the dark.\"</div>Your upcoming Daewun introduces Fire and Wood, forcing you out of your isolated comfort zone. You will be placed in situations where you MUST rely on teamwork and empathy, not just logic. This will be uncomfortable, but it is the only way your career can expand beyond its current rigid ceiling.",
+    sec_yearly_title_2: "2026 Yearly Strategy",
+    sec_yearly_body_2: "2026 demands flexibility. Plans will change abruptly, and your usual methodical approach will fail. The more you try to control everything, the more stressed you will become. Practice the art of delegating.",
+    sec_wealth_title_2: "Wealth Vector",
+    sec_wealth_body_2: "You are excellent at saving and managing money, but your wealth grows too slowly because you refuse to take calculated risks or collaborate with others. Massive wealth requires networking—something you currently despise.",
+    sec_career_title_2: "Career Vector",
+    sec_career_body_2: "You are a brilliant specialist, auditor, or engineer. But you are a terrible team player. You will hit a hard ceiling in your career if you do not learn 'soft skills.' People promote those they like, not just those who are right.",
+    sec_academic_title_2: "Academic Vector",
+    sec_academic_body_2: "You excel in structured, logic-based fields. You study methodically. However, you struggle with subjects that require creative leaps or subjective interpretation. Don't get stuck on one impossible question; learn to move on.",
+    sec_love_title_2: "Love & Destiny",
+    sec_love_body_2: "You are overly critical of your partners. You treat relationships like a checklist, discarding people the moment they show a flaw. You need a warm, adaptable partner (Wood/Fire) who can thaw your cold exterior. Learn to forgive mistakes.",
+    sec_health_title_2: "Health Vector",
+    sec_health_body_2: "You hold tension in your body, making you prone to severe neck/shoulder pain, migraines, and respiratory issues. Your perfectionism is physically harming you. You need stretching, yoga, and warm environments.",
+    sec_advice_title_2: "Harsh Advice & Keys", 
+    sec_advice_body_2: "<span class='category'>[Harsh Reality Check]</span> Being right is not the same as being successful. Stop alienating people with your criticism. Practice active listening without trying to 'fix' the other person.<br><br><span class='category'>[Lucky Vectors]</span><ul class='item-list'><li><strong>Colors:</strong> Greens, warm Browns, soft pinks.</li><li><strong>Numbers:</strong> 3, 8, 2, 7</li><li><strong>Direction:</strong> East</li><li><strong>Items:</strong> Wooden desk accessories, indoor plants, fabric textures.</li></ul>"
+  },
+  
+  id: {
+    // UI Elements (Indonesian)
+    brand_stamp: "ANALISIS SAJU · 四柱", hero_title: "Analisis Saju Mendalam.", hero_tagline: "— wawasan tajam, disampaikan dengan lembut",
+    what_is_saju_label: "Apa itu Saju", what_is_saju_title: "Arsitektur Nasib Anda",
+    what_is_saju_p1: "Saju (四柱) adalah sistem empiris berusia 800 tahun yang memetakan momen kelahiran Anda.",
+    what_is_saju_p2: "Kami mengekstrak lima elemen yang mengalir melalui pilar Anda untuk menghitung dorongan inti dan Daewun (Siklus 10 Tahun) Anda.",
+    what_is_saju_p3: "Kami memberikan analisis yang tajam, realistis, dan dapat ditindaklanjuti. Tidak ada kepositifan beracun.",
+    five_elements_label: "LIMA ELEMEN · 五行", el_wood: "Kayu", el_fire: "Api", el_earth: "Tanah", el_metal: "Logam", el_water: "Air",
+    cta_check_saju: "Cek Saju Saya", disclaimer: "Untuk refleksi diri dan panduan.",
+    btn_home_only: "Beranda", back_to_menu: "Menu", hub_pick_title: "Pilih bacaan Anda", hub_pick_sub: "— kebijaksanaan mana yang memanggil Anda hari ini?", explore_label: "EKSPLORASI", explore_title: "Bagan Anda menyimpan lebih banyak rahasia",
+    onb_intro: "Masukkan detail untuk perhitungan.", label_name: "Nama (Opsional)", label_date: "Tanggal lahir", label_time: "Waktu lahir", time_unknown_check: "Saya tidak tahu waktu lahir saya", time_opt_placeholder: "Pilih waktu", label_gender: "Jenis Kelamin", gender_f: "Wanita", gender_m: "Pria", onb_submit: "Hasilkan Analisis",
+    loading_title: "Mengeksekusi analisis struktural…", loading_sub: "Menghitung pergeseran Daewun dan keseimbangan elemen.",
+    
+    p_free: "GRATIS",
+    menu_daily: "Aliran Hari Ini", menu_daily_sub: "Pergeseran energi harian", 
+    menu_yearly: "Nasib 1 Tahun", menu_yearly_sub: "Strategi & Aliran 2026", 
+    menu_love: "Cinta & Romansa", menu_love_sub: "Vektor hubungan", 
+    menu_wealth: "Kekayaan & Nasib", menu_wealth_sub: "Jalur akumulasi", 
+    menu_career: "Karier & Kesuksesan", menu_career_sub: "Vektor profesional Anda", 
+    menu_academic: "Akademik & Ujian", menu_academic_sub: "Fokus dan pencapaian", 
+    menu_health: "Kerentanan Kesehatan", menu_health_sub: "Keseimbangan elemen", 
+    menu_full: "Laporan Saju Master", menu_full_sub: "Bacaan terdalam di 8 area",
+    
+    paywall_sub: "Tinjauan mendalam, ditulis khusus untuk Anda.", pw_benefit1: "Analisis struktural mendalam", pw_benefit2: "Pemetaan Daewun 10 tahun", pw_benefit3: "Milik Anda selamanya", price_desc: "Sekali bayar · Akses instan", pay_label: "Pembayaran Aman", pay_stripe: "Bayar dengan Stripe", pay_paypal: "Bayar dengan PayPal", maybe_later: "Mungkin nanti", your_saju_label: "Cetak Biru Saju Anda",
+    err_req_date: "Harap masukkan tanggal lahir Anda.", err_req_time: "Harap pilih waktu atau centang 'Tidak Tahu'.",
+    r_daily_title: "Aliran Hari Ini", r_yearly_title: "Strategi & Nasib 2026", r_wealth_title: "Kekayaan & Nasib", r_love_title: "Cinta & Romansa", r_career_title: "Karier & Kesuksesan", r_academic_title: "Akademik & Ujian", r_health_title: "Analisis Kesehatan", r_full_title: "Laporan Master",
+
+    // ARCHETYPE 0 (Indonesian)
+    mock_daily_head_0: "Berhenti berpikir berlebihan. Mulailah bertindak.", 
+    mock_daily_body_0: "Energi hari ini memaksa Anda keluar dari kepala Anda. Anda telah menganalisis situasi sampai mati. Lakukan eksekusi hari ini, bahkan jika hanya 60% sempurna.",
+    sec_1_title_0: "1. Bagan Bawaan: Danau Beku", 
+    sec_1_body_0: "Anda menyerupai pohon besar yang berakar di tengah danau musim dingin yang membeku. Pikiran Anda dipenuhi dengan ide-ide cemerlang, tetapi mengubahnya menjadi tindakan nyata terasa sangat sulit. Stagnasi ini bukanlah kurangnya kemampuan; melainkan keragu-raguan yang fatal. Menunggu 'waktu yang tepat' adalah jebakan terbesar Anda.",
+    sec_2_title_0: "2. Pergeseran Daewun: Es Mencair", 
+    sec_2_body_0: "<div class='report-quote'>\"Matahari akhirnya terbit di atas bagan beku Anda.\"</div>Anda mendekati titik balik yang monumental. Elemen Api dan Tanah akan melonjak selama dekade berikutnya. Potensi Anda yang tertekan akan meletus. Selama fase ini, tetap menjadi karyawan pasif akan membuang-buang keberuntungan Anda. Anda harus mencari kemandirian.",
+    sec_yearly_title_0: "Strategi Tahunan 2026",
+    sec_yearly_body_0: "Tahun 2026 membawa energi Api yang intens, secara aktif mencairkan bagan beku Anda. Ini adalah tahun untuk akhirnya keluar dari stagnasi. Berjejaring dan langkah karier yang berani akan menghasilkan keuntungan yang sangat positif.",
+    sec_wealth_title_0: "Vektor Kekayaan",
+    sec_wealth_body_0: "Anda tidak diciptakan untuk menaiki tangga perusahaan dengan menyanjung atasan. Kekayaan Anda berasal dari keahlian yang mendalam. Namun, keraguan Anda sering membiarkan orang lain mencuri peluang finansial Anda. Fokuslah pada real estat dan aset berdokumen.",
+    sec_career_title_0: "Vektor Karier",
+    sec_career_body_0: "Peran administratif umum akan mencekik Anda. Bidik profesi khusus, konsultasi, atau perencanaan strategis. Berhentilah menunggu seseorang mempromosikan Anda; promosikan diri Anda sendiri.",
+    sec_academic_title_0: "Vektor Akademik",
+    sec_academic_body_0: "Bagan Anda memiliki Penerimaan (Air) yang kuat, yang berarti Anda memiliki fokus yang sangat besar untuk belajar. Namun, ketegangan menghalangi Anda selama eksekusi aktual.",
+    sec_love_title_0: "Cinta & Takdir",
+    sec_love_body_0: "Anda secara naluriah tertarik pada koneksi intelektual yang dalam. Kencan dangkal menguras energi Anda. Untuk berkembang, Anda membutuhkan pasangan yang memiliki kehangatan (Api) dan stabilitas (Tanah) yang kurang dari bagan Anda.",
+    sec_health_title_0: "Vektor Kesehatan",
+    sec_health_body_0: "Kelebihan elemen Air membuat Anda rentan terhadap sirkulasi dingin dan kepekaan ginjal. Hindari lingkungan yang terlalu dingin. Terapi panas akan sangat meningkatkan keberuntungan fisik Anda.",
+    sec_advice_title_0: "Nasihat Keras & Kunci", 
+    sec_advice_body_0: "<span class='category'>[Cek Realitas]</span> Ide-ide Anda tidak berharga jika tidak pernah keluar dari buku catatan Anda. Eksekusi pada kesiapan 60%.<br><br><span class='category'>[Vektor Keberuntungan]</span><ul class='item-list'><li><strong>Warna:</strong> Merah, Oranye, Kuning cerah. Hindari serba hitam.</li><li><strong>Angka:</strong> 2, 7, 5, 0</li><li><strong>Arah:</strong> Selatan</li><li><strong>Barang:</strong> Pencahayaan hangat, aksesori Emas.</li></ul>",
+
+    // ARCHETYPE 1 (Indonesian)
+    mock_daily_head_1: "Tahan lidah Anda dan tunggu.", 
+    mock_daily_body_1: "Energi impulsif Anda sangat tinggi hari ini. Jangan kirim email marah itu atau melakukan pembelian tiba-tiba. Tunggu 24 jam. Energi hari ini menghargai kesabaran.",
+    sec_1_title_1: "1. Bagan Bawaan: Api Liar", 
+    sec_1_body_1: "Anda adalah api liar di padang terbuka. Anda memiliki energi eksplosif, karisma yang sangat besar, dan kemampuan untuk memulai proyek dengan semangat yang luar biasa. Namun, kelemahan terbesar Anda adalah ketidaksabaran dan kurangnya konsistensi. Jika Anda tidak belajar mengendalikan emosi, potensi besar Anda hanya akan berubah menjadi abu.",
+    sec_2_title_1: "2. Pergeseran Daewun: Belajar Menahan Diri", 
+    sec_2_body_1: "<div class='report-quote'>\"Api harus ditahan untuk menempa pedang.\"</div>Anda memasuki fase Daewun yang menuntut struktur (Air/Logam). Kebiasaan masa lalu Anda yang hanya mengandalkan bakat murni tidak akan berhasil lagi. Ini adalah waktu yang penting untuk belajar disiplin.",
+    sec_yearly_title_1: "Strategi Tahunan 2026",
+    sec_yearly_body_1: "Tahun 2026 akan menguji kesabaran Anda. Anda akan menghadapi penundaan yang memicu kemarahan Anda. JANGAN impulsif berhenti dari pekerjaan atau mengakhiri hubungan tahun ini.",
+    sec_wealth_title_1: "Vektor Kekayaan",
+    sec_wealth_body_1: "Anda berisiko tinggi kehilangan uang karena investasi impulsif atau penipuan karena Anda membenci pertumbuhan yang lambat. Anda HARUS mengunci uang Anda di aset yang tidak likuid seperti deposito jangka panjang.",
+    sec_career_title_1: "Vektor Karier",
+    sec_career_body_1: "Anda mudah bentrok dengan figur otoritas karena Anda benci diberi tahu apa yang harus dilakukan. Anda cocok di peran kepemimpinan atau kewirausahaan di mana Anda mengontrol kecepatan.",
+    sec_academic_title_1: "Vektor Akademik",
+    sec_academic_body_1: "Anda adalah pelari cepat, bukan pelari maraton. Untuk ujian besar, Anda harus memaksakan diri masuk ke lingkungan yang sangat terstruktur karena disiplin diri Anda buruk.",
+    sec_love_title_1: "Cinta & Takdir",
+    sec_love_body_1: "Hubungan Anda dimulai dengan hasrat yang berapi-api tetapi sering berakhir dengan pertengkaran eksplosif. Anda membutuhkan pasangan dengan energi Air/Logam yang kuat—seseorang yang tenang dan rasional.",
+    sec_health_title_1: "Vektor Kesehatan",
+    sec_health_body_1: "Sifat api Anda membuat Anda rentan terhadap tekanan darah tinggi dan kelelahan parah. Anda sangat membutuhkan aktivitas pendinginan seperti berenang atau bermeditasi.",
+    sec_advice_title_1: "Nasihat Keras & Kunci", 
+    sec_advice_body_1: "<span class='category'>[Cek Realitas]</span> Emosi dan ketidaksabaran Anda adalah satu-satunya hal yang menghentikan Anda untuk menjadi kaya. Paksa diri Anda untuk menunggu 24 jam sebelum membuat keputusan besar.<br><br><span class='category'>[Vektor Keberuntungan]</span><ul class='item-list'><li><strong>Warna:</strong> Biru sejuk, Hitam, Putih. Hindari merah.</li><li><strong>Angka:</strong> 1, 6, 4, 9</li><li><strong>Arah:</strong> Utara</li><li><strong>Barang:</strong> Aksesori perak, elemen air (akuarium).</li></ul>",
+
+    // ARCHETYPE 2 (Indonesian)
+    mock_daily_head_2: "Membungkuklah, atau Anda akan patah.", 
+    mock_daily_body_2: "Hari ini akan menghadirkan situasi yang menantang aturan Anda. Naluri Anda adalah bertarung dan membuktikan bahwa Anda benar. Lepaskan. Menyetujui kompromi hari ini akan menyelamatkan Anda dari sakit kepala parah minggu depan.",
+    sec_1_title_2: "1. Bagan Bawaan: Pedang Kaku", 
+    sec_1_body_2: "Anda adalah pedang kaku yang ditempa dalam es dingin. Anda sangat kompeten, tepat, dan memegang standar yang mustahil. Namun, kekakuan Anda menjauhkan orang. Anda sering mengisolasi diri karena Anda percaya tidak ada orang lain yang dapat melakukan hal-hal dengan benar. Kesombongan intelektual ini adalah hambatan terbesar Anda.",
+    sec_2_title_2: "2. Pergeseran Daewun: Proses Pencairan", 
+    sec_2_body_2: "<div class='report-quote'>\"Bahkan pisau paling tajam pun berkarat jika dibiarkan sendiri di tempat gelap.\"</div>Daewun Anda yang akan datang memperkenalkan Api dan Kayu, memaksa Anda keluar dari zona nyaman Anda yang terisolasi. Anda harus mengandalkan kerja sama tim dan empati, bukan hanya logika.",
+    sec_yearly_title_2: "Strategi Tahunan 2026",
+    sec_yearly_body_2: "Tahun 2026 menuntut fleksibilitas. Rencana akan berubah secara tiba-tiba. Semakin Anda mencoba mengendalikan segalanya, Anda akan semakin stres. Berlatihlah seni mendelegasikan tugas.",
+    sec_wealth_title_2: "Vektor Kekayaan",
+    sec_wealth_body_2: "Anda sangat baik dalam mengelola uang, tetapi kekayaan Anda tumbuh terlalu lambat karena Anda menolak untuk mengambil risiko yang diperhitungkan atau berkolaborasi dengan orang lain. Kekayaan besar membutuhkan jaringan.",
+    sec_career_title_2: "Vektor Karier",
+    sec_career_body_2: "Anda adalah spesialis yang brilian. Tetapi Anda adalah pemain tim yang buruk. Anda akan menemui jalan buntu dalam karier Anda jika Anda tidak mempelajari 'keterampilan lunak'. Orang-orang mempromosikan mereka yang mereka sukai.",
+    sec_academic_title_2: "Vektor Akademik",
+    sec_academic_body_2: "Anda unggul dalam bidang yang terstruktur dan berbasis logika. Namun, Anda kesulitan dengan mata pelajaran yang membutuhkan lompatan kreatif atau interpretasi subjektif.",
+    sec_love_title_2: "Cinta & Takdir",
+    sec_love_body_2: "Anda terlalu kritis terhadap pasangan Anda. Anda memperlakukan hubungan seperti daftar periksa, membuang orang saat mereka menunjukkan kekurangan. Belajarlah memaafkan kesalahan.",
+    sec_health_title_2: "Vektor Kesehatan",
+    sec_health_body_2: "Anda menahan ketegangan di tubuh Anda, membuat Anda rentan terhadap nyeri leher/bahu yang parah dan migrain. Kesempurnaan Anda secara fisik merugikan Anda.",
+    sec_advice_title_2: "Nasihat Keras & Kunci", 
+    sec_advice_body_2: "<span class='category'>[Cek Realitas]</span> Menjadi benar tidak sama dengan menjadi sukses. Berhentilah mengasingkan orang dengan kritik Anda. Berlatihlah mendengarkan secara aktif tanpa mencoba 'memperbaiki' orang lain.<br><br><span class='category'>[Vektor Keberuntungan]</span><ul class='item-list'><li><strong>Warna:</strong> Hijau, Coklat hangat, Merah muda lembut.</li><li><strong>Angka:</strong> 3, 8, 2, 7</li><li><strong>Arah:</strong> Timur</li><li><strong>Barang:</strong> Aksesori meja kayu, tanaman dalam ruangan.</li></ul>"
+  }
+};
+
+let currentLang = 'en'; // English as default
+let currentReadingType = 'daily';
+let userInfo = null;
+
+// The getT function now supports fetching the archetype-specific string
+function getT(key, arch = null) { 
+  let finalKey = arch !== null ? `${key}_${arch}` : key;
+  return (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][finalKey]) || TRANSLATIONS['en'][finalKey] || finalKey; 
+}
+
 function setLang(lang) {
   currentLang = TRANSLATIONS[lang] ? lang : 'en';
   document.getElementById('lang-select').value = currentLang;
+  
+  // Basic static UI translations
   document.querySelectorAll('[data-t]').forEach(el => {
     const key = el.getAttribute('data-t');
     const text = getT(key);
@@ -458,7 +836,6 @@ function setLang(lang) {
   document.documentElement.lang = currentLang;
 }
 
-// 화면 전환 함수 (예: goto('paywall') 하면 결제창으로 이동)
 function goto(screenId) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const target = document.getElementById('screen-' + screenId);
@@ -466,35 +843,32 @@ function goto(screenId) {
   window.scrollTo({ top: 0, behavior: (screenId==='result'?'auto':'smooth') });
 }
 
-// 운세 메뉴 클릭 시 실행되는 함수
 function openReading(type) {
   currentReadingType = type;
-  if (!userInfo) goto('input'); // 정보 없으면 입력창으로
-  else proceedToReading();      // 있으면 바로 진행
+  if (!userInfo) goto('input'); 
+  else proceedToReading();
 }
 
-// 입력폼 제출 버튼 클릭 시 오류 검사 함수
 function submitInput() {
   const dateVal = document.getElementById('input-date').value;
   const isUnknownTime = document.getElementById('input-time-unknown').checked;
   const timeVal = isUnknownTime ? 'unknown' : document.getElementById('input-time').value;
+  const nameVal = document.getElementById('input-name').value;
   const errBox = document.getElementById('form-error');
 
   if (!dateVal) { errBox.innerText = getT('err_req_date'); errBox.style.display = 'block'; return; }
   if (!timeVal) { errBox.innerText = getT('err_req_time'); errBox.style.display = 'block'; return; }
   
   errBox.style.display = 'none';
-  userInfo = { date: dateVal, time: timeVal };
+  userInfo = { name: nameVal, date: dateVal, time: timeVal };
   proceedToReading();
 }
 
-// 로딩 화면이나 결제창으로 넘기는 로직
 function proceedToReading() {
   if (currentReadingType === 'daily') {
     goto('loading');
-    setTimeout(() => { showResult('daily'); }, 2000); // 무료 운세는 2초 로딩 후 바로 보여줌
+    setTimeout(() => { showResult('daily'); }, 2000);
   } else {
-    // 유료 운세는 결제창으로 보내며 가격 업데이트
     document.getElementById('paywall-title').innerText = getT('r_' + currentReadingType + '_title') || getT('r_full_title');
     document.getElementById('pw-currency').innerText = getCurrencySymbol(currentLang);
     document.getElementById('pw-amount').innerText = getPriceAmount(currentLang, currentReadingType);
@@ -502,213 +876,88 @@ function proceedToReading() {
   }
 }
 
-// 가짜 결제 진행 (실제 연동 시 이 부분 수정 필요)
 function startCheckout() {
   goto('loading');
   setTimeout(() => { showResult(currentReadingType); }, 2500);
 }
 
-// HTML 텍스트 조립 헬퍼 함수 (리포트 본문을 박스 형태로 만들어줌)
-function buildReportSection(titleKey, bodyKey, accentColor) {
+// Helper to build sections passing the archetype index
+function buildReportSection(titleKey, bodyKey, accentColor, archIndex) {
   return `
     <div class="report-section">
-      <div class="report-label" style="background: rgba(44, 24, 16, 0.08); color: var(--ink); border-bottom: 2px solid ${accentColor};">${getT(titleKey)}</div>
-      <p class="deep-text">${getT(bodyKey)}</p>
+      <div class="report-label" style="background: rgba(44, 24, 16, 0.08); color: var(--ink); border-bottom: 2px solid ${accentColor};">${getT(titleKey, archIndex)}</div>
+      <p class="deep-text">${getT(bodyKey, archIndex)}</p>
     </div>
   `;
 }
 
-// [주의!] 운세 결과를 화면에 그려주는 함수입니다. (백틱 ` 기호를 지우지 않게 조심하세요)
 function showResult(type) {
   const contentArea = document.getElementById('result-content');
   const upsellSection = document.getElementById('upsell-section');
+  const archIndex = getArchetype(); // Determines 0, 1, or 2 based on input
   
-  document.getElementById('result-title').innerText = getT('r_' + type + '_title') || getT('r_full_title');
+  document.getElementById('result-title').innerText = getT('r_' + type + '_title');
+  
+  // Fake Pillars rendering
   document.getElementById('result-pillars').innerHTML = `
-    <div class="pillar"><div class="pillar-label">시주</div><div class="pillar-char-top" style="color:var(--dancheong-red)">丙</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--dancheong-blue)">午</div></div>
-    <div class="pillar"><div class="pillar-label">일주</div><div class="pillar-char-top" style="color:var(--dancheong-green)">甲</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--dancheong-blue)">子</div></div>
-    <div class="pillar"><div class="pillar-label">월주</div><div class="pillar-char-top" style="color:var(--dancheong-blue)">癸</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--dancheong-red)">巳</div></div>
-    <div class="pillar"><div class="pillar-label">연주</div><div class="pillar-char-top" style="color:var(--dancheong-blue)">壬</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--gold)">辰</div></div>
+    <div class="pillar"><div class="pillar-label">Time</div><div class="pillar-char-top" style="color:var(--dancheong-red)">丙</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--dancheong-blue)">午</div></div>
+    <div class="pillar"><div class="pillar-label">Day</div><div class="pillar-char-top" style="color:var(--dancheong-green)">甲</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--dancheong-blue)">子</div></div>
+    <div class="pillar"><div class="pillar-label">Month</div><div class="pillar-char-top" style="color:var(--dancheong-blue)">癸</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--dancheong-red)">巳</div></div>
+    <div class="pillar"><div class="pillar-label">Year</div><div class="pillar-char-top" style="color:var(--dancheong-blue)">壬</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--gold)">辰</div></div>
   `;
 
   if (type === 'daily') {
     contentArea.innerHTML = `
       <div class="report-section accent">
-        <h3 class="title-serif" style="color:var(--dancheong-red); font-size: 20px;">${getT('mock_daily_head')}</h3>
-        <p class="deep-text mt-sm">${getT('mock_daily_body')}</p>
+        <h3 class="title-serif" style="color:var(--dancheong-red); font-size: 20px;">${getT('mock_daily_head', archIndex)}</h3>
+        <p class="deep-text mt-sm">${getT('mock_daily_body', archIndex)}</p>
       </div>`;
     upsellSection.style.display = 'block';
   } else {
     let html = '';
     
-    // 기본으로 들어가는 원국 분석 & 대운 분석
+    // Core Report Blocks
     html += `
       <div class="report-section">
-        <div class="report-label" style="background:var(--honey-200); color:var(--ink);">기질 분석</div>
-        <h3 class="title-serif" style="font-size: 20px; margin-bottom: 16px; color: var(--dancheong-blue);">${getT('mock_report_sec1')}</h3>
-        <p class="deep-text">${getT('mock_report_sec1_body')}</p>
+        <div class="report-label" style="background:var(--honey-200); color:var(--ink);">CORE ANALYSIS</div>
+        <h3 class="title-serif" style="font-size: 20px; margin-bottom: 16px; color: var(--dancheong-blue);">${getT('sec_1_title', archIndex)}</h3>
+        <p class="deep-text">${getT('sec_1_body', archIndex)}</p>
       </div>
       
       <div class="report-section" style="background:var(--hanji-deep); border-top: 4px solid var(--honey-600);">
-        <div class="report-label" style="background:var(--honey-600); color:#fff;">운의 스위치</div>
-        <h3 class="title-serif" style="font-size: 20px; margin-bottom: 16px;">${getT('mock_report_sec2')}</h3>
-        <div class="daewun-box mb-sm">
-          <div class="daewun-item"><div class="daewun-age">15~24</div><div class="daewun-char" style="color:var(--dancheong-green)">乙<br>卯</div></div>
-          <div class="daewun-item"><div class="daewun-age">25~34</div><div class="daewun-char" style="color:var(--dancheong-red)">丙<br>辰</div></div>
-          <div class="daewun-item current"><div class="daewun-age">35~44<br><span style="color:var(--dancheong-red)">현재</span></div><div class="daewun-char" style="color:var(--dancheong-red)">丁<br>巳</div></div>
-        </div>
-        <p class="deep-text" style="margin-top: 24px;">${getT('mock_report_sec2_body')}</p>
+        <div class="report-label" style="background:var(--honey-600); color:#fff;">DESTINY SHIFT</div>
+        <h3 class="title-serif" style="font-size: 20px; margin-bottom: 16px;">${getT('sec_2_title', archIndex)}</h3>
+        <p class="deep-text">${getT('sec_2_body', archIndex)}</p>
       </div>
     `;
 
-    // 선택한 메뉴에 따라 맞춤형 해설 블록 추가
-    if (type === 'yearly' || type === 'full') html += buildReportSection('mock_sec_yearly', 'mock_sec_yearly_body', 'var(--dancheong-red)');
-    if (type === 'wealth' || type === 'full') html += buildReportSection('mock_sec_wealth', 'mock_sec_wealth_body', 'var(--gold)');
-    if (type === 'career' || type === 'full') html += buildReportSection('mock_sec_career', 'mock_sec_career_body', 'var(--dancheong-blue)');
-    if (type === 'academic' || type === 'full') html += buildReportSection('mock_sec_academic', 'mock_sec_academic_body', 'var(--dancheong-green)');
-    if (type === 'love' || type === 'full') html += buildReportSection('mock_sec_love', 'mock_sec_love_body', 'var(--plum)');
-    if (type === 'health' || type === 'full') html += buildReportSection('mock_sec_health', 'mock_sec_health_body', '#1abc9c');
+    // Dynamic Topic Blocks based on paid selection
+    if (type === 'yearly' || type === 'full') html += buildReportSection('sec_yearly_title', 'sec_yearly_body', 'var(--dancheong-red)', archIndex);
+    if (type === 'wealth' || type === 'full') html += buildReportSection('sec_wealth_title', 'sec_wealth_body', 'var(--gold)', archIndex);
+    if (type === 'career' || type === 'full') html += buildReportSection('sec_career_title', 'sec_career_body', 'var(--dancheong-blue)', archIndex);
+    if (type === 'academic' || type === 'full') html += buildReportSection('sec_academic_title', 'sec_academic_body', 'var(--dancheong-green)', archIndex);
+    if (type === 'love' || type === 'full') html += buildReportSection('sec_love_title', 'sec_love_body', 'var(--plum)', archIndex);
+    if (type === 'health' || type === 'full') html += buildReportSection('sec_health_title', 'sec_health_body', '#1abc9c', archIndex);
 
-    // 마무리 조언 공통 추가
+    // Final Advice
     html += `
       <div class="report-section" style="border: 2px solid var(--gold-light);">
-        <div class="report-label" style="background: var(--gold-light); color: var(--ink);">비밀 열쇠</div>
-        <h3 class="title-serif" style="font-size: 20px; margin-bottom: 16px; color: var(--ink);">${getT('mock_report_sec5')}</h3>
-        <div class="deep-text">${getT('mock_report_sec5_body')}</div>
-      </div>
-      <div class="center mt-lg mb-lg">
-        <div style="font-size: 32px; color: var(--honey-600); margin-bottom: 4px; line-height: 1;">❝</div>
-        <p style="font-family: 'Noto Serif KR', serif; font-weight:900; color:var(--ink); font-size:18px; line-height: 1.7; padding: 0 16px; word-break: keep-all;">${getT('mock_report_close')}</p>
+        <div class="report-label" style="background: var(--gold-light); color: var(--ink);">SECRET KEY</div>
+        <h3 class="title-serif" style="font-size: 20px; margin-bottom: 16px; color: var(--ink);">${getT('sec_advice_title', archIndex)}</h3>
+        <div class="deep-text">${getT('sec_advice_body', archIndex)}</div>
       </div>
     `;
     
     contentArea.innerHTML = html;
     upsellSection.style.display = type === 'full' ? 'none' : 'block';
   }
+  
   goto('result');
 }
 
-
-// =========================================================
-// 📝 [4. 결제 가격 및 사주 해설 콘텐츠 (중요!)]
-// 이곳에서 실제 운세 내용, 가격, 버튼 이름 등을 수정할 수 있습니다.
-// =========================================================
-
-// [4-1] 운세별 결제 가격 설정 (숫자만 변경하시면 됩니다)
-const PRICES = {
-  en: { yearly: '4.99', wealth: '3.99', love: '2.99', career: '2.99', academic: '2.99', health: '2.99', full: '14.99' },
-  ko: { yearly: '4,900', wealth: '3,900', love: '2,900', career: '2,900', academic: '2,900', health: '2,900', full: '15,000' }
-};
-const CURRENCIES = { en: '$', ko: '₩' };
-function getPriceAmount(lang, type) { return (PRICES[lang] || PRICES['en'])[type] || '2.99'; }
-function getCurrencySymbol(lang) { return CURRENCIES[lang] || '$'; }
-
-// [4-2] 다국어 텍스트 및 사주 풀이 해설 '데이터베이스'
-// 따옴표("") 안의 글자나 태그들을 자유롭게 수정하세요!
-const TRANSLATIONS = {
-  en: {
-    // English texts (omitted for brevity, keeping original structure)
-    brand_stamp: "SAJU ANALYSIS · 四柱", hero_title: "Deep Saju Analysis.", hero_tagline: "— piercing insight, delivered gently",
-    what_is_saju_label: "What is Saju", what_is_saju_title: "The Architecture of Your Fate", what_is_saju_p1: "Saju (四柱) is an 800-year-old empirical system mapping your birth moment.", what_is_saju_p2: "We extract the five elements flowing through your pillars to calculate your core drive and your 10-year Daewun.", what_is_saju_p3: "Deep insights, clearly explained.",
-    five_elements_label: "FIVE ELEMENTS · 五行", el_wood: "Wood", el_fire: "Fire", el_earth: "Earth", el_metal: "Metal", el_water: "Water", cta_check_saju: "Check my Saju", disclaimer: "For self-reflection.",
-    btn_home_only: "Home", hub_pick_title: "Pick your reading", hub_pick_sub: "— which wisdom calls you today?", explore_label: "EXPLORE", explore_title: "Your chart holds more",
-    onb_intro: "Enter details", label_name: "Name", label_date: "Birth date", label_time: "Birth time", time_unknown_check: "Unknown", label_gender: "Gender", gender_f: "Female", gender_m: "Male", onb_submit: "Generate Analysis",
-    loading_title: "Executing structural analysis…", loading_sub: "Calculating Daewun shifts.",
-    p_free: "FREE", p_yearly: "$4.99", p_wealth: "$3.99", p_std: "$2.99", p_full: "$14.99",
-    menu_daily: "Today's Flow", menu_daily_sub: "Daily energy shift", menu_yearly: "1-Year Fortune", menu_yearly_sub: "2026 Strategy", menu_love: "Love & Romance", menu_love_sub: "Relationship vectors", menu_wealth: "Wealth & Fortune", menu_wealth_sub: "Path to accumulation", menu_career: "Career & Success", menu_career_sub: "Professional vector", menu_academic: "Academic & Exams", menu_academic_sub: "Focus and achievements", menu_health: "Health Vulnerabilities", menu_health_sub: "Elemental balance", menu_full: "Master Saju Report", menu_full_sub: "Deepest 8-area reading",
-    paywall_sub: "A deep look, written just for you.", pw_benefit1: "Deep structural analysis", pw_benefit2: "10-year Daewun mapping", pw_benefit3: "Yours forever", price_desc: "One-time · Instant access", pay_label: "Secure Checkout", pay_stripe: "Pay with Stripe", pay_paypal: "Pay with PayPal", maybe_later: "Maybe later", your_saju_label: "Your Saju Blueprint",
-    err_req_date: "Please enter your birth date.", err_req_time: "Please select time or check unknown.",
-    r_daily_title: "Today's Flow", r_yearly_title: "2026 Fortune", r_wealth_title: "Wealth & Fortune", r_love_title: "Love & Romance", r_career_title: "Career & Success", r_academic_title: "Academic & Exams", r_health_title: "Health Analysis", r_full_title: "Master Report",
-    mock_daily_head: "Stop thinking, start acting.", mock_daily_body: "The Fire energy is breaking your constraints today.",
-    mock_report_sec1: "1. Innate Chart", mock_report_sec1_body: "You resemble a massive tree rooted in a winter lake...",
-    mock_report_sec2: "2. Daewun Shift", mock_report_sec2_body: "The ice is melting. A massive sun is rising over your chart.",
-    mock_sec_yearly: "2026 Yearly Flow", mock_sec_yearly_body: "2026 brings intense Fire energy, melting your frozen chart.",
-    mock_sec_wealth: "Wealth Vector", mock_sec_wealth_body: "Your wealth peaks in your mid-to-late 40s.",
-    mock_sec_career: "Career & Success", mock_sec_career_body: "Aim for specialized professions.",
-    mock_sec_academic: "Academic & Exams", mock_sec_academic_body: "You have immense focus for studying.",
-    mock_sec_love: "Love & Destiny", mock_sec_love_body: "You are instinctively drawn to deep connections.",
-    mock_sec_health: "Health Vulnerabilities", mock_sec_health_body: "You are prone to cold circulation.",
-    mock_report_sec5: "Actionable Guide & Lucky Items", mock_report_sec5_body: "<ul class='item-list'><li><strong>Colors:</strong> Reds, Oranges</li></ul>",
-    mock_report_close: "The map of your destiny is drawn."
-  },
-  
-  ko: {
-    // --- 홈페이지 텍스트 ---
-    brand_stamp: "명리분석 · 四柱",
-    hero_title: "당신의 운명을 정밀하게 해독합니다.", 
-    hero_tagline: "— 단순한 위로가 아닌, 예리한 통찰",
-    what_is_saju_label: "사주명리학이란?", 
-    what_is_saju_title: "나의 인생을 설계한 정교한 도면",
-    what_is_saju_p1: "사주(四柱)는 단순한 미신이 아닙니다. 태어난 시점의 우주적 기운을 기호화한 학문입니다.",
-    what_is_saju_p2: "네 기둥 속 오행의 생극제화(生剋制化)를 분석하여 무의식적 기질과 10년 단위 대운을 짚어냅니다.",
-    what_is_saju_p3: "뻔한 칭찬은 배제합니다. 치명적인 약점과 개운법까지 뼈 때리는 심층 리포트를 제공합니다.",
-    five_elements_label: "오행의 분포 · 五行", el_wood: "목(木)", el_fire: "화(火)", el_earth: "토(土)", el_metal: "금(金)", el_water: "수(水)",
-    cta_check_saju: "나의 사주 정밀 분석하기", disclaimer: "본 분석은 명리학적 근거를 바탕으로 한 리포트입니다.", 
-    
-    // --- 메뉴판 텍스트 ---
-    btn_home_only: "홈으로", back_to_menu: "메뉴",
-    hub_pick_title: "심층 리포트 선택", hub_pick_sub: "— 당신에게 지금 가장 필요한 해독은?", 
-    explore_label: "더 보기 · 深入", explore_title: "아직 해독되지 않은 운명",
-    p_free: "무료", p_yearly: "₩4,900", p_wealth: "₩3,900", p_std: "₩2,900", p_full: "₩15,000",
-    menu_daily: "오늘의 일진", menu_daily_sub: "오늘 하루의 흉운 회피법", 
-    menu_yearly: "1년 운세", menu_yearly_sub: "2026년 흐름과 전략", 
-    menu_love: "연애·인연운", menu_love_sub: "나에게 맞는 인연의 시기", 
-    menu_wealth: "재물·투자운", menu_wealth_sub: "부(富)의 축적 방식", 
-    menu_career: "직업·승진운", menu_career_sub: "나의 성공 벡터", 
-    menu_academic: "학업·시험운", menu_academic_sub: "합격과 성취의 열쇠", 
-    menu_health: "건강·기질", menu_health_sub: "타고난 신체 취약점", 
-    menu_full: "총해부 마스터 리포트", menu_full_sub: "모든 풀이를 총망라한 평생 지침서",
-
-    // --- 폼 입력 및 에러 메시지 ---
-    onb_intro: "명식 추출을 위해 정보를 입력하십시오.", label_name: "이름 (선택)", label_date: "생년월일 (양력)", label_time: "태어난 시간", time_unknown_check: "모름 (시간 제외)", label_gender: "성별", gender_f: "여성", gender_m: "남성", onb_submit: "분석 시작",
-    loading_title: "명식을 해체 중입니다…", loading_sub: "오행 밸런스 및 대운수 계산 (약 10초)",
-    err_req_date: "생년월일을 입력해 주십시오.", err_req_time: "시간을 선택하거나 '모름'을 체크해 주십시오.",
-    
-    // --- 결제 유도창(Paywall) 텍스트 ---
-    paywall_sub: "오직 당신만을 위해 치밀하게 작성된 심층 분석", pw_benefit1: "단순 통변이 아닌 오행 생극제화 정밀 분석", pw_benefit2: "10년 주기 대운 흐름과 인생 변곡점 제시", pw_benefit3: "단 한 번 결제로 평생 소장하는 인생 지침서", price_desc: "단 한 번 결제로 평생 소장", pay_label: "안전한 글로벌 결제", pay_stripe: "신용카드 결제 (Stripe)", pay_paypal: "PayPal 결제", maybe_later: "나중에 볼게요", your_saju_label: "당신의 명식 · 命式",
-    
-    // --- 운세 결과창 타이틀 ---
-    r_daily_title: "오늘의 일진 흐름", r_yearly_title: "2026년 운세 및 전략", r_wealth_title: "재물·투자운 심층 분석", r_love_title: "인연·애정선 분석", r_career_title: "직업·승진운 리포트", r_academic_title: "학업·시험운 리포트", r_health_title: "기질·건강 취약점", r_full_title: "인생 총해부 마스터 리포트",
-    
-    // --- ★ 실제 사주 풀이 해설 내용 (여기서 운세 내용을 마음껏 수정하세요!) ★ ---
-    mock_daily_head: "생각을 멈추고 즉시 행동으로 옮겨야 할 타이밍", 
-    mock_daily_body: "오늘은 본인을 억누르던 관성의 힘이 약해지고, <span class='hl'>표현력이 폭발하는 날</span>입니다. 평소 머릿속으로만 계산하던 일이 있다면 오늘 반드시 밖으로 꺼내야 합니다.",
-    
-    mock_report_sec1: "1. 명식 해부 및 현재의 당신", 
-    mock_report_sec1_body: "현재 당신은 마치 깊은 겨울밤, 차가운 호수 한가운데 뿌리를 내린 거대한 나무(甲子)와 같습니다. 머릿속에는 뛰어난 아이디어가 존재하지만 현실에서는 발이 묶여있습니다.<br><br>수다목부(水多木浮)의 형국으로 완벽한 타이밍만 기다리다 기회를 놓치는 것이 가장 치명적인 약점입니다.",
-    
-    mock_report_sec2: "2. 대운의 변곡점: 운이 언제 풀리는가?", 
-    mock_report_sec2_body: "<div class='report-quote'>\"당신을 가뒀던 얼음이 녹고, 마침내 거대한 태양이 떠오릅니다.\"</div>35세 대운을 기점으로 당신의 절대 용신인 불과 흙의 기운이 쏟아집니다. 독립과 권한 확장을 맹렬히 준비하십시오.",
-    
-    mock_sec_yearly: "2026년(丙午年) 흐름과 전략",
-    mock_sec_yearly_body: "2026년은 당신에게 가장 뜨겁고 강력한 해입니다. 꽁꽁 얼어있던 사주에 불이 작용하여, 그간 막혔던 귀인이 나타나고 하반기로 갈수록 투자 수익 실현 등 역동적인 변화가 일어납니다.",
-
-    mock_sec_wealth: "재물운(財運) 축적 벡터",
-    mock_sec_wealth_body: "당신은 실력을 증명해 스스로 '갑'이 되어야 하는 사주입니다. 재물운은 40대 중후반에 터지며, 단타 주식보다는 <strong>부동산 등 '묵직한 실물 자산'</strong>을 쥐는 것이 핵심입니다.",
-
-    mock_sec_career: "직업 및 성공(官運) 벡터",
-    mock_sec_career_body: "반복적인 행정직에서는 숨통이 막힙니다. 남들이 쉽게 범접할 수 없는 전문 기술, 전략 컨설팅 분야에서 압도적인 능력을 발휘합니다.",
-
-    mock_sec_academic: "학업 및 시험운(印星)",
-    mock_sec_academic_body: "파고드는 학구열이 대단하지만 실전 시험에서 긴장도가 높습니다. 2026년은 합격운이 강하게 들어오므로 자격증 취득 및 고시에 매우 유리합니다.",
-
-    mock_sec_love: "연애 및 인연운(愛情)",
-    mock_sec_love_body: "단단하고 현실적인 조언을 해줄 수 있는 사람(토 기운)을 만나야 발복합니다. 철없는 연하보다는 성숙한 멘토형 연인이 평생의 짝이 될 확률이 높습니다.",
-
-    mock_sec_health: "건강 기질 취약점",
-    mock_sec_health_body: "비뇨기 계통이나 냉증(冷症)에 취약합니다. 무리한 찬물 샤워는 피하시고 체온을 높이는 반신욕이 단순 건강을 넘어 운기를 끌어올리는 비법입니다.",
-
-    mock_report_sec5: "행동 지침 & 행운의 마스터키", 
-    mock_report_sec5_body: "<span class='category'>[구체적 개운법]</span><br><strong>60%만 준비되어도 부딪히며 보완하는 습관</strong>을 들이십시오.<br><br><span class='category'>[행운의 아이템]</span><ul class='item-list'><li><strong>컬러:</strong> 붉은색, 밝은 옐로우 (올블랙 피할 것)</li><li><strong>숫자:</strong> 2, 7, 5, 0</li><li><strong>방향:</strong> 남쪽</li><li><strong>아이템:</strong> 따뜻한 빛의 조명, 금 재질의 액세서리</li></ul>",
-    
-    mock_report_close: "명식의 지도는 길을 가리키고 있습니다. 운명의 지도는 쥐어드렸으니 쟁취하는 것은 오롯이 당신의 몫입니다."
-  }
-};
-
-// 화면 로드 시 초기 언어 셋팅
 document.addEventListener('DOMContentLoaded', () => { 
-  document.getElementById('lang-select').value = 'ko';
-  setLang('ko'); 
+  document.getElementById('lang-select').value = 'en';
+  setLang('en'); 
 });
 </script>
 </body>
