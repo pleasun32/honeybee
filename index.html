@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Saju Analysis — Deep Insights</title>
+<title>K-Saju Analysis — Authentic Korean Astrology</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -103,7 +103,7 @@
     display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px;
     background: rgba(176, 58, 46, 0.06); border: 1px solid rgba(176, 58, 46, 0.15);
     border-radius: 6px; font-family: serif; font-size: 11px; font-weight: 700;
-    color: var(--dancheong-red); letter-spacing: 0.15em;
+    color: var(--dancheong-red); letter-spacing: 0.1em;
   }
   .brand-stamp::before { content: '❋'; font-size: 10px; }
 
@@ -141,14 +141,14 @@
   }
   .saju-label {
     display: inline-block; font-family: serif; font-size: 12px; font-weight: 800;
-    color: var(--dancheong-red); letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--dancheong-red); letter-spacing: 0.15em; text-transform: uppercase;
     padding: 6px 12px; border: 1px solid rgba(176, 58, 46, 0.3); border-radius: 6px; margin-bottom: 16px; background: #fff;
   }
   
   /* Five Elements & Pillars */
   .five-elements { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding: 16px; background: rgba(255,255,255,0.7); border-radius: 14px; border: 1px solid rgba(0,0,0,0.05); }
   .element { text-align: center; font-family: serif; }
-  .element-char { font-size: 24px; font-weight: 900; line-height: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  .element-char { font-size: 22px; font-weight: 900; line-height: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
   .element-name { font-size: 11px; color: var(--bee-gray); margin-top: 6px; letter-spacing: 0.05em; font-weight: 700;}
   
   .four-pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 20px; }
@@ -179,7 +179,7 @@
   .menu-tile::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--gold); opacity: 0.8; }
   
   .menu-tile .tile-icon { font-size: 32px; line-height: 1; margin-bottom: 4px; }
-  .menu-tile .tile-hanja { font-family: serif; font-size: 11px; color: var(--dancheong-red); font-weight: 800; letter-spacing: 0.15em; }
+  .menu-tile .tile-hangul { font-family: serif; font-size: 11px; color: var(--dancheong-red); font-weight: 800; letter-spacing: 0.1em; }
   .menu-tile .tile-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 800; color: var(--ink); line-height: 1.3;}
   .menu-tile .tile-sub { font-size: 13px; color: var(--bee-gray); font-weight: 600; line-height: 1.4;}
   
@@ -199,7 +199,7 @@
   .menu-tile.full::before { background: var(--honey-400); }
   .menu-tile.full .tile-title { color: #fff; font-size: 22px; margin-top: 4px; }
   .menu-tile.full .tile-sub { color: rgba(255,255,255,0.7); font-size: 14px;}
-  .menu-tile.full .tile-hanja { color: var(--honey-400); }
+  .menu-tile.full .tile-hangul { color: var(--honey-400); }
 
   /* Input Form */
   .card {
@@ -304,35 +304,36 @@
     <button class="back-pill" onclick="goto('landing')">🏠 <span data-t="btn_home_only">Home</span></button>
   </div>
 
+  <!-- Screen 1: bee.svg -->
   <div class="img-wrap">
     <img src="bee.svg" alt="bee" class="bee-img anim-dance">
   </div>
 
   <div class="center mt-sm">
-    <span class="brand-stamp" data-t="brand_stamp">SAJU ANALYSIS · 四柱</span>
+    <span class="brand-stamp" data-t="brand_stamp">AUTHENTIC K-SAJU · 사주</span>
     <h1 class="mt-sm title-serif" data-t="hero_title">Your chart, told gently.</h1>
     <p class="tagline mt-sm" data-t="hero_tagline">— a little honey for your day</p>
   </div>
 
   <div class="saju-intro mt-md">
-    <span class="saju-label" data-t="what_is_saju_label">What is Saju</span>
+    <span class="saju-label" data-t="what_is_saju_label">The Korean Secret: K-Saju</span>
     <h2 class="title-serif mt-sm" data-t="what_is_saju_title">The Architecture of Your Fate</h2>
-    <p class="mt-md" data-t="what_is_saju_p1">Saju (四柱) is an 800-year-old empirical system mapping your birth moment.</p>
-    <p class="mt-sm" data-t="what_is_saju_p2">We extract the five elements flowing through your pillars to calculate your core drive and your 10-year Daewun.</p>
+    <p class="mt-md" data-t="what_is_saju_p1">K-Saju (사주) is the traditional Korean astrological system mapping your exact birth moment.</p>
+    <p class="mt-sm" data-t="what_is_saju_p2">We extract the five elements flowing through your pillars to calculate your core drive and your 10-year life cycle.</p>
     
     <div class="five-elements mt-md">
-      <div class="element"><div class="element-char" style="color:var(--dancheong-green)">木</div><div class="element-name" data-t="el_wood">Wood</div></div>
-      <div class="element"><div class="element-char" style="color:var(--dancheong-red)">火</div><div class="element-name" data-t="el_fire">Fire</div></div>
-      <div class="element"><div class="element-char" style="color:var(--gold)">土</div><div class="element-name" data-t="el_earth">Earth</div></div>
-      <div class="element"><div class="element-char" style="color:#8E8E8E">金</div><div class="element-name" data-t="el_metal">Metal</div></div>
-      <div class="element"><div class="element-char" style="color:var(--dancheong-blue)">水</div><div class="element-name" data-t="el_water">Water</div></div>
+      <div class="element"><div class="element-char" style="color:var(--dancheong-green)">목</div><div class="element-name" data-t="el_wood">Wood</div></div>
+      <div class="element"><div class="element-char" style="color:var(--dancheong-red)">화</div><div class="element-name" data-t="el_fire">Fire</div></div>
+      <div class="element"><div class="element-char" style="color:var(--gold)">토</div><div class="element-name" data-t="el_earth">Earth</div></div>
+      <div class="element"><div class="element-char" style="color:#8E8E8E">금</div><div class="element-name" data-t="el_metal">Metal</div></div>
+      <div class="element"><div class="element-char" style="color:var(--dancheong-blue)">수</div><div class="element-name" data-t="el_water">Water</div></div>
     </div>
-    <div style="text-align: center; font-size: 11px; color: var(--bee-gray); font-weight: 800; margin-top: 10px; letter-spacing: 0.1em;" data-t="five_elements_label">FIVE ELEMENTS · 五行</div>
+    <div style="text-align: center; font-size: 11px; color: var(--bee-gray); font-weight: 800; margin-top: 10px; letter-spacing: 0.1em;" data-t="five_elements_label">FIVE ELEMENTS · 오행</div>
 
-    <p class="mt-md" style="font-weight: 700; color: var(--ink);" data-t="what_is_saju_p3">Deep insights, clearly explained.</p>
+    <p class="mt-md" style="font-weight: 700; color: var(--ink);" data-t="what_is_saju_p3">Deep Korean insights, clearly explained.</p>
   </div>
 
-  <button class="btn mt-lg" onclick="goto('hub')" data-t="cta_check_saju">Check my Saju</button>
+  <button class="btn mt-lg" onclick="goto('hub')" data-t="cta_check_saju">Check my K-Saju</button>
   <p class="muted center mt-sm" data-t="disclaimer">For entertainment and self-reflection.</p>
 </section>
 
@@ -342,6 +343,7 @@
     <button class="back-pill" onclick="goto('landing')">🏠 <span data-t="btn_home_only">Home</span></button>
   </div>
 
+  <!-- Screen 2: honeypot.svg -->
   <div class="img-wrap" style="min-height: 100px;">
     <img src="honeypot.svg" alt="honeypot" class="honey-img-small anim-hover">
   </div>
@@ -362,58 +364,58 @@
     </button>
     
     <button class="menu-tile paid" onclick="openReading('yearly')">
-      <div class="tile-hanja">新年運</div>
+      <div class="tile-hangul">신년운세</div>
       <div class="tile-icon">🌅</div>
-      <div class="tile-price" data-t="p_yearly">$4.99</div>
+      <div class="tile-price" data-t="p_yearly">$2.99</div>
       <div class="tile-title" data-t="menu_yearly">1-Year Fortune</div>
       <div class="tile-sub" data-t="menu_yearly_sub">2026 Strategy & Flow</div>
     </button>
     
     <button class="menu-tile paid" onclick="openReading('wealth')">
-      <div class="tile-hanja">財物運</div>
+      <div class="tile-hangul">재물운세</div>
       <div class="tile-icon">💰</div>
-      <div class="tile-price" data-t="p_wealth">$3.99</div>
+      <div class="tile-price" data-t="p_wealth">$2.99</div>
       <div class="tile-title" data-t="menu_wealth">Wealth & Fortune</div>
       <div class="tile-sub" data-t="menu_wealth_sub">Path to accumulation</div>
     </button>
     
     <button class="menu-tile paid" onclick="openReading('love')">
-      <div class="tile-hanja">戀愛</div>
+      <div class="tile-hangul">애정운세</div>
       <div class="tile-icon">🌸</div>
-      <div class="tile-price" data-t="p_std">$2.99</div>
+      <div class="tile-price" data-t="p_std">$1.99</div>
       <div class="tile-title" data-t="menu_love">Love & Romance</div>
       <div class="tile-sub" data-t="menu_love_sub">Relationship vectors</div>
     </button>
 
     <button class="menu-tile paid" onclick="openReading('career')">
-      <div class="tile-hanja">昇進運</div>
+      <div class="tile-hangul">성공운세</div>
       <div class="tile-icon">✨</div>
-      <div class="tile-price" data-t="p_std">$2.99</div>
+      <div class="tile-price" data-t="p_std">$1.99</div>
       <div class="tile-title" data-t="menu_career">Career & Success</div>
       <div class="tile-sub" data-t="menu_career_sub">Your professional vector</div>
     </button>
     
     <button class="menu-tile paid" onclick="openReading('academic')">
-      <div class="tile-hanja">學業運</div>
+      <div class="tile-hangul">학업운세</div>
       <div class="tile-icon">📚</div>
-      <div class="tile-price" data-t="p_std">$2.99</div>
+      <div class="tile-price" data-t="p_std">$1.99</div>
       <div class="tile-title" data-t="menu_academic">Academic & Exams</div>
       <div class="tile-sub" data-t="menu_academic_sub">Focus and achievements</div>
     </button>
     
     <button class="menu-tile paid" onclick="openReading('health')">
-      <div class="tile-hanja">健康</div>
+      <div class="tile-hangul">건강운세</div>
       <div class="tile-icon">🍃</div>
-      <div class="tile-price" data-t="p_std">$2.99</div>
+      <div class="tile-price" data-t="p_std">$1.99</div>
       <div class="tile-title" data-t="menu_health">Health Analysis</div>
       <div class="tile-sub" data-t="menu_health_sub">Elemental balance</div>
     </button>
 
     <button class="menu-tile full" onclick="openReading('full')">
-      <div class="tile-hanja">總合解剖</div>
+      <div class="tile-hangul">종합사주</div>
       <div class="tile-icon">📖</div>
-      <div class="tile-price" data-t="p_full">$14.99</div>
-      <div class="tile-title" data-t="menu_full">Master Saju Report</div>
+      <div class="tile-price" data-t="p_full">$8.99</div>
+      <div class="tile-title" data-t="menu_full">Master K-Saju Report</div>
       <div class="tile-sub" data-t="menu_full_sub">Deepest 8-area reading</div>
     </button>
   </div>
@@ -426,6 +428,7 @@
     <button class="back-pill" onclick="goto('hub')">← <span data-t="back_to_menu">Menu</span></button>
   </div>
 
+  <!-- Screen 3: bee2.svg -->
   <div class="img-wrap">
     <img src="bee2.svg" alt="bee2" class="bee-img anim-dance">
   </div>
@@ -485,6 +488,7 @@
 <!-- ==================== SCREEN 4: LOADING ==================== -->
 <section id="screen-loading" class="screen">
   <div class="center" style="margin-top: 18vh;">
+    <!-- Screen 4: bee.svg -->
     <div class="img-wrap">
       <img src="bee.svg" alt="bee" class="bee-img anim-dance">
     </div>
@@ -502,6 +506,7 @@
     <button class="back-pill" onclick="goto('hub')">← <span data-t="back_to_menu">Menu</span></button>
   </div>
 
+  <!-- Screen 5: honeypot.svg -->
   <div class="img-wrap" style="height: 140px; margin-top: 20px;">
     <img src="honeypot.svg" alt="honeypot" class="honey-img anim-hover">
   </div>
@@ -538,6 +543,7 @@
     <button class="back-pill" onclick="goto('hub')">← <span data-t="back_to_menu">Menu</span></button>
   </div>
 
+  <!-- Screen 6: bee2.svg -->
   <div class="img-wrap" style="min-height: 100px;">
     <img src="bee2.svg" alt="bee2" class="bee-img-small anim-hover">
   </div>
@@ -546,9 +552,9 @@
     <h1 class="title-serif" id="result-title" style="font-size: 30px;">Title</h1>
   </div>
 
-  <!-- Saju Blueprint Box -->
+  <!-- Saju Blueprint Box (Korean Pillars) -->
   <div class="saju-intro" id="result-pillars-box" style="padding: 24px;">
-    <span class="saju-label" data-t="your_saju_label">Your Saju Blueprint</span>
+    <span class="saju-label" data-t="your_saju_label">Your K-Saju Blueprint</span>
     <div class="four-pillars" id="result-pillars"></div>
   </div>
 
@@ -584,16 +590,16 @@ function toggleTimeInput(checkbox) {
   }
 }
 
-// --- Dynamic Pricing Data ---
+// --- Dynamic Pricing Data (Adjusted for SEA Market affordability & consistency) ---
 const PRICES = {
-  en: { yearly: '4.99', wealth: '3.99', love: '2.99', career: '2.99', academic: '2.99', health: '2.99', full: '14.99' },
-  id: { yearly: 'Rp 75.000', wealth: 'Rp 59.000', love: 'Rp 45.000', career: 'Rp 45.000', academic: 'Rp 45.000', health: 'Rp 45.000', full: 'Rp 229.000' }
+  en: { yearly: '2.99', wealth: '2.99', love: '1.99', career: '1.99', academic: '1.99', health: '1.99', full: '8.99' },
+  id: { yearly: 'Rp 39.000', wealth: 'Rp 39.000', love: 'Rp 29.000', career: 'Rp 29.000', academic: 'Rp 29.000', health: 'Rp 29.000', full: 'Rp 129.000' }
 };
 const CURRENCIES = { en: '$', id: '' };
 
 function getPriceAmount(lang, type) {
   const p = PRICES[lang] || PRICES['en'];
-  return p[type] || '2.99';
+  return p[type] || '1.99';
 }
 
 function getCurrencySymbol(lang) {
@@ -612,21 +618,21 @@ function getArchetype() {
   return Math.abs(hash) % 3;
 }
 
-// --- TRANSLATIONS (English & Indonesian Only) ---
+// --- TRANSLATIONS (English & Indonesian Only, Korean Focused) ---
 // Contains 3 different, highly specific, and sometimes harsh personality profiles.
 const TRANSLATIONS = {
   en: {
     // UI Elements
-    brand_stamp: "SAJU ANALYSIS · 四柱", hero_title: "Deep Saju Analysis.", hero_tagline: "— piercing insight, delivered gently",
-    what_is_saju_label: "What is Saju", what_is_saju_title: "The Architecture of Your Fate",
-    what_is_saju_p1: "Saju (四柱) is an 800-year-old empirical system mapping your birth moment.",
-    what_is_saju_p2: "We extract the five elements flowing through your pillars to calculate your core drive and your 10-year Daewun.",
+    brand_stamp: "AUTHENTIC K-SAJU · 사주", hero_title: "Deep K-Saju Analysis.", hero_tagline: "— piercing insight, delivered gently",
+    what_is_saju_label: "The Korean Secret: K-Saju", what_is_saju_title: "The Architecture of Your Fate",
+    what_is_saju_p1: "K-Saju (사주) is the traditional Korean astrological system mapping your exact birth moment.",
+    what_is_saju_p2: "We extract the five elements flowing through your pillars to calculate your core drive and your 10-year life cycle.",
     what_is_saju_p3: "We provide sharp, realistic, and highly actionable analysis. No toxic positivity.",
-    five_elements_label: "FIVE ELEMENTS · 五行", el_wood: "Wood", el_fire: "Fire", el_earth: "Earth", el_metal: "Metal", el_water: "Water",
-    cta_check_saju: "Check my Saju", disclaimer: "For self-reflection and guidance.",
+    five_elements_label: "FIVE ELEMENTS · 오행", el_wood: "Wood", el_fire: "Fire", el_earth: "Earth", el_metal: "Metal", el_water: "Water",
+    cta_check_saju: "Check my K-Saju", disclaimer: "For self-reflection and guidance.",
     btn_home_only: "Home", back_to_menu: "Menu", hub_pick_title: "Pick your reading", hub_pick_sub: "— which wisdom calls you today?", explore_label: "EXPLORE", explore_title: "Your chart holds more",
     onb_intro: "Enter details for calculation.", label_name: "Name (Optional)", label_date: "Birth date", label_time: "Birth time", time_unknown_check: "I don't know my birth time", time_opt_placeholder: "Select time", label_gender: "Gender", gender_f: "Female", gender_m: "Male", onb_submit: "Generate Analysis",
-    loading_title: "Executing structural analysis…", loading_sub: "Calculating Daewun shifts and element balances.",
+    loading_title: "Executing structural analysis…", loading_sub: "Calculating life cycles and element balances.",
     
     p_free: "FREE",
     menu_daily: "Today's Flow", menu_daily_sub: "Daily energy shift", 
@@ -636,20 +642,18 @@ const TRANSLATIONS = {
     menu_career: "Career & Success", menu_career_sub: "Your professional vector", 
     menu_academic: "Academic & Exams", menu_academic_sub: "Focus and achievements", 
     menu_health: "Health Vulnerabilities", menu_health_sub: "Elemental balance", 
-    menu_full: "Master Saju Report", menu_full_sub: "Deepest 8-area reading",
+    menu_full: "Master K-Saju Report", menu_full_sub: "Deepest 8-area reading",
     
-    paywall_sub: "A deep, unfiltered look, written just for you.", pw_benefit1: "Deep structural analysis", pw_benefit2: "10-year Daewun mapping", pw_benefit3: "Yours forever, read anytime", price_desc: "One-time payment · Instant access", pay_label: "Secure Checkout", pay_stripe: "Pay with Stripe", pay_paypal: "Pay with PayPal", maybe_later: "Maybe later", your_saju_label: "Your Saju Blueprint",
+    paywall_sub: "A deep, unfiltered look, written just for you.", pw_benefit1: "Deep structural analysis", pw_benefit2: "10-year life cycle mapping", pw_benefit3: "Yours forever, read anytime", price_desc: "One-time payment · Instant access", pay_label: "Secure Checkout", pay_stripe: "Pay with Stripe", pay_paypal: "Pay with PayPal", maybe_later: "Maybe later", your_saju_label: "Your K-Saju Blueprint",
     err_req_date: "Please enter your birth date.", err_req_time: "Please select time or check 'Unknown'.",
     r_daily_title: "Today's Flow", r_yearly_title: "2026 Fortune & Strategy", r_wealth_title: "Wealth & Fortune", r_love_title: "Love & Romance", r_career_title: "Career & Success", r_academic_title: "Academic & Exams", r_health_title: "Health Analysis", r_full_title: "Master Report",
     
-    // ----------------------------------------------------------------------
     // ARCHETYPE 0: THE OVERTHINKER (Water/Wood) - Needs action, lacks execution
-    // ----------------------------------------------------------------------
     mock_daily_head_0: "Stop overthinking. Start acting.", 
     mock_daily_body_0: "The energy today forces you to break out of your head. You have been analyzing a situation to death. Execute today, even if it is only 60% perfect. Hesitation will literally cost you money today.",
     sec_1_title_0: "1. Innate Chart: The Frozen Lake", 
     sec_1_body_0: "You resemble a massive tree rooted in the middle of a freezing winter lake. Your mind is overflowing with brilliant ideas and meticulous plans, but translating them into real-world action feels incredibly difficult. This stagnation is not a lack of capability; it is a fatal hesitation. Waiting for 'perfect timing' is your biggest trap and greatest weakness.",
-    sec_2_title_0: "2. Daewun Shift: The Ice Melts", 
+    sec_2_title_0: "2. Destiny Shift: The Ice Melts", 
     sec_2_body_0: "<div class='report-quote'>\"The sun finally rises over your frozen chart.\"</div>You are approaching a monumental turning point. The Fire and Earth elements—your absolute favorable elements—will surge over the next decade. Your suppressed potential will erupt. During this phase, remaining a passive employee will waste your luck. You must seek independence.",
     sec_yearly_title_0: "2026 Yearly Strategy",
     sec_yearly_body_0: "2026 brings intense Fire energy, actively melting your frozen chart. This is the year to finally break out of stagnation. Networking and bold career moves will yield highly positive returns, but only if you actually take the first step.",
@@ -666,15 +670,13 @@ const TRANSLATIONS = {
     sec_advice_title_0: "Harsh Advice & Keys", 
     sec_advice_body_0: "<span class='category'>[Harsh Reality Check]</span> Your ideas are worthless if they never leave your notebook. Execute at 60% readiness. Make it a daily habit to walk in the sunlight for 30 minutes to physically absorb the Fire element.<br><br><span class='category'>[Lucky Vectors]</span><ul class='item-list'><li><strong>Colors:</strong> Vibrant Reds, Oranges, Yellows. Avoid all-black.</li><li><strong>Numbers:</strong> 2, 7, 5, 0</li><li><strong>Direction:</strong> South</li><li><strong>Items:</strong> Warm ambient lighting, Gold accessories.</li></ul>",
     
-    // ----------------------------------------------------------------------
     // ARCHETYPE 1: THE IMPULSIVE WILDFIRE (Fire/Earth) - Explosive but lacks patience
-    // ----------------------------------------------------------------------
     mock_daily_head_1: "Hold your tongue and wait.", 
     mock_daily_body_1: "Your impulsive energy is dangerously high today. Do not send that angry email or make that sudden purchase. Wait 24 hours. The energy today rewards patience and punishes emotional reactions.",
     sec_1_title_1: "1. Innate Chart: The Blazing Wildfire", 
     sec_1_body_1: "You are a blazing wildfire on an open plain. You possess explosive energy, immense charisma, and the ability to start projects with incredible passion. However, your biggest flaw is impatience and a lack of consistency. You burn bridges as fast as you build them. If you do not learn to control your temper and see things through to the end, your massive potential will just turn into ash.",
-    sec_2_title_1: "2. Daewun Shift: Learning Restraint", 
-    sec_2_body_1: "<div class='report-quote'>\"The fire must be contained to forge a sword.\"</div>You are entering a Daewun phase that demands structure (Water/Metal). Your past habit of relying purely on talent and brute force will no longer work. You will be humbled by bureaucratic or structural forces. This is a crucial time to learn discipline. If you master patience now, massive authority awaits you.",
+    sec_2_title_1: "2. Destiny Shift: Learning Restraint", 
+    sec_2_body_1: "<div class='report-quote'>\"The fire must be contained to forge a sword.\"</div>You are entering a phase that demands structure (Water/Metal). Your past habit of relying purely on talent and brute force will no longer work. You will be humbled by bureaucratic or structural forces. This is a crucial time to learn discipline. If you master patience now, massive authority awaits you.",
     sec_yearly_title_1: "2026 Yearly Strategy",
     sec_yearly_body_1: "2026 will test your patience. You will face delays and obstacles that trigger your anger. Do NOT quit your job or end relationships impulsively this year. Strategic waiting is your best investment.",
     sec_wealth_title_1: "Wealth Vector",
@@ -690,15 +692,13 @@ const TRANSLATIONS = {
     sec_advice_title_1: "Harsh Advice & Keys", 
     sec_advice_body_1: "<span class='category'>[Harsh Reality Check]</span> Your temper and impatience are the only things stopping you from being rich. Force yourself to wait 24 hours before making any major life or financial decision.<br><br><span class='category'>[Lucky Vectors]</span><ul class='item-list'><li><strong>Colors:</strong> Cool Blues, Blacks, Whites. Avoid red.</li><li><strong>Numbers:</strong> 1, 6, 4, 9</li><li><strong>Direction:</strong> North</li><li><strong>Items:</strong> Silver accessories, water features (aquariums, humidifiers).</li></ul>",
 
-    // ----------------------------------------------------------------------
     // ARCHETYPE 2: THE RIGID SWORD (Metal/Water) - Stubborn, perfectionist, isolated
-    // ----------------------------------------------------------------------
     mock_daily_head_2: "Bend, or you will break.", 
     mock_daily_body_2: "Today will present a situation that challenges your rules. Your instinct will be to fight and prove you are right. Let it go. Agreeing to a compromise today will save you a massive headache next week.",
     sec_1_title_2: "1. Innate Chart: The Unyielding Sword", 
     sec_1_body_2: "You are an unyielding sword forged in cold ice. You are incredibly competent, precise, and hold yourself (and others) to impossible standards. However, your extreme stubbornness and rigidity push people away. You often isolate yourself because you believe no one else can do things correctly. This intellectual arrogance is your biggest obstacle to true success.",
-    sec_2_title_2: "2. Daewun Shift: The Melting Process", 
-    sec_2_body_2: "<div class='report-quote'>\"Even the sharpest blade rusts if left alone in the dark.\"</div>Your upcoming Daewun introduces Fire and Wood, forcing you out of your isolated comfort zone. You will be placed in situations where you MUST rely on teamwork and empathy, not just logic. This will be uncomfortable, but it is the only way your career can expand beyond its current rigid ceiling.",
+    sec_2_title_2: "2. Destiny Shift: The Melting Process", 
+    sec_2_body_2: "<div class='report-quote'>\"Even the sharpest blade rusts if left alone in the dark.\"</div>Your upcoming phase introduces Fire and Wood, forcing you out of your isolated comfort zone. You will be placed in situations where you MUST rely on teamwork and empathy, not just logic. This will be uncomfortable, but it is the only way your career can expand beyond its current rigid ceiling.",
     sec_yearly_title_2: "2026 Yearly Strategy",
     sec_yearly_body_2: "2026 demands flexibility. Plans will change abruptly, and your usual methodical approach will fail. The more you try to control everything, the more stressed you will become. Practice the art of delegating.",
     sec_wealth_title_2: "Wealth Vector",
@@ -717,16 +717,16 @@ const TRANSLATIONS = {
   
   id: {
     // UI Elements (Indonesian)
-    brand_stamp: "ANALISIS SAJU · 四柱", hero_title: "Analisis Saju Mendalam.", hero_tagline: "— wawasan tajam, disampaikan dengan lembut",
-    what_is_saju_label: "Apa itu Saju", what_is_saju_title: "Arsitektur Nasib Anda",
-    what_is_saju_p1: "Saju (四柱) adalah sistem empiris berusia 800 tahun yang memetakan momen kelahiran Anda.",
-    what_is_saju_p2: "Kami mengekstrak lima elemen yang mengalir melalui pilar Anda untuk menghitung dorongan inti dan Daewun (Siklus 10 Tahun) Anda.",
+    brand_stamp: "SAJU KOREA ASLI · 사주", hero_title: "Analisis K-Saju Mendalam.", hero_tagline: "— wawasan tajam, disampaikan dengan lembut",
+    what_is_saju_label: "Rahasia Korea: K-Saju", what_is_saju_title: "Arsitektur Nasib Anda",
+    what_is_saju_p1: "K-Saju (사주) adalah sistem astrologi tradisional Korea yang memetakan momen kelahiran Anda.",
+    what_is_saju_p2: "Kami mengekstrak lima elemen yang mengalir melalui pilar Anda untuk menghitung dorongan inti dan siklus hidup 10 tahun Anda.",
     what_is_saju_p3: "Kami memberikan analisis yang tajam, realistis, dan dapat ditindaklanjuti. Tidak ada kepositifan beracun.",
-    five_elements_label: "LIMA ELEMEN · 五行", el_wood: "Kayu", el_fire: "Api", el_earth: "Tanah", el_metal: "Logam", el_water: "Air",
-    cta_check_saju: "Cek Saju Saya", disclaimer: "Untuk refleksi diri dan panduan.",
+    five_elements_label: "LIMA ELEMEN · 오행", el_wood: "Kayu", el_fire: "Api", el_earth: "Tanah", el_metal: "Logam", el_water: "Air",
+    cta_check_saju: "Cek K-Saju Saya", disclaimer: "Untuk refleksi diri dan panduan.",
     btn_home_only: "Beranda", back_to_menu: "Menu", hub_pick_title: "Pilih bacaan Anda", hub_pick_sub: "— kebijaksanaan mana yang memanggil Anda hari ini?", explore_label: "EKSPLORASI", explore_title: "Bagan Anda menyimpan lebih banyak rahasia",
     onb_intro: "Masukkan detail untuk perhitungan.", label_name: "Nama (Opsional)", label_date: "Tanggal lahir", label_time: "Waktu lahir", time_unknown_check: "Saya tidak tahu waktu lahir saya", time_opt_placeholder: "Pilih waktu", label_gender: "Jenis Kelamin", gender_f: "Wanita", gender_m: "Pria", onb_submit: "Hasilkan Analisis",
-    loading_title: "Mengeksekusi analisis struktural…", loading_sub: "Menghitung pergeseran Daewun dan keseimbangan elemen.",
+    loading_title: "Mengeksekusi analisis struktural…", loading_sub: "Menghitung siklus hidup dan keseimbangan elemen.",
     
     p_free: "GRATIS",
     menu_daily: "Aliran Hari Ini", menu_daily_sub: "Pergeseran energi harian", 
@@ -736,9 +736,9 @@ const TRANSLATIONS = {
     menu_career: "Karier & Kesuksesan", menu_career_sub: "Vektor profesional Anda", 
     menu_academic: "Akademik & Ujian", menu_academic_sub: "Fokus dan pencapaian", 
     menu_health: "Kerentanan Kesehatan", menu_health_sub: "Keseimbangan elemen", 
-    menu_full: "Laporan Saju Master", menu_full_sub: "Bacaan terdalam di 8 area",
+    menu_full: "Laporan K-Saju Master", menu_full_sub: "Bacaan terdalam di 8 area",
     
-    paywall_sub: "Tinjauan mendalam, ditulis khusus untuk Anda.", pw_benefit1: "Analisis struktural mendalam", pw_benefit2: "Pemetaan Daewun 10 tahun", pw_benefit3: "Milik Anda selamanya", price_desc: "Sekali bayar · Akses instan", pay_label: "Pembayaran Aman", pay_stripe: "Bayar dengan Stripe", pay_paypal: "Bayar dengan PayPal", maybe_later: "Mungkin nanti", your_saju_label: "Cetak Biru Saju Anda",
+    paywall_sub: "Tinjauan mendalam, ditulis khusus untuk Anda.", pw_benefit1: "Analisis struktural mendalam", pw_benefit2: "Pemetaan siklus hidup 10 tahun", pw_benefit3: "Milik Anda selamanya", price_desc: "Sekali bayar · Akses instan", pay_label: "Pembayaran Aman", pay_stripe: "Bayar dengan Stripe", pay_paypal: "Bayar dengan PayPal", maybe_later: "Mungkin nanti", your_saju_label: "Cetak Biru K-Saju Anda",
     err_req_date: "Harap masukkan tanggal lahir Anda.", err_req_time: "Harap pilih waktu atau centang 'Tidak Tahu'.",
     r_daily_title: "Aliran Hari Ini", r_yearly_title: "Strategi & Nasib 2026", r_wealth_title: "Kekayaan & Nasib", r_love_title: "Cinta & Romansa", r_career_title: "Karier & Kesuksesan", r_academic_title: "Akademik & Ujian", r_health_title: "Analisis Kesehatan", r_full_title: "Laporan Master",
 
@@ -747,7 +747,7 @@ const TRANSLATIONS = {
     mock_daily_body_0: "Energi hari ini memaksa Anda keluar dari kepala Anda. Anda telah menganalisis situasi sampai mati. Lakukan eksekusi hari ini, bahkan jika hanya 60% sempurna.",
     sec_1_title_0: "1. Bagan Bawaan: Danau Beku", 
     sec_1_body_0: "Anda menyerupai pohon besar yang berakar di tengah danau musim dingin yang membeku. Pikiran Anda dipenuhi dengan ide-ide cemerlang, tetapi mengubahnya menjadi tindakan nyata terasa sangat sulit. Stagnasi ini bukanlah kurangnya kemampuan; melainkan keragu-raguan yang fatal. Menunggu 'waktu yang tepat' adalah jebakan terbesar Anda.",
-    sec_2_title_0: "2. Pergeseran Daewun: Es Mencair", 
+    sec_2_title_0: "2. Pergeseran Takdir: Es Mencair", 
     sec_2_body_0: "<div class='report-quote'>\"Matahari akhirnya terbit di atas bagan beku Anda.\"</div>Anda mendekati titik balik yang monumental. Elemen Api dan Tanah akan melonjak selama dekade berikutnya. Potensi Anda yang tertekan akan meletus. Selama fase ini, tetap menjadi karyawan pasif akan membuang-buang keberuntungan Anda. Anda harus mencari kemandirian.",
     sec_yearly_title_0: "Strategi Tahunan 2026",
     sec_yearly_body_0: "Tahun 2026 membawa energi Api yang intens, secara aktif mencairkan bagan beku Anda. Ini adalah tahun untuk akhirnya keluar dari stagnasi. Berjejaring dan langkah karier yang berani akan menghasilkan keuntungan yang sangat positif.",
@@ -769,8 +769,8 @@ const TRANSLATIONS = {
     mock_daily_body_1: "Energi impulsif Anda sangat tinggi hari ini. Jangan kirim email marah itu atau melakukan pembelian tiba-tiba. Tunggu 24 jam. Energi hari ini menghargai kesabaran.",
     sec_1_title_1: "1. Bagan Bawaan: Api Liar", 
     sec_1_body_1: "Anda adalah api liar di padang terbuka. Anda memiliki energi eksplosif, karisma yang sangat besar, dan kemampuan untuk memulai proyek dengan semangat yang luar biasa. Namun, kelemahan terbesar Anda adalah ketidaksabaran dan kurangnya konsistensi. Jika Anda tidak belajar mengendalikan emosi, potensi besar Anda hanya akan berubah menjadi abu.",
-    sec_2_title_1: "2. Pergeseran Daewun: Belajar Menahan Diri", 
-    sec_2_body_1: "<div class='report-quote'>\"Api harus ditahan untuk menempa pedang.\"</div>Anda memasuki fase Daewun yang menuntut struktur (Air/Logam). Kebiasaan masa lalu Anda yang hanya mengandalkan bakat murni tidak akan berhasil lagi. Ini adalah waktu yang penting untuk belajar disiplin.",
+    sec_2_title_1: "2. Pergeseran Takdir: Belajar Menahan Diri", 
+    sec_2_body_1: "<div class='report-quote'>\"Api harus ditahan untuk menempa pedang.\"</div>Anda memasuki fase yang menuntut struktur (Air/Logam). Kebiasaan masa lalu Anda yang hanya mengandalkan bakat murni tidak akan berhasil lagi. Ini adalah waktu yang penting untuk belajar disiplin.",
     sec_yearly_title_1: "Strategi Tahunan 2026",
     sec_yearly_body_1: "Tahun 2026 akan menguji kesabaran Anda. Anda akan menghadapi penundaan yang memicu kemarahan Anda. JANGAN impulsif berhenti dari pekerjaan atau mengakhiri hubungan tahun ini.",
     sec_wealth_title_1: "Vektor Kekayaan",
@@ -791,8 +791,8 @@ const TRANSLATIONS = {
     mock_daily_body_2: "Hari ini akan menghadirkan situasi yang menantang aturan Anda. Naluri Anda adalah bertarung dan membuktikan bahwa Anda benar. Lepaskan. Menyetujui kompromi hari ini akan menyelamatkan Anda dari sakit kepala parah minggu depan.",
     sec_1_title_2: "1. Bagan Bawaan: Pedang Kaku", 
     sec_1_body_2: "Anda adalah pedang kaku yang ditempa dalam es dingin. Anda sangat kompeten, tepat, dan memegang standar yang mustahil. Namun, kekakuan Anda menjauhkan orang. Anda sering mengisolasi diri karena Anda percaya tidak ada orang lain yang dapat melakukan hal-hal dengan benar. Kesombongan intelektual ini adalah hambatan terbesar Anda.",
-    sec_2_title_2: "2. Pergeseran Daewun: Proses Pencairan", 
-    sec_2_body_2: "<div class='report-quote'>\"Bahkan pisau paling tajam pun berkarat jika dibiarkan sendiri di tempat gelap.\"</div>Daewun Anda yang akan datang memperkenalkan Api dan Kayu, memaksa Anda keluar dari zona nyaman Anda yang terisolasi. Anda harus mengandalkan kerja sama tim dan empati, bukan hanya logika.",
+    sec_2_title_2: "2. Pergeseran Takdir: Proses Pencairan", 
+    sec_2_body_2: "<div class='report-quote'>\"Bahkan pisau paling tajam pun berkarat jika dibiarkan sendiri di tempat gelap.\"</div>Fase Anda yang akan datang memperkenalkan Api dan Kayu, memaksa Anda keluar dari zona nyaman Anda yang terisolasi. Anda harus mengandalkan kerja sama tim dan empati, bukan hanya logika.",
     sec_yearly_title_2: "Strategi Tahunan 2026",
     sec_yearly_body_2: "Tahun 2026 menuntut fleksibilitas. Rencana akan berubah secara tiba-tiba. Semakin Anda mencoba mengendalikan segalanya, Anda akan semakin stres. Berlatihlah seni mendelegasikan tugas.",
     sec_wealth_title_2: "Vektor Kekayaan",
@@ -896,12 +896,12 @@ function showResult(type) {
   
   document.getElementById('result-title').innerText = getT('r_' + type + '_title');
   
-  // Fake Pillars rendering
+  // Fake Pillars rendering (Korean translated)
   document.getElementById('result-pillars').innerHTML = `
-    <div class="pillar"><div class="pillar-label">Time</div><div class="pillar-char-top" style="color:var(--dancheong-red)">丙</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--dancheong-blue)">午</div></div>
-    <div class="pillar"><div class="pillar-label">Day</div><div class="pillar-char-top" style="color:var(--dancheong-green)">甲</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--dancheong-blue)">子</div></div>
-    <div class="pillar"><div class="pillar-label">Month</div><div class="pillar-char-top" style="color:var(--dancheong-blue)">癸</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--dancheong-red)">巳</div></div>
-    <div class="pillar"><div class="pillar-label">Year</div><div class="pillar-char-top" style="color:var(--dancheong-blue)">壬</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--gold)">辰</div></div>
+    <div class="pillar"><div class="pillar-label">Time</div><div class="pillar-char-top" style="color:var(--dancheong-red)">병</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--dancheong-blue)">오</div></div>
+    <div class="pillar"><div class="pillar-label">Day</div><div class="pillar-char-top" style="color:var(--dancheong-green)">갑</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--dancheong-blue)">자</div></div>
+    <div class="pillar"><div class="pillar-label">Month</div><div class="pillar-char-top" style="color:var(--dancheong-blue)">계</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--dancheong-red)">사</div></div>
+    <div class="pillar"><div class="pillar-label">Year</div><div class="pillar-char-top" style="color:var(--dancheong-blue)">임</div><div class="pillar-divider"></div><div class="pillar-char-bot" style="color:var(--gold)">진</div></div>
   `;
 
   if (type === 'daily') {
