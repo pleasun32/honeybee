@@ -4,13 +4,20 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>사주 스토리텔링 - K-Saju Analysis</title>
+<!-- 공유 썸네일(OG 태그) 및 파비콘 -->
+<meta property="og:title" content="사주 꿀벌이 들려주는 나의 자연 기운 🍯" />
+<meta property="og:description" content="무료로 읽는 따뜻한 사주 스토리텔링! 당신의 마음속 풍경화는 어떤 모습일까요?" />
+<meta property="og:image" content="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐝</text></svg>">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
-<!-- 캡처 라이브러리 추가 -->
+<!-- 캡처 라이브러리 및 만세력 라이브러리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<!-- 진짜 사주/만세력 산출 라이브러리 추가 -->
 <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.min.js"></script>
+
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-퍼블리셔ID" crossorigin="anonymous"></script> -->
 
 <style>
   * {
@@ -38,8 +45,7 @@
   body {
     font-family: 'Nunito', 'Jua', sans-serif;
     font-weight: 500;
-    /* 대표님이 만들어주신 모동숲 이미지로 완전 고정! */
-    background-color: #8FD1A3; /* 미리보기용 귀여운 잔디색 */
+    background-color: #8FD1A3;
     background-image: url('image_ebb8cb.png');
     background-size: cover;
     background-position: center bottom;
@@ -50,7 +56,6 @@
     overflow-x: hidden;
   }
 
-  /* 가독성을 위해 배경 위에 투명한 화이트톤 막을 살짝 씌워줍니다 */
   body::after {
     content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
     background-color: rgba(255, 255, 255, 0.15);
@@ -107,34 +112,21 @@
   .reveal-pop { opacity: 0; transform: scale(0.5) translateY(20px); transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
   .reveal-pop.show { opacity: 1; transform: scale(1) translateY(0); }
 
-  /* 꿀이 흘러내리는 효과 */
   .honey-drip {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 28px;
+    position: absolute; top: 0; left: 0; right: 0; height: 28px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L1000,0 L1000,30 C900,30 850,90 800,90 C750,90 700,40 650,40 C600,40 550,70 500,70 C450,70 400,20 300,20 C200,20 150,80 100,80 C50,80 20,40 0,40 Z' fill='%23F6CD46' /%3E%3Cpath d='M0,0 L1000,0 L1000,20 C900,20 850,80 800,80 C750,80 700,30 650,30 C600,30 550,60 500,60 C450,60 400,10 300,10 C200,10 150,70 100,70 C50,70 20,30 0,30 Z' fill='%23FFD95C' /%3E%3C/svg%3E");
-    background-size: 100% 100%;
-    border-radius: 13.5px 13.5px 0 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.95;
+    background-size: 100% 100%; border-radius: 13.5px 13.5px 0 0;
+    z-index: 0; pointer-events: none; opacity: 0.95;
   }
 
   .speech-bubble {
     position: relative; background: var(--white);
     border: var(--border-width) solid var(--ink); border-radius: 16px;
-    /* 꿀 효과가 들어갈 공간을 확보하기 위해 위쪽 패딩(36px) 증가 */
     padding: 36px 24px 22px; margin-bottom: 24px; box-shadow: 0 var(--shadow-depth) 0 rgba(58, 53, 50, 0.08);
     animation: bounceBubble 3s infinite ease-in-out;
   }
-  .speech-bubble::after {
-    content: ''; position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%);
-    border-width: 16px 16px 0; border-style: solid; border-color: var(--ink) transparent transparent transparent;
-  }
-  .speech-bubble::before {
-    content: ''; position: absolute; bottom: -11px; left: 50%; transform: translateX(-50%);
-    border-width: 13px 13px 0; border-style: solid; border-color: var(--white) transparent transparent transparent; z-index: 1;
-  }
+  .speech-bubble::after { content: ''; position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%); border-width: 16px 16px 0; border-style: solid; border-color: var(--ink) transparent transparent transparent; }
+  .speech-bubble::before { content: ''; position: absolute; bottom: -11px; left: 50%; transform: translateX(-50%); border-width: 13px 13px 0; border-style: solid; border-color: var(--white) transparent transparent transparent; z-index: 1; }
   @keyframes bounceBubble { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 
   .btn-game {
@@ -176,13 +168,17 @@
   .tile-icon { font-size: 36px; line-height: 1; }
   .tile-title { font-family: 'Jua', sans-serif; font-size: 17px; color: var(--ink); }
   .tile-sub { font-size: 12px; color: var(--text-muted); font-weight: 700; font-family: 'Nunito', sans-serif; }
+  
   .tile-price {
-    position: absolute; top: -8px; right: -8px; background: var(--btn-red); color: var(--white);
-    font-size: 12px; font-family: 'Nunito', sans-serif; font-weight: 800;
-    padding: 3px 8px; border: 2px solid var(--ink); border-radius: 16px;
-    white-space: nowrap;
+    position: absolute; top: -8px; right: -8px; background: var(--btn-green); color: var(--white);
+    font-size: 11px; font-family: 'Jua', sans-serif; font-weight: normal; letter-spacing: 0.5px;
+    padding: 4px 10px; border: 2px solid var(--ink); border-radius: 16px;
+    white-space: nowrap; box-shadow: 0 2px 0 rgba(0,0,0,0.1);
   }
   
+  .badge-normal { background: var(--btn-blue); }
+  .badge-premium { background: var(--btn-red); }
+
   .tile-game.special { background: var(--ink); color: var(--white); }
   .tile-game.special .tile-title { color: var(--btn-yellow); }
   .tile-game.special .tile-price { background: var(--btn-yellow); color: var(--ink); }
@@ -204,38 +200,19 @@
   .time-checkbox-wrap input[type="checkbox"] { transform: scale(1.3); accent-color: var(--btn-red); }
   .time-checkbox-wrap label { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; color: var(--text-muted); }
 
-  .error-msg {
-    background: var(--btn-red); color: var(--white); font-family: 'Jua', sans-serif; font-size: 15px;
-    text-align: center; padding: 10px; border: 2px solid var(--ink); border-radius: 10px; margin-bottom: 16px; display: none;
-  }
+  .error-msg { background: var(--btn-red); color: var(--white); font-family: 'Jua', sans-serif; font-size: 15px; text-align: center; padding: 10px; border: 2px solid var(--ink); border-radius: 10px; margin-bottom: 16px; display: none; }
 
-  .manseryeok-box {
-    background: #FFFFFF; border: 2.5px solid var(--ink); border-radius: 16px;
-    padding: 20px 16px; margin-bottom: 24px; box-shadow: 0 4px 0 rgba(58,53,50,0.06);
-  }
-  .m-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; direction: rtl;
-  }
+  .manseryeok-box { background: #FFFFFF; border: 2.5px solid var(--ink); border-radius: 16px; padding: 20px 16px; margin-bottom: 24px; box-shadow: 0 4px 0 rgba(58,53,50,0.06); }
+  .m-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; direction: rtl; }
   .m-col { display: flex; flex-direction: column; gap: 6px; align-items: center; }
   .m-label { font-size: 12px; font-weight: 800; color: var(--text-muted); font-family: 'Jua', sans-serif; }
-  .m-char {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    width: 100%; background: var(--bg-color); border: 2px solid var(--ink); border-radius: 10px;
-    padding: 8px 0; gap: 4px;
-  }
+  .m-char { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; background: var(--bg-color); border: 2px solid var(--ink); border-radius: 10px; padding: 8px 0; gap: 4px; }
   .m-emoji { font-size: 20px; line-height: 1; }
   .m-hangul { font-family: 'Jua', sans-serif; font-size: 19px; color: var(--ink); line-height: 1; margin-top: 2px;}
   .m-text { font-family: 'Nunito', sans-serif; font-size: 12px; color: var(--text-muted); font-weight: 700; }
   
-  .report-section {
-    background: var(--white); border: var(--border-width) solid var(--ink); border-radius: 16px;
-    padding: 38px 24px 28px; margin-bottom: 24px; box-shadow: 0 4px 0 rgba(58, 53, 50, 0.1);
-    position: relative;
-  }
-  .report-label {
-    display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: var(--btn-yellow); border: 2px solid var(--ink);
-    border-radius: 10px; font-family: 'Jua', sans-serif; font-size: 18px; margin-bottom: 20px;
-  }
+  .report-section { background: var(--white); border: var(--border-width) solid var(--ink); border-radius: 16px; padding: 38px 24px 28px; margin-bottom: 24px; box-shadow: 0 4px 0 rgba(58, 53, 50, 0.1); position: relative; }
+  .report-label { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: var(--btn-yellow); border: 2px solid var(--ink); border-radius: 10px; font-family: 'Jua', sans-serif; font-size: 18px; margin-bottom: 20px; }
   
   .deep-text { font-family: 'Nunito', sans-serif; font-size: 15.5px; font-weight: 600; line-height: 1.85; word-break: keep-all; color: var(--ink); }
   .deep-text strong { color: var(--btn-red); font-weight: 800; background: rgba(224, 137, 118, 0.15); padding: 0 4px; border-radius: 4px; }
@@ -244,7 +221,6 @@
   .deep-text p:last-child { margin-bottom: 0; }
   .deep-text ul { margin-left: 20px; margin-bottom: 22px; }
   .deep-text li { margin-bottom: 8px; }
-  .deep-text blockquote { background: #f9f9f9; border-left: 4px solid var(--btn-yellow); padding: 12px 16px; margin-bottom: 22px; font-style: italic; color: #555; }
   
   .loading-dots { display: inline-flex; gap: 8px; margin-top: 20px; }
   .loading-dots span { width: 14px; height: 14px; border: 2.5px solid var(--ink); border-radius: 50%; background: var(--btn-yellow); animation: bounceDots 1.4s infinite; box-shadow: var(--glow); }
@@ -256,21 +232,34 @@
   
   .share-wrapper { display: flex; gap: 10px; margin-top: 24px; margin-bottom: 24px; }
   .share-wrapper button { flex: 1; font-size: 16px; padding: 14px 10px; white-space: nowrap; }
-  #capture-container { padding: 20px; background-color: var(--bg-color); border-radius: 20px; margin: -20px; padding-bottom: 40px; }
+  
+  #capture-container { padding: 20px; background-color: rgba(255, 255, 255, 0.95); border-radius: 20px; margin: -20px; padding-bottom: 40px; }
 
-  .ad-container {
-    background: #2A2A2A; color: var(--white); border-radius: 20px; padding: 30px 20px;
-    text-align: center; position: relative; overflow: hidden; border: 4px solid var(--ink);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2); margin-top: 20px;
-  }
-  .ad-timer-badge {
-    position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.2);
-    padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 700;
-  }
+  /* 국가별 맞춤 공유 모달(Bottom Sheet) */
+  .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; display: none; align-items: flex-end; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+  .modal-overlay.show { display: flex; opacity: 1; }
+  .share-sheet { background: var(--bg-color); width: 100%; max-width: 480px; border-radius: 24px 24px 0 0; padding: 24px 24px 40px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: var(--border-width) solid var(--ink); border-bottom: none; }
+  .modal-overlay.show .share-sheet { transform: translateY(0); }
+  .share-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .share-title { font-family: 'Jua', sans-serif; font-size: 20px; color: var(--ink); }
+  .btn-close-modal { background: none; border: none; font-size: 24px; color: var(--ink); cursor: pointer; padding: 0 8px; }
+  .share-btn-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px 6px; }
+  .share-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; }
+  .share-icon-circle { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; border: 2px solid var(--ink); box-shadow: 0 3px 0 var(--ink); transition: all 0.1s; }
+  .share-icon-btn:active .share-icon-circle { transform: translateY(3px); box-shadow: 0 0 0 var(--ink); }
+  .share-icon-label { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 800; color: var(--ink); }
+  
+  .bg-wa { background-color: #25D366; color: white; }
+  .bg-line { background-color: #06C755; color: white; }
+  .bg-x { background-color: #000000; color: white; }
+  .bg-native { background-color: var(--btn-yellow); color: var(--ink); }
+  .bg-link { background-color: #E2E8E4; color: var(--ink); }
+
+  .ad-container { background: #FFFFFF; color: var(--ink); border-radius: 20px; padding: 30px 20px; text-align: center; position: relative; overflow: hidden; border: var(--border-width) solid var(--ink); box-shadow: 0 var(--shadow-depth) 0 var(--ink); margin-top: 20px; }
+  .ad-timer-badge { position: absolute; top: 12px; right: 12px; background: var(--btn-red); color: var(--white); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 2px solid var(--ink); }
   .ad-content { margin-top: 20px; }
-  .ad-sponsor-label { font-size: 12px; color: #AAA; letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase; }
-  .ad-main-text { font-family: 'Jua', sans-serif; font-size: 22px; color: var(--btn-yellow); line-height: 1.4; margin-bottom: 16px; }
-  .ad-sub-text { font-size: 15px; color: #DDD; line-height: 1.5; margin-bottom: 30px; }
+  .ad-sponsor-label { font-size: 12px; color: var(--text-muted); font-family: 'Jua', sans-serif; margin-bottom: 8px; }
+  .ad-main-text { font-family: 'Jua', sans-serif; font-size: 20px; color: var(--ink); line-height: 1.4; margin-bottom: 16px; }
 </style>
 </head>
 <body>
@@ -280,10 +269,8 @@
 <!-- ==================== SCREEN 0: LANGUAGE SELECT ==================== -->
 <section id="screen-lang" class="screen active">
   <div class="img-wrap" style="min-height: 250px;">
-    <div class="sparkle s1"></div>
-    <div class="sparkle s2"></div>
-    <div class="sparkle s3"></div>
-    <img src="bee.svg" alt="bee" class="bee-img fly-in">
+    <div class="sparkle s1"></div><div class="sparkle s2"></div><div class="sparkle s3"></div>
+    <img src="bee.svg" alt="bee" class="bee-img fly-in" onerror="this.src='https://cdn-icons-png.flaticon.com/512/806/806055.png'">
   </div>
 
   <div class="speech-bubble center">
@@ -294,148 +281,77 @@
 
   <div class="lang-grid">
     <button class="btn-game" style="background: var(--white); color: var(--ink);" onclick="setLang('ko')">🇰🇷 한국어</button>
-    <button class="btn-game" style="background: #FFF4D4; color: var(--ink);" onclick="setLang('en')">🇺🇸 English</button>
+    <button class="btn-game" style="background: #FFF4D4; color: var(--ink);" onclick="setLang('en')">🌐 English</button>
     <button class="btn-game" style="background: #DDF0E6; color: var(--ink);" onclick="setLang('id')">🇮🇩 Bahasa</button>
-    <button class="btn-game" style="background: #FADCD5; color: var(--ink);" onclick="setLang('zh')">🇨🇳 中文</button>
+    <button class="btn-game" style="background: #FADCD5; color: var(--ink);" onclick="setLang('ja')">🇯🇵 日本語</button>
   </div>
 </section>
 
 <!-- ==================== SCREEN 1: LANDING ==================== -->
 <section id="screen-landing" class="screen">
-  <div class="nav-bar">
-    <button class="back-btn" onclick="goto('lang')">← 뒤로</button>
-  </div>
-
-  <div class="img-wrap">
-    <div class="sparkle s1"></div>
-    <div class="sparkle s3"></div>
-    <img src="bee2.svg" alt="bee2" class="bee-img anim-hover">
-  </div>
-
+  <div class="nav-bar"><button class="back-btn" onclick="goto('lang')">← 뒤로</button></div>
+  <div class="img-wrap"><div class="sparkle s1"></div><div class="sparkle s3"></div><img src="bee2.svg" alt="bee2" class="bee-img anim-hover" onerror="this.src='https://cdn-icons-png.flaticon.com/512/806/806055.png'"></div>
   <div class="speech-bubble center">
     <div class="honey-drip"></div>
     <h1 id="landing-title" data-t="what_is_saju_title" style="margin-bottom: 12px; color: var(--btn-red);">자연의 이치로 읽는 나의 운세</h1>
-    <p data-t="what_is_saju_p1">한국의 전통 명리학(Korean Fortune)은 미신이 아닙니다. 태어난 계절과 자연의 기운을 바탕으로 타고난 운명의 흐름을 읽어내는 지혜입니다.</p>
-    <p data-t="what_is_saju_p3" style="margin-top: 12px; color: var(--btn-blue);">당신이 미처 몰랐던 내면의 풍경을 따뜻하고 진정성 있는 이야기로 풀어드립니다.</p>
+    <p data-t="what_is_saju_p1">한국의 전통 명리학은 태어난 자연의 기운을 바탕으로 운명을 읽어내는 지혜입니다.</p>
+    <p data-t="what_is_saju_p3" style="margin-top: 12px; color: var(--btn-blue);">당신이 미처 몰랐던 내면의 풍경을 풀어드립니다.</p>
   </div>
-
   <button class="btn-game btn-white mt-sm" onclick="goto('hub')" data-t="cta_check_saju" style="border-color: var(--btn-blue); color: var(--btn-blue);">내 이야기 들으러 가기</button>
 </section>
 
 <!-- ==================== SCREEN 2: HUB ==================== -->
 <section id="screen-hub" class="screen">
-  <div class="nav-bar">
-    <button class="back-btn" onclick="goto('landing')" data-t="btn_home_only">← 처음으로</button>
-  </div>
-
-  <div class="img-wrap" style="min-height: 120px;">
-    <img src="honeypot.svg" alt="honeypot" class="honey-img-small anim-hover">
-  </div>
-
-  <div class="center mb-sm">
-    <h1 data-t="hub_pick_title">무엇이 궁금하신가요?</h1>
-  </div>
+  <div class="nav-bar"><button class="back-btn" onclick="goto('landing')" data-t="btn_home_only">← 처음으로</button></div>
+  <div class="img-wrap" style="min-height: 120px;"><img src="honeypot.svg" alt="honeypot" class="honey-img-small anim-hover" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1206/1206584.png'"></div>
+  <div class="center mb-sm"><h1 data-t="hub_pick_title">무엇이 궁금하신가요?</h1></div>
 
   <div class="menu-grid">
-    <div class="tile-game" onclick="openReading('daily')">
-      <div class="tile-price" data-t="p_ad" style="background: var(--btn-green); padding: 4px 10px;">📺 광고 보기</div>
-      <div class="tile-icon">🍯</div>
-      <div class="tile-title" data-t="menu_daily">오늘의 운세</div>
-      <div class="tile-sub" data-t="menu_daily_sub">오늘 하루의 기운</div>
-    </div>
-    
-    <div class="tile-game" onclick="openReading('yearly')">
-      <div class="tile-price" data-t="p_std">$1.99</div>
-      <div class="tile-icon">🌅</div>
-      <div class="tile-title" data-t="menu_yearly">신년 운세</div>
-      <div class="tile-sub" data-t="menu_yearly_sub">따뜻한 1년 계획</div>
-    </div>
-    
-    <div class="tile-game" onclick="openReading('wealth')">
-      <div class="tile-price" data-t="p_std">$1.99</div>
-      <div class="tile-icon">💰</div>
-      <div class="tile-title" data-t="menu_wealth">재물운</div>
-      <div class="tile-sub" data-t="menu_wealth_sub">나만의 금전 그릇</div>
-    </div>
-    
-    <div class="tile-game" onclick="openReading('love')">
-      <div class="tile-price" data-t="p_std">$1.99</div>
-      <div class="tile-icon">🌸</div>
-      <div class="tile-title" data-t="menu_love">애정운</div>
-      <div class="tile-sub" data-t="menu_love_sub">다정한 인연 찾기</div>
-    </div>
-
-    <div class="tile-game" onclick="openReading('career')">
-      <div class="tile-price" data-t="p_std">$1.99</div>
-      <div class="tile-icon">✨</div>
-      <div class="tile-title" data-t="menu_career">성공운</div>
-      <div class="tile-sub" data-t="menu_career_sub">나에게 맞는 길</div>
-    </div>
-    
-    <div class="tile-game" onclick="openReading('academic')">
-      <div class="tile-price" data-t="p_std">$1.99</div>
-      <div class="tile-icon">📚</div>
-      <div class="tile-title" data-t="menu_academic">학업운</div>
-      <div class="tile-sub" data-t="menu_academic_sub">지혜의 흐름</div>
-    </div>
-
-    <div class="tile-game" onclick="openReading('health')">
-      <div class="tile-price" data-t="p_std">$1.99</div>
-      <div class="tile-icon">🍃</div>
-      <div class="tile-title" data-t="menu_health">건강운</div>
-      <div class="tile-sub" data-t="menu_health_sub">자연스러운 균형</div>
-    </div>
-
-    <div class="tile-game special" onclick="openReading('full')">
-      <div class="tile-price" data-t="p_full">$4.99</div>
-      <div class="tile-icon">📖</div>
-      <div class="tile-title" data-t="menu_full">마스터 리포트</div>
-      <div class="tile-sub" data-t="menu_full_sub" style="color:#FFF;">내 인생의 풍경화</div>
-    </div>
+    <div class="tile-game" onclick="openReading('daily')"><div class="tile-price" data-t="p_ad_short">📺 3초 광고</div><div class="tile-icon">🍯</div><div class="tile-title" data-t="menu_daily">오늘의 운세</div><div class="tile-sub" data-t="menu_daily_sub">오늘 하루의 기운</div></div>
+    <div class="tile-game" onclick="openReading('yearly')"><div class="tile-price badge-normal" data-t="p_ad_normal">📺 5초 광고</div><div class="tile-icon">🌅</div><div class="tile-title" data-t="menu_yearly">신년 운세</div><div class="tile-sub" data-t="menu_yearly_sub">따뜻한 1년 계획</div></div>
+    <div class="tile-game" onclick="openReading('wealth')"><div class="tile-price badge-normal" data-t="p_ad_normal">📺 5초 광고</div><div class="tile-icon">💰</div><div class="tile-title" data-t="menu_wealth">재물운</div><div class="tile-sub" data-t="menu_wealth_sub">나만의 금전 그릇</div></div>
+    <div class="tile-game" onclick="openReading('love')"><div class="tile-price badge-normal" data-t="p_ad_normal">📺 5초 광고</div><div class="tile-icon">🌸</div><div class="tile-title" data-t="menu_love">애정운</div><div class="tile-sub" data-t="menu_love_sub">다정한 인연 찾기</div></div>
+    <div class="tile-game" onclick="openReading('career')"><div class="tile-price badge-normal" data-t="p_ad_normal">📺 5초 광고</div><div class="tile-icon">✨</div><div class="tile-title" data-t="menu_career">성공운</div><div class="tile-sub" data-t="menu_career_sub">나에게 맞는 길</div></div>
+    <div class="tile-game" onclick="openReading('academic')"><div class="tile-price badge-normal" data-t="p_ad_normal">📺 5초 광고</div><div class="tile-icon">📚</div><div class="tile-title" data-t="menu_academic">학업운</div><div class="tile-sub" data-t="menu_academic_sub">지혜의 흐름</div></div>
+    <div class="tile-game" onclick="openReading('health')"><div class="tile-price badge-normal" data-t="p_ad_normal">📺 5초 광고</div><div class="tile-icon">🍃</div><div class="tile-title" data-t="menu_health">건강운</div><div class="tile-sub" data-t="menu_health_sub">자연스러운 균형</div></div>
+    <div class="tile-game special" onclick="openReading('full')"><div class="tile-price badge-premium" data-t="p_ad_premium">📺 7초 프리미엄</div><div class="tile-icon">📖</div><div class="tile-title" data-t="menu_full">마스터 리포트</div><div class="tile-sub" data-t="menu_full_sub" style="color:#FFF;">내 인생의 풍경화</div></div>
   </div>
 </section>
 
 <!-- ==================== SCREEN 3: INPUT FORM ==================== -->
 <section id="screen-input" class="screen">
-  <div class="nav-bar">
-    <button class="back-btn" onclick="goto('hub')" data-t="back_to_menu">← 뒤로</button>
-  </div>
-
-  <div class="img-wrap" style="min-height: 100px;">
-    <div class="sparkle s2"></div>
-    <img src="bee.svg" alt="bee" class="bee-img-small anim-hover">
-  </div>
+  <div class="nav-bar"><button class="back-btn" onclick="goto('hub')" data-t="back_to_menu">← 뒤로</button></div>
+  <div class="img-wrap" style="min-height: 100px;"><div class="sparkle s2"></div><img src="bee.svg" alt="bee" class="bee-img-small anim-hover" onerror="this.src='https://cdn-icons-png.flaticon.com/512/806/806055.png'"></div>
 
   <div class="card-game">
-    <div class="center mb-md">
-      <h2 data-t="onb_intro">정보를 알려주세요</h2>
-    </div>
+    <div class="center mb-md"><h2 data-t="onb_intro">정보를 알려주세요</h2></div>
     
     <div class="field">
-      <label data-t="label_name">이름 (선택)</label>
-      <input type="text" id="input-name" placeholder="홍길동" />
+      <label><span data-t="label_name">닉네임</span> <span style="color:var(--btn-red);">*</span></label>
+      <input type="text" id="input-name" />
     </div>
     <div class="field">
       <label><span data-t="label_date">생년월일 (양력)</span> <span style="color:var(--btn-red);">*</span></label>
       <input type="date" id="input-date" required />
+      <div style="font-size: 12px; font-weight: 800; color: var(--text-muted); margin-top: 4px;" data-t="privacy_notice">🔒 정보는 기기 내에서만 안전하게 처리됩니다.</div>
     </div>
     
     <div class="field" style="margin-bottom: 8px;">
       <label><span data-t="label_time">태어난 시간</span></label>
       <select id="input-time">
         <option value="" disabled selected data-t="time_opt_placeholder">시간을 선택해주세요</option>
-        <option value="ja" data-t="time_ja">23:30 ~ 01:29 (자시)</option>
-        <option value="chuk" data-t="time_chuk">01:30 ~ 03:29 (축시)</option>
-        <option value="in" data-t="time_in">03:30 ~ 05:29 (인시)</option>
-        <option value="myo" data-t="time_myo">05:30 ~ 07:29 (묘시)</option>
-        <option value="jin" data-t="time_jin">07:30 ~ 09:29 (진시)</option>
-        <option value="sa" data-t="time_sa">09:30 ~ 11:29 (사시)</option>
-        <option value="o" data-t="time_o">11:30 ~ 13:29 (오시)</option>
-        <option value="mi" data-t="time_mi">13:30 ~ 15:29 (미시)</option>
-        <option value="shin" data-t="time_shin">15:30 ~ 17:29 (신시)</option>
-        <option value="yu" data-t="time_yu">17:30 ~ 19:29 (유시)</option>
-        <option value="sul" data-t="time_sul">19:30 ~ 21:29 (술시)</option>
-        <option value="hae" data-t="time_hae">21:30 ~ 23:29 (해시)</option>
+        <option value="ja" data-t="time_ja">23:30 ~ 01:29</option>
+        <option value="chuk" data-t="time_chuk">01:30 ~ 03:29</option>
+        <option value="in" data-t="time_in">03:30 ~ 05:29</option>
+        <option value="myo" data-t="time_myo">05:30 ~ 07:29</option>
+        <option value="jin" data-t="time_jin">07:30 ~ 09:29</option>
+        <option value="sa" data-t="time_sa">09:30 ~ 11:29</option>
+        <option value="o" data-t="time_o">11:30 ~ 13:29</option>
+        <option value="mi" data-t="time_mi">13:30 ~ 15:29</option>
+        <option value="shin" data-t="time_shin">15:30 ~ 17:29</option>
+        <option value="yu" data-t="time_yu">17:30 ~ 19:29</option>
+        <option value="sul" data-t="time_sul">19:30 ~ 21:29</option>
+        <option value="hae" data-t="time_hae">21:30 ~ 23:29</option>
       </select>
     </div>
     <div class="time-checkbox-wrap">
@@ -445,33 +361,11 @@
 
     <div class="field mb-sm">
       <label data-t="label_gender">성별</label>
-      <select id="input-gender">
-        <option value="female" data-t="gender_f">여성</option>
-        <option value="male" data-t="gender_m">남성</option>
-      </select>
+      <select id="input-gender"><option value="female" data-t="gender_f">여성</option><option value="male" data-t="gender_m">남성</option></select>
     </div>
     
     <div id="form-error" class="error-msg"></div>
-    
     <button id="btn-submit-form" class="btn-game btn-blue mt-sm" onclick="submitInput()" data-t="onb_submit">사주 풍경화 그리기</button>
-  </div>
-</section>
-
-<!-- ==================== SCREEN: AD SIMULATION ==================== -->
-<section id="screen-ad" class="screen">
-  <div class="ad-container">
-    <div class="ad-timer-badge">
-      <span data-t="ad_timer_prefix">남은 시간 </span><span id="ad-timer-sec">3</span><span data-t="ad_timer_suffix">초</span>
-    </div>
-    <div class="img-wrap" style="min-height: 100px; margin-top: 20px;">
-      <img src="bee.svg" alt="bee" class="bee-img-small anim-hover">
-    </div>
-    <div class="ad-content">
-      <div class="ad-sponsor-label" data-t="ad_title">스폰서 메시지</div>
-      <div class="ad-main-text" data-t="ad_desc">사주 꿀벌이 꿀을 모으는 중입니다! 🐝💦<br>잠시만 기다려주시면 오늘의 운세가 열립니다.</div>
-      <div class="ad-sub-text">※ 실제 서비스 시 여기에 비디오나 배너 광고가 들어갑니다.</div>
-      <div class="loading-dots" style="margin-top: 10px;"><span></span><span></span><span></span></div>
-    </div>
   </div>
 </section>
 
@@ -479,12 +373,10 @@
 <section id="screen-loading" class="screen">
   <div class="center" style="margin-top: 25vh;">
     <div class="img-wrap" style="gap: 20px;">
-      <div class="sparkle s1"></div>
-      <div class="sparkle s3"></div>
-      <img src="bee2.svg" alt="bee" class="bee-img-small anim-hover">
-      <img src="honeypot.svg" alt="honeypot" class="honey-img-small anim-hover" style="animation-delay: 0.5s;">
+      <div class="sparkle s1"></div><div class="sparkle s3"></div>
+      <img src="bee2.svg" alt="bee" class="bee-img-small anim-hover" onerror="this.src='https://cdn-icons-png.flaticon.com/512/806/806055.png'">
+      <img src="honeypot.svg" alt="honeypot" class="honey-img-small anim-hover" style="animation-delay: 0.5s;" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1206/1206584.png'">
     </div>
-    
     <h2 class="mt-lg" id="loading-title-el" data-t="loading_title">명식을 세우는 중...</h2>
     <div class="loading-dots"><span></span><span></span><span></span></div>
   </div>
@@ -498,78 +390,51 @@
   </div>
 
   <div class="manseryeok-box" style="background: transparent; border: none; box-shadow: none; padding: 0;">
-    <div class="m-grid" id="reveal-grid">
-      <!-- Revealed sequentially by JS -->
-    </div>
+    <div class="m-grid" id="reveal-grid"></div>
   </div>
-
-  <button id="btn-reveal-next" class="btn-game btn-blue" style="opacity: 0; margin-top: 20px;" onclick="proceedToPaywallOrResult()" data-t="btn_read_story">내 이야기 보러가기</button>
+  <button id="btn-reveal-next" class="btn-game btn-blue" style="opacity: 0; margin-top: 20px;" onclick="proceedToAdOrResult()" data-t="btn_read_story">내 이야기 보러가기</button>
 </section>
 
-<!-- ==================== SCREEN 6: PAYWALL ==================== -->
-<section id="screen-paywall" class="screen">
-  <div class="nav-bar">
-    <button class="back-btn" onclick="goto('hub')" data-t="back_to_menu">← 메뉴</button>
-  </div>
-
-  <div class="img-wrap" style="min-height: 120px;">
-    <div class="sparkle s2"></div>
-    <img src="honeypot.svg" alt="honeypot" class="honey-img anim-hover">
-  </div>
-
-  <div class="speech-bubble center mt-sm">
+<!-- ==================== SCREEN: AD SIMULATION ==================== -->
+<section id="screen-ad" class="screen">
+  <div class="ad-container">
     <div class="honey-drip"></div>
-    <h1 id="paywall-title" style="color: var(--btn-red);">이야기 보따리 풀기</h1>
-    <p data-t="paywall_sub" style="margin-top:8px;">당신만을 위해 정성껏 쓴 다정한 편지를 확인해 보세요.</p>
-  </div>
-
-  <div class="card-game mt-sm">
-    <div class="center" style="margin-bottom: 24px; border-bottom: 2px dashed rgba(58,53,50,0.2); padding-bottom: 16px;">
-      <span id="pw-currency" style="font-family:'Jua'; font-size:24px; color:var(--btn-red);"></span>
-      <span id="pw-amount" style="font-family:'Jua'; font-size:48px;">1.99</span>
+    <div class="ad-timer-badge"><span data-t="ad_timer_prefix">남은 시간 </span><span id="ad-timer-sec">5</span><span data-t="ad_timer_suffix">초</span></div>
+    <div class="ad-content">
+      <div class="ad-sponsor-label" data-t="ad_title">스폰서 메시지</div>
+      <div id="real-ad-slot" style="min-height: 250px; background: rgba(0,0,0,0.05); border-radius: 12px; margin: 16px 0; display: flex; align-items: center; justify-content: center; border: 2px dashed var(--btn-blue);">
+        <p style="color: var(--btn-blue); font-size: 14px; font-weight: 700;">(구글 전면 광고 영역)</p>
+      </div>
+      <div class="ad-main-text" id="ad-desc-text" data-t="ad_desc">꿀을 모으는 중입니다! 🐝💦<br>잠시만 기다려주세요.</div>
+      <div class="loading-dots" style="margin-top: 10px;"><span></span><span></span><span></span></div>
     </div>
-
-    <button id="btn-paywall-checkout" class="btn-game btn-blue mb-sm" onclick="startCheckout()">💳 <span data-t="pay_stripe">결제하고 이야기 듣기</span></button>
-    <button class="btn-game btn-white" onclick="goto('hub')" data-t="maybe_later" style="font-size: 16px;">나중에 들을게요</button>
   </div>
 </section>
 
-<!-- ==================== SCREEN 7: RESULT ==================== -->
+<!-- ==================== SCREEN 6: RESULT ==================== -->
 <section id="screen-result" class="screen">
-  <div class="nav-bar">
-    <button class="back-btn" onclick="goto('hub')" data-t="back_to_menu">← 메뉴</button>
-  </div>
+  <div class="nav-bar"><button class="back-btn" onclick="goto('hub')" data-t="back_to_menu">← 메뉴</button></div>
 
   <div id="capture-container">
     <div class="img-wrap" style="min-height: 100px; padding-top: 10px;">
-      <div class="sparkle s1"></div>
-      <div class="sparkle s3"></div>
-      <img src="bee.svg" alt="bee" class="bee-img-small anim-hover">
+      <div class="sparkle s1"></div><div class="sparkle s3"></div>
+      <img src="bee.svg" alt="bee" class="bee-img-small anim-hover" onerror="this.src='https://cdn-icons-png.flaticon.com/512/806/806055.png'">
     </div>
-
     <div class="speech-bubble center">
       <div class="honey-drip"></div>
       <h1 id="result-title" style="color: var(--btn-blue);">결과가 도착했어요!</h1>
       <p data-t="your_saju_label">자, 이제 당신의 마음속 풍경을 보여드릴게요.</p>
     </div>
-
     <div id="result-content"></div>
   </div>
 
   <div class="share-wrapper">
-    <button id="btn-download-img" class="btn-game btn-green" onclick="downloadImage()">
-      📸 <span data-t="btn_save_img">이미지 저장</span>
-    </button>
-    <button id="btn-share-link" class="btn-game btn-blue" onclick="shareResult()">
-      💌 <span data-t="btn_share">공유하기</span>
-    </button>
+    <button id="btn-download-img" class="btn-game btn-green" onclick="downloadImage()">📸 <span data-t="btn_save_img">저장</span></button>
+    <button id="btn-share-link" class="btn-game btn-blue" onclick="openShareModal()">💌 <span data-t="btn_share">공유</span></button>
   </div>
 
   <div id="upsell-section" class="mt-lg">
-    <div class="center mb-sm">
-      <h2 data-t="explore_title">다른 이야기도 들어보실래요?</h2>
-    </div>
-
+    <div class="center mb-sm"><h2 data-t="explore_title">다른 이야기도 무료로 들어보실래요?</h2></div>
     <div class="menu-grid">
       <div class="tile-game" onclick="openReading('wealth')"><div class="tile-icon">💰</div><div class="tile-title" data-t="menu_wealth">재물운</div></div>
       <div class="tile-game" onclick="openReading('love')"><div class="tile-icon">🌸</div><div class="tile-title" data-t="menu_love">애정운</div></div>
@@ -578,10 +443,26 @@
   </div>
 </section>
 
+<!-- ==================== SHARE MODAL (BOTTOM SHEET) ==================== -->
+<div id="share-modal" class="modal-overlay" onclick="closeShareModal(event)">
+  <div class="share-sheet" onclick="event.stopPropagation()">
+    <div class="share-header">
+      <div class="share-title" data-t="share_sheet_title">이야기 공유하기</div>
+      <button class="btn-close-modal" onclick="closeShareModal(event)">✕</button>
+    </div>
+    <div class="share-btn-grid">
+      <button class="share-icon-btn" onclick="shareToWhatsApp()"><div class="share-icon-circle bg-wa"><svg width="26" height="26" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></div><div class="share-icon-label">WhatsApp</div></button>
+      <button class="share-icon-btn" onclick="shareToLINE()"><div class="share-icon-circle bg-line"><svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738S0 4.935 0 10.304c0 4.814 4.27 8.846 10.035 9.608.391.082.923.258 1.058.59.12.295.079.758.037 1.08l-.133 1.02c-.066.398-.314 1.549 1.357.844 1.671-.704 9.027-5.316 10.518-8.628C23.606 13.064 24 11.758 24 10.304zM7.174 13.123H5.321a.584.584 0 0 1-.583-.583V7.27a.584.584 0 0 1 .583-.584h1.853a.583.583 0 0 1 .583.584v5.27h1.492a.584.584 0 0 1 .583.583v1.07a.584.584 0 0 1-.583.583zm2.597-.583a.584.584 0 0 1-.584-.583V7.27a.584.584 0 0 1 .584-.584h1.07a.584.584 0 0 1 .583.584v4.689c0 .322-.261.583-.583.583h-1.07zm5.556 0h-1.07a.583.583 0 0 1-.583-.583V9.083l-1.921 2.871a.587.587 0 0 1-.486.25h-.002a.586.586 0 0 1-.483-.242L10.86 9.091v2.866a.583.583 0 0 1-.583.583h-1.071a.584.584 0 0 1-.583-.583V7.27a.584.584 0 0 1 .583-.584h1.07c.19 0 .363.09.47.234l2.032 2.766 2.031-2.766a.583.583 0 0 1 .47-.234h1.07a.584.584 0 0 1 .583.584v4.689a.584.584 0 0 1-.583.583zm4.512-3.864h-1.492v1.205h1.492a.584.584 0 0 1 .583.584v1.07a.584.584 0 0 1-.583.583H17.4a.584.584 0 0 1-.583-.583V7.27c0-.322.261-.584.583-.584h2.439a.584.584 0 0 1 .583.584v1.07a.584.584 0 0 1-.583.584z"/></svg></div><div class="share-icon-label">LINE</div></button>
+      <button class="share-icon-btn" onclick="shareToTwitter()"><div class="share-icon-circle bg-x"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div><div class="share-icon-label">X</div></button>
+      <button class="share-icon-btn" onclick="shareNative()"><div class="share-icon-circle bg-native">💬</div><div class="share-icon-label" data-t="share_btn_native">기본 공유</div></button>
+      <button class="share-icon-btn" onclick="copyLink()"><div class="share-icon-circle bg-link">🔗</div><div class="share-icon-label" data-t="share_btn_link">링크 복사</div></button>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <script>
-// --- Navigation & Flow ---
 function goto(screenId) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const target = document.getElementById('screen-' + screenId);
@@ -591,7 +472,6 @@ function goto(screenId) {
 
 function setLang(lang) {
   currentLang = TRANSLATIONS[lang] ? lang : 'en';
-  
   document.querySelectorAll('[data-t]').forEach(el => {
     const key = el.getAttribute('data-t');
     const text = getT(key);
@@ -599,24 +479,21 @@ function setLang(lang) {
     else el.innerHTML = text;
   });
   document.documentElement.lang = currentLang;
+  
+  // 시간 옵션도 언어에 맞게 재렌더링
+  const timeSelect = document.getElementById('input-time');
+  const t_opt = getT('time_opt_placeholder');
+  timeSelect.options[0].text = t_opt;
+  const timeKeys = ['ja','chuk','in','myo','jin','sa','o','mi','shin','yu','sul','hae'];
+  for(let i=0; i<12; i++) { timeSelect.options[i+1].text = getT('time_' + timeKeys[i]); }
+  
   goto('landing');
 }
-
-const PRICES = {
-  ko: { yearly: '1,900', wealth: '1,900', love: '1,900', career: '1,900', academic: '1,900', health: '1,900', full: '4,900' },
-  en: { yearly: '1.99', wealth: '1.99', love: '1.99', career: '1.99', academic: '1.99', health: '1.99', full: '4.99' },
-  id: { yearly: '29.000', wealth: '29.000', love: '29.000', career: '29.000', academic: '29.000', health: '29.000', full: '75.000' },
-  zh: { yearly: '15', wealth: '15', love: '15', career: '15', academic: '15', health: '15', full: '35' }
-};
-const CURRENCIES = { ko: '₩', en: '$', id: 'Rp', zh: '¥' };
-
-function getPriceAmount(lang, type) { return (PRICES[lang] || PRICES['en'])[type] || '1.99'; }
-function getCurrencySymbol(lang) { return CURRENCIES[lang] !== undefined ? CURRENCIES[lang] : '$'; }
 
 let currentLang = 'en'; 
 let currentReadingType = 'daily';
 let userInfo = null;
-let currentSaju = null; // 계산된 실제 사주 데이터 보관
+let currentSaju = null;
 
 function toggleTimeInput(checkbox) {
   const selectBox = document.getElementById('input-time');
@@ -626,17 +503,8 @@ function toggleTimeInput(checkbox) {
 
 function openReading(type) {
   currentReadingType = type;
-  if (!userInfo) {
-    goto('input'); 
-  } else {
-    if (type === 'daily') {
-      playAdFlow();
-    } else {
-      document.getElementById('loading-title-el').innerText = getT('loading_title');
-      goto('loading');
-      setTimeout(() => { showReveal(); }, 1500);
-    }
-  }
+  if (!userInfo) goto('input'); 
+  else playAdFlow(type);
 }
 
 function submitInput() {
@@ -649,6 +517,7 @@ function submitInput() {
   const nameVal = document.getElementById('input-name').value;
   const errBox = document.getElementById('form-error');
 
+  if (!nameVal.trim()) { errBox.innerText = getT('err_req_name'); errBox.style.display = 'block'; return; }
   if (!dateVal) { errBox.innerText = getT('err_req_date'); errBox.style.display = 'block'; return; }
   if (!timeVal) { errBox.innerText = getT('err_req_time'); errBox.style.display = 'block'; return; }
   
@@ -656,104 +525,87 @@ function submitInput() {
   btn.disabled = true; 
   
   userInfo = { name: nameVal, date: dateVal, time: timeVal };
-  currentSaju = calculateRealSaju(dateVal, timeVal); // 실제 사주 산출
+  currentSaju = calculateRealSaju(dateVal, timeVal);
   
-  if (currentReadingType === 'daily') {
-    btn.disabled = false;
-    playAdFlow(); 
-  } else {
-    document.getElementById('loading-title-el').innerText = getT('loading_title');
-    goto('loading');
-    setTimeout(() => { btn.disabled = false; showReveal(); }, 1800);
-  }
+  document.getElementById('loading-title-el').innerText = getT('loading_title');
+  goto('loading');
+  setTimeout(() => { btn.disabled = false; showReveal(); }, 1800);
 }
 
-// --- 광고 시뮬레이션 흐름 ---
-function playAdFlow() {
+function playAdFlow(type) {
   goto('ad');
-  let timeLeft = 3;
+  let timeLeft = type === 'full' ? 7 : (type === 'daily' ? 3 : 5);
   const timerEl = document.getElementById('ad-timer-sec');
   timerEl.innerText = timeLeft;
   
   const interval = setInterval(() => {
     timeLeft--;
     timerEl.innerText = timeLeft;
-    
-    if (timeLeft <= 0) {
-      clearInterval(interval);
-      document.getElementById('loading-title-el').innerText = getT('ad_reward');
-      goto('loading');
-      setTimeout(() => { showReveal(); }, 1200);
-    }
+    if (timeLeft <= 0) { clearInterval(interval); showResult(type); }
   }, 1000);
 }
 
-// --- [핵심] 실제 만세력(lunar-javascript) 연동 ---
 function calculateRealSaju(dateStr, timeStr) {
-  // 시간대 매핑 (대략적인 표준 시간)
-  const timeMap = {
-    'ja': [0, 30], 'chuk': [2, 30], 'in': [4, 30], 'myo': [6, 30],
-    'jin': [8, 30], 'sa': [10, 30], 'o': [12, 30], 'mi': [14, 30],
-    'shin': [16, 30], 'yu': [18, 30], 'sul': [20, 30], 'hae': [22, 30],
-    'unknown': [12, 0] // 모를 경우 정오 기준으로 일주 산출
-  };
-  
+  const timeMap = { 'ja': [0,30], 'chuk': [2,30], 'in': [4,30], 'myo': [6,30], 'jin': [8,30], 'sa': [10,30], 'o': [12,30], 'mi': [14,30], 'shin': [16,30], 'yu': [18,30], 'sul': [20,30], 'hae': [22,30], 'unknown': [12,0] };
   let [h, m] = timeMap[timeStr] || [12, 0];
   let [year, month, day] = dateStr.split('-').map(Number);
-  
-  // Lunar 라이브러리를 통한 사주 팔자 산출
   try {
     let solar = Solar.fromYmdHms(year, month, day, h, m, 0);
     let lunar = solar.getLunar();
     let baZi = lunar.getEightChar();
-    
-    // 천간(Stem) 10글자 배열
     const ganArr = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
     let dayGan = baZi.getDayGan();
-    let archIndex = ganArr.indexOf(dayGan); // 0 ~ 9 (10가지 아키타입)
-    if(archIndex === -1) archIndex = 0; // 안전장치
-
-    return {
-      yearPillar: baZi.getYear(),
-      monthPillar: baZi.getMonth(),
-      dayPillar: baZi.getDay(),
-      timePillar: timeStr === 'unknown' ? '??' : baZi.getTime(),
-      dayGan: dayGan,
-      archIndex: archIndex
-    };
-  } catch(e) {
-    console.error("만세력 산출 에러:", e);
-    return { yearPillar: "甲辰", monthPillar: "戊辰", dayPillar: "庚申", timePillar: "??", dayGan: "庚", archIndex: 6 };
-  }
+    let archIndex = ganArr.indexOf(dayGan); 
+    if(archIndex === -1) archIndex = 0; 
+    return { yearPillar: baZi.getYear(), monthPillar: baZi.getMonth(), dayPillar: baZi.getDay(), timePillar: timeStr === 'unknown' ? '??' : baZi.getTime(), dayGan: dayGan, archIndex: archIndex };
+  } catch(e) { return { yearPillar: "甲辰", monthPillar: "戊辰", dayPillar: "庚申", timePillar: "??", dayGan: "庚", archIndex: 6 }; }
 }
 
-function getArchetype() {
-  return currentSaju ? currentSaju.archIndex : 0;
-}
-
+function getArchetype() { return currentSaju ? currentSaju.archIndex : 0; }
 function getT(key, arch = null) { 
   let finalKey = arch !== null ? `${key}_${arch}` : key;
   return (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][finalKey]) || TRANSLATIONS['en'][finalKey] || finalKey; 
 }
 
-// 천간, 지지에 따른 이모지 및 한글 매핑 헬퍼 함수
+// 다국어 완벽 지원을 위한 한자 매핑 엔진
 const HANJA_MAP = {
-  "甲":{ko:"갑", em:"🌳", desc:"큰나무"}, "乙":{ko:"을", em:"🌿", desc:"풀꽃"}, "丙":{ko:"병", em:"☀️", desc:"태양"}, "丁":{ko:"정", em:"🔥", desc:"모닥불"}, "戊":{ko:"무", em:"🏔️", desc:"큰산"}, "己":{ko:"기", em:"🪴", desc:"정원"}, "庚":{ko:"경", em:"🪓", desc:"바위"}, "辛":{ko:"신", em:"💍", desc:"보석"}, "壬":{ko:"임", em:"🌊", desc:"바다"}, "癸":{ko:"계", em:"💧", desc:"봄비"},
-  "子":{ko:"자", em:"🐭", desc:"쥐"}, "丑":{ko:"축", em:"🐮", desc:"소"}, "寅":{ko:"인", em:"🐯", desc:"호랑이"}, "卯":{ko:"묘", em:"🐰", desc:"토끼"}, "辰":{ko:"진", em:"🐲", desc:"용"}, "巳":{ko:"사", em:"🐍", desc:"뱀"}, "午":{ko:"오", em:"🐴", desc:"말"}, "未":{ko:"미", em:"🐑", desc:"양"}, "申":{ko:"신", em:"🐵", desc:"원숭이"}, "酉":{ko:"유", em:"🐔", desc:"닭"}, "戌":{ko:"술", em:"🐶", desc:"개"}, "亥":{ko:"해", em:"🐷", desc:"돼지"}
+  "甲":{ko:"갑", en:"Yang Wood", id:"Kayu Yang", ja:"甲(きのえ)", em:"🌳", desc:{ko:"큰나무", en:"Tall Tree", id:"Pohon Besar", ja:"大樹"}},
+  "乙":{ko:"을", en:"Yin Wood", id:"Kayu Yin", ja:"乙(きのと)", em:"🌿", desc:{ko:"풀꽃", en:"Vine", id:"Tanaman Rambat", ja:"草花"}},
+  "丙":{ko:"병", en:"Yang Fire", id:"Api Yang", ja:"丙(ひのえ)", em:"☀️", desc:{ko:"태양", en:"Sun", id:"Matahari", ja:"太陽"}},
+  "丁":{ko:"정", en:"Yin Fire", id:"Api Yin", ja:"丁(ひのと)", em:"🔥", desc:{ko:"모닥불", en:"Campfire", id:"Api Unggun", ja:"焚き火"}},
+  "戊":{ko:"무", en:"Yang Earth", id:"Tanah Yang", ja:"戊(つちのえ)", em:"🏔️", desc:{ko:"큰산", en:"Mountain", id:"Gunung", ja:"大山"}},
+  "己":{ko:"기", en:"Yin Earth", id:"Tanah Yin", ja:"己(つちのと)", em:"🪴", desc:{ko:"정원", en:"Garden", id:"Taman", ja:"庭園"}},
+  "庚":{ko:"경", en:"Yang Metal", id:"Logam Yang", ja:"庚(かのえ)", em:"🪓", desc:{ko:"바위", en:"Rock", id:"Batu", ja:"岩"}},
+  "辛":{ko:"신", en:"Yin Metal", id:"Logam Yin", ja:"辛(かのと)", em:"💍", desc:{ko:"보석", en:"Jewelry", id:"Permata", ja:"宝石"}},
+  "壬":{ko:"임", en:"Yang Water", id:"Air Yang", ja:"壬(みずのえ)", em:"🌊", desc:{ko:"바다", en:"Ocean", id:"Lautan", ja:"海"}},
+  "癸":{ko:"계", en:"Yin Water", id:"Air Yin", ja:"癸(みずのと)", em:"💧", desc:{ko:"봄비", en:"Rain", id:"Hujan", ja:"春雨"}},
+  "子":{ko:"자", en:"Rat", id:"Tikus", ja:"子(ね)", em:"🐭", desc:{ko:"쥐", en:"Rat", id:"Tikus", ja:"ネズミ"}},
+  "丑":{ko:"축", en:"Ox", id:"Sapi", ja:"丑(うし)", em:"🐮", desc:{ko:"소", en:"Ox", id:"Sapi", ja:"ウシ"}},
+  "寅":{ko:"인", en:"Tiger", id:"Macan", ja:"寅(とら)", em:"🐯", desc:{ko:"호랑이", en:"Tiger", id:"Macan", ja:"トラ"}},
+  "卯":{ko:"묘", en:"Rabbit", id:"Kelinci", ja:"卯(う)", em:"🐰", desc:{ko:"토끼", en:"Rabbit", id:"Kelinci", ja:"ウサギ"}},
+  "辰":{ko:"진", en:"Dragon", id:"Naga", ja:"辰(たつ)", em:"🐲", desc:{ko:"용", en:"Dragon", id:"Naga", ja:"タツ"}},
+  "巳":{ko:"사", en:"Snake", id:"Ular", ja:"巳(み)", em:"🐍", desc:{ko:"뱀", en:"Snake", id:"Ular", ja:"ヘビ"}},
+  "午":{ko:"오", en:"Horse", id:"Kuda", ja:"午(うま)", em:"🐴", desc:{ko:"말", en:"Horse", id:"Kuda", ja:"ウマ"}},
+  "未":{ko:"미", en:"Sheep", id:"Domba", ja:"未(ひつじ)", em:"🐑", desc:{ko:"양", en:"Sheep", id:"Domba", ja:"ヒツジ"}},
+  "申":{ko:"신", en:"Monkey", id:"Monyet", ja:"申(さる)", em:"🐵", desc:{ko:"원숭이", en:"Monkey", id:"Monyet", ja:"サル"}},
+  "酉":{ko:"유", en:"Rooster", id:"Ayam", ja:"酉(とり)", em:"🐔", desc:{ko:"닭", en:"Rooster", id:"Ayam", ja:"トリ"}},
+  "戌":{ko:"술", en:"Dog", id:"Anjing", ja:"戌(いぬ)", em:"🐶", desc:{ko:"개", en:"Dog", id:"Anjing", ja:"イヌ"}},
+  "亥":{ko:"해", en:"Pig", id:"Babi", ja:"亥(い)", em:"🐷", desc:{ko:"돼지", en:"Pig", id:"Babi", ja:"イノシシ"}}
 };
 
 function formatPillar(hanjaStr) {
-  if (!hanjaStr || hanjaStr === "??") return { hangul: "모름", em: "☁️", animalEm: "❓", animalDesc: "알수없음" };
+  if (!hanjaStr || hanjaStr === "??") return { hangul: getT('unknown_pillar'), em: "☁️", animalEm: "❓", animalDesc: getT('unknown_desc') };
   const gan = hanjaStr.charAt(0);
   const zhi = hanjaStr.charAt(1);
-  const ganData = HANJA_MAP[gan] || {ko:"", em:"✨", desc:""};
-  const zhiData = HANJA_MAP[zhi] || {ko:"", em:"❓", desc:""};
-  return {
-    hangul: ganData.ko + zhiData.ko,
-    em: ganData.em,
-    animalEm: zhiData.em,
-    animalDesc: zhiData.desc
-  };
+  const ganData = HANJA_MAP[gan] || {ko:"", en:"", id:"", ja:"", em:"✨", desc:{ko:"", en:"", id:"", ja:""}};
+  const zhiData = HANJA_MAP[zhi] || {ko:"", en:"", id:"", ja:"", em:"❓", desc:{ko:"", en:"", id:"", ja:""}};
+  
+  // 현재 언어 설정에 맞는 텍스트 반환
+  const textGan = ganData[currentLang] || ganData.ko;
+  const textZhi = zhiData[currentLang] || zhiData.ko;
+  const textDesc = zhiData.desc[currentLang] || zhiData.desc.ko;
+
+  return { hangul: `${textGan} ${textZhi}`, em: ganData.em, animalEm: zhiData.em, animalDesc: textDesc };
 }
 
 function getPillarsData() {
@@ -762,7 +614,6 @@ function getPillarsData() {
   const pMonth = formatPillar(currentSaju.monthPillar);
   const pDay = formatPillar(currentSaju.dayPillar);
   const pTime = formatPillar(currentSaju.timePillar);
-
   return [
     { label: getT('m_year'), text: pYear.hangul, emoji: pYear.em, animalEm: pYear.animalEm, desc: pYear.animalDesc },
     { label: getT('m_month'), text: pMonth.hangul, emoji: pMonth.em, animalEm: pMonth.animalEm, desc: pMonth.animalDesc },
@@ -775,65 +626,26 @@ function showReveal() {
   goto('reveal');
   const grid = document.getElementById('reveal-grid');
   const btn = document.getElementById('btn-reveal-next');
-  btn.style.display = 'none';
-  btn.style.opacity = '0';
-  
+  btn.style.display = 'none'; btn.style.opacity = '0';
   const pillars = getPillarsData();
   let html = '';
   const reversedPillars = [...pillars].reverse();
-  
   reversedPillars.forEach(p => {
     const boxStyle = p.isMain ? 'border-color: var(--btn-red); background-color: #FFF5F5;' : '';
     const textStyle = p.isMain ? 'color: var(--btn-red); font-weight: 800;' : '';
-    html += `
-      <div class="m-col reveal-pop">
-        <div class="m-label">${p.label}</div>
-        <div class="m-char" style="${boxStyle}">
-          <div style="display:flex; gap:4px;"><span class="m-emoji">${p.emoji}</span><span class="m-emoji">${p.animalEm}</span></div>
-          <span class="m-hangul" style="${textStyle}">${p.text}</span>
-          <span class="m-text" style="${textStyle}">${p.desc}</span>
-        </div>
-      </div>
-    `;
+    html += `<div class="m-col reveal-pop"><div class="m-label">${p.label}</div><div class="m-char" style="${boxStyle}"><div style="display:flex; gap:4px;"><span class="m-emoji">${p.emoji}</span><span class="m-emoji">${p.animalEm}</span></div><span class="m-hangul" style="${textStyle}; font-size:15px;">${p.text}</span><span class="m-text" style="${textStyle}">${p.desc}</span></div></div>`;
   });
   grid.innerHTML = html;
-  
   const items = document.querySelectorAll('.reveal-pop');
   items.forEach((el, index) => { setTimeout(() => { el.classList.add('show'); }, 500 * (index + 1)); });
-  
-  setTimeout(() => {
-    btn.style.display = 'flex';
-    setTimeout(() => { btn.style.opacity = '1'; }, 50);
-  }, 500 * items.length + 600);
+  setTimeout(() => { btn.style.display = 'flex'; setTimeout(() => { btn.style.opacity = '1'; }, 50); }, 500 * items.length + 600);
 }
 
-function proceedToPaywallOrResult() {
-  if (currentReadingType === 'daily') {
-    showResult('daily');
-  } else {
-    document.getElementById('paywall-title').innerText = getT('r_' + currentReadingType + '_title') || getT('r_full_title');
-    document.getElementById('pw-currency').innerText = getCurrencySymbol(currentLang);
-    document.getElementById('pw-amount').innerText = getPriceAmount(currentLang, currentReadingType);
-    goto('paywall');
-  }
-}
-
-function startCheckout() {
-  const btn = document.getElementById('btn-paywall-checkout');
-  if (btn.disabled) return;
-  btn.disabled = true;
-  document.getElementById('loading-title-el').innerText = getT('loading_title');
-  goto('loading');
-  setTimeout(() => { 
-    btn.disabled = false;
-    showResult(currentReadingType); 
-  }, 1500);
-}
+function proceedToAdOrResult() { playAdFlow(currentReadingType); }
 
 function buildReportSection(titleKey, bodyKey, archIndex) {
   const titleText = getT(titleKey, archIndex);
   if (!titleText || titleText === titleKey + '_' + archIndex) return ''; 
-  /* 리딩 파트(report-section) 상단에도 꿀 흘러내리는 효과 추가 */
   return `<div class="report-section"><div class="honey-drip"></div><div class="report-label">${titleText}</div><div class="deep-text">${getT(bodyKey, archIndex)}</div></div>`;
 }
 
@@ -843,15 +655,7 @@ function generateManseryeokHTMLForReport() {
   let colsHtml = reversedPillars.map(p => {
     const boxStyle = p.isMain ? 'border-color: var(--btn-red); background-color: #FFF5F5;' : '';
     const textStyle = p.isMain ? 'color: var(--btn-red); font-weight: 800;' : '';
-    return `
-      <div class="m-col">
-        <div class="m-label">${p.label}</div>
-        <div class="m-char" style="${boxStyle}">
-          <div style="display:flex; gap:4px;"><span class="m-emoji">${p.emoji}</span><span class="m-emoji">${p.animalEm}</span></div>
-          <span class="m-hangul" style="${textStyle}">${p.text}</span>
-          <span class="m-text" style="${textStyle}">${p.desc}</span>
-        </div>
-      </div>`;
+    return `<div class="m-col"><div class="m-label">${p.label}</div><div class="m-char" style="${boxStyle}"><div style="display:flex; gap:4px;"><span class="m-emoji">${p.emoji}</span><span class="m-emoji">${p.animalEm}</span></div><span class="m-hangul" style="${textStyle}; font-size:15px;">${p.text}</span><span class="m-text" style="${textStyle}">${p.desc}</span></div></div>`;
   }).join('');
   return `<div class="manseryeok-box"><div class="center mb-sm"><span style="font-family:'Jua'; font-size:18px; color: var(--btn-blue);">${getT('m_title')}</span></div><div class="m-grid">${colsHtml}</div><div class="center mt-sm"><span style="font-size: 12px; color: var(--text-muted); font-weight: 700;">${getT('m_desc')}</span></div></div>`;
 }
@@ -910,261 +714,236 @@ async function downloadImage() {
   finally { setTimeout(() => { btnSpan.innerText = originalText; }, 2000); }
 }
 
-function shareResult() {
-  const shareData = { title: getT('share_title'), text: getT('share_text'), url: window.location.href };
-  const btnSpan = document.querySelector('#btn-share-link span');
-  const originalText = btnSpan.innerText;
+function openShareModal() { document.getElementById('share-modal').classList.add('show'); }
+function closeShareModal(e) { if(e) e.preventDefault(); document.getElementById('share-modal').classList.remove('show'); }
+function getShareData() { return { title: getT('share_title'), text: getT('share_text') + "\n\n", url: window.location.href }; }
 
-  if (navigator.share) {
-    navigator.share(shareData).catch((e) => console.log('Share canceled'));
+function shareToWhatsApp() { const d = getShareData(); window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(d.text + d.url)}`, '_blank'); closeShareModal(); }
+function shareToLINE() { const d = getShareData(); window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(d.url)}&text=${encodeURIComponent(d.text)}`, '_blank'); closeShareModal(); }
+function shareToTwitter() { const d = getShareData(); window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(d.text)}&url=${encodeURIComponent(d.url)}`, '_blank'); closeShareModal(); }
+
+function shareNative() {
+  const data = getShareData();
+  if (navigator.share) { navigator.share(data).catch(() => {}); closeShareModal(); } else { copyLink(); }
+}
+
+function copyLink() {
+  const d = getShareData(); const copyText = `${d.title}\n\n${d.text}${d.url}`;
+  const labelEl = document.querySelector('.bg-link').nextElementSibling;
+  const originalText = labelEl.innerText;
+  const doCopy = () => { labelEl.innerText = getT('copied'); setTimeout(() => { labelEl.innerText = originalText; closeShareModal(); }, 1500); };
+  if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(copyText).then(doCopy);
   } else {
-    const copyText = `${shareData.title}\n\n${shareData.text}\n${shareData.url}`;
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(copyText).then(() => { btnSpan.innerText = getT('copied'); });
-    } else {
-      const textArea = document.createElement("textarea");
-      textArea.value = copyText; document.body.appendChild(textArea); textArea.select();
-      try { document.execCommand('copy'); btnSpan.innerText = getT('copied'); } catch (err) {}
-      document.body.removeChild(textArea);
-    }
-    setTimeout(() => { btnSpan.innerText = originalText; }, 2000);
+    const textArea = document.createElement("textarea"); textArea.value = copyText; document.body.appendChild(textArea); textArea.select();
+    try { document.execCommand('copy'); doCopy(); } catch (err) {} document.body.removeChild(textArea);
   }
 }
 
-// --- TRANSLATIONS DICTIONARY (10 천간 아키타입으로 완성) ---
+// -------------------------------------------------------------
+// TRANSLATIONS DICTIONARY (글로벌 고도화 완료)
+// -------------------------------------------------------------
 const TRANSLATIONS = {
   ko: {
     btn_home_only: "처음으로", back_to_menu: "메뉴", cta_check_saju: "내 이야기 들으러 가기",
     what_is_saju_title: "자연의 이치로 읽는 나의 운세", what_is_saju_p1: "한국의 전통 명리학(Korean Fortune)은 미신이 아닙니다. 태어난 계절과 자연의 기운을 바탕으로 타고난 운명의 흐름을 논리적으로 읽어내는 삶의 지혜입니다.", what_is_saju_p3: "당신이 미처 몰랐던 내면의 풍경을, 따뜻하고 진정성 있는 '인생의 참고서'로 깊이 있게 풀어드립니다.",
     hub_pick_title: "어떤 이야기가 궁금하신가요?", hub_pick_sub: "명리학자의 따뜻한 시선으로 당신의 길을 비춰드릴게요.",
-    p_ad: "📺 광고 보기", p_yearly: "₩1,900", p_wealth: "₩1,900", p_std: "₩1,900", p_full: "₩4,900",
+    p_ad_short: "📺 3초 무료 보기", p_ad_normal: "📺 5초 무료 보기", p_ad_premium: "📺 7초 무료 보기",
     menu_daily: "오늘의 운세", menu_daily_sub: "오늘 하루의 기운", menu_yearly: "신년 운세", menu_yearly_sub: "따뜻하게 채워갈 1년", menu_wealth: "재물운", menu_wealth_sub: "나만의 금전 그릇", menu_love: "애정운", menu_love_sub: "나를 알아줄 인연", menu_career: "성공운", menu_career_sub: "나에게 꼭 맞는 길", menu_academic: "학업운", menu_academic_sub: "집중과 지혜의 문", menu_health: "건강운", menu_health_sub: "자연스러운 몸의 균형", menu_full: "마스터 리포트", menu_full_sub: "내 인생의 완벽한 해설서",
-    onb_intro: "당신의 별자리를 알려주세요", label_name: "이름 (선택)", label_date: "생년월일 (양력)", label_time: "태어난 시간", time_opt_placeholder: "시간을 선택해주세요", time_unknown_check: "태어난 시간을 잘 모르겠어요", label_gender: "성별", gender_f: "여성", gender_m: "남성", onb_submit: "자연의 기운 확인하기", err_req_date: "태어난 날짜를 꼭 알려주세요.", err_req_time: "시간을 고르거나 '잘 모르겠어요'를 체크해주세요.",
     
-    ad_title: "스폰서 메시지", ad_desc: "사주 꿀벌이 꿀을 모으는 중입니다! 🐝💦<br>잠시만 기다려주시면 오늘의 운세가 열립니다.", ad_timer_prefix: "남은 시간 ", ad_timer_suffix: "초", ad_reward: "🍯 운세 배달 준비 완료!",
+    onb_intro: "당신의 별자리를 알려주세요", label_name: "닉네임", label_date: "생년월일 (양력)", label_time: "태어난 시간", time_opt_placeholder: "시간을 선택해주세요", time_unknown_check: "태어난 시간을 잘 모르겠어요", label_gender: "성별", gender_f: "여성", gender_m: "남성", onb_submit: "자연의 기운 확인하기", 
+    err_req_name: "닉네임을 꼭 입력해주세요.", err_req_date: "태어난 날짜를 꼭 알려주세요.", err_req_time: "시간을 고르거나 '잘 모르겠어요'를 체크해주세요.",
+    
+    unknown_pillar: "모름", unknown_desc: "알수없음",
+    privacy_notice: "🔒 입력하신 정보는 서버에 저장되지 않고 기기 내에서만 안전하게 처리됩니다.",
+    share_sheet_title: "결과 공유하기", share_btn_native: "기본 공유", share_btn_link: "링크 복사",
+    
+    ad_title: "스폰서 메시지", ad_desc: "사주 꿀벌이 꿀을 모으는 중입니다! 🐝💦<br>잠시만 기다려주시면 리포트가 열립니다.", ad_timer_prefix: "남은 시간 ", ad_timer_suffix: "초", ad_reward: "🍯 운세 배달 준비 완료!",
     loading_title: "만세력을 산출하는 중...", loading_sub: "태어난 날의 기운을 모아 예쁜 나무와 숲으로 그려보고 있어요. 조금만 기다려주세요.",
-    reveal_title: "당신의 사주 명식", reveal_sub: "실제 만세력 기반으로 당신의 기운을 뽑아냈습니다.", btn_read_story: "내 운세 이야기 풀기",
-    paywall_sub: "오직 당신만을 위해 정성껏 써 내려간 인생의 참고서를 열어보시겠어요?", price_desc: "단 한 번 결제로 언제든 꺼내볼 수 있어요", pay_stripe: "결제하고 이야기 듣기", maybe_later: "나중에 다시 올게요",
-    your_saju_label: "자, 이제 당신의 마음속 풍경을 보여드릴게요.", explore_title: "다른 주제의 이야기도 들어보실래요?",
+    reveal_title: "당신의 자연 기운", reveal_sub: "자연을 닮은 당신만의 기운을 뽑아냈습니다.", btn_read_story: "운세 이야기 열어보기",
+    your_saju_label: "자, 이제 당신의 마음속 풍경을 보여드릴게요.", explore_title: "다른 주제의 이야기도 무료로 들어보실래요?",
     m_title: "내 사주의 자연 기운", m_desc: "* 빨간 테두리(일주)가 나를 대표하는 핵심 기운입니다.", m_year: "태어난 해 (년)", m_month: "태어난 달 (월)", m_day: "태어난 날 (일)", m_time: "태어난 시간 (시)",
     r_daily_title: "오늘의 운세", r_yearly_title: "올해의 따뜻한 발자취", r_wealth_title: "내 지갑 속 풍경화", r_love_title: "내 곁의 따뜻한 온도", r_career_title: "나비가 날아오를 직업운", r_academic_title: "지혜가 샘솟는 학업운", r_health_title: "내 몸의 다정한 소리", r_full_title: "당신을 위한 마스터 해설서",
+    
     time_ja: "23:30 ~ 01:29 (자시)", time_chuk: "01:30 ~ 03:29 (축시)", time_in: "03:30 ~ 05:29 (인시)", time_myo: "05:30 ~ 07:29 (묘시)", time_jin: "07:30 ~ 09:29 (진시)", time_sa: "09:30 ~ 11:29 (사시)", time_o: "11:30 ~ 13:29 (오시)", time_mi: "13:30 ~ 15:29 (미시)", time_shin: "15:30 ~ 17:29 (신시)", time_yu: "17:30 ~ 19:29 (유시)", time_sul: "19:30 ~ 21:29 (술시)", time_hae: "21:30 ~ 23:29 (해시)",
-    
     btn_save_img: "이미지 저장", btn_share: "공유하기", saving_img: "저장 중...", saved_img: "저장 완료!", copied: "복사 완료!",
-    share_title: "🍯 사주 꿀벌이 들려주는 나의 자연 기운", share_text: "실제 만세력으로 읽는 따뜻한 사주 스토리텔링! 당신의 마음속 풍경화는 어떤 모습일까요? 지금 확인해보세요.",
+    share_title: "🍯 사주 꿀벌이 들려주는 나의 자연 기운", share_text: "무료로 읽는 따뜻한 사주 스토리텔링! 당신의 마음속 풍경화는 어떤 모습일까요? 지금 확인해보세요.",
     
-    // --- 0: 甲 (Yang Wood) 큰 나무 ---
-    mock_daily_head_0: "🍯 오늘의 운세: 생각의 스위치를 끄고 가볍게 움직이세요", mock_daily_body_0: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>잔잔했던 마음에 동심원이 그려지며, 무언가 새로운 일을 시작하라고 자연이 당신의 등을 가볍게 밀어주고 있습니다.</p><h3>꿀벌의 다정한 처방전</h3><p>머릿속에만 담아둔 100점짜리 완벽한 상상보다, 밖으로 툭 꺼낸 서투른 행동이 생각지도 못한 행운의 씨앗을 물어다 줍니다.</p>", 
-    sec_intro_title_0: "🌿 마음의 풍경: 하늘을 향해 곧게 뻗은 거목 (甲)", sec_intro_body_0: "<p>만세력에 비친 당신은 맑고 고요한 호숫가에 깊게 뿌리를 내린 <strong>크고 든든한 나무(甲木)</strong>입니다. 굽히기를 싫어하는 강직함과 위를 향해 성장하려는 생명력이 가득합니다. 당신에게 지금 필요한 것은 불완전함을 껴안은 채 세상 밖으로 가지를 뻗어내는 <strong>작은 용기</strong>입니다.</p>", 
-    sec_flow_title_0: "🌊 운명의 흐름: 봄볕을 맞이하는 거목", sec_flow_body_0: "<p>그동안 속으로만 품어왔던 훌륭한 아이디어들이, 드디어 따스한 햇살을 받아 현실적인 결과물로 나타나는 성장의 단계입니다.</p>", 
-    sec_yearly_title_0: "🌅 올해의 운세: 문을 열고 귀인을 맞이하세요", sec_yearly_body_0: "<p>올해는 현실적인 결과물이 손에 잡히기 시작합니다. 혼자서 모든 것을 해결하려는 태도는 피하고 밖으로 나가 소통하세요.</p>", 
-    sec_monthly_title_0: "🗓️ 올해의 흐름", sec_monthly_body_0: "<ul><li><strong>[상반기]</strong> 망설이지 말고 당장 시작해 보세요. 귀인이 돕습니다.</li><li><strong>[하반기]</strong> 땀방울이 금전으로 나타납니다. 내실을 다지세요.</li></ul>",
-    sec_wealth_title_0: "💰 재물운: 마르지 않는 금전 밭", sec_wealth_body_0: "<p>거대한 재물은 <strong>'깊이 있는 전문성'</strong>에서 마르지 않는 샘물처럼 흘러나옵니다. 보증이나 돈거래는 피하십시오.</p>", 
-    sec_career_title_0: "✨ 성공운: 전체 판을 지휘하는 멘토", sec_career_body_0: "<p>전체적인 맥락을 파악하는 '지혜로운 멘토'나 리더의 역할이 완벽하게 맞습니다.</p>", 
-    sec_academic_title_0: "📚 학업운: 스펀지 같은 흡수력", sec_academic_body_0: "<p>스펀지가 물을 빨아들이듯 흡수하는 재능이 있습니다. 완벽주의를 내려놓으세요.</p>", 
-    sec_love_title_0: "🌸 애정운: 차가운 심연을 데워줄 햇살", sec_love_body_0: "<p>환하게 웃으며 손을 이끌어 줄 <strong>밝고 따뜻한 사람</strong>이 최고의 파트너입니다.</p>", 
-    sec_health_title_0: "🍃 건강운: 체온을 높이세요", sec_health_body_0: "<p>환절기에는 몸을 따뜻하게 감싸야 합니다.</p>", 
-    sec_advice_title_0: "🍯 다정한 조언", sec_advice_body_0: "<p>햇볕을 쬐며 산책을 해보세요. 긍정적인 행동력을 줍니다.</p>",
+    // 갑목 (0)
+    mock_daily_head_0: "🍯 오늘의 운세: 생각의 스위치를 끄고 움직이세요", mock_daily_body_0: "<h3>자연의 온도</h3><p>무언가 새로운 일을 시작하라고 자연이 당신의 등을 가볍게 밀어주고 있습니다.</p><h3>꿀벌의 처방전</h3><p>머릿속 완벽한 상상보다 밖으로 툭 꺼낸 서투른 행동이 행운의 씨앗을 물어옵니다.</p>", sec_intro_title_0: "🌿 마음의 풍경: 하늘을 향해 뻗은 거목 (갑)", sec_intro_body_0: "<p>당신은 호숫가에 깊게 뿌리내린 <strong>크고 든든한 나무</strong>입니다. 위를 향해 성장하려는 생명력이 가득합니다.</p>", sec_flow_title_0: "🌊 운명의 흐름", sec_flow_body_0: "<p>품어왔던 아이디어들이 햇살을 받아 현실적인 결과물로 나타납니다.</p>", sec_yearly_title_0: "🌅 올해의 운세", sec_yearly_body_0: "<p>현실적인 결과물이 손에 잡히기 시작합니다. 혼자 해결하지 말고 소통하세요.</p>", sec_monthly_title_0: "🗓️ 올해의 흐름", sec_monthly_body_0: "<ul><li><strong>[상반기]</strong> 당장 시작해 보세요. 귀인이 돕습니다.</li><li><strong>[하반기]</strong> 땀방울이 금전으로 나타납니다.</li></ul>", sec_wealth_title_0: "💰 재물운: 마르지 않는 금전 밭", sec_wealth_body_0: "<p>거대한 재물은 '깊이 있는 전문성'에서 마르지 않는 샘물처럼 흘러나옵니다.</p>", sec_career_title_0: "✨ 성공운: 판을 지휘하는 멘토", sec_career_body_0: "<p>전체 맥락을 파악하는 리더의 역할이 완벽하게 맞습니다.</p>", sec_academic_title_0: "📚 학업운: 스펀지 같은 흡수력", sec_academic_body_0: "<p>스펀지가 물을 빨아들이듯 흡수하는 재능이 있습니다.</p>", sec_love_title_0: "🌸 애정운: 차가운 심연을 데워줄 햇살", sec_love_body_0: "<p>환하게 웃으며 손을 이끌어 줄 밝고 따뜻한 사람이 최고의 파트너입니다.</p>", sec_health_title_0: "🍃 건강운: 체온을 높이세요", sec_health_body_0: "<p>환절기에는 몸을 따뜻하게 감싸야 합니다.</p>", sec_advice_title_0: "🍯 다정한 조언", sec_advice_body_0: "<p>햇볕을 쬐며 산책을 해보세요. 긍정적인 행동력을 줍니다.</p>",
+    
+    // 을목 (1)
+    mock_daily_head_1: "🍯 오늘의 운세: 부드럽고 유연하게 행동하세요", mock_daily_body_1: "<h3>자연의 온도</h3><p>꼿꼿하게 서서 부러지기보다 갈대처럼 부드럽게 눕는 지혜가 필요합니다.</p><h3>꿀벌의 처방전</h3><p>도움이 필요하다면 주저하지 말고 주변에 손을 내미세요.</p>", sec_intro_title_1: "🌿 마음의 풍경: 생명력 넘치는 덩굴 (을)", sec_intro_body_1: "<p>당신은 바위틈에서도 꽃을 피워내는 <strong>유연하고 강인한 덩굴</strong>입니다. 사교성과 적응력이 매우 뛰어납니다.</p>", sec_flow_title_1: "🌊 운명의 흐름", sec_flow_body_1: "<p>성장을 도와줄 든든한 조력자를 만나 높이 비상하게 되는 흐름입니다.</p>", sec_yearly_title_1: "🌅 올해의 운세", sec_yearly_body_1: "<p>사람들을 만나고 인맥을 확장하는 데서 큰 이익을 얻게 됩니다.</p>", sec_monthly_title_1: "🗓️ 올해의 흐름", sec_monthly_body_1: "<ul><li><strong>[상반기]</strong> 작은 노력으로도 칭찬을 받습니다.</li><li><strong>[하반기]</strong> 인맥이 큰 도움을 줍니다.</li></ul>", sec_wealth_title_1: "💰 재물운: 사람을 통해 들어오는 금전", sec_wealth_body_1: "<p>사람들이 모이는 곳에서 트렌드를 캐치하여 쏠쏠한 수익을 냅니다.</p>", sec_career_title_1: "✨ 성공운: 완벽한 커뮤니케이터", sec_career_body_1: "<p>갈등을 중재하고 분위기를 부드럽게 만드는 대체 불가능한 인재입니다.</p>", sec_academic_title_1: "📚 학업운: 그룹 스터디의 에이스", sec_academic_body_1: "<p>남들과 토론하고 가르쳐주면서 훨씬 더 많은 것을 배웁니다.</p>", sec_love_title_1: "🌸 애정운: 다정하고 세심한 챙김", sec_love_body_1: "<p>무뚝뚝하더라도 속으로 챙겨주는 사람이 좋습니다.</p>", sec_health_title_1: "🍃 건강운: 신경성 질환 주의", sec_health_body_1: "<p>남의 눈치를 보느라 스트레스가 쌓이기 쉽습니다. 아로마 테라피를 추천합니다.</p>", sec_advice_title_1: "🍯 다정한 조언", sec_advice_body_1: "<p>모두에게 착한 사람이 될 필요는 없습니다. 거절하는 용기를 가지세요.</p>",
+    
+    // 병화 (2)
+    mock_daily_head_2: "🍯 오늘의 운세: 환하게 당신의 빛을 비추세요", mock_daily_body_2: "<h3>자연의 온도</h3><p>당신의 능력과 매력이 사람들의 이목을 집중시키는 화려한 날입니다.</p><h3>꿀벌의 처방전</h3><p>오늘만큼은 자신감 있게 나서서 프로젝트를 리드해 보세요.</p>", sec_intro_title_2: "🌿 마음의 풍경: 만물을 비추는 태양 (병)", sec_intro_body_2: "<p>당신은 어둠을 몰아내는 <strong>눈부신 태양</strong>입니다. 공명정대하며 화려함을 즐기는 최고의 리더입니다.</p>", sec_flow_title_2: "🌊 운명의 흐름", sec_flow_body_2: "<p>당신의 이름을 널리 알리고, 선한 영향력을 미치게 되는 화려한 대운입니다.</p>", sec_yearly_title_2: "🌅 올해의 운세", sec_yearly_body_2: "<p>답답했던 문제들이 해결되고 승진, 명예 상승의 강한 기운이 들어옵니다.</p>", sec_monthly_title_2: "🗓️ 올해의 흐름", sec_monthly_body_2: "<ul><li><strong>[상반기]</strong> 활동력이 왕성해집니다.</li><li><strong>[하반기]</strong> 눈부신 성과와 명예를 얻습니다.</li></ul>", sec_wealth_title_2: "💰 재물운: 확실한 성과", sec_wealth_body_2: "<p>겉으로 드러나는 투자, 단기적인 성과로 눈부시게 돈을 벌어들입니다.</p>", sec_career_title_2: "✨ 성공운: 스포트라이트를 받는 쇼맨십", sec_career_body_2: "<p>교육, 방송, 대중 앞에 서는 직업군에서 대성합니다.</p>", sec_academic_title_2: "📚 학업운: 경쟁을 즐기는 우등생", sec_academic_body_2: "<p>라이벌이 있을 때 평소보다 200%의 실력을 발휘합니다.</p>", sec_love_title_2: "🌸 애정운: 열정적인 사랑", sec_love_body_2: "<p>거짓 없이 투명하고 솔직한 직진 스타일이 가장 잘 맞습니다.</p>", sec_health_title_2: "🍃 건강운: 심혈관과 눈 건강", sec_health_body_2: "<p>에너지를 너무 발산하여 안구 건조증 등에 주의해야 합니다.</p>", sec_advice_title_2: "🍯 다정한 조언", sec_advice_body_2: "<p>욱하는 성질을 조심하고, 화가 날 땐 심호흡을 하세요.</p>",
 
-    // --- 1: 乙 (Yin Wood) 덩굴/꽃 ---
-    mock_daily_head_1: "🍯 오늘의 운세: 부드럽게 상황에 맞추어 유연하게 행동하세요", mock_daily_body_1: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>강한 바람이 불어옵니다. 꼿꼿하게 서서 부러지기보다 갈대처럼 부드럽게 눕는 지혜가 필요합니다.</p><h3>꿀벌의 다정한 처방전</h3><p>도움이 필요하다면 주저하지 말고 주변에 손을 내미세요. 기꺼이 도와줄 것입니다.</p>", 
-    sec_intro_title_1: "🌿 마음의 풍경: 생명력 넘치는 아름다운 덩굴 (乙)", sec_intro_body_1: "<p>만세력에 비친 당신은 바위틈에서도 기어이 꽃을 피워내는 <strong>유연하고 강인한 덩굴(乙木)</strong>입니다. 뛰어난 사교성과 현실 적응력으로 어디서든 살아남는 천부적인 생존가이며 사람들의 시선을 사로잡는 매력이 있습니다.</p>", 
-    sec_flow_title_1: "🌊 운명의 흐름: 단단한 기둥을 타고 오르는 시간", sec_flow_body_1: "<p>나의 성장을 도와줄 든든한 조력자나 시스템을 만나 높이 비상하게 되는 흐름입니다.</p>", 
-    sec_yearly_title_1: "🌅 올해의 운세: 사교성이 곧 무기가 되다", sec_yearly_body_1: "<p>올해는 사람들을 만나고 인맥을 확장하는 데서 생각지도 못한 큰 이익을 얻게 됩니다.</p>", 
-    sec_monthly_title_1: "🗓️ 올해의 흐름", sec_monthly_body_1: "<ul><li><strong>[상반기]</strong> 사람들과 어울리며 작은 노력으로도 칭찬을 받습니다.</li><li><strong>[하반기]</strong> 주변의 시기를 유연하게 넘기면 인맥이 큰 도움을 줍니다.</li></ul>",
-    sec_wealth_title_1: "💰 재물운: 사람을 통해 들어오는 금전", sec_wealth_body_1: "<p>혼자서 땅을 파기보다, 사람들이 모이는 곳에서 트렌드를 캐치하여 쏠쏠한 수익을 냅니다.</p>", 
-    sec_career_title_1: "✨ 성공운: 완벽한 커뮤니케이터", sec_career_body_1: "<p>조직 내에서 갈등을 중재하고 분위기를 부드럽게 만드는 당신은 대체 불가능한 인재입니다.</p>", 
-    sec_academic_title_1: "📚 학업운: 그룹 스터디의 에이스", sec_academic_body_1: "<p>혼자서 책과 씨름하는 것보다, 남들과 토론하고 가르쳐주면서 훨씬 더 많은 것을 배웁니다.</p>", 
-    sec_love_title_1: "🌸 애정운: 다정하고 세심한 챙김", sec_love_body_1: "<p>눈치가 빠르고 세심한 당신은 겉보기에 무뚝뚝하더라도 속으로 챙겨주는 사람이 좋습니다.</p>", 
-    sec_health_title_1: "🍃 건강운: 신경성 질환 주의", sec_health_body_1: "<p>남의 눈치를 보느라 신경성 스트레스가 쌓이기 쉽습니다. 아로마 테라피를 추천합니다.</p>", 
-    sec_advice_title_1: "🍯 다정한 조언", sec_advice_body_1: "<p>모든 사람에게 착한 사람이 될 필요는 없습니다. 거절하는 용기를 가지세요.</p>",
+    // 정화 (3)
+    mock_daily_head_3: "🍯 오늘의 운세: 한 박자 쉬어가기", mock_daily_body_3: "<h3>자연의 온도</h3><p>빨리 해치우고 싶은 조급함이 치밀어 오를 수 있습니다.</p><h3>꿀벌의 처방전</h3><p>침묵하며 한 템포 쉬어가는 여유가 다가올 후회를 막아주는 지혜입니다.</p>", sec_intro_title_3: "🌿 마음의 풍경: 따뜻한 모닥불 (정)", sec_intro_body_3: "<p>당신은 캄캄한 밤길을 안내해주는 <strong>다정한 촛불</strong>입니다. 희생정신과 예술적 감수성이 예민합니다.</p>", sec_flow_title_3: "🌊 운명의 흐름", sec_flow_body_3: "<p>나와 속도가 다른 사람들과 발을 맞춰가는 법을 배우게 됩니다.</p>", sec_yearly_title_3: "🌅 올해의 운세", sec_yearly_body_3: "<p>일이 지연될 수 있습니다. 강물이 흘러가는 대로 흐름에 맡겨보세요.</p>", sec_monthly_title_3: "🗓️ 올해의 흐름", sec_monthly_body_3: "<ul><li><strong>[상반기]</strong> 주변의 피드백을 수용하세요.</li><li><strong>[하반기]</strong> 타협이 행운의 열쇠가 됩니다.</li></ul>", sec_wealth_title_3: "💰 재물운: 자물쇠를 채워라", sec_wealth_body_3: "<p>스케일 크게 돈을 쓰기 쉬우니 정기적금 등에 묶어두는 것이 필수입니다.</p>", sec_career_title_3: "✨ 성공운: 무대를 지휘하는 기획자", sec_career_body_3: "<p>수동적인 업무보다 감각이 돋보이는 기획, 마케팅, 디자인이 어울립니다.</p>", sec_academic_title_3: "📚 학업운: 벼락치기의 천재", sec_academic_body_3: "<p>발등에 불이 떨어지면 엄청난 초집중력을 보여줍니다.</p>", sec_love_title_3: "🌸 애정운: 불꽃을 감싸 안아줄 바다", sec_love_body_3: "<p>예민함마저 다 받아주는 차분하고 듬직한 사람이 찰떡궁합입니다.</p>", sec_health_title_3: "🍃 건강운: 뜨거워진 엔진 식히기", sec_health_body_3: "<p>가만히 누워 아무 생각도 하지 않는 멍때리기 시간이 보약입니다.</p>", sec_advice_title_3: "🍯 다정한 조언", sec_advice_body_3: "<p>중요한 결정을 내릴 때는 딱 하룻밤만 자고 일어나서 내일 결정하세요.</p>",
 
-    // --- 2: 丙 (Yang Fire) 태양 ---
-    mock_daily_head_2: "🍯 오늘의 운세: 환하게 당신의 빛을 비추세요", mock_daily_body_2: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>당신의 능력과 매력이 사람들의 이목을 집중시키는 화려한 날입니다.</p><h3>꿀벌의 다정한 처방전</h3><p>겸손함도 좋지만, 오늘만큼은 자신감 있게 나서서 프로젝트를 리드해 보세요.</p>", 
-    sec_intro_title_2: "🌿 마음의 풍경: 만물을 공평하게 비추는 태양 (丙)", sec_intro_body_2: "<p>만세력에 비친 당신은 어둠을 몰아내고 생명을 주는 <strong>크고 눈부신 태양(丙火)</strong>입니다. 뒤끝이 없고 공명정대하며 화려함을 즐깁니다. 가끔 성질이 불같이 급해지는 면만 조심하면 최고의 리더가 됩니다.</p>", 
-    sec_flow_title_2: "🌊 운명의 흐름: 빛이 세상 끝까지 퍼지는 시기", sec_flow_body_2: "<p>당신의 이름을 널리 알리고, 많은 사람들에게 선한 영향력을 미치게 되는 화려한 대운입니다.</p>", 
-    sec_yearly_title_2: "🌅 올해의 운세: 구름이 걷히고 해가 뜬다", sec_yearly_body_2: "<p>답답했던 문제들이 해결되고 승진, 합격, 명예 상승의 강한 기운이 들어와 있습니다.</p>", 
-    sec_monthly_title_2: "🗓️ 올해의 흐름", sec_monthly_body_2: "<ul><li><strong>[상반기]</strong> 활동력이 왕성해지니 오버페이스 하지 않도록 주의하세요.</li><li><strong>[하반기]</strong> 가시적인 성과와 명예를 얻으며 화려하게 한 해를 마무리합니다.</li></ul>",
-    sec_wealth_title_2: "💰 재물운: 눈에 보이는 확실한 성과", sec_wealth_body_2: "<p>숨겨둔 비자금보다 겉으로 드러나는 주식, 혹은 단기적인 눈부신 성과로 돈을 벌어들입니다.</p>", 
-    sec_career_title_2: "✨ 성공운: 무대 앞을 장악하는 쇼맨십", sec_career_body_2: "<p>교육, 방송, 언론, 혹은 대중 앞에 서서 스포트라이트를 받는 직업군에서 대성합니다.</p>", 
-    sec_academic_title_2: "📚 학업운: 경쟁을 즐기는 우등생", sec_academic_body_2: "<p>라이벌이 있을 때 승부욕이 불타올라 평소보다 200%의 실력을 발휘합니다.</p>", 
-    sec_love_title_2: "🌸 애정운: 솔직하고 열정적인 사랑", sec_love_body_2: "<p>밀당을 싫어하며 직진하는 스타일입니다. 거짓 없이 투명하고 솔직한 사람이 가장 잘 맞습니다.</p>", 
-    sec_health_title_2: "🍃 건강운: 심혈관과 눈 건강 챙기기", sec_health_body_2: "<p>에너지를 너무 많이 발산하여 심혈관계나 안구 건조증에 주의해야 합니다.</p>", 
-    sec_advice_title_2: "🍯 다정한 조언", sec_advice_body_2: "<p>욱하는 성질을 조심하고, 화가 날 땐 3초만 눈을 감고 심호흡을 하세요.</p>",
+    // 무토 (4)
+    mock_daily_head_4: "🍯 오늘의 운세: 태산처럼 묵묵하게", mock_daily_body_4: "<h3>자연의 온도</h3><p>주변에서 소란이 일어날 수 있지만, 묵묵하게 중심을 잡아주어야 합니다.</p><h3>꿀벌의 처방전</h3><p>가벼운 행동을 삼가고, 따뜻한 눈빛으로 주변의 불안을 잠재워주세요.</p>", sec_intro_title_4: "🌿 마음의 풍경: 자리를 지키는 태산 (무)", sec_intro_body_4: "<p>당신은 비바람이 쳐도 움직이지 않는 <strong>듬직한 큰산</strong>입니다. 겉으론 무뚝뚝해 보여도 포용력이 큽니다.</p>", sec_flow_title_4: "🌊 운명의 흐름", sec_flow_body_4: "<p>척박했던 흙에 예쁜 꽃이 자라며 당신을 찾는 사람이 많아집니다.</p>", sec_yearly_title_4: "🌅 올해의 운세", sec_yearly_body_4: "<p>쌓아온 신뢰가 큰 문서운이나 계약운으로 돌아옵니다.</p>", sec_monthly_title_4: "🗓️ 올해의 흐름", sec_monthly_body_4: "<ul><li><strong>[상반기]</strong> 기반을 단단히 다지는 과정입니다.</li><li><strong>[하반기]</strong> 유리한 고지를 점령하며 존경을 받습니다.</li></ul>", sec_wealth_title_4: "💰 재물운: 흔들리지 않는 장기 투자", sec_wealth_body_4: "<p>단기 요행보다, 부동산이나 가치 투자에서 거대한 부를 축적합니다.</p>", sec_career_title_4: "✨ 성공운: 기대어 쉴 수 있는 리더", sec_career_body_4: "<p>중재자 역할, 금융, 공직, 부동산 분야에서 대성할 수 있습니다.</p>", sec_academic_title_4: "📚 학업운: 엉덩이로 승부하는 끈기", sec_academic_body_4: "<p>정직하게 시간을 쏟아부어 큰 성과를 이루어냅니다.</p>", sec_love_title_4: "🌸 애정운: 다가오길 기다리는 바위", sec_love_body_4: "<p>표현이 서툰 당신을 귀엽게 봐주는 밝은 사람이 좋습니다.</p>", sec_health_title_4: "🍃 건강운: 소화기관 관리", sec_health_body_4: "<p>스트레스를 받으면 위장에 신호가 옵니다. 규칙적인 식사가 중요합니다.</p>", sec_advice_title_4: "🍯 다정한 조언", sec_advice_body_4: "<p>가끔은 체면을 내려놓고 아이처럼 크게 웃어보세요.</p>",
 
-    // --- 3: 丁 (Yin Fire) 모닥불/촛불 ---
-    mock_daily_head_3: "🍯 오늘의 운세: 조급함을 내려놓고 한 박자 쉬어가기", mock_daily_body_3: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>빨리 뭔가를 해치워버리고 싶거나 속도가 나지 않는 것에 대해 묘한 답답함이 치밀어 오를 수 있습니다.</p><h3>꿀벌의 다정한 처방전</h3><p>오늘은 침묵하며 한 템포 쉬어가는 그 여유로움 자체가 다가올 큰 후회를 막아주는 최고의 지혜가 됩니다.</p>", 
-    sec_intro_title_3: "🌿 마음의 풍경: 어둠을 밝히는 따뜻한 모닥불 (丁)", sec_intro_body_3: "<p>만세력에 비친 당신은 캄캄한 밤길을 안내해주는 <strong>다정한 촛불이자 모닥불(丁火)</strong>입니다. 희생정신이 강하고 예술적 감수성이 예민합니다. 속으로 불만을 쌓아두다 한 번에 폭발할 수 있으니 감정 조절이 필요합니다.</p>", 
-    sec_flow_title_3: "🌊 운명의 흐름: 열정을 다듬어가는 시간", sec_flow_body_3: "<p>나와 속도가 다른 사람들과 발을 맞춰가는 법을 배우며 진정한 리더로 거듭납니다.</p>", 
-    sec_yearly_title_3: "🌅 올해의 운세: '여백의 미'를 배우는 한 해", sec_yearly_body_3: "<p>일이 지연될 수 있습니다. 강물이 흘러가는 대로 흐름에 맡겨보세요.</p>", 
-    sec_monthly_title_3: "🗓️ 올해의 흐름", sec_monthly_body_3: "<ul><li><strong>[상반기]</strong> 충동적인 결정을 피하고 주변의 피드백을 수용하세요.</li><li><strong>[하반기]</strong> 타협이 행운의 열쇠가 되어 실질적인 보상을 받습니다.</li></ul>",
-    sec_wealth_title_3: "💰 재물운: 지갑에 자물쇠를 채워라", sec_wealth_body_3: "<p>기분 좋게 베풀며 스케일 크게 돈을 쓰기 쉬우니, 정기적금 등에 '재물 묶어두기'를 하는 것이 필수입니다.</p>", 
-    sec_career_title_3: "✨ 성공운: 무대를 직접 지휘하는 기획자", sec_career_body_3: "<p>수동적인 업무는 숨을 막히게 합니다. 당신의 감각이 돋보이는 기획, 마케팅, 디자인이 어울립니다.</p>", 
-    sec_academic_title_3: "📚 학업운: 집중하는 벼락치기의 천재", sec_academic_body_3: "<p>지루함을 견디기 힘들어하지만, 발등에 불이 떨어지면 엄청난 초집중력을 보여줍니다.</p>", 
-    sec_love_title_3: "🌸 애정운: 불꽃을 감싸 안아줄 바다", sec_love_body_3: "<p>넓은 품으로 당신의 예민함마저 다 받아줄 수 있는 <strong>차분하고 듬직한 사람</strong>이 찰떡궁합입니다.</p>", 
-    sec_health_title_3: "🍃 건강운: 뜨거워진 엔진 식히기", sec_health_body_3: "<p>가만히 누워 아무 생각도 하지 않는 멍때리기 시간이 최고의 보약입니다.</p>", 
-    sec_advice_title_3: "🍯 다정한 조언", sec_advice_body_3: "<p>중요한 결정을 내릴 때는 무조건 딱 하룻밤만 자고 일어나서 내일 결정하세요.</p>",
+    // 기토 (5)
+    mock_daily_head_5: "🍯 오늘의 운세: 주변을 다독여주세요", mock_daily_body_5: "<h3>자연의 온도</h3><p>당신의 따뜻한 위로가 주변 사람들에게 큰 힘이 되는 날입니다.</p><h3>꿀벌의 처방전</h3><p>가까운 사람에게 커피 한 잔을 대접하며 이야기를 들어주세요.</p>", sec_intro_title_5: "🌿 마음의 풍경: 다정한 정원 (기)", sec_intro_body_5: "<p>당신은 예쁜 꽃을 피워내는 <strong>비옥한 정원</strong>입니다. 다정하고 배려심이 많으며 실속파이기도 합니다.</p>", sec_flow_title_5: "🌊 운명의 흐름", sec_flow_body_5: "<p>정성껏 뿌려온 밭에서 드디어 알찬 열매들이 맺히기 시작합니다.</p>", sec_yearly_title_5: "🌅 올해의 운세", sec_yearly_body_5: "<p>화려한 일보다는 내실을 채우는 실속있는 한 해가 됩니다.</p>", sec_monthly_title_5: "🗓️ 올해의 흐름", sec_monthly_body_5: "<ul><li><strong>[상반기]</strong> 주변 사람을 챙기다 보면 좋은 제안이 들어옵니다.</li><li><strong>[하반기]</strong> 소박하지만 확실한 성과들이 기쁨이 됩니다.</li></ul>", sec_wealth_title_5: "💰 재물운: 쌓이는 알짜배기 재산", sec_wealth_body_5: "<p>티끌 모아 태산을 이루는 저축과 꼼꼼한 관리로 부자가 됩니다.</p>", sec_career_title_5: "✨ 성공운: 숨은 실력자", sec_career_body_5: "<p>뒤에서 실무를 책임지는 교육, 회계, 상담 분야의 전문가입니다.</p>", sec_academic_title_5: "📚 학업운: 정리정돈의 달인", sec_academic_body_5: "<p>배운 것을 차분하게 내 것으로 소화해 내는 능력이 탁월합니다.</p>", sec_love_title_5: "🌸 애정운: 편안한 휴식처", sec_love_body_5: "<p>친구처럼 편안하고 안정감을 주는 다정한 연애를 선호합니다.</p>", sec_health_title_5: "🍃 건강운: 체중 관리", sec_health_body_5: "<p>스트레스를 폭식으로 풀기 쉬우니 가벼운 산책이 필수입니다.</p>", sec_advice_title_5: "🍯 다정한 조언", sec_advice_body_5: "<p>정작 내 마음이 마르지 않게, 자신을 위한 선물도 자주 해주세요.</p>",
 
-    // --- 4: 戊 (Yang Earth) 거대한 산 ---
-    mock_daily_head_4: "🍯 오늘의 운세: 태산처럼 묵묵하게 자리를 지키세요", mock_daily_body_4: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>주변에서 소란이 일어날 수 있지만, 당신은 묵묵하게 중심을 잡아주어야 하는 날입니다.</p><h3>꿀벌의 다정한 처방전</h3><p>가벼운 말이나 행동을 삼가고, 따뜻한 눈빛으로 주변의 불안을 잠재워주세요.</p>", 
-    sec_intro_title_4: "🌿 마음의 풍경: 변함없이 그 자리를 지키는 태산 (戊)", sec_intro_body_4: "<p>만세력에 비친 당신은 비바람이 쳐도 절대 움직이지 않는 <strong>듬직한 태산(戊土)</strong>입니다. 무뚝뚝하고 고집이 세 보이지만 속은 누구보다 깊고 만물을 아우르는 거대한 포용력을 지녔습니다.</p>", 
-    sec_flow_title_4: "🌊 운명의 흐름: 산에 생명이 깃드는 시기", sec_flow_body_4: "<p>척박했던 흙에 드디어 예쁜 꽃과 나무가 자라기 시작하며 당신을 찾는 사람이 많아집니다.</p>", 
-    sec_yearly_title_4: "🌅 올해의 운세: 믿음이 곧 재물이 되는 해", sec_yearly_body_4: "<p>그동안 쌓아온 신뢰가 큰 문서운이나 계약운으로 돌아옵니다. 흔들리지 말고 추진하세요.</p>", 
-    sec_monthly_title_4: "🗓️ 올해의 흐름", sec_monthly_body_4: "<ul><li><strong>[상반기]</strong> 인내심을 요구하는 일들이 생기지만 기반을 단단히 다지는 과정입니다.</li><li><strong>[하반기]</strong> 문서나 계약에서 유리한 고지를 점령하며 존경을 받습니다.</li></ul>",
-    sec_wealth_title_4: "💰 재물운: 흔들리지 않는 장기 투자", sec_wealth_body_4: "<p>단기적인 요행보다, 부동산이나 장기적인 가치 투자에서 거대한 부를 축적합니다.</p>", 
-    sec_career_title_4: "✨ 성공운: 모두가 기대어 쉴 수 있는 리더", sec_career_body_4: "<p>중재자 역할이나 신뢰가 생명인 금융, 공직, 부동산 분야에서 대성할 수 있습니다.</p>", 
-    sec_academic_title_4: "📚 학업운: 엉덩이로 승부하는 끈기", sec_academic_body_4: "<p>잔머리를 굴리기보다 정직하게 시간을 쏟아부어 마침내 큰 성과를 이루어냅니다.</p>", 
-    sec_love_title_4: "🌸 애정운: 다가오기를 기다리는 수줍은 바위", sec_love_body_4: "<p>표현이 서툰 당신을 귀엽게 봐주고 먼저 다가와서 재잘거려주는 밝은 사람이 좋습니다.</p>", 
-    sec_health_title_4: "🍃 건강운: 소화기관의 편안함 유지", sec_health_body_4: "<p>스트레스를 받으면 위장이나 소화기에 바로 신호가 옵니다. 규칙적인 식사가 중요합니다.</p>", 
-    sec_advice_title_4: "🍯 다정한 조언", sec_advice_body_4: "<p>가끔은 묵직한 체면을 내려놓고 아이처럼 크게 웃어보는 시간을 가져보세요.</p>",
+    // 경금 (6)
+    mock_daily_head_6: "🍯 오늘의 운세: 단호하게 끊어내세요", mock_daily_body_6: "<h3>자연의 온도</h3><p>애매한 인간관계에 확실한 선을 그어야 할 타이밍입니다.</p><h3>꿀벌의 처방전</h3><p>단호함은 냉정함이 아닙니다. 나를 지키기 위한 울타리를 세우세요.</p>", sec_intro_title_6: "🌿 마음의 풍경: 단단한 강철 (경)", sec_intro_body_6: "<p>당신은 부러질지언정 굽히지 않는 <strong>단단한 강철</strong>입니다. 결단력과 의리가 타의 추종을 불허합니다.</p>", sec_flow_title_6: "🌊 운명의 흐름", sec_flow_body_6: "<p>시련을 거쳐 마침내 완벽한 명검으로 완성되는 시기입니다.</p>", sec_yearly_title_6: "🌅 올해의 운세", sec_yearly_body_6: "<p>낡은 습관을 정리하고 새로운 일을 시작하기에 완벽한 해입니다.</p>", sec_monthly_title_6: "🗓️ 올해의 흐름", sec_monthly_body_6: "<ul><li><strong>[상반기]</strong> 과감한 정리정돈으로 추진력을 얻습니다.</li><li><strong>[하반기]</strong> 성과를 굳히며 전문 분야에서 두각을 나타냅니다.</li></ul>", sec_wealth_title_6: "💰 재물운: 기술이 곧 금광", sec_wealth_body_6: "<p>확실한 기술력, 라이센스를 바탕으로 돈을 만들어내는 단단한 금전운입니다.</p>", sec_career_title_6: "✨ 성공운: 원리원칙의 수호자", sec_career_body_6: "<p>의료, 군경, IT 등 정확성과 원칙이 생명인 분야에서 빛납니다.</p>", sec_academic_title_6: "📚 학업운: 불도저", sec_academic_body_6: "<p>목표를 설정하면 묵묵히 합격만을 향해 나아갑니다.</p>", sec_love_title_6: "🌸 애정운: 끝까지 가는 의리", sec_love_body_6: "<p>한번 내 사람이라 생각하면 끝까지 책임지는 로맨티스트입니다.</p>", sec_health_title_6: "🍃 건강운: 관절 관리", sec_health_body_6: "<p>호흡기와 관절 스트레칭을 꾸준히 즐기세요.</p>", sec_advice_title_6: "🍯 다정한 조언", sec_advice_body_6: "<p>날카로움을 거두고 부드러움을 가져보세요.</p>",
 
-    // --- 5: 己 (Yin Earth) 평야/정원 ---
-    mock_daily_head_5: "🍯 오늘의 운세: 주변 사람들을 다독여주세요", mock_daily_body_5: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>당신의 포근하고 따뜻한 위로가 주변 사람들에게 큰 힘이 되는 날입니다.</p><h3>꿀벌의 다정한 처방전</h3><p>가까운 사람에게 따뜻한 밥 한 끼나 커피 한 잔을 대접하며 이야기를 들어주세요.</p>", 
-    sec_intro_title_5: "🌿 마음의 풍경: 만물을 길러내는 다정한 정원 (己)", sec_intro_body_5: "<p>만세력에 비친 당신은 씨앗을 품고 예쁜 꽃을 피워내는 <strong>부드럽고 비옥한 정원(己土)</strong>입니다. 어머니 같은 다정함과 남을 배려하는 마음이 가득하지만, 남모를 의심과 자기만의 선이 확실한 실속파이기도 합니다.</p>", 
-    sec_flow_title_5: "🌊 운명의 흐름: 풍요로운 수확을 준비하는 시기", sec_flow_body_5: "<p>그동안 정성껏 씨앗을 뿌려온 밭에서 드디어 알찬 열매들이 맺히기 시작하는 흐름입니다.</p>", 
-    sec_yearly_title_5: "🌅 올해의 운세: 실속 있게 나의 내실을 채우다", sec_yearly_body_5: "<p>겉으로 화려한 일보다는 내 지갑과 마음을 든든하게 채우는 실속있는 한 해가 됩니다.</p>", 
-    sec_monthly_title_5: "🗓️ 올해의 흐름", sec_monthly_body_5: "<ul><li><strong>[상반기]</strong> 주변 사람을 챙기다 보면 좋은 제안이 들어옵니다.</li><li><strong>[하반기]</strong> 소박하지만 확실한 성과들이 모여 큰 기쁨이 됩니다.</li></ul>",
-    sec_wealth_title_5: "💰 재물운: 차곡차곡 쌓이는 알짜배기 재산", sec_wealth_body_5: "<p>한 방을 노리기보다 티끌 모아 태산을 이루는 저축과 꼼꼼한 관리로 큰 부자가 됩니다.</p>", 
-    sec_career_title_5: "✨ 성공운: 조용히 판을 흔드는 숨은 실력자", sec_career_body_5: "<p>나서기보다 뒤에서 조직을 관리하고 실무를 책임지는 교육, 회계, 상담 분야의 최고 전문가입니다.</p>", 
-    sec_academic_title_5: "📚 학업운: 정리정돈의 달인", sec_academic_body_5: "<p>노트를 깔끔하게 정리하고 배운 것을 차분하게 내 것으로 소화해 내는 능력이 탁월합니다.</p>", 
-    sec_love_title_5: "🌸 애정운: 편안하게 쉴 수 있는 휴식처", sec_love_body_5: "<p>불같은 사랑보다는 친구처럼 편안하고 안정감을 주는 다정한 사람과의 연애를 선호합니다.</p>", 
-    sec_health_title_5: "🍃 건강운: 단 음식 주의 및 체중 관리", sec_health_body_5: "<p>스트레스를 받으면 단 음식이나 폭식으로 풀기 쉬우니 가벼운 산책이 필수입니다.</p>", 
-    sec_advice_title_5: "🍯 다정한 조언", sec_advice_body_5: "<p>남을 챙기느라 정작 내 마음의 정원이 마르지 않게, 나 자신을 위한 선물도 자주 해주세요.</p>",
+    // 신금 (7)
+    mock_daily_head_7: "🍯 오늘의 운세: 둥글게 미소 지으세요", mock_daily_body_7: "<h3>자연의 온도</h3><p>예민해져서 지적하고 싶은 충동이 강하게 일어납니다.</p><h3>꿀벌의 처방전</h3><p>'그럴 수도 있지' 하고 넘어가는 어른스러운 다정함을 발휘해 보세요.</p>", sec_intro_title_7: "🌿 마음의 풍경: 정교한 보석 (신)", sec_intro_body_7: "<p>당신은 맑은 물속의 <strong>세련된 보석</strong>과 같습니다. 미적 감각이 뛰어나지만 자신에게 완벽주의가 강합니다.</p>", sec_flow_title_7: "🌊 운명의 흐름", sec_flow_body_7: "<p>차가웠던 마음에 봄바람이 불며 둥글게 어울리는 법을 배웁니다.</p>", sec_yearly_title_7: "🌅 올해의 운세", sec_yearly_body_7: "<p>상황을 통제하려 하지 말고 웃어 넘겨주는 여유가 필요합니다.</p>", sec_monthly_title_7: "🗓️ 올해의 흐름", sec_monthly_body_7: "<ul><li><strong>[상반기]</strong> 타협하면 인연이 큰 자산이 됩니다.</li><li><strong>[하반기]</strong> 연말엔 마음을 푹 쉬어주세요.</li></ul>", sec_wealth_title_7: "💰 재물운: 다정함이 곧 금전", sec_wealth_body_7: "<p>모험보다 당신의 능력을 알아본 고급 인맥에서 재물이 나옵니다.</p>", sec_career_title_7: "✨ 성공운: 프로페셔널", sec_career_body_7: "<p>금융, 뷰티, 법무 등 정교함이 요구되는 곳에서 예리한 분석력이 빛납니다.</p>", sec_academic_title_7: "📚 학업운: 완벽 집착 내려놓기", sec_academic_body_7: "<p>안 풀리는 문제에 꽂히지 말고 시간 배분을 연습하세요.</p>", sec_love_title_7: "🌸 애정운: 따뜻하게 안아줄 사람", sec_love_body_7: "<p>이성의 장벽을 부드럽게 녹여줄 유머러스한 사람을 만나세요.</p>", sec_health_title_7: "🍃 건강운: 신경줄을 말랑하게", sec_health_body_7: "<p>긴장으로 인한 편두통이 오기 쉬우니 명상이 필수입니다.</p>", sec_advice_title_7: "🍯 다정한 조언", sec_advice_body_7: "<p>가끔 흐트러진 모습도 괜찮습니다. 자신에게 가혹하지 마세요.</p>",
 
-    // --- 6: 庚 (Yang Metal) 강철/도끼 ---
-    mock_daily_head_6: "🍯 오늘의 운세: 단호하게 끊어낼 것은 끊어내세요", mock_daily_body_6: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>애매한 인간관계나 결정을 내리지 못하던 일에 대해 확실한 선을 그어야 할 타이밍입니다.</p><h3>꿀벌의 다정한 처방전</h3><p>단호함은 냉정함이 아닙니다. 나 자신을 지키기 위한 건강한 울타리를 세우세요.</p>", 
-    sec_intro_title_6: "🌿 마음의 풍경: 불의를 참지 않는 단단한 강철 (庚)", sec_intro_body_6: "<p>만세력에 비친 당신은 강직하고 부러질지언정 굽히지 않는 <strong>거대한 도끼 혹은 강철(庚金)</strong>입니다. 의리와 결단력이 타의 추종을 불허하며 한 번 마음먹은 일은 끝까지 해내지만 다소 차가워 보일 수 있습니다.</p>", 
-    sec_flow_title_6: "🌊 운명의 흐름: 명검으로 제련되는 시간", sec_flow_body_6: "<p>수많은 시련과 담금질을 거쳐 마침내 세상이 필요로 하는 완벽한 명검으로 완성되는 시기입니다.</p>", 
-    sec_yearly_title_6: "🌅 올해의 운세: 새로운 판을 짜는 혁명", sec_yearly_body_6: "<p>낡은 습관과 관계를 정리하고 독립하거나 새로운 사업, 프로젝트를 시작하기에 완벽한 해입니다.</p>", 
-    sec_monthly_title_6: "🗓️ 올해의 흐름", sec_monthly_body_6: "<ul><li><strong>[상반기]</strong> 과감한 정리정돈을 통해 새로운 도전을 위한 추진력을 얻습니다.</li><li><strong>[하반기]</strong> 흔들리지 않고 성과를 굳히며 전문 분야에서 두각을 나타냅니다.</li></ul>",
-    sec_wealth_title_6: "💰 재물운: 기술과 자격증이 곧 금광", sec_wealth_body_6: "<p>확실한 기술력, 혹은 라이센스를 바탕으로 끊임없이 돈을 만들어내는 단단한 금전운입니다.</p>", 
-    sec_career_title_6: "✨ 성공운: 원리원칙을 지키는 수호자", sec_career_body_6: "<p>의료, 군경, IT 개발 등 정확성과 원칙이 생명인 분야에서 최고의 권위자가 될 수 있습니다.</p>", 
-    sec_academic_title_6: "📚 학업운: 목표 지향적인 불도저", sec_academic_body_6: "<p>한번 목표를 설정하면 주변의 유혹을 모두 끊어내고 묵묵히 합격만을 향해 나아갑니다.</p>", 
-    sec_love_title_6: "🌸 애정운: 한 번 믿으면 끝까지 가는 의리", sec_love_body_6: "<p>사랑에 빠지기까지 시간이 걸리지만, 한번 내 사람이라 생각하면 끝까지 책임지는 로맨티스트입니다.</p>", 
-    sec_health_title_6: "🍃 건강운: 호흡기와 관절 관리", sec_health_body_6: "<p>폐나 호흡기가 약할 수 있으니 맑은 공기를 마시는 유산소 운동과 관절 스트레칭을 즐기세요.</p>", 
-    sec_advice_title_6: "🍯 다정한 조언", sec_advice_body_6: "<p>날카로움을 조금 거두고 \"나도 잘 모르겠어\"라며 곁을 내어주는 부드러움을 가져보세요.</p>",
+    // 임수 (8)
+    mock_daily_head_8: "🍯 오늘의 운세: 거대한 흐름에 맡기세요", mock_daily_body_8: "<h3>자연의 온도</h3><p>억지로 바꾸려 하기보다 자연스럽게 흘러가게 두는 편이 좋습니다.</p><h3>꿀벌의 처방전</h3><p>고집을 부리기보다 주변의 의견을 넉넉하게 수용하는 바다가 되세요.</p>", sec_intro_title_8: "🌿 마음의 풍경: 모든 것을 품는 바다 (임)", sec_intro_body_8: "<p>당신은 더러움도 품어주는 <strong>깊고 거대한 바다</strong>입니다. 압도적인 포용력과 유연함을 가졌습니다.</p>", sec_flow_title_8: "🌊 운명의 흐름", sec_flow_body_8: "<p>막혔던 문제들이 시원하게 뚫리며 더 큰 무대로 나아가는 시기입니다.</p>", sec_yearly_title_8: "🌅 올해의 운세", sec_yearly_body_8: "<p>이동수가 강해 이직, 이사, 해외와 관련된 좋은 소식이 들립니다.</p>", sec_monthly_title_8: "🗓️ 올해의 흐름", sec_monthly_body_8: "<ul><li><strong>[상반기]</strong> 새로운 환경에 적응하며 정보망을 넓히세요.</li><li><strong>[하반기]</strong> 위기를 기회로 만들고 큰 이익을 취합니다.</li></ul>", sec_wealth_title_8: "💰 재물운: 광활한 금전", sec_wealth_body_8: "<p>무역, 유통, 큰 규모의 투자에서 거대한 부의 흐름을 만들어냅니다.</p>", sec_career_title_8: "✨ 성공운: 자유로운 영혼", sec_career_body_8: "<p>반복 업무는 시들게 합니다. 기획, 외교, 유통업이 제격입니다.</p>", sec_academic_title_8: "📚 학업운: 스펀지 같은 이해력", sec_academic_body_8: "<p>응용력이 뛰어나지만 흥미 없는 분야는 쳐다보지 않는 단점이 있습니다.</p>", sec_love_title_8: "🌸 애정운: 자유를 인정해주는 항구", sec_love_body_8: "<p>변화무쌍한 성향을 이해해 주고 구속하지 않는 사람이 인연입니다.</p>", sec_health_title_8: "🍃 건강운: 수분 밸런스", sec_health_body_8: "<p>비뇨기 계통의 건강을 챙기고 반신욕을 자주 하는 것이 좋습니다.</p>", sec_advice_title_8: "🍯 다정한 조언", sec_advice_body_8: "<p>속마음을 너무 감추지 말고 가끔은 믿는 사람에게 투정 부리세요.</p>",
 
-    // --- 7: 辛 (Yin Metal) 보석 ---
-    mock_daily_head_7: "🍯 오늘의 운세: 둥글게 미소 지으세요", mock_daily_body_7: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>오감이 예민해져 다른 사람의 서투른 일 처리를 지적하고 싶은 충동이 강하게 일어납니다.</p><h3>꿀벌의 다정한 처방전</h3><p>'그럴 수도 있지' 하고 부드럽게 넘어가 주는 어른스러운 다정함을 발휘해 보세요.</p>", 
-    sec_intro_title_7: "🌿 마음의 풍경: 정교하게 세공된 빛나는 보석 (辛)", sec_intro_body_7: "<p>만세력에 비친 당신은 맑은 물속에 자리 잡은 <strong>단단하고 세련된 보석(辛金)</strong>과 같습니다. 미적 감각이 뛰어나고 예리한 두뇌를 가졌지만, 스스로에 대한 완벽주의가 당신을 외롭고 예민하게 만들기도 합니다.</p>", 
-    sec_flow_title_7: "🌊 운명의 흐름: 생명의 온기가 감도는 시간", sec_flow_body_7: "<p>차가웠던 마음에 봄바람이 불며, 나와 스타일이 다른 사람들과도 둥글게 어울리는 법을 배웁니다.</p>", 
-    sec_yearly_title_7: "🌅 올해의 운세: 변수를 웃으며 즐기기", sec_yearly_body_7: "<p>상황을 억지로 통제하려 하지 말고 \"이만하면 됐어\"라고 웃어 넘겨주세요.</p>", 
-    sec_monthly_title_7: "🗓️ 올해의 흐름", sec_monthly_body_7: "<ul><li><strong>[상반기]</strong> 자존심을 내려놓고 타협하면 맺어둔 인연이 큰 자산이 됩니다.</li><li><strong>[하반기]</strong> 중요한 프로젝트를 성공적으로 이끌지만, 연말엔 마음을 푹 쉬어주세요.</li></ul>",
-    sec_wealth_title_7: "💰 재물운: 다정함이 거대한 금전", sec_wealth_body_7: "<p>모험적인 투자는 피하는 편입니다. 거대한 재물은 당신의 능력을 알아본 고급 인맥에서 나옵니다.</p>", 
-    sec_career_title_7: "✨ 성공운: 촌철살인의 프로페셔널", sec_career_body_7: "<p>예리한 분석력이 최고의 무기입니다. 금융, IT, 뷰티, 법무 등 정교함이 요구되는 곳에서 빛납니다.</p>", 
-    sec_academic_title_7: "📚 학업운: 완벽에 대한 집착 내려놓기", sec_academic_body_7: "<p>안 풀리는 문제 하나에 꽂혀 전체 흐름을 놓치지 않도록 시간 배분을 연습하세요.</p>", 
-    sec_love_title_7: "🌸 애정운: 따뜻하게 안아줄 사람", sec_love_body_7: "<p>차가운 이성의 장벽을 부드럽고 다정하게 녹여줄 수 있는 유머러스한 사람을 만나세요.</p>", 
-    sec_health_title_7: "🍃 건강운: 신경줄을 말랑하게", sec_health_body_7: "<p>초긴장 상태로 완벽을 기하려다 편두통이 오기 쉬우니 규칙적인 스트레칭과 명상이 필수입니다.</p>", 
-    sec_advice_title_7: "🍯 다정한 조언", sec_advice_body_7: "<p>가끔은 흐트러진 모습도 괜찮습니다. 스스로에게 너무 가혹한 채찍질을 멈춰주세요.</p>",
-
-    // --- 8: 壬 (Yang Water) 바다 ---
-    mock_daily_head_8: "🍯 오늘의 운세: 거대한 파도의 흐름에 몸을 맡기세요", mock_daily_body_8: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>무언가 억지로 바꾸려 하기보다 자연스럽게 흘러가게 두는 편이 훨씬 좋은 결과를 가져옵니다.</p><h3>꿀벌의 다정한 처방전</h3><p>고집을 부리기보다 주변 사람의 다양한 의견을 넉넉하게 수용하는 바다의 넓음을 보여주세요.</p>", 
-    sec_intro_title_8: "🌿 마음의 풍경: 모든 것을 품는 거대한 바다 (壬)", sec_intro_body_8: "<p>만세력에 비친 당신은 어떠한 더러움도 씻어내고 품어주는 <strong>깊고 거대한 바다(壬水)</strong>와 같습니다. 압도적인 포용력과 유연함, 두뇌 회전이 무척 빠르지만, 가끔 속마음을 알 수 없다는 말을 듣기도 합니다.</p>", 
-    sec_flow_title_8: "🌊 운명의 흐름: 새로운 해류의 유입", sec_flow_body_8: "<p>막혀 있던 문제들이 시원하게 뚫리며 고인 물을 벗어나 더 큰 무대로 나아가는 시기입니다.</p>", 
-    sec_yearly_title_8: "🌅 올해의 운세: 멀리 바라보고 항해하기", sec_yearly_body_8: "<p>이동수가 강합니다. 이직이나 이사, 혹은 해외와 관련된 일에서 좋은 소식이 들립니다.</p>", 
-    sec_monthly_title_8: "🗓️ 올해의 흐름", sec_monthly_body_8: "<ul><li><strong>[상반기]</strong> 새로운 환경에 적응하며 정보망을 넓히는 시기입니다.</li><li><strong>[하반기]</strong> 특유의 유연한 대처로 위기를 기회로 만들고 큰 이익을 취합니다.</li></ul>",
-    sec_wealth_title_8: "💰 재물운: 국경 없는 광활한 금전", sec_wealth_body_8: "<p>작은 돈에는 관심이 없습니다. 무역, 유통, 혹은 스케일이 큰 투자에서 거대한 부의 흐름을 만들어냅니다.</p>", 
-    sec_career_title_8: "✨ 성공운: 얽매이지 않는 자유로운 영혼", sec_career_body_8: "<p>지루한 반복 업무는 당신을 시들게 합니다. 해외 업무, 기획, 외교, 유통업이 제격입니다.</p>", 
-    sec_academic_title_8: "📚 학업운: 스펀지 같은 천재적 이해력", sec_academic_body_8: "<p>한 번 원리를 이해하면 응용력이 뛰어나지만, 흥미 없는 분야는 쳐다보지도 않는 단점이 있습니다.</p>", 
-    sec_love_title_8: "🌸 애정운: 자유를 인정해주는 듬직한 항구", sec_love_body_8: "<p>당신의 넓고 변화무쌍한 성향을 이해해 주고 구속하지 않는 듬직한 항구 같은 사람이 최고의 인연입니다.</p>", 
-    sec_health_title_8: "🍃 건강운: 수분 밸런스와 하체 건강", sec_health_body_8: "<p>수기운이 강해 콩팥, 비뇨기 계통의 건강을 평소에 챙기고 반신욕을 자주 하는 것이 좋습니다.</p>", 
-    sec_advice_title_8: "🍯 다정한 조언", sec_advice_body_8: "<p>속마음을 너무 깊은 바다 밑에 감추지 말고, 가끔은 믿는 사람에게 투정도 부려보세요.</p>",
-
-    // --- 9: 癸 (Yin Water) 시냇물/이슬 ---
-    mock_daily_head_9: "🍯 오늘의 운세: 조용히 당신의 직관을 믿으세요", mock_daily_body_9: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>머리로 계산하는 것보다 당신의 예리한 직관과 느낌이 100% 정답을 가리키는 날입니다.</p><h3>꿀벌의 다정한 처방전</h3><p>요란하게 행동하지 마시고, 조용히 책을 읽으며 마음의 소리에 귀를 기울여보세요.</p>", 
-    sec_intro_title_9: "🌿 마음의 풍경: 만물을 적시는 지혜로운 봄비 (癸)", sec_intro_body_9: "<p>만세력에 비친 당신은 조용히 땅에 스며들어 생명을 깨우는 <strong>맑은 이슬이자 봄비(癸水)</strong>입니다. 겉보기엔 여리고 조용해 보이지만, 엄청난 직관력과 지혜, 그리고 어떤 환경에도 스며드는 무서운 생존력을 감추고 있습니다.</p>", 
-    sec_flow_title_9: "🌊 운명의 흐름: 얼음이 녹아 맑은 시냇물이 되다", sec_flow_body_9: "<p>그동안 정체되어 있던 생각과 재물들이 마침내 녹아내리며 경쾌하게 흘러가는 활기찬 시기입니다.</p>", 
-    sec_yearly_title_9: "🌅 올해의 운세: 부드러움이 강함을 이긴다", sec_yearly_body_9: "<p>정면 돌파보다는 특유의 부드럽고 우회적인 지혜를 발휘하여 결국 원하는 바를 모두 얻어냅니다.</p>", 
-    sec_monthly_title_9: "🗓️ 올해의 흐름", sec_monthly_body_9: "<ul><li><strong>[상반기]</strong> 조용히 주변의 동향을 살피며 지식을 스펀지처럼 흡수하세요.</li><li><strong>[하반기]</strong> 당신의 기발한 아이디어가 채택되어 주변을 깜짝 놀라게 만듭니다.</li></ul>",
-    sec_wealth_title_9: "💰 재물운: 마르지 않고 졸졸 흐르는 샘물", sec_wealth_body_9: "<p>요란하게 돈을 벌지 않지만, 탁월한 정보 수집력과 지혜로 남몰래 실속있는 부를 차곡차곡 축적합니다.</p>", 
-    sec_career_title_9: "✨ 성공운: 번뜩이는 아이디어 뱅크", sec_career_body_9: "<p>앞에서 호령하기보다 뒤에서 판을 짜는 참모, 연구, 교육, IT, 철학 분야에서 최고의 두각을 나타냅니다.</p>", 
-    sec_academic_title_9: "📚 학업운: 파고드는 학구파", sec_academic_body_9: "<p>한 분야에 깊이 파고들어 연구하는 능력이 탁월하여 학자나 연구원으로 대성할 수 있는 두뇌입니다.</p>", 
-    sec_love_title_9: "🌸 애정운: 내 감성을 어루만져 줄 사람", sec_love_body_9: "<p>예민하고 섬세한 당신의 감정선을 찰떡같이 이해하고 다정하게 공감해 주는 감성적인 사람이 좋습니다.</p>", 
-    sec_health_title_9: "🍃 건강운: 차가운 몸을 데우는 습관", sec_health_body_9: "<p>몸이 쉽게 차가워지고 우울감에 빠질 수 있으니, 따뜻한 차를 자주 마시고 햇볕을 많이 쬐어야 합니다.</p>", 
-    sec_advice_title_9: "🍯 다정한 조언", sec_advice_body_9: "<p>부정적인 생각에 한 번 빠지면 깊은 늪이 됩니다. 우울할 땐 무조건 밖으로 나가 몸을 움직이세요.</p>"
-
+    // 계수 (9)
+    mock_daily_head_9: "🍯 오늘의 운세: 당신의 직관을 믿으세요", mock_daily_body_9: "<h3>자연의 온도</h3><p>머리로 계산하는 것보다 당신의 예리한 직관이 100% 정답을 가리킵니다.</p><h3>꿀벌의 처방전</h3><p>요란하게 행동하지 마시고, 조용히 책을 읽으며 마음의 소리에 귀 기울이세요.</p>", sec_intro_title_9: "🌿 마음의 풍경: 지혜로운 봄비 (계)", sec_intro_body_9: "<p>당신은 생명을 깨우는 <strong>맑은 이슬이자 봄비</strong>입니다. 여려 보여도 엄청난 직관력과 무서운 생존력이 있습니다.</p>", sec_flow_title_9: "🌊 운명의 흐름", sec_flow_body_9: "<p>정체되어 있던 생각들이 마침내 녹아내리며 경쾌하게 흘러가는 시기입니다.</p>", sec_yearly_title_9: "🌅 올해의 운세", sec_yearly_body_9: "<p>정면 돌파보다 특유의 부드럽고 우회적인 지혜를 발휘하여 원하는 것을 얻습니다.</p>", sec_monthly_title_9: "🗓️ 올해의 흐름", sec_monthly_body_9: "<ul><li><strong>[상반기]</strong> 조용히 주변 동향을 살피며 지식을 흡수하세요.</li><li><strong>[하반기]</strong> 기발한 아이디어가 채택되어 주변을 놀라게 합니다.</li></ul>", sec_wealth_title_9: "💰 재물운: 졸졸 흐르는 샘물", sec_wealth_body_9: "<p>탁월한 정보 수집력과 지혜로 남몰래 실속있는 부를 차곡차곡 축적합니다.</p>", sec_career_title_9: "✨ 성공운: 아이디어 뱅크", sec_career_body_9: "<p>참모, 연구, 교육, 철학 분야에서 최고의 두각을 나타냅니다.</p>", sec_academic_title_9: "📚 학업운: 파고드는 학구파", sec_academic_body_9: "<p>깊이 파고들어 연구하는 능력이 탁월하여 학자나 연구원으로 대성할 수 있습니다.</p>", sec_love_title_9: "🌸 애정운: 내 감성을 어루만져 줄 사람", sec_love_body_9: "<p>섬세한 감정선을 찰떡같이 이해해 주는 감성적인 사람이 좋습니다.</p>", sec_health_title_9: "🍃 건강운: 차가운 몸 데우기", sec_health_body_9: "<p>몸이 쉽게 차가워지니 따뜻한 차를 마시고 햇볕을 많이 쬐어야 합니다.</p>", sec_advice_title_9: "🍯 다정한 조언", sec_advice_body_9: "<p>우울한 생각에 빠질 땐 무조건 밖으로 나가 몸을 움직이세요.</p>"
   },
+  
+  // ==========================================
+  // ENGLISH (Fully Supported, Emotive Translation)
+  // ==========================================
   en: {
     btn_home_only: "Home", back_to_menu: "Menu", cta_check_saju: "Start My Story",
     what_is_saju_title: "A Story Reflecting Nature", what_is_saju_p1: "Korean Fortune (Saju) reads the flow of your destiny based on the seasons and natural energies present at your birth.", what_is_saju_p3: "Let me be your storyteller and show you the beautiful facets of your inner landscape as a profound 'Life Reference'.",
     hub_pick_title: "What story do you want to hear?", hub_pick_sub: "Let's explore your path with a warm perspective.",
-    p_ad: "📺 Watch Ad", p_yearly: "$1.99", p_wealth: "$1.99", p_std: "$1.99", p_full: "$4.99",
+    p_ad_short: "📺 3s Free", p_ad_normal: "📺 5s Free", p_ad_premium: "📺 7s Premium",
     menu_daily: "Daily Fortune", menu_daily_sub: "Today's gentle energy", menu_yearly: "Yearly Path", menu_yearly_sub: "A warm year ahead", menu_wealth: "Wealth Vibe", menu_wealth_sub: "Your money vessel", menu_love: "Romance", menu_love_sub: "Finding sweet connections", menu_career: "Career Path", menu_career_sub: "Your perfect role", menu_academic: "Academic Focus", menu_academic_sub: "Door to wisdom", menu_health: "Health Balance", menu_health_sub: "Natural body rhythm", menu_full: "Master Story", menu_full_sub: "The complete painting of you",
-    onb_intro: "Tell me about your birth", label_name: "Name (Optional)", label_date: "Birth Date (Solar)", label_time: "Birth Time", time_opt_placeholder: "Select time", time_unknown_check: "I don't know my birth time", label_gender: "Gender", gender_f: "Female", gender_m: "Male", onb_submit: "Reveal My Energy", err_req_date: "Please enter your birth date.", err_req_time: "Please select a time or check 'I don't know'.",
+    
+    onb_intro: "Tell me about your birth", label_name: "Nickname", label_date: "Birth Date (Solar)", label_time: "Birth Time", time_opt_placeholder: "Select time", time_unknown_check: "I don't know my birth time", label_gender: "Gender", gender_f: "Female", gender_m: "Male", onb_submit: "Reveal My Energy", 
+    err_req_name: "Please enter your nickname.", err_req_date: "Please enter your birth date.", err_req_time: "Please select a time or check 'I don't know'.",
+    
+    unknown_pillar: "Unknown", unknown_desc: "Unknown",
+    privacy_notice: "🔒 Your data is not saved on any server and is processed safely on your device.",
+    share_sheet_title: "Share Story", share_btn_native: "Options", share_btn_link: "Copy Link",
     
     ad_title: "Sponsor Message", ad_desc: "The Saju Bee is gathering honey! 🐝💦<br>Wait a moment to unlock your fortune.", ad_timer_prefix: "Time Left: ", ad_timer_suffix: "s", ad_reward: "🍯 Fortune is ready!",
     loading_title: "Calculating 4 Pillars...", loading_sub: "Gathering the energies of your birth day to paint a beautiful forest. Please wait a moment.",
     reveal_title: "Your True Bazi", reveal_sub: "The four authentic energies forming your inner landscape.", btn_read_story: "Read My Full Story",
-    paywall_sub: "Would you like to open a heartfelt, profound life guide written just for you?", price_desc: "One-time payment · Keep it forever", pay_stripe: "Unlock My Story", maybe_later: "Maybe later",
     your_saju_label: "Now, let's look at your inner landscape.", explore_title: "Want to hear another story?",
     m_title: "My True Pillars", m_desc: "* The red border (Day Pillar) is your core representative energy.", m_year: "Year", m_month: "Month", m_day: "Day", m_time: "Time",
     r_daily_title: "Today's Gentle Advice", r_yearly_title: "Warm Steps of the Year", r_wealth_title: "Your Wealth Landscape", r_love_title: "Warmth By Your Side", r_career_title: "Where You'll Fly", r_academic_title: "Fountain of Wisdom", r_health_title: "Gentle Body Care", r_full_title: "Your Masterpiece",
-    time_ja: "23:30 ~ 01:29 (Rat)", time_chuk: "01:30 ~ 03:29 (Ox)", time_in: "03:30 ~ 05:29 (Tiger)", time_myo: "05:30 ~ 07:29 (Rabbit)", time_jin: "07:30 ~ 09:29 (Dragon)", time_sa: "09:30 ~ 11:29 (Snake)", time_o: "11:30 ~ 13:29 (Horse)", time_mi: "13:30 ~ 15:29 (Sheep)", time_shin: "15:30 ~ 17:29 (Monkey)", time_yu: "17:30 ~ 19:29 (Rooster)", time_sul: "19:30 ~ 21:29 (Dog)", time_hae: "21:30 ~ 23:29 (Pig)",
     
+    time_ja: "23:30 ~ 01:29", time_chuk: "01:30 ~ 03:29", time_in: "03:30 ~ 05:29", time_myo: "05:30 ~ 07:29", time_jin: "07:30 ~ 09:29", time_sa: "09:30 ~ 11:29", time_o: "11:30 ~ 13:29", time_mi: "13:30 ~ 15:29", time_shin: "15:30 ~ 17:29", time_yu: "17:30 ~ 19:29", time_sul: "19:30 ~ 21:29", time_hae: "21:30 ~ 23:29",
     btn_save_img: "Save Image", btn_share: "Share", saving_img: "Saving...", saved_img: "Saved!", copied: "Copied!",
     share_title: "🍯 My Natural Energy by Bee Saju", share_text: "Warm Saju storytelling reflecting nature! Wondering what your inner landscape looks like? Check it out now.",
-    
-    // Dynamic content for 10 Stems
-    mock_daily_head_0: "🍯 Daily: Step lightly", mock_daily_body_0: "<p>Start what you've been holding in your mind.</p>", sec_intro_title_0: "🌿 Intro", sec_intro_body_0: "<p>You resemble a <strong>strong tree (Yang Wood)</strong>.</p>", sec_flow_title_0: "🌊 Flow", sec_flow_body_0: "<p>Your ideas will finally bloom.</p>", sec_yearly_title_0: "🌅 Yearly", sec_yearly_body_0: "<p>Sunlight warms your life.</p>", sec_monthly_title_0: "🗓️ Monthly", sec_monthly_body_0: "<p>Growth begins.</p>", sec_wealth_title_0: "💰 Wealth", sec_wealth_body_0: "<p>Wealth comes from expertise.</p>", sec_career_title_0: "✨ Career", sec_career_body_0: "<p>You are a wise mentor.</p>", sec_academic_title_0: "📚 Academic", sec_academic_body_0: "<p>Absorb knowledge like a sponge.</p>", sec_love_title_0: "🌸 Romance", sec_love_body_0: "<p>Find a sunny partner.</p>", sec_health_title_0: "🍃 Health", sec_health_body_0: "<p>Keep your body warm.</p>", sec_advice_title_0: "🍯 Advice", sec_advice_body_0: "<p>Walk in the sun.</p>",
-    mock_daily_head_1: "🍯 Daily: Be flexible", mock_daily_body_1: "<p>Bend like a reed.</p>", sec_intro_title_1: "🌿 Intro", sec_intro_body_1: "<p>You are a resilient <strong>vine (Yin Wood)</strong>.</p>", sec_flow_title_1: "🌊 Flow", sec_flow_body_1: "<p>Climbing high.</p>", sec_yearly_title_1: "🌅 Yearly", sec_yearly_body_1: "<p>Great networking.</p>", sec_monthly_title_1: "🗓️ Monthly", sec_monthly_body_1: "<p>Meet new people.</p>", sec_wealth_title_1: "💰 Wealth", sec_wealth_body_1: "<p>Network is net worth.</p>", sec_career_title_1: "✨ Career", sec_career_body_1: "<p>Great communicator.</p>", sec_academic_title_1: "📚 Academic", sec_academic_body_1: "<p>Group study wins.</p>", sec_love_title_1: "🌸 Romance", sec_love_body_1: "<p>Gentle care.</p>", sec_health_title_1: "🍃 Health", sec_health_body_1: "<p>Avoid stress.</p>", sec_advice_title_1: "🍯 Advice", sec_advice_body_1: "<p>Learn to say no.</p>",
-    mock_daily_head_2: "🍯 Daily: Shine bright", mock_daily_body_2: "<p>Show your talents.</p>", sec_intro_title_2: "🌿 Intro", sec_intro_body_2: "<p>You are the bright <strong>sun (Yang Fire)</strong>.</p>", sec_flow_title_2: "🌊 Flow", sec_flow_body_2: "<p>Clearing the darkness.</p>", sec_yearly_title_2: "🌅 Yearly", sec_yearly_body_2: "<p>Honor and promotion.</p>", sec_monthly_title_2: "🗓️ Monthly", sec_monthly_body_2: "<p>Great achievements.</p>", sec_wealth_title_2: "💰 Wealth", sec_wealth_body_2: "<p>Visible success.</p>", sec_career_title_2: "✨ Career", sec_career_body_2: "<p>Center stage.</p>", sec_academic_title_2: "📚 Academic", sec_academic_body_2: "<p>Competitive edge.</p>", sec_love_title_2: "🌸 Romance", sec_love_body_2: "<p>Honest love.</p>", sec_health_title_2: "🍃 Health", sec_health_body_2: "<p>Eye and heart care.</p>", sec_advice_title_2: "🍯 Advice", sec_advice_body_2: "<p>Breathe before anger.</p>",
-    mock_daily_head_3: "🍯 Daily: Take a breath", mock_daily_body_3: "<p>Take one deep breath.</p>", sec_intro_title_3: "🌿 Intro", sec_intro_body_3: "<p>You are a passionate <strong>campfire (Yin Fire)</strong>.</p>", sec_flow_title_3: "🌊 Flow", sec_flow_body_3: "<p>You are learning patience.</p>", sec_yearly_title_3: "🌅 Yearly", sec_yearly_body_3: "<p>Learn to wait.</p>", sec_monthly_title_3: "🗓️ Monthly", sec_monthly_body_3: "<p>Slow down.</p>", sec_wealth_title_3: "💰 Wealth", sec_wealth_body_3: "<p>Lock your wealth away.</p>", sec_career_title_3: "✨ Career", sec_career_body_3: "<p>You are the protagonist.</p>", sec_academic_title_3: "📚 Academic", sec_academic_body_3: "<p>Brilliant sprinter.</p>", sec_love_title_3: "🌸 Romance", sec_love_body_3: "<p>Need a calm sea.</p>", sec_health_title_3: "🍃 Health", sec_health_body_3: "<p>Rest your engine.</p>", sec_advice_title_3: "🍯 Advice", sec_advice_body_3: "<p>Sleep on decisions.</p>",
-    mock_daily_head_4: "🍯 Daily: Stand firm", mock_daily_body_4: "<p>Be the anchor today.</p>", sec_intro_title_4: "🌿 Intro", sec_intro_body_4: "<p>You are a solid <strong>mountain (Yang Earth)</strong>.</p>", sec_flow_title_4: "🌊 Flow", sec_flow_body_4: "<p>Life grows on you.</p>", sec_yearly_title_4: "🌅 Yearly", sec_yearly_body_4: "<p>Real estate luck.</p>", sec_monthly_title_4: "🗓️ Monthly", sec_monthly_body_4: "<p>Patience pays off.</p>", sec_wealth_title_4: "💰 Wealth", sec_wealth_body_4: "<p>Long-term assets.</p>", sec_career_title_4: "✨ Career", sec_career_body_4: "<p>Trusted leader.</p>", sec_academic_title_4: "📚 Academic", sec_academic_body_4: "<p>Steady progress.</p>", sec_love_title_4: "🌸 Romance", sec_love_body_4: "<p>A cozy rock.</p>", sec_health_title_4: "🍃 Health", sec_health_body_4: "<p>Watch digestion.</p>", sec_advice_title_4: "🍯 Advice", sec_advice_body_4: "<p>Laugh loudly.</p>",
-    mock_daily_head_5: "🍯 Daily: Comfort others", mock_daily_body_5: "<p>Share a warm cup of coffee.</p>", sec_intro_title_5: "🌿 Intro", sec_intro_body_5: "<p>You are a nurturing <strong>garden (Yin Earth)</strong>.</p>", sec_flow_title_5: "🌊 Flow", sec_flow_body_5: "<p>Harvest time is near.</p>", sec_yearly_title_5: "🌅 Yearly", sec_yearly_body_5: "<p>Focus on inner growth.</p>", sec_monthly_title_5: "🗓️ Monthly", sec_monthly_body_5: "<p>Small wins add up.</p>", sec_wealth_title_5: "💰 Wealth", sec_wealth_body_5: "<p>Steady accumulation.</p>", sec_career_title_5: "✨ Career", sec_career_body_5: "<p>The hidden expert.</p>", sec_academic_title_5: "📚 Academic", sec_academic_body_5: "<p>Master of organization.</p>", sec_love_title_5: "🌸 Romance", sec_love_body_5: "<p>Comfortable love.</p>", sec_health_title_5: "🍃 Health", sec_health_body_5: "<p>Walk and avoid sweets.</p>", sec_advice_title_5: "🍯 Advice", sec_advice_body_5: "<p>Reward yourself.</p>",
-    mock_daily_head_6: "🍯 Daily: Decide firmly", mock_daily_body_6: "<p>Cut the unnecessary.</p>", sec_intro_title_6: "🌿 Intro", sec_intro_body_6: "<p>You are a firm <strong>axe (Yang Metal)</strong>.</p>", sec_flow_title_6: "🌊 Flow", sec_flow_body_6: "<p>Refining your edge.</p>", sec_yearly_title_6: "🌅 Yearly", sec_yearly_body_6: "<p>New beginnings.</p>", sec_monthly_title_6: "🗓️ Monthly", sec_monthly_body_6: "<p>Organize life.</p>", sec_wealth_title_6: "💰 Wealth", sec_wealth_body_6: "<p>Skills bring gold.</p>", sec_career_title_6: "✨ Career", sec_career_body_6: "<p>Rule keeper.</p>", sec_academic_title_6: "📚 Academic", sec_academic_body_6: "<p>Laser focus.</p>", sec_love_title_6: "🌸 Romance", sec_love_body_6: "<p>Loyal partner.</p>", sec_health_title_6: "🍃 Health", sec_health_body_6: "<p>Lung care.</p>", sec_advice_title_6: "🍯 Advice", sec_advice_body_6: "<p>Show vulnerability.</p>",
-    mock_daily_head_7: "🍯 Daily: Smile softly", mock_daily_body_7: "<p>Smile at mistakes.</p>", sec_intro_title_7: "🌿 Intro", sec_intro_body_7: "<p>You are a smooth <strong>gem (Yin Metal)</strong>.</p>", sec_flow_title_7: "🌊 Flow", sec_flow_body_7: "<p>Warmth surrounds you.</p>", sec_yearly_title_7: "🌅 Yearly", sec_yearly_body_7: "<p>Smile at variables.</p>", sec_monthly_title_7: "🗓️ Monthly", sec_monthly_body_7: "<p>Be flexible.</p>", sec_wealth_title_7: "💰 Wealth", sec_wealth_body_7: "<p>Connections are gold.</p>", sec_career_title_7: "✨ Career", sec_career_body_7: "<p>Be precise but warm.</p>", sec_academic_title_7: "📚 Academic", sec_academic_body_7: "<p>Skip perfection.</p>", sec_love_title_7: "🌸 Romance", sec_love_body_7: "<p>Embrace warmth.</p>", sec_health_title_7: "🍃 Health", sec_health_body_7: "<p>Melt nerves.</p>", sec_advice_title_7: "🍯 Advice", sec_advice_body_7: "<p>Accept others.</p>",
-    mock_daily_head_8: "🍯 Daily: Ride the wave", mock_daily_body_8: "<p>Go with the flow.</p>", sec_intro_title_8: "🌿 Intro", sec_intro_body_8: "<p>You are the deep <strong>ocean (Yang Water)</strong>.</p>", sec_flow_title_8: "🌊 Flow", sec_flow_body_8: "<p>New currents arrive.</p>", sec_yearly_title_8: "🌅 Yearly", sec_yearly_body_8: "<p>Travel and changes.</p>", sec_monthly_title_8: "🗓️ Monthly", sec_monthly_body_8: "<p>Adapt smoothly.</p>", sec_wealth_title_8: "💰 Wealth", sec_wealth_body_8: "<p>Trade and overseas.</p>", sec_career_title_8: "✨ Career", sec_career_body_8: "<p>Free soul.</p>", sec_academic_title_8: "📚 Academic", sec_academic_body_8: "<p>Fast learner.</p>", sec_love_title_8: "🌸 Romance", sec_love_body_8: "<p>Needs freedom.</p>", sec_health_title_8: "🍃 Health", sec_health_body_8: "<p>Drink water.</p>", sec_advice_title_8: "🍯 Advice", sec_advice_body_8: "<p>Share your feelings.</p>",
-    mock_daily_head_9: "🍯 Daily: Trust your intuition", mock_daily_body_9: "<p>Your gut feeling is 100% correct.</p>", sec_intro_title_9: "🌿 Intro", sec_intro_body_9: "<p>You are the gentle <strong>spring rain (Yin Water)</strong>.</p>", sec_flow_title_9: "🌊 Flow", sec_flow_body_9: "<p>Ice melts to river.</p>", sec_yearly_title_9: "🌅 Yearly", sec_yearly_body_9: "<p>Softness beats hardness.</p>", sec_monthly_title_9: "🗓️ Monthly", sec_monthly_body_9: "<p>Brilliant ideas shine.</p>", sec_wealth_title_9: "💰 Wealth", sec_wealth_body_9: "<p>Quietly flowing wealth.</p>", sec_career_title_9: "✨ Career", sec_career_body_9: "<p>Creative planner.</p>", sec_academic_title_9: "📚 Academic", sec_academic_body_9: "<p>Deep researcher.</p>", sec_love_title_9: "🌸 Romance", sec_love_body_9: "<p>Emotional connection.</p>", sec_health_title_9: "🍃 Health", sec_health_body_9: "<p>Keep warm.</p>", sec_advice_title_9: "🍯 Advice", sec_advice_body_9: "<p>Move your body when sad.</p>"
+
+    mock_daily_head_0: "🍯 Daily: Step lightly into the new", mock_daily_body_0: "<h3>Nature's Temperature</h3><p>Nature is gently pushing your back to start something fresh today.</p><h3>Bee's Prescription</h3><p>A clumsy action taken today will bring more luck than a perfect imagination.</p>", sec_intro_title_0: "🌿 Inner Landscape: The Great Tree (Yang Wood)", sec_intro_body_0: "<p>You are a <strong>strong, magnificent tree</strong> rooted deeply by a quiet lake. You possess a strong will to grow towards the sky.</p>", sec_flow_title_0: "🌊 Destiny Flow", sec_flow_body_0: "<p>The ideas you've harbored will finally bloom into reality under the warm sun.</p>", sec_yearly_title_0: "🌅 Yearly Fortune", sec_yearly_body_0: "<p>Tangible results begin to appear. Don't do everything alone; step out and communicate.</p>", sec_monthly_title_0: "🗓️ Monthly Flow", sec_monthly_body_0: "<ul><li><strong>[H1]</strong> Start now. Helpers will assist you.</li><li><strong>[H2]</strong> Your sweat turns into solid wealth.</li></ul>", sec_wealth_title_0: "💰 Wealth: Endless Soil", sec_wealth_body_0: "<p>Your massive wealth flows from your deep expertise like an endless spring.</p>", sec_career_title_0: "✨ Career: The Wise Mentor", sec_career_body_0: "<p>You perfectly fit the role of a leader or mentor who grasps the big picture.</p>", sec_academic_title_0: "📚 Academic: The Sponge", sec_academic_body_0: "<p>You have a talent for absorbing knowledge perfectly. Let go of perfectionism.</p>", sec_love_title_0: "🌸 Romance: Sunlight on Deep Waters", sec_love_body_0: "<p>A bright, warm person who holds your hand with a smile is your best partner.</p>", sec_health_title_0: "🍃 Health: Keep Warm", sec_health_body_0: "<p>Keep your body warm, especially during changing seasons.</p>", sec_advice_title_0: "🍯 Gentle Advice", sec_advice_body_0: "<p>Take a walk in the sun. It gives you positive momentum.</p>",
+
+    mock_daily_head_1: "🍯 Daily: Bend like a reed", mock_daily_body_1: "<h3>Nature's Temperature</h3><p>Strong winds are blowing. You need the wisdom to bend flexibly rather than standing stiff.</p><h3>Bee's Prescription</h3><p>Don't hesitate to reach out if you need help.</p>", sec_intro_title_1: "🌿 Inner Landscape: Resilient Vine (Yin Wood)", sec_intro_body_1: "<p>You are a <strong>flexible and resilient vine</strong> that blooms even in rocky crevices. Your sociability is unmatched.</p>", sec_flow_title_1: "🌊 Destiny Flow", sec_flow_body_1: "<p>You will meet a solid pillar to climb on, allowing you to soar high.</p>", sec_yearly_title_1: "🌅 Yearly Fortune", sec_yearly_body_1: "<p>Your ability to network and socialize will bring you unexpected, massive benefits.</p>", sec_monthly_title_1: "🗓️ Monthly Flow", sec_monthly_body_1: "<ul><li><strong>[H1]</strong> Small efforts bring big praises.</li><li><strong>[H2]</strong> Your connections provide great help.</li></ul>", sec_wealth_title_1: "💰 Wealth: Human Network", sec_wealth_body_1: "<p>You generate sweet profits by catching trends where people gather.</p>", sec_career_title_1: "✨ Career: Perfect Communicator", sec_career_body_1: "<p>You are an irreplaceable talent who mediates conflicts and softens the mood.</p>", sec_academic_title_1: "📚 Academic: Group Study Ace", sec_academic_body_1: "<p>You learn much more by discussing and teaching others than studying alone.</p>", sec_love_title_1: "🌸 Romance: Detailed Care", sec_love_body_1: "<p>You prefer someone who secretly takes good care of you behind a blunt exterior.</p>", sec_health_title_1: "🍃 Health: Nervous System", sec_health_body_1: "<p>You may get stressed caring too much about others. Aromatherapy is recommended.</p>", sec_advice_title_1: "🍯 Gentle Advice", sec_advice_body_1: "<p>You don't have to be nice to everyone. Have the courage to say no.</p>",
+
+    mock_daily_head_2: "🍯 Daily: Shine brightly", mock_daily_body_2: "<h3>Nature's Temperature</h3><p>Your talents and charm will catch everyone's attention today.</p><h3>Bee's Prescription</h3><p>For today, step up with confidence and lead the project.</p>", sec_intro_title_2: "🌿 Inner Landscape: The Bright Sun (Yang Fire)", sec_intro_body_2: "<p>You are the <strong>dazzling sun</strong> that drives away darkness. You are a fair and magnificent leader.</p>", sec_flow_title_2: "🌊 Destiny Flow", sec_flow_body_2: "<p>A brilliant time where your name becomes widely known and you spread positive influence.</p>", sec_yearly_title_2: "🌅 Yearly Fortune", sec_yearly_body_2: "<p>Frustrating problems will be solved, and strong energy for promotion arrives.</p>", sec_monthly_title_2: "🗓️ Monthly Flow", sec_monthly_body_2: "<ul><li><strong>[H1]</strong> You become very active. Don't overpace.</li><li><strong>[H2]</strong> You gain visible achievements and honor.</li></ul>", sec_wealth_title_2: "💰 Wealth: Visible Success", sec_wealth_body_2: "<p>You make money through visible achievements and short-term, brilliant successes.</p>", sec_career_title_2: "✨ Career: Showmanship", sec_career_body_2: "<p>You thrive in education, broadcasting, or anywhere you can be in the spotlight.</p>", sec_academic_title_2: "📚 Academic: Competitive Edge", sec_academic_body_2: "<p>You show 200% of your skills when you have a rival to compete against.</p>", sec_love_title_2: "🌸 Romance: Passionate Love", sec_love_body_2: "<p>An honest, transparent person who doesn't play mind games is your best match.</p>", sec_health_title_2: "🍃 Health: Cardiovascular", sec_health_body_2: "<p>Take care of your heart and watch out for dry eyes from emitting too much energy.</p>", sec_advice_title_2: "🍯 Gentle Advice", sec_advice_body_2: "<p>Beware of your quick temper. Close your eyes and count to three when angry.</p>",
+
+    mock_daily_head_3: "🍯 Daily: Take a pause", mock_daily_body_3: "<h3>Nature's Temperature</h3><p>You might feel frustrated about things not moving fast enough.</p><h3>Bee's Prescription</h3><p>Taking a pause in silence today will prevent big regrets tomorrow.</p>", sec_intro_title_3: "🌿 Inner Landscape: Warm Campfire (Yin Fire)", sec_intro_body_3: "<p>You are a <strong>warm campfire</strong> guiding the dark path. You are sacrificial and highly artistic.</p>", sec_flow_title_3: "🌊 Destiny Flow", sec_flow_body_3: "<p>You will learn to harmonize with people who have a different pace than yours.</p>", sec_yearly_title_3: "🌅 Yearly Fortune", sec_yearly_body_3: "<p>Things might get delayed. Let them flow naturally like a river.</p>", sec_monthly_title_3: "🗓️ Monthly Flow", sec_monthly_body_3: "<ul><li><strong>[H1]</strong> Accept feedback from those around you.</li><li><strong>[H2]</strong> Compromise becomes the key to luck.</li></ul>", sec_wealth_title_3: "💰 Wealth: Lock Your Wallet", sec_wealth_body_3: "<p>You tend to spend big when feeling good, so tying your money into savings is essential.</p>", sec_career_title_3: "✨ Career: Creative Director", sec_career_body_3: "<p>Passive work suffocates you. Planning, marketing, and design suit you perfectly.</p>", sec_academic_title_3: "📚 Academic: Last-Minute Genius", sec_academic_body_3: "<p>You show immense concentration when the deadline is right in front of you.</p>", sec_love_title_3: "🌸 Romance: Embracing Ocean", sec_love_body_3: "<p>A calm, reliable person who accepts your sensitivities is your perfect match.</p>", sec_health_title_3: "🍃 Health: Cool Down", sec_health_body_3: "<p>Lying still and zoning out with no thoughts is your best medicine.</p>", sec_advice_title_3: "🍯 Gentle Advice", sec_advice_body_3: "<p>Always sleep on important decisions before finalizing them.</p>",
+
+    mock_daily_head_4: "🍯 Daily: Stand firm like a mountain", mock_daily_body_4: "<h3>Nature's Temperature</h3><p>There might be noise around you, but you must be the anchor holding the center.</p><h3>Bee's Prescription</h3><p>Refrain from light actions and calm the anxiety of others with a warm gaze.</p>", sec_intro_title_4: "🌿 Inner Landscape: Solid Mountain (Yang Earth)", sec_intro_body_4: "<p>You are a <strong>reliable mountain</strong> that doesn't budge in storms. You have immense capacity to embrace others.</p>", sec_flow_title_4: "🌊 Destiny Flow", sec_flow_body_4: "<p>Beautiful flowers finally grow on your soil, and many people will seek you out.</p>", sec_yearly_title_4: "🌅 Yearly Fortune", sec_yearly_body_4: "<p>The trust you've built returns as great contracts or documentation luck.</p>", sec_monthly_title_4: "🗓️ Monthly Flow", sec_monthly_body_4: "<ul><li><strong>[H1]</strong> You are solidifying your foundation.</li><li><strong>[H2]</strong> You gain respect and favorable positions.</li></ul>", sec_wealth_title_4: "💰 Wealth: Long-term Investment", sec_wealth_body_4: "<p>You accumulate massive wealth through real estate or long-term value investments.</p>", sec_career_title_4: "✨ Career: Reliable Leader", sec_career_body_4: "<p>You succeed greatly in roles like a mediator, finance, or public service where trust is key.</p>", sec_academic_title_4: "📚 Academic: Patient Endurance", sec_academic_body_4: "<p>You achieve great things by honestly pouring time into your studies rather than taking shortcuts.</p>", sec_love_title_4: "🌸 Romance: A Shy Rock", sec_love_body_4: "<p>A bright person who finds your lack of expression cute and approaches you first is ideal.</p>", sec_health_title_4: "🍃 Health: Digestive System", sec_health_body_4: "<p>Stress hits your stomach first. Eating regular meals is crucial for you.</p>", sec_advice_title_4: "🍯 Gentle Advice", sec_advice_body_4: "<p>Sometimes, drop your heavy dignity and laugh out loud like a child.</p>",
+
+    mock_daily_head_5: "🍯 Daily: Comfort your surroundings", mock_daily_body_5: "<h3>Nature's Temperature</h3><p>Your warm comfort will be a great strength to the people around you today.</p><h3>Bee's Prescription</h3><p>Treat someone close to you to a cup of coffee and listen to their story.</p>", sec_intro_title_5: "🌿 Inner Landscape: Nurturing Garden (Yin Earth)", sec_intro_body_5: "<p>You are a <strong>fertile garden</strong> that blooms beautiful flowers. You are caring but also very practical.</p>", sec_flow_title_5: "🌊 Destiny Flow", sec_flow_body_5: "<p>The seeds you've carefully planted are finally starting to bear rich fruits.</p>", sec_yearly_title_5: "🌅 Yearly Fortune", sec_yearly_body_5: "<p>It will be a year of filling your wallet and heart practically rather than seeking flashy events.</p>", sec_monthly_title_5: "🗓️ Monthly Flow", sec_monthly_body_5: "<ul><li><strong>[H1]</strong> Caring for others brings you good proposals.</li><li><strong>[H2]</strong> Modest but solid achievements bring great joy.</li></ul>", sec_wealth_title_5: "💰 Wealth: Steady Accumulation", sec_wealth_body_5: "<p>You become wealthy through meticulous management and saving, gathering dust to build a mountain.</p>", sec_career_title_5: "✨ Career: Hidden Expert", sec_career_body_5: "<p>You are a top expert in education, accounting, or counseling, managing things from behind.</p>", sec_academic_title_5: "📚 Academic: Master of Organization", sec_academic_body_5: "<p>You excel at organizing notes calmly and making the knowledge truly yours.</p>", sec_love_title_5: "🌸 Romance: Comfortable Haven", sec_love_body_5: "<p>You prefer a comfortable, stable relationship like a friend over a fiery romance.</p>", sec_health_title_5: "🍃 Health: Weight Management", sec_health_body_5: "<p>You tend to relieve stress by eating sweets. Light walks are essential.</p>", sec_advice_title_5: "🍯 Gentle Advice", sec_advice_body_5: "<p>Don't let your own garden dry up while caring for others. Reward yourself often.</p>",
+
+    mock_daily_head_6: "🍯 Daily: Cut off firmly", mock_daily_body_6: "<h3>Nature's Temperature</h3><p>It's time to draw a clear line in ambiguous relationships or pending decisions.</p><h3>Bee's Prescription</h3><p>Being firm isn't being cold. Build a healthy fence to protect yourself.</p>", sec_intro_title_6: "🌿 Inner Landscape: Solid Steel (Yang Metal)", sec_intro_body_6: "<p>You are an <strong>unbending steel or axe</strong>. Your loyalty and decisiveness are unmatched.</p>", sec_flow_title_6: "🌊 Destiny Flow", sec_flow_body_6: "<p>Through trials and tempering, you are finally becoming a perfect masterpiece.</p>", sec_yearly_title_6: "🌅 Yearly Fortune", sec_yearly_body_6: "<p>A perfect year to clear old habits and start a new business or project independently.</p>", sec_monthly_title_6: "🗓️ Monthly Flow", sec_monthly_body_6: "<ul><li><strong>[H1]</strong> Bold decluttering gives you momentum.</li><li><strong>[H2]</strong> You stand out in your professional field.</li></ul>", sec_wealth_title_6: "💰 Wealth: Skills are Gold", sec_wealth_body_6: "<p>Your solid financial luck comes from your undeniable technical skills or licenses.</p>", sec_career_title_6: "✨ Career: Guardian of Rules", sec_career_body_6: "<p>You shine in fields where accuracy is life, like medical, military, or IT development.</p>", sec_academic_title_6: "📚 Academic: The Bulldozer", sec_academic_body_6: "<p>Once you set a goal, you cut off all temptations and march silently toward success.</p>", sec_love_title_6: "🌸 Romance: Loyal to the End", sec_love_body_6: "<p>It takes time to fall in love, but once you do, you take responsibility until the end.</p>", sec_health_title_6: "🍃 Health: Respiratory Care", sec_health_body_6: "<p>Your lungs might be weak. Enjoy aerobic exercises in fresh air and stretch your joints.</p>", sec_advice_title_6: "🍯 Gentle Advice", sec_advice_body_6: "<p>Retract your sharpness a bit and show some softness to those close to you.</p>",
+
+    mock_daily_head_7: "🍯 Daily: Smile gently", mock_daily_body_7: "<h3>Nature's Temperature</h3><p>Your senses are heightened, giving you a strong urge to point out others' mistakes.</p><h3>Bee's Prescription</h3><p>Show mature kindness by letting things slide with a smile today.</p>", sec_intro_title_7: "🌿 Inner Landscape: Shining Gem (Yin Metal)", sec_intro_body_7: "<p>You are a <strong>sophisticated gem</strong> in clear water. You have great aesthetics but strong perfectionism.</p>", sec_flow_title_7: "🌊 Destiny Flow", sec_flow_body_7: "<p>A spring breeze blows into your cold heart, teaching you how to harmonize with others.</p>", sec_yearly_title_7: "🌅 Yearly Fortune", sec_yearly_body_7: "<p>Don't try to control every situation. Learn to laugh off the unexpected variables.</p>", sec_monthly_title_7: "🗓️ Monthly Flow", sec_monthly_body_7: "<ul><li><strong>[H1]</strong> Compromising becomes a great asset.</li><li><strong>[H2]</strong> Please rest your mind fully at year's end.</li></ul>", sec_wealth_title_7: "💰 Wealth: Kindness is Money", sec_wealth_body_7: "<p>Massive wealth comes from high-level networks that recognize your true value.</p>", sec_career_title_7: "✨ Career: Sharp Professional", sec_career_body_7: "<p>Your sharp analysis shines in finance, IT, beauty, or legal fields requiring precision.</p>", sec_academic_title_7: "📚 Academic: Let Go of Perfection", sec_academic_body_7: "<p>Practice time management so you don't get stuck on one unsolved problem.</p>", sec_love_title_7: "🌸 Romance: Warm Embrace", sec_love_body_7: "<p>Meet a humorous person who can gently melt the walls of your cold rationality.</p>", sec_health_title_7: "🍃 Health: Relax Your Nerves", sec_health_body_7: "<p>You easily get migraines from extreme tension. Stretching and meditation are essential.</p>", sec_advice_title_7: "🍯 Gentle Advice", sec_advice_body_7: "<p>It's okay to look a bit messy sometimes. Stop whipping yourself so harshly.</p>",
+
+    mock_daily_head_8: "🍯 Daily: Ride the huge wave", mock_daily_body_8: "<h3>Nature's Temperature</h3><p>Letting things flow naturally brings much better results than trying to force changes.</p><h3>Bee's Prescription</h3><p>Be the ocean that generously accepts diverse opinions instead of being stubborn.</p>", sec_intro_title_8: "🌿 Inner Landscape: Deep Ocean (Yang Water)", sec_intro_body_8: "<p>You are a <strong>deep, massive ocean</strong> that embraces everything. Your adaptability is overwhelming.</p>", sec_flow_title_8: "🌊 Destiny Flow", sec_flow_body_8: "<p>Blocked problems will clear up, allowing you to move from stagnant water to a larger stage.</p>", sec_yearly_title_8: "🌅 Yearly Fortune", sec_yearly_body_8: "<p>Strong movement energy. Good news regarding job changes, moving, or overseas affairs.</p>", sec_monthly_title_8: "🗓️ Monthly Flow", sec_monthly_body_8: "<ul><li><strong>[H1]</strong> Adapt to new environments and expand your network.</li><li><strong>[H2]</strong> Turn crises into massive opportunities.</li></ul>", sec_wealth_title_8: "💰 Wealth: Boundless Fortune", sec_wealth_body_8: "<p>You create massive streams of wealth in trade, distribution, or large-scale investments.</p>", sec_career_title_8: "✨ Career: Free Spirit", sec_career_body_8: "<p>Boring repetitive tasks wither you. Overseas work, diplomacy, and planning are perfect.</p>", sec_academic_title_8: "📚 Academic: Sponge-like Genius", sec_academic_body_8: "<p>You have brilliant application skills but tend to ignore fields that don't interest you.</p>", sec_love_title_8: "🌸 Romance: A Reliable Port", sec_love_body_8: "<p>A reliable port who understands your ever-changing nature and doesn't restrict you is best.</p>", sec_health_title_8: "🍃 Health: Hydration Balance", sec_health_body_8: "<p>Take care of your kidneys and urinary system. Lower body baths are highly recommended.</p>", sec_advice_title_8: "🍯 Gentle Advice", sec_advice_body_8: "<p>Don't hide your feelings deep underwater. Whine a little to people you trust.</p>",
+
+    mock_daily_head_9: "🍯 Daily: Trust your intuition", mock_daily_body_9: "<h3>Nature's Temperature</h3><p>Your sharp intuition points to the 100% correct answer rather than logical calculations today.</p><h3>Bee's Prescription</h3><p>Do not act loudly. Read a book quietly and listen to the voice of your heart.</p>", sec_intro_title_9: "🌿 Inner Landscape: Wise Spring Rain (Yin Water)", sec_intro_body_9: "<p>You are the <strong>clear spring rain</strong> that awakens life. You hide immense intuition and survival skills.</p>", sec_flow_title_9: "🌊 Destiny Flow", stagnant: "<p>Stagnant thoughts and wealth finally melt and flow cheerfully like a clear stream.</p>", sec_yearly_title_9: "🌅 Yearly Fortune", sec_yearly_body_9: "<p>You will achieve everything you want by using your soft and indirect wisdom rather than head-on clashes.</p>", sec_monthly_title_9: "🗓️ Monthly Flow", sec_monthly_body_9: "<ul><li><strong>[H1]</strong> Quietly observe trends and absorb knowledge.</li><li><strong>[H2]</strong> Your brilliant ideas will surprise everyone.</li></ul>", sec_wealth_title_9: "💰 Wealth: Flowing Spring", sec_wealth_body_9: "<p>You quietly accumulate substantial wealth using your excellent information-gathering skills.</p>", sec_career_title_9: "✨ Career: Idea Bank", sec_career_body_9: "<p>You stand out best as a strategist, researcher, or educator framing things from behind.</p>", sec_academic_title_9: "📚 Academic: Deep Researcher", sec_academic_body_9: "<p>You have the brain of a scholar, excelling at digging deep into a single field.</p>", sec_love_title_9: "🌸 Romance: Emotional Resonance", sec_love_body_9: "<p>An emotional person who perfectly understands and empathizes with your sensitivities is great.</p>", sec_health_title_9: "🍃 Health: Warm Up", sec_health_body_9: "<p>Your body gets cold easily. Drink warm tea often and get plenty of sunlight.</p>", sec_advice_title_9: "🍯 Gentle Advice", sec_advice_body_9: "<p>Negative thoughts easily become a deep swamp. Force yourself outside to move when feeling down.</p>"
   },
+
+  // ==========================================
+  // INDONESIAN (Fully Supported, Emotive Translation)
+  // ==========================================
   id: {
     btn_home_only: "Beranda", back_to_menu: "Menu", cta_check_saju: "Mulai Kisah Saya",
-    what_is_saju_title: "Kisah yang Mencerminkan Alam", what_is_saju_p1: "Saju membaca aliran takdir Anda berdasarkan energi alam saat Anda lahir.", what_is_saju_p3: "Biarkan saya menjadi pencerita Anda.",
-    hub_pick_title: "Kisah apa yang ingin Anda dengar?", hub_pick_sub: "Mari jelajahi jalan Anda.",
-    p_ad: "📺 Tonton Iklan", p_yearly: "Rp 29.000", p_wealth: "Rp 29.000", p_std: "Rp 29.000", p_full: "Rp 75.000",
-    menu_daily: "Harian", menu_daily_sub: "Energi lembut", menu_yearly: "Tahunan", menu_yearly_sub: "Tahun hangat", menu_wealth: "Kekayaan", menu_wealth_sub: "Wadah uang", menu_love: "Romansa", menu_love_sub: "Koneksi manis", menu_career: "Karier", menu_career_sub: "Peran sempurna", menu_academic: "Akademik", menu_academic_sub: "Pintu kebijaksanaan", menu_health: "Kesehatan", menu_health_sub: "Irama tubuh", menu_full: "Master", menu_full_sub: "Lukisan lengkap",
-    onb_intro: "Ceritakan kelahiran Anda", label_name: "Nama (Opsional)", label_date: "Tanggal Lahir", label_time: "Waktu Lahir", time_opt_placeholder: "Pilih waktu", time_unknown_check: "Tidak tahu waktu lahir", label_gender: "Gender", gender_f: "Wanita", gender_m: "Pria", onb_submit: "Ungkapkan Energi", err_req_date: "Masukkan tanggal.", err_req_time: "Pilih waktu.",
+    what_is_saju_title: "Kisah yang Mencerminkan Alam", what_is_saju_p1: "Saju membaca aliran takdir Anda secara logis berdasarkan musim dan energi alam saat Anda lahir.", what_is_saju_p3: "Biarkan saya menjadi pencerita Anda dan menunjukkan pemandangan indah di dalam diri Anda.",
+    hub_pick_title: "Kisah apa yang ingin Anda dengar?", hub_pick_sub: "Mari jelajahi jalan Anda dengan hangat.",
+    p_ad_short: "📺 3d Iklan", p_ad_normal: "📺 5d Iklan", p_ad_premium: "📺 7d Premium",
+    menu_daily: "Harian", menu_daily_sub: "Energi hari ini", menu_yearly: "Tahunan", menu_yearly_sub: "Tahun yang hangat", menu_wealth: "Kekayaan", menu_wealth_sub: "Wadah uang Anda", menu_love: "Romansa", menu_love_sub: "Koneksi yang manis", menu_career: "Karier", menu_career_sub: "Jalan yang tepat", menu_academic: "Akademik", menu_academic_sub: "Pintu kebijaksanaan", menu_health: "Kesehatan", menu_health_sub: "Keseimbangan alami", menu_full: "Laporan Master", menu_full_sub: "Lukisan lengkap hidup Anda",
     
-    ad_title: "Pesan Sponsor", ad_desc: "Lebah sedang mengumpulkan madu! 🐝💦<br>Tunggu sebentar.", ad_timer_prefix: "Waktu: ", ad_timer_suffix: "d", ad_reward: "🍯 Siap!",
-    loading_title: "Menghitung BaZi...", loading_sub: "Mohon tunggu sebentar.", reveal_title: "BaZi Anda", reveal_sub: "Energi asli Anda.", btn_read_story: "Baca Kisah", paywall_sub: "Buka panduan hidup Anda?", price_desc: "Sekali bayar", pay_stripe: "Buka Kisah", maybe_later: "Nanti", your_saju_label: "Lihat lanskap batin Anda.", explore_title: "Kisah lain?", m_title: "Pilar Asli", m_desc: "* Tepi merah adalah inti Anda.", m_year: "Tahun", m_month: "Bulan", m_day: "Hari", m_time: "Waktu",
-    r_daily_title: "Harian", r_yearly_title: "Tahunan", r_wealth_title: "Kekayaan", r_love_title: "Cinta", r_career_title: "Karier", r_academic_title: "Akademik", r_health_title: "Kesehatan", r_full_title: "Master",
-    time_ja: "23:30 ~ 01:29", time_chuk: "01:30 ~ 03:29", time_in: "03:30 ~ 05:29", time_myo: "05:30 ~ 07:29", time_jin: "07:30 ~ 09:29", time_sa: "09:30 ~ 11:29", time_o: "11:30 ~ 13:29", time_mi: "13:30 ~ 15:29", time_shin: "15:30 ~ 17:29", time_yu: "17:30 ~ 19:29", time_sul: "19:30 ~ 21:29", time_hae: "21:30 ~ 23:29",
-    btn_save_img: "Simpan Gambar", btn_share: "Bagikan", saving_img: "Menyimpan...", saved_img: "Tersimpan!", copied: "Tersalin!", share_title: "🍯 Energi Saju", share_text: "Kisah Saju hangat!",
+    onb_intro: "Ceritakan kelahiran Anda", label_name: "Nama Panggilan", label_date: "Tanggal Lahir", label_time: "Waktu Lahir", time_opt_placeholder: "Pilih waktu", time_unknown_check: "Tidak tahu waktu", label_gender: "Gender", gender_f: "Wanita", gender_m: "Pria", onb_submit: "Ungkapkan Energi Alam", 
+    err_req_name: "Harap masukkan nama panggilan.", err_req_date: "Masukkan tanggal lahir Anda.", err_req_time: "Pilih waktu atau centang 'Tidak tahu'.",
+    
+    unknown_pillar: "Tidak Tahu", unknown_desc: "Tidak Tahu",
+    privacy_notice: "🔒 Data Anda tidak disimpan di server dan diproses dengan aman di perangkat ini.",
+    share_sheet_title: "Bagikan Kisah", share_btn_native: "Lainnya", share_btn_link: "Salin Tautan",
 
-    mock_daily_head_0: "🍯 Harian", mock_daily_body_0: "<p>Melangkahlah</p>", sec_intro_title_0: "🌿 Intro", sec_intro_body_0: "<p>Pohon Besar</p>", sec_flow_title_0: "🌊 Aliran", sec_flow_body_0: "<p>Musim semi</p>", sec_yearly_title_0: "🌅 Tahunan", sec_yearly_body_0: "<p>Hadiah</p>", sec_monthly_title_0: "🗓️ Bulanan", sec_monthly_body_0: "<p>Mulai</p>", sec_wealth_title_0: "💰 Kekayaan", sec_wealth_body_0: "<p>Keahlian</p>", sec_career_title_0: "✨ Karier", sec_career_body_0: "<p>Mentor</p>", sec_academic_title_0: "📚 Akademik", sec_academic_body_0: "<p>Spons</p>", sec_love_title_0: "🌸 Cinta", sec_love_body_0: "<p>Cerah</p>", sec_health_title_0: "🍃 Kesehatan", sec_health_body_0: "<p>Hangat</p>", sec_advice_title_0: "🍯 Nasihat", sec_advice_body_0: "<p>Jalan</p>",
-    mock_daily_head_1: "🍯 Harian", mock_daily_body_1: "<p>Fleksibel</p>", sec_intro_title_1: "🌿 Intro", sec_intro_body_1: "<p>Tanaman Merambat</p>", sec_flow_title_1: "🌊 Aliran", sec_flow_body_1: "<p>Tumbuh</p>", sec_yearly_title_1: "🌅 Tahunan", sec_yearly_body_1: "<p>Teman</p>", sec_monthly_title_1: "🗓️ Bulanan", sec_monthly_body_1: "<p>Relasi</p>", sec_wealth_title_1: "💰 Kekayaan", sec_wealth_body_1: "<p>Jaringan</p>", sec_career_title_1: "✨ Karier", sec_career_body_1: "<p>Sosial</p>", sec_academic_title_1: "📚 Akademik", sec_academic_body_1: "<p>Grup</p>", sec_love_title_1: "🌸 Cinta", sec_love_body_1: "<p>Manis</p>", sec_health_title_1: "🍃 Kesehatan", sec_health_body_1: "<p>Rileks</p>", sec_advice_title_1: "🍯 Nasihat", sec_advice_body_1: "<p>Batas</p>",
-    mock_daily_head_2: "🍯 Harian", mock_daily_body_2: "<p>Terang</p>", sec_intro_title_2: "🌿 Intro", sec_intro_body_2: "<p>Matahari</p>", sec_flow_title_2: "🌊 Aliran", sec_flow_body_2: "<p>Cahaya</p>", sec_yearly_title_2: "🌅 Tahunan", sec_yearly_body_2: "<p>Sukses</p>", sec_monthly_title_2: "🗓️ Bulanan", sec_monthly_body_2: "<p>Terang</p>", sec_wealth_title_2: "💰 Kekayaan", sec_wealth_body_2: "<p>Cepat</p>", sec_career_title_2: "✨ Karier", sec_career_body_2: "<p>Tampil</p>", sec_academic_title_2: "📚 Akademik", sec_academic_body_2: "<p>Juara</p>", sec_love_title_2: "🌸 Cinta", sec_love_body_2: "<p>Jujur</p>", sec_health_title_2: "🍃 Kesehatan", sec_health_body_2: "<p>Mata</p>", sec_advice_title_2: "🍯 Nasihat", sec_advice_body_2: "<p>Napas</p>",
-    mock_daily_head_3: "🍯 Harian", mock_daily_body_3: "<p>Sabar</p>", sec_intro_title_3: "🌿 Intro", sec_intro_body_3: "<p>Api Kecil</p>", sec_flow_title_3: "🌊 Aliran", sec_flow_body_3: "<p>Murni</p>", sec_yearly_title_3: "🌅 Tahunan", sec_yearly_body_3: "<p>Tunggu</p>", sec_monthly_title_3: "🗓️ Bulanan", sec_monthly_body_3: "<p>Sabar</p>", sec_wealth_title_3: "💰 Kekayaan", sec_wealth_body_3: "<p>Kunci</p>", sec_career_title_3: "✨ Karier", sec_career_body_3: "<p>Panggung</p>", sec_academic_title_3: "📚 Akademik", sec_academic_body_3: "<p>Cepat</p>", sec_love_title_3: "🌸 Cinta", sec_love_body_3: "<p>Laut</p>", sec_health_title_3: "🍃 Kesehatan", sec_health_body_3: "<p>Istirahat</p>", sec_advice_title_3: "🍯 Nasihat", sec_advice_body_3: "<p>Tidur</p>",
-    mock_daily_head_4: "🍯 Harian", mock_daily_body_4: "<p>Tegar</p>", sec_intro_title_4: "🌿 Intro", sec_intro_body_4: "<p>Gunung</p>", sec_flow_title_4: "🌊 Aliran", sec_flow_body_4: "<p>Kuat</p>", sec_yearly_title_4: "🌅 Tahunan", sec_yearly_body_4: "<p>Aman</p>", sec_monthly_title_4: "🗓️ Bulanan", sec_monthly_body_4: "<p>Hasil</p>", sec_wealth_title_4: "💰 Kekayaan", sec_wealth_body_4: "<p>Tanah</p>", sec_career_title_4: "✨ Karier", sec_career_body_4: "<p>Pemimpin</p>", sec_academic_title_4: "📚 Akademik", sec_academic_body_4: "<p>Fokus</p>", sec_love_title_4: "🌸 Cinta", sec_love_body_4: "<p>Nyaman</p>", sec_health_title_4: "🍃 Kesehatan", sec_health_body_4: "<p>Perut</p>", sec_advice_title_4: "🍯 Nasihat", sec_advice_body_4: "<p>Tawa</p>",
-    mock_daily_head_5: "🍯 Harian", mock_daily_body_5: "<p>Peduli</p>", sec_intro_title_5: "🌿 Intro", sec_intro_body_5: "<p>Taman</p>", sec_flow_title_5: "🌊 Aliran", sec_flow_body_5: "<p>Panen</p>", sec_yearly_title_5: "🌅 Tahunan", sec_yearly_body_5: "<p>Fokus</p>", sec_monthly_title_5: "🗓️ Bulanan", sec_monthly_body_5: "<p>Tabung</p>", sec_wealth_title_5: "💰 Kekayaan", sec_wealth_body_5: "<p>Stabil</p>", sec_career_title_5: "✨ Karier", sec_career_body_5: "<p>Pakar</p>", sec_academic_title_5: "📚 Akademik", sec_academic_body_5: "<p>Rapi</p>", sec_love_title_5: "🌸 Cinta", sec_love_body_5: "<p>Santai</p>", sec_health_title_5: "🍃 Kesehatan", sec_health_body_5: "<p>Jalan</p>", sec_advice_title_5: "🍯 Nasihat", sec_advice_body_5: "<p>Hadiah</p>",
-    mock_daily_head_6: "🍯 Harian", mock_daily_body_6: "<p>Tegas</p>", sec_intro_title_6: "🌿 Intro", sec_intro_body_6: "<p>Besi</p>", sec_flow_title_6: "🌊 Aliran", sec_flow_body_6: "<p>Tajam</p>", sec_yearly_title_6: "🌅 Tahunan", sec_yearly_body_6: "<p>Baru</p>", sec_monthly_title_6: "🗓️ Bulanan", sec_monthly_body_6: "<p>Atur</p>", sec_wealth_title_6: "💰 Kekayaan", sec_wealth_body_6: "<p>Keahlian</p>", sec_career_title_6: "✨ Karier", sec_career_body_6: "<p>Aturan</p>", sec_academic_title_6: "📚 Akademik", sec_academic_body_6: "<p>Fokus</p>", sec_love_title_6: "🌸 Cinta", sec_love_body_6: "<p>Setia</p>", sec_health_title_6: "🍃 Kesehatan", sec_health_body_6: "<p>Paru</p>", sec_advice_title_6: "🍯 Nasihat", sec_advice_body_6: "<p>Buka</p>",
-    mock_daily_head_7: "🍯 Harian", mock_daily_body_7: "<p>Senyum</p>", sec_intro_title_7: "🌿 Intro", sec_intro_body_7: "<p>Permata</p>", sec_flow_title_7: "🌊 Aliran", sec_flow_body_7: "<p>Lumut</p>", sec_yearly_title_7: "🌅 Tahunan", sec_yearly_body_7: "<p>Senyum</p>", sec_monthly_title_7: "🗓️ Bulanan", sec_monthly_body_7: "<p>Santai</p>", sec_wealth_title_7: "💰 Kekayaan", sec_wealth_body_7: "<p>Koneksi</p>", sec_career_title_7: "✨ Karier", sec_career_body_7: "<p>Hangat</p>", sec_academic_title_7: "📚 Akademik", sec_academic_body_7: "<p>Lewati</p>", sec_love_title_7: "🌸 Cinta", sec_love_body_7: "<p>Peluk</p>", sec_health_title_7: "🍃 Kesehatan", sec_health_body_7: "<p>Santai</p>", sec_advice_title_7: "🍯 Nasihat", sec_advice_body_7: "<p>Terima</p>",
-    mock_daily_head_8: "🍯 Harian", mock_daily_body_8: "<p>Lancar</p>", sec_intro_title_8: "🌿 Intro", sec_intro_body_8: "<p>Lautan</p>", sec_flow_title_8: "🌊 Aliran", sec_flow_body_8: "<p>Ombak</p>", sec_yearly_title_8: "🌅 Tahunan", sec_yearly_body_8: "<p>Jauh</p>", sec_monthly_title_8: "🗓️ Bulanan", sec_monthly_body_8: "<p>Lancar</p>", sec_wealth_title_8: "💰 Kekayaan", sec_wealth_body_8: "<p>Luar</p>", sec_career_title_8: "✨ Karier", sec_career_body_8: "<p>Bebas</p>", sec_academic_title_8: "📚 Akademik", sec_academic_body_8: "<p>Pintar</p>", sec_love_title_8: "🌸 Cinta", sec_love_body_8: "<p>Bebas</p>", sec_health_title_8: "🍃 Kesehatan", sec_health_body_8: "<p>Air</p>", sec_advice_title_8: "🍯 Nasihat", sec_advice_body_8: "<p>Jujur</p>",
-    mock_daily_head_9: "🍯 Harian", mock_daily_body_9: "<p>Intuisi</p>", sec_intro_title_9: "🌿 Intro", sec_intro_body_9: "<p>Hujan Musim Semi</p>", sec_flow_title_9: "🌊 Aliran", sec_flow_body_9: "<p>Mencair</p>", sec_yearly_title_9: "🌅 Tahunan", sec_yearly_body_9: "<p>Cerdas</p>", sec_monthly_title_9: "🗓️ Bulanan", sec_monthly_body_9: "<p>Ide</p>", sec_wealth_title_9: "💰 Kekayaan", sec_wealth_body_9: "<p>Tenang</p>", sec_career_title_9: "✨ Karier", sec_career_body_9: "<p>Kreatif</p>", sec_academic_title_9: "📚 Akademik", sec_academic_body_9: "<p>Riset</p>", sec_love_title_9: "🌸 Cinta", sec_love_body_9: "<p>Peka</p>", sec_health_title_9: "🍃 Kesehatan", sec_health_body_9: "<p>Hangat</p>", sec_advice_title_9: "🍯 Nasihat", sec_advice_body_9: "<p>Gerak</p>"
+    ad_title: "Pesan Sponsor", ad_desc: "Lebah Saju sedang mengumpulkan madu! 🐝💦<br>Tunggu sebentar untuk membaca laporan.", ad_timer_prefix: "Waktu: ", ad_timer_suffix: "d", ad_reward: "🍯 Laporan siap!",
+    loading_title: "Menghitung Pilar...", loading_sub: "Mengumpulkan energi hari kelahiran Anda untuk melukis hutan yang indah. Mohon tunggu.",
+    reveal_title: "Energi Alami Anda", reveal_sub: "Empat energi asli yang membentuk lanskap batin Anda.", btn_read_story: "Baca Kisah Penuh",
+    your_saju_label: "Sekarang, mari kita lihat lanskap batin Anda.", explore_title: "Ingin mendengar kisah lainnya secara gratis?",
+    m_title: "Pilar Asli Saya", m_desc: "* Tepi merah (Pilar Hari) adalah energi inti Anda.", m_year: "Tahun", m_month: "Bulan", m_day: "Hari", m_time: "Waktu",
+    r_daily_title: "Nasihat Lembut Hari Ini", r_yearly_title: "Langkah Hangat Tahun Ini", r_wealth_title: "Lanskap Kekayaan Anda", r_love_title: "Kehangatan di Sisi Anda", r_career_title: "Tempat Anda Terbang", r_academic_title: "Mata Air Kebijaksanaan", r_health_title: "Perawatan Tubuh Alami", r_full_title: "Karya Agung Anda",
+    
+    time_ja: "23:30 ~ 01:29", time_chuk: "01:30 ~ 03:29", time_in: "03:30 ~ 05:29", time_myo: "05:30 ~ 07:29", time_jin: "07:30 ~ 09:29", time_sa: "09:30 ~ 11:29", time_o: "11:30 ~ 13:29", time_mi: "13:30 ~ 15:29", time_shin: "15:30 ~ 17:29", time_yu: "17:30 ~ 19:29", time_sul: "19:30 ~ 21:29", time_hae: "21:30 ~ 23:29",
+    btn_save_img: "Simpan Gambar", btn_share: "Bagikan", saving_img: "Menyimpan...", saved_img: "Tersimpan!", copied: "Tersalin!",
+    share_title: "🍯 Energi Alami Saya oleh Bee Saju", share_text: "Kisah Saju hangat yang mencerminkan alam! Penasaran seperti apa lanskap batin Anda? Cek sekarang.",
+
+    mock_daily_head_0: "🍯 Harian: Melangkahlah dengan ringan", mock_daily_body_0: "<h3>Suhu Alam</h3><p>Alam dengan lembut mendorong punggung Anda untuk memulai sesuatu yang baru hari ini.</p><h3>Resep Lebah</h3><p>Tindakan kecil hari ini akan membawa lebih banyak keberuntungan daripada imajinasi sempurna.</p>", sec_intro_title_0: "🌿 Lanskap Batin: Pohon Besar", sec_intro_body_0: "<p>Anda adalah <strong>pohon yang kuat dan kokoh</strong> berakar dalam di tepi danau yang tenang. Anda memiliki tekad untuk tumbuh ke langit.</p>", sec_flow_title_0: "🌊 Aliran Takdir", sec_flow_body_0: "<p>Ide-ide yang Anda simpan akhirnya akan mekar menjadi kenyataan di bawah sinar matahari hangat.</p>", sec_yearly_title_0: "🌅 Keberuntungan Tahunan", sec_yearly_body_0: "<p>Hasil nyata mulai terlihat. Jangan lakukan semuanya sendiri; keluarlah dan berkomunikasi.</p>", sec_monthly_title_0: "🗓️ Aliran Bulanan", sec_monthly_body_0: "<ul><li><strong>[H1]</strong> Mulailah sekarang. Orang baik akan membantu.</li><li><strong>[H2]</strong> Keringat Anda berubah menjadi kekayaan padat.</li></ul>", sec_wealth_title_0: "💰 Kekayaan: Tanah Tanpa Batas", sec_wealth_body_0: "<p>Kekayaan besar Anda mengalir dari keahlian mendalam Anda seperti mata air yang tak ada habisnya.</p>", sec_career_title_0: "✨ Karier: Mentor Bijak", sec_career_body_0: "<p>Anda sangat cocok dengan peran pemimpin atau mentor yang memahami gambaran besarnya.</p>", sec_academic_title_0: "📚 Akademik: Spons", sec_academic_body_0: "<p>Anda memiliki bakat untuk menyerap pengetahuan dengan sempurna. Lepaskan perfeksionisme.</p>", sec_love_title_0: "🌸 Romansa: Sinar Mentari", sec_love_body_0: "<p>Orang yang cerah dan hangat yang menggenggam tangan Anda dengan senyuman adalah pasangan terbaik.</p>", sec_health_title_0: "🍃 Kesehatan: Jaga Kehangatan", sec_health_body_0: "<p>Jaga tubuh Anda tetap hangat, terutama saat pergantian musim.</p>", sec_advice_title_0: "🍯 Nasihat Lembut", sec_advice_body_0: "<p>Berjalan-jalanlah di bawah sinar matahari. Itu memberi Anda energi positif.</p>",
+
+    mock_daily_head_1: "🍯 Harian: Bersikaplah fleksibel", mock_daily_body_1: "<h3>Suhu Alam</h3><p>Angin kencang bertiup. Anda membutuhkan kebijaksanaan untuk menunduk fleksibel seperti alang-alang.</p><h3>Resep Lebah</h3><p>Jangan ragu untuk mengulurkan tangan jika Anda butuh bantuan.</p>", sec_intro_title_1: "🌿 Lanskap Batin: Tanaman Rambat yang Tangguh", sec_intro_body_1: "<p>Anda adalah <strong>tanaman rambat yang fleksibel</strong> yang mekar bahkan di celah bebatuan. Kemampuan sosial Anda luar biasa.</p>", sec_flow_title_1: "🌊 Aliran Takdir", sec_flow_body_1: "<p>Anda akan bertemu dengan pilar kokoh untuk dipanjat, memungkinkan Anda terbang tinggi.</p>", sec_yearly_title_1: "🌅 Keberuntungan Tahunan", sec_yearly_body_1: "<p>Kemampuan Anda untuk berjejaring akan membawa keuntungan besar yang tak terduga.</p>", sec_monthly_title_1: "🗓️ Aliran Bulanan", sec_monthly_body_1: "<ul><li><strong>[H1]</strong> Usaha kecil mendapat pujian besar.</li><li><strong>[H2]</strong> Koneksi Anda memberikan bantuan luar biasa.</li></ul>", sec_wealth_title_1: "💰 Kekayaan: Jaringan Manusia", sec_wealth_body_1: "<p>Anda menghasilkan keuntungan manis dengan menangkap tren di mana orang berkumpul.</p>", sec_career_title_1: "✨ Karier: Komunikator Sempurna", sec_career_body_1: "<p>Anda adalah bakat tak tergantikan yang memediasi konflik dan mencairkan suasana.</p>", sec_academic_title_1: "📚 Akademik: Andalan Belajar Grup", sec_academic_body_1: "<p>Anda belajar lebih banyak dengan berdiskusi dan mengajar orang lain daripada belajar sendiri.</p>", sec_love_title_1: "🌸 Romansa: Perhatian Detail", sec_love_body_1: "<p>Anda lebih suka seseorang yang diam-diam merawat Anda di balik sikap acuh tak acuhnya.</p>", sec_health_title_1: "🍃 Kesehatan: Sistem Saraf", sec_health_body_1: "<p>Anda mungkin stres karena terlalu mempedulikan orang lain. Aromaterapi disarankan.</p>", sec_advice_title_1: "🍯 Nasihat Lembut", sec_advice_body_1: "<p>Anda tidak harus baik kepada semua orang. Miliki keberanian untuk berkata tidak.</p>",
+
+    mock_daily_head_2: "🍯 Harian: Bersinar terang", mock_daily_body_2: "<h3>Suhu Alam</h3><p>Bakat dan pesona Anda akan menarik perhatian semua orang hari ini.</p><h3>Resep Lebah</h3><p>Untuk hari ini, majulah dengan percaya diri dan pimpin proyek tersebut.</p>", sec_intro_title_2: "🌿 Lanskap Batin: Matahari Terang", sec_intro_body_2: "<p>Anda adalah <strong>matahari yang menyilaukan</strong> yang mengusir kegelapan. Pemimpin yang adil dan hebat.</p>", sec_flow_title_2: "🌊 Aliran Takdir", sec_flow_body_2: "<p>Waktu yang cemerlang di mana nama Anda dikenal luas dan Anda menyebarkan pengaruh positif.</p>", sec_yearly_title_2: "🌅 Keberuntungan Tahunan", sec_yearly_body_2: "<p>Masalah yang membuat frustrasi akan terselesaikan, dan energi kuat untuk promosi tiba.</p>", sec_monthly_title_2: "🗓️ Aliran Bulanan", sec_monthly_body_2: "<ul><li><strong>[H1]</strong> Anda menjadi sangat aktif. Jangan berlebihan.</li><li><strong>[H2]</strong> Anda mendapatkan pencapaian dan kehormatan yang nyata.</li></ul>", sec_wealth_title_2: "💰 Kekayaan: Kesuksesan Nyata", sec_wealth_body_2: "<p>Anda menghasilkan uang melalui pencapaian yang terlihat dan kesuksesan jangka pendek yang gemilang.</p>", sec_career_title_2: "✨ Karier: Panggung Utama", sec_career_body_2: "<p>Anda berkembang pesat di bidang pendidikan, penyiaran, atau di mana pun Anda bisa menjadi sorotan.</p>", sec_academic_title_2: "📚 Akademik: Keunggulan Kompetitif", sec_academic_body_2: "<p>Anda menunjukkan 200% kemampuan Anda saat ada saingan untuk bersaing.</p>", sec_love_title_2: "🌸 Romansa: Cinta yang Penuh Gairah", sec_love_body_2: "<p>Orang yang jujur, transparan, dan tidak suka bermain-main adalah pasangan terbaik Anda.</p>", sec_health_title_2: "🍃 Kesehatan: Kardiovaskular", sec_health_body_2: "<p>Jaga jantung Anda dan waspadai mata kering karena memancarkan terlalu banyak energi.</p>", sec_advice_title_2: "🍯 Nasihat Lembut", sec_advice_body_2: "<p>Waspadai emosi Anda yang cepat panas. Tarik napas saat marah.</p>",
+
+    mock_daily_head_3: "🍯 Harian: Ambil jeda", mock_daily_body_3: "<h3>Suhu Alam</h3><p>Anda mungkin merasa frustrasi tentang hal-hal yang tidak bergerak cukup cepat.</p><h3>Resep Lebah</h3><p>Mengambil jeda dalam diam hari ini akan mencegah penyesalan besar esok hari.</p>", sec_intro_title_3: "🌿 Lanskap Batin: Api Unggun Hangat", sec_intro_body_3: "<p>Anda adalah <strong>api unggun hangat</strong> yang memandu jalan gelap. Anda penuh pengorbanan dan artistik.</p>", sec_flow_title_3: "🌊 Aliran Takdir", sec_flow_body_3: "<p>Anda akan belajar menyelaraskan diri dengan orang yang memiliki kecepatan berbeda dari Anda.</p>", sec_yearly_title_3: "🌅 Keberuntungan Tahunan", sec_yearly_body_3: "<p>Hal-hal mungkin tertunda. Biarkan mengalir secara alami seperti sungai.</p>", sec_monthly_title_3: "🗓️ Aliran Bulanan", sec_monthly_body_3: "<ul><li><strong>[H1]</strong> Terima umpan balik dari orang di sekitar Anda.</li><li><strong>[H2]</strong> Kompromi menjadi kunci keberuntungan.</li></ul>", sec_wealth_title_3: "💰 Kekayaan: Kunci Dompet Anda", sec_wealth_body_3: "<p>Anda cenderung menghabiskan banyak uang saat merasa senang, jadi menabung sangat penting.</p>", sec_career_title_3: "✨ Karier: Perencana Kreatif", sec_career_body_3: "<p>Pekerjaan pasif mencekik Anda. Perencanaan, pemasaran, dan desain sangat cocok untuk Anda.</p>", sec_academic_title_3: "📚 Akademik: Jenius Menit Terakhir", sec_academic_body_3: "<p>Anda menunjukkan konsentrasi luar biasa saat tenggat waktu tepat di depan mata.</p>", sec_love_title_3: "🌸 Romansa: Lautan yang Merangkul", sec_love_body_3: "<p>Orang yang tenang dan dapat diandalkan yang menerima sensitivitas Anda adalah pasangan sempurna.</p>", sec_health_title_3: "🍃 Kesehatan: Dinginkan Mesin", sec_health_body_3: "<p>Berbaring diam dan melamun tanpa pikiran adalah obat terbaik Anda.</p>", sec_advice_title_3: "🍯 Nasihat Lembut", sec_advice_body_3: "<p>Selalu tidurlah sebelum mengambil keputusan penting.</p>",
+
+    mock_daily_head_4: "🍯 Harian: Berdiri teguh seperti gunung", mock_daily_body_4: "<h3>Suhu Alam</h3><p>Mungkin ada kebisingan di sekitar Anda, tetapi Anda harus menjadi jangkar yang menahan pusatnya.</p><h3>Resep Lebah</h3><p>Tahan tindakan gegabah dan tenangkan kecemasan orang lain dengan tatapan hangat.</p>", sec_intro_title_4: "🌿 Lanskap Batin: Gunung Kokoh", sec_intro_body_4: "<p>Anda adalah <strong>gunung yang dapat diandalkan</strong> yang tidak goyah dalam badai. Kapasitas Anda besar.</p>", sec_flow_title_4: "🌊 Aliran Takdir", sec_flow_body_4: "<p>Bunga-bunga indah akhirnya tumbuh di tanah Anda, dan banyak orang akan mencari Anda.</p>", sec_yearly_title_4: "🌅 Keberuntungan Tahunan", sec_yearly_body_4: "<p>Kepercayaan yang Anda bangun kembali sebagai kontrak besar atau keberuntungan dokumen.</p>", sec_monthly_title_4: "🗓️ Aliran Bulanan", sec_monthly_body_4: "<ul><li><strong>[H1]</strong> Anda memantapkan fondasi Anda.</li><li><strong>[H2]</strong> Anda mendapatkan rasa hormat dan posisi menguntungkan.</li></ul>", sec_wealth_title_4: "💰 Kekayaan: Investasi Jangka Panjang", sec_wealth_body_4: "<p>Anda mengumpulkan kekayaan besar melalui real estat atau investasi nilai jangka panjang.</p>", sec_career_title_4: "✨ Karier: Pemimpin yang Diandalkan", sec_career_body_4: "<p>Anda sukses besar dalam peran sebagai mediator, keuangan, di mana kepercayaan adalah kunci.</p>", sec_academic_title_4: "📚 Akademik: Daya Tahan Sabar", sec_academic_body_4: "<p>Anda mencapai hal besar dengan jujur mencurahkan waktu untuk belajar daripada mengambil jalan pintas.</p>", sec_love_title_4: "🌸 Romansa: Batu yang Pemalu", sec_love_body_4: "<p>Orang ceria yang menganggap sikap kaku Anda lucu dan mendekati Anda lebih dulu adalah ideal.</p>", sec_health_title_4: "🍃 Kesehatan: Sistem Pencernaan", sec_health_body_4: "<p>Stres langsung menyerang perut Anda. Makan makanan teratur sangat penting.</p>", sec_advice_title_4: "🍯 Nasihat Lembut", sec_advice_body_4: "<p>Kadang-kadang, lepaskan wibawa Anda dan tertawalah keras-keras seperti anak kecil.</p>",
+
+    mock_daily_head_5: "🍯 Harian: Hibur sekeliling Anda", mock_daily_body_5: "<h3>Suhu Alam</h3><p>Kenyamanan hangat Anda akan menjadi kekuatan besar bagi orang-orang di sekitar Anda hari ini.</p><h3>Resep Lebah</h3><p>Traktir seseorang yang dekat dengan Anda secangkir kopi dan dengarkan ceritanya.</p>", sec_intro_title_5: "🌿 Lanskap Batin: Taman Pemelihara", sec_intro_body_5: "<p>Anda adalah <strong>taman subur</strong> yang memekarkan bunga indah. Anda peduli tetapi juga praktis.</p>", sec_flow_title_5: "🌊 Aliran Takdir", sec_flow_body_5: "<p>Benih yang Anda tanam dengan hati-hati akhirnya mulai berbuah lebat.</p>", sec_yearly_title_5: "🌅 Keberuntungan Tahunan", sec_yearly_body_5: "<p>Ini akan menjadi tahun mengisi dompet dan hati Anda secara praktis daripada acara mencolok.</p>", sec_monthly_title_5: "🗓️ Aliran Bulanan", sec_monthly_body_5: "<ul><li><strong>[H1]</strong> Merawat orang lain memberi Anda proposal bagus.</li><li><strong>[H2]</strong> Pencapaian sederhana namun solid membawa kegembiraan.</li></ul>", sec_wealth_title_5: "💰 Kekayaan: Akumulasi Stabil", sec_wealth_body_5: "<p>Anda menjadi kaya melalui manajemen dan tabungan yang cermat, mengumpulkan debu menjadi gunung.</p>", sec_career_title_5: "✨ Karier: Pakar Tersembunyi", sec_career_body_5: "<p>Anda ahli top di bidang pendidikan, akuntansi, mengatur semuanya dengan lancar dari belakang.</p>", sec_academic_title_5: "📚 Akademik: Ahli Organisasi", sec_academic_body_5: "<p>Anda unggul dalam mengatur catatan dengan tenang dan menjadikan pengetahuan itu milik Anda.</p>", sec_love_title_5: "🌸 Romansa: Tempat Berlindung yang Nyaman", sec_love_body_5: "<p>Anda lebih suka hubungan yang nyaman dan stabil seperti teman daripada romansa berapi-api.</p>", sec_health_title_5: "🍃 Kesehatan: Manajemen Berat Badan", sec_health_body_5: "<p>Anda cenderung menghilangkan stres dengan makan yang manis-manis. Jalan ringan sangat penting.</p>", sec_advice_title_5: "🍯 Nasihat Lembut", sec_advice_body_5: "<p>Jangan biarkan taman Anda sendiri mengering saat merawat orang lain. Hadiahi diri Anda.</p>",
+
+    mock_daily_head_6: "🍯 Harian: Putuskan dengan tegas", mock_daily_body_6: "<h3>Suhu Alam</h3><p>Sudah waktunya untuk menarik garis yang jelas dalam hubungan ambigu atau keputusan yang tertunda.</p><h3>Resep Lebah</h3><p>Tegas bukan berarti dingin. Bangun pagar yang sehat untuk melindungi diri Anda.</p>", sec_intro_title_6: "🌿 Lanskap Batin: Baja Kokoh", sec_intro_body_6: "<p>Anda adalah <strong>baja yang tidak bisa dibengkokkan</strong>. Kesetiaan dan ketegasan Anda tak tertandingi.</p>", sec_flow_title_6: "🌊 Aliran Takdir", sec_flow_body_6: "<p>Melalui cobaan dan tempaan, Anda akhirnya menjadi mahakarya yang sempurna.</p>", sec_yearly_title_6: "🌅 Keberuntungan Tahunan", sec_yearly_body_6: "<p>Tahun yang sempurna untuk membersihkan kebiasaan lama dan memulai proyek secara mandiri.</p>", sec_monthly_title_6: "🗓️ Aliran Bulanan", sec_monthly_body_6: "<ul><li><strong>[H1]</strong> Membersihkan ruang memberi Anda momentum.</li><li><strong>[H2]</strong> Anda menonjol di bidang profesional Anda.</li></ul>", sec_wealth_title_6: "💰 Kekayaan: Keterampilan adalah Emas", sec_wealth_body_6: "<p>Keberuntungan finansial Anda yang solid berasal dari keterampilan teknis atau lisensi Anda.</p>", sec_career_title_6: "✨ Karier: Penjaga Aturan", sec_career_body_6: "<p>Anda bersinar di bidang di mana akurasi adalah nyawa, seperti medis, militer, atau IT.</p>", sec_academic_title_6: "📚 Akademik: Buldoser", sec_academic_body_6: "<p>Setelah Anda menetapkan tujuan, Anda memutus semua godaan dan berbaris menuju kesuksesan.</p>", sec_love_title_6: "🌸 Romansa: Setia Sampai Akhir", sec_love_body_6: "<p>Butuh waktu untuk jatuh cinta, tetapi begitu terjadi, Anda bertanggung jawab sampai akhir.</p>", sec_health_title_6: "🍃 Kesehatan: Perawatan Pernapasan", sec_health_body_6: "<p>Paru-paru Anda mungkin lemah. Nikmati latihan aerobik di udara segar dan regangkan persendian Anda.</p>", sec_advice_title_6: "🍯 Nasihat Lembut", sec_advice_body_6: "<p>Tarik sedikit ketajaman Anda dan tunjukkan kelembutan kepada orang-orang terdekat.</p>",
+
+    mock_daily_head_7: "🍯 Harian: Tersenyumlah dengan lembut", mock_daily_body_7: "<h3>Suhu Alam</h3><p>Indra Anda sedang tajam, memberi Anda dorongan kuat untuk menunjukkan kesalahan orang lain.</p><h3>Resep Lebah</h3><p>Tunjukkan kebaikan yang dewasa dengan membiarkannya berlalu dengan senyuman hari ini.</p>", sec_intro_title_7: "🌿 Lanskap Batin: Permata Berkilau", sec_intro_body_7: "<p>Anda adalah <strong>permata canggih</strong> di air jernih. Anda memiliki estetika hebat dan perfeksionisme kuat.</p>", sec_flow_title_7: "🌊 Aliran Takdir", sec_flow_body_7: "<p>Angin musim semi meniup hati dingin Anda, mengajari Anda cara menyelaraskan diri dengan orang lain.</p>", sec_yearly_title_7: "🌅 Keberuntungan Tahunan", sec_yearly_body_7: "<p>Jangan mencoba mengendalikan setiap situasi. Belajarlah menertawakan variabel tak terduga.</p>", sec_monthly_title_7: "🗓️ Aliran Bulanan", sec_monthly_body_7: "<ul><li><strong>[H1]</strong> Kompromi menjadi aset besar.</li><li><strong>[H2]</strong> Harap istirahatkan pikiran Anda sepenuhnya di akhir tahun.</li></ul>", sec_wealth_title_7: "💰 Kekayaan: Kebaikan adalah Uang", sec_wealth_body_7: "<p>Kekayaan besar berasal dari jaringan tingkat tinggi yang mengakui nilai sejati Anda.</p>", sec_career_title_7: "✨ Karier: Profesional Tajam", sec_career_body_7: "<p>Analisis tajam Anda bersinar di bidang keuangan, IT, atau hukum yang membutuhkan ketepatan.</p>", sec_academic_title_7: "📚 Akademik: Lepaskan Kesempurnaan", sec_academic_body_7: "<p>Latih manajemen waktu agar Anda tidak terjebak pada satu masalah yang belum terpecahkan.</p>", sec_love_title_7: "🌸 Romansa: Pelukan Hangat", sec_love_body_7: "<p>Temui orang humoris yang dapat dengan lembut mencairkan dinding rasionalitas dingin Anda.</p>", sec_health_title_7: "🍃 Kesehatan: Rilekskan Saraf", sec_health_body_7: "<p>Anda mudah terkena migrain karena ketegangan ekstrem. Peregangan dan meditasi sangat penting.</p>", sec_advice_title_7: "🍯 Nasihat Lembut", sec_advice_body_7: "<p>Tidak apa-apa terlihat sedikit berantakan kadang-kadang. Berhentilah mencambuk diri sendiri.</p>",
+
+    mock_daily_head_8: "🍯 Harian: Naiki ombak besar", mock_daily_body_8: "<h3>Suhu Alam</h3><p>Membiarkan hal-hal mengalir secara alami membawa hasil yang jauh lebih baik daripada memaksa.</p><h3>Resep Lebah</h3><p>Jadilah lautan yang dengan murah hati menerima beragam pendapat alih-alih bersikap keras kepala.</p>", sec_intro_title_8: "🌿 Lanskap Batin: Lautan Dalam", sec_intro_body_8: "<p>Anda adalah <strong>lautan dalam dan masif</strong> yang merangkul segalanya. Kemampuan adaptasi Anda luar biasa.</p>", sec_flow_title_8: "🌊 Aliran Takdir", sec_flow_body_8: "<p>Masalah yang tersumbat akan jernih, memungkinkan Anda pindah dari air tergenang ke tahap yang lebih besar.</p>", sec_yearly_title_8: "🌅 Keberuntungan Tahunan", sec_yearly_body_8: "<p>Energi pergerakan yang kuat. Berita bagus mengenai perubahan pekerjaan, pindah rumah, atau urusan luar negeri.</p>", sec_monthly_title_8: "🗓️ Aliran Bulanan", sec_monthly_body_8: "<ul><li><strong>[H1]</strong> Beradaptasi dengan lingkungan baru dan perluas jaringan Anda.</li><li><strong>[H2]</strong> Ubah krisis menjadi peluang besar.</li></ul>", sec_wealth_title_8: "💰 Kekayaan: Keberuntungan Tanpa Batas", sec_wealth_body_8: "<p>Anda menciptakan aliran kekayaan besar dalam perdagangan, distribusi, atau investasi skala besar.</p>", sec_career_title_8: "✨ Karier: Jiwa Bebas", sec_career_body_8: "<p>Tugas berulang membuat Anda layu. Pekerjaan di luar negeri, diplomasi, dan perencanaan sangat cocok.</p>", sec_academic_title_8: "📚 Akademik: Jenius seperti Spons", sec_academic_body_8: "<p>Anda memiliki keterampilan aplikasi yang brilian tetapi cenderung mengabaikan bidang yang tidak menarik.</p>", sec_love_title_8: "🌸 Romansa: Pelabuhan yang Dapat Diandalkan", sec_love_body_8: "<p>Pelabuhan andal yang memahami sifat Anda yang terus berubah dan tidak membatasi Anda adalah yang terbaik.</p>", sec_health_title_8: "🍃 Kesehatan: Keseimbangan Hidrasi", sec_health_body_8: "<p>Jaga ginjal dan sistem saluran kemih Anda. Mandi air hangat tubuh bagian bawah sangat disarankan.</p>", sec_advice_title_8: "🍯 Nasihat Lembut", sec_advice_body_8: "<p>Jangan sembunyikan perasaan Anda di bawah air. Mengeluhlah sedikit kepada orang yang Anda percayai.</p>",
+
+    mock_daily_head_9: "🍯 Harian: Percayai intuisi Anda", mock_daily_body_9: "<h3>Suhu Alam</h3><p>Intuisi tajam Anda menunjuk ke jawaban 100% benar daripada perhitungan logis hari ini.</p><h3>Resep Lebah</h3><p>Jangan bertindak keras. Bacalah buku dengan tenang dan dengarkan suara hati Anda.</p>", sec_intro_title_9: "🌿 Lanskap Batin: Hujan Musim Semi", sec_intro_body_9: "<p>Anda adalah <strong>hujan jernih</strong> yang membangkitkan kehidupan. Anda menyembunyikan intuisi besar.</p>", sec_flow_title_9: "🌊 Aliran Takdir", sec_flow_body_9: "<p>Pikiran dan kekayaan yang mandek akhirnya mencair dan mengalir riang seperti aliran sungai yang jernih.</p>", sec_yearly_title_9: "🌅 Keberuntungan Tahunan", sec_yearly_body_9: "<p>Anda akan mencapai segalanya menggunakan kebijaksanaan lembut daripada bentrokan langsung.</p>", sec_monthly_title_9: "🗓️ Aliran Bulanan", sec_monthly_body_9: "<ul><li><strong>[H1]</strong> Amati tren dengan tenang dan serap pengetahuan.</li><li><strong>[H2]</strong> Ide cemerlang Anda akan mengejutkan semua orang.</li></ul>", sec_wealth_title_9: "💰 Kekayaan: Mata Air yang Mengalir", sec_wealth_body_9: "<p>Anda diam-diam mengumpulkan kekayaan menggunakan keterampilan pengumpulan informasi Anda yang sangat baik.</p>", sec_career_title_9: "✨ Karier: Bank Ide", sec_career_body_9: "<p>Anda paling menonjol sebagai ahli strategi, peneliti, atau pendidik yang membingkai banyak hal dari belakang.</p>", sec_academic_title_9: "📚 Akademik: Peneliti Mendalam", sec_academic_body_9: "<p>Anda memiliki otak seorang sarjana, unggul dalam menggali dalam-dalam ke satu bidang.</p>", sec_love_title_9: "🌸 Romansa: Resonansi Emosional", sec_love_body_9: "<p>Orang emosional yang berempati dengan kepekaan Anda sangat cocok.</p>", sec_health_title_9: "🍃 Kesehatan: Pemanasan", sec_health_body_9: "<p>Tubuh Anda mudah dingin. Sering minum teh hangat dan dapatkan banyak sinar matahari.</p>", sec_advice_title_9: "🍯 Nasihat Lembut", sec_advice_body_9: "<p>Pikiran negatif mudah menjadi rawa yang dalam. Paksakan diri Anda keluar rumah saat merasa sedih.</p>"
   },
-  zh: {
-    btn_home_only: "主页", back_to_menu: "菜单", cta_check_saju: "开启我的故事",
-    what_is_saju_title: "映照自然的故事", what_is_saju_p1: "基于您出生时的自然能量解读命运轨迹。", what_is_saju_p3: "让我成为您的说书人。",
-    hub_pick_title: "您想听什么故事？", hub_pick_sub: "用温暖目光照亮前路。",
-    p_ad: "📺 看广告", p_yearly: "¥15", p_wealth: "¥15", p_std: "¥15", p_full: "¥35",
-    menu_daily: "今日", menu_daily_sub: "今日温暖", menu_yearly: "新年", menu_yearly_sub: "温暖一年", menu_wealth: "财富", menu_wealth_sub: "财富容器", menu_love: "恋爱", menu_love_sub: "寻找缘分", menu_career: "事业", menu_career_sub: "适合道路", menu_academic: "学业", menu_academic_sub: "智慧之门", menu_health: "健康", menu_health_sub: "自然平衡", menu_full: "大师", menu_full_sub: "人生解析",
-    onb_intro: "请告诉我生辰", label_name: "姓名(选填)", label_date: "出生日期", label_time: "出生时间", time_opt_placeholder: "选择时间", time_unknown_check: "不知道时间", label_gender: "性别", gender_f: "女性", gender_m: "男性", onb_submit: "揭晓能量", err_req_date: "请输入日期。", err_req_time: "选择时间。",
+
+  // ==========================================
+  // JAPANESE (Fully Supported, Emotive Translation)
+  // ==========================================
+  ja: {
+    btn_home_only: "ホーム", back_to_menu: "メニュー", cta_check_saju: "私の物語を聞く",
+    what_is_saju_title: "自然の理で読み解く私の運勢", what_is_saju_p1: "韓国の伝統命理学(Korean Fortune)は迷信ではありません。生まれた季節と自然の気運をもとに運命のパズルを読み解く知恵です。", what_is_saju_p3: "私たちがあなたの専属のストーリーテラーになり、心の風景をお見せします。",
+    hub_pick_title: "どの物語が気になりますか？", hub_pick_sub: "温かい視線であなたの道を照らします。",
+    p_ad_short: "📺 3秒 広告", p_ad_normal: "📺 5秒 広告", p_ad_premium: "📺 7秒 プレミアム",
+    menu_daily: "今日の運勢", menu_daily_sub: "今日一日の気運", menu_yearly: "新年の運勢", menu_yearly_sub: "温かい1年の計画", menu_wealth: "金運", menu_wealth_sub: "私だけの金銭の器", menu_love: "恋愛運", menu_love_sub: "私を理解するご縁", menu_career: "成功運", menu_career_sub: "私にぴったりの道", menu_academic: "学業運", menu_academic_sub: "集中と知恵の門", menu_health: "健康運", menu_health_sub: "自然な体のバランス", menu_full: "マスターレポート", menu_full_sub: "人生の完璧な解説書",
     
-    ad_title: "赞助商信息", ad_desc: "蜜蜂正在采蜜！🐝💦<br>稍等片刻。", ad_timer_prefix: "剩余 ", ad_timer_suffix: " 秒", ad_reward: "🍯 就绪！",
-    loading_title: "正在计算八字...", loading_sub: "请稍候。", reveal_title: "真实八字", reveal_sub: "能量已就位。", btn_read_story: "解锁故事", paywall_sub: "打开指南？", price_desc: "一次买断", pay_stripe: "解锁", maybe_later: "稍后", your_saju_label: "内心的风景。", explore_title: "其他解析？", m_title: "八字", m_desc: "* 红色为日元(核心)。", m_year: "年", m_month: "月", m_day: "日", m_time: "时",
-    r_daily_title: "今日", r_yearly_title: "今年", r_wealth_title: "财富", r_love_title: "恋爱", r_career_title: "事业", r_academic_title: "学业", r_health_title: "健康", r_full_title: "大师",
-    time_ja: "23:30~01:29", time_chuk: "01:30~03:29", time_in: "03:30~05:29", time_myo: "05:30~07:29", time_jin: "07:30~09:29", time_sa: "09:30~11:29", time_o: "11:30~13:29", time_mi: "13:30~15:29", time_shin: "15:30~17:29", time_yu: "17:30~19:29", time_sul: "19:30~21:29", time_hae: "21:30~23:29",
-    btn_save_img: "保存图片", btn_share: "分享", saving_img: "保存中...", saved_img: "已保存！", copied: "已复制！", share_title: "🍯 自然能量", share_text: "来看看吧。",
+    onb_intro: "あなたの星を教えてください", label_name: "ニックネーム", label_date: "生年月日 (西暦)", label_time: "生まれた時間", time_opt_placeholder: "時間を選択してください", time_unknown_check: "生まれた時間がわからない", label_gender: "性別", gender_f: "女性", gender_m: "男性", onb_submit: "自然の気運を確認する", 
+    err_req_name: "ニックネームを入力してください。", err_req_date: "生年月日を教えてください。", err_req_time: "時間を選択するか、「わからない」をチェックしてください。",
     
-    mock_daily_head_0: "🍯 今日", mock_daily_body_0: "<p>行动吧</p>", sec_intro_title_0: "🌿 介绍", sec_intro_body_0: "<p>大树 (甲)</p>", sec_flow_title_0: "🌊 大运", sec_flow_body_0: "<p>阳光</p>", sec_yearly_title_0: "🌅 今年", sec_yearly_body_0: "<p>贵人</p>", sec_monthly_title_0: "🗓️ 月度", sec_monthly_body_0: "<p>前进</p>", sec_wealth_title_0: "💰 财富", sec_wealth_body_0: "<p>知识</p>", sec_career_title_0: "✨ 事业", sec_career_body_0: "<p>导师</p>", sec_academic_title_0: "📚 学业", sec_academic_body_0: "<p>海绵</p>", sec_love_title_0: "🌸 恋爱", sec_love_body_0: "<p>阳光伴侣</p>", sec_health_title_0: "🍃 健康", sec_health_body_0: "<p>保暖</p>", sec_advice_title_0: "🍯 建议", sec_advice_body_0: "<p>散步</p>",
-    mock_daily_head_1: "🍯 今日", mock_daily_body_1: "<p>灵活</p>", sec_intro_title_1: "🌿 介绍", sec_intro_body_1: "<p>藤蔓 (乙)</p>", sec_flow_title_1: "🌊 大运", sec_flow_body_1: "<p>攀高</p>", sec_yearly_title_1: "🌅 今年", sec_yearly_body_1: "<p>人脉</p>", sec_monthly_title_1: "🗓️ 月度", sec_monthly_body_1: "<p>交友</p>", sec_wealth_title_1: "💰 财富", sec_wealth_body_1: "<p>关系</p>", sec_career_title_1: "✨ 事业", sec_career_body_1: "<p>社交</p>", sec_academic_title_1: "📚 学业", sec_academic_body_1: "<p>合作</p>", sec_love_title_1: "🌸 恋爱", sec_love_body_1: "<p>细心</p>", sec_health_title_1: "🍃 健康", sec_health_body_1: "<p>减压</p>", sec_advice_title_1: "🍯 建议", sec_advice_body_1: "<p>拒绝</p>",
-    mock_daily_head_2: "🍯 今日", mock_daily_body_2: "<p>闪耀</p>", sec_intro_title_2: "🌿 介绍", sec_intro_body_2: "<p>太阳 (丙)</p>", sec_flow_title_2: "🌊 大运", sec_flow_body_2: "<p>发光</p>", sec_yearly_title_2: "🌅 今年", sec_yearly_body_2: "<p>名誉</p>", sec_monthly_title_2: "🗓️ 月度", sec_monthly_body_2: "<p>成功</p>", sec_wealth_title_2: "💰 财富", sec_wealth_body_2: "<p>快钱</p>", sec_career_title_2: "✨ 事业", sec_career_body_2: "<p>舞台</p>", sec_academic_title_2: "📚 学业", sec_academic_body_2: "<p>第一</p>", sec_love_title_2: "🌸 恋爱", sec_love_body_2: "<p>坦诚</p>", sec_health_title_2: "🍃 健康", sec_health_body_2: "<p>护眼</p>", sec_advice_title_2: "🍯 建议", sec_advice_body_2: "<p>深吸气</p>",
-    mock_daily_head_3: "🍯 今日", mock_daily_body_3: "<p>深呼吸</p>", sec_intro_title_3: "🌿 介绍", sec_intro_body_3: "<p>篝火 (丁)</p>", sec_flow_title_3: "🌊 大运", sec_flow_body_3: "<p>沉稳</p>", sec_yearly_title_3: "🌅 今年", sec_yearly_body_3: "<p>留白</p>", sec_monthly_title_3: "🗓️ 月度", sec_monthly_body_3: "<p>等待</p>", sec_wealth_title_3: "💰 财富", sec_wealth_body_3: "<p>锁住钱包</p>", sec_career_title_3: "✨ 事业", sec_career_body_3: "<p>主角</p>", sec_academic_title_3: "📚 学业", sec_academic_body_3: "<p>短跑</p>", sec_love_title_3: "🌸 恋爱", sec_love_body_3: "<p>深海伴侣</p>", sec_health_title_3: "🍃 健康", sec_health_body_3: "<p>休息</p>", sec_advice_title_3: "🍯 建议", sec_advice_body_3: "<p>睡一觉</p>",
-    mock_daily_head_4: "🍯 今日", mock_daily_body_4: "<p>稳重</p>", sec_intro_title_4: "🌿 介绍", sec_intro_body_4: "<p>大山 (戊)</p>", sec_flow_title_4: "🌊 大运", sec_flow_body_4: "<p>生机</p>", sec_yearly_title_4: "🌅 今年", sec_yearly_body_4: "<p>房产</p>", sec_monthly_title_4: "🗓️ 月度", sec_monthly_body_4: "<p>稳当</p>", sec_wealth_title_4: "💰 财富", sec_wealth_body_4: "<p>长期</p>", sec_career_title_4: "✨ 事业", sec_career_body_4: "<p>领袖</p>", sec_academic_title_4: "📚 学业", sec_academic_body_4: "<p>专注</p>", sec_love_title_4: "🌸 恋爱", sec_love_body_4: "<p>依靠</p>", sec_health_title_4: "🍃 健康", sec_health_body_4: "<p>胃部</p>", sec_advice_title_4: "🍯 建议", sec_advice_body_4: "<p>大笑</p>",
-    mock_daily_head_5: "🍯 今日", mock_daily_body_5: "<p>关心</p>", sec_intro_title_5: "🌿 介绍", sec_intro_body_5: "<p>花园 (己)</p>", sec_flow_title_5: "🌊 大运", sec_flow_body_5: "<p>丰收</p>", sec_yearly_title_5: "🌅 今年", sec_yearly_body_5: "<p>踏实</p>", sec_monthly_title_5: "🗓️ 月度", sec_monthly_body_5: "<p>储蓄</p>", sec_wealth_title_5: "💰 财富", sec_wealth_body_5: "<p>稳定</p>", sec_career_title_5: "✨ 事业", sec_career_body_5: "<p>专家</p>", sec_academic_title_5: "📚 学业", sec_academic_body_5: "<p>整理</p>", sec_love_title_5: "🌸 恋爱", sec_love_body_5: "<p>舒服</p>", sec_health_title_5: "🍃 健康", sec_health_body_5: "<p>散步</p>", sec_advice_title_5: "🍯 建议", sec_advice_body_5: "<p>奖励</p>",
-    mock_daily_head_6: "🍯 今日", mock_daily_body_6: "<p>果断</p>", sec_intro_title_6: "🌿 介绍", sec_intro_body_6: "<p>钢铁 (庚)</p>", sec_flow_title_6: "🌊 大运", sec_flow_body_6: "<p>淬炼</p>", sec_yearly_title_6: "🌅 今年", sec_yearly_body_6: "<p>独立</p>", sec_monthly_title_6: "🗓️ 月度", sec_monthly_body_6: "<p>整理</p>", sec_wealth_title_6: "💰 财富", sec_wealth_body_6: "<p>技术</p>", sec_career_title_6: "✨ 事业", sec_career_body_6: "<p>规则</p>", sec_academic_title_6: "📚 学业", sec_academic_body_6: "<p>目标</p>", sec_love_title_6: "🌸 恋爱", sec_love_body_6: "<p>忠诚</p>", sec_health_title_6: "🍃 健康", sec_health_body_6: "<p>呼吸</p>", sec_advice_title_6: "🍯 建议", sec_advice_body_6: "<p>示弱</p>",
-    mock_daily_head_7: "🍯 今日", mock_daily_body_7: "<p>微笑</p>", sec_intro_title_7: "🌿 介绍", sec_intro_body_7: "<p>宝石 (辛)</p>", sec_flow_title_7: "🌊 大运", sec_flow_body_7: "<p>青苔</p>", sec_yearly_title_7: "🌅 今年", sec_yearly_body_7: "<p>变数</p>", sec_monthly_title_7: "🗓️ 月度", sec_monthly_body_7: "<p>柔和</p>", sec_wealth_title_7: "💰 财富", sec_wealth_body_7: "<p>人脉</p>", sec_career_title_7: "✨ 事业", sec_career_body_7: "<p>春风</p>", sec_academic_title_7: "📚 学业", sec_academic_body_7: "<p>放弃</p>", sec_love_title_7: "🌸 恋爱", sec_love_body_7: "<p>拥抱</p>", sec_health_title_7: "🍃 健康", sec_health_body_7: "<p>放松</p>", sec_advice_title_7: "🍯 建议", sec_advice_body_7: "<p>认可</p>",
-    mock_daily_head_8: "🍯 今日", mock_daily_body_8: "<p>随波</p>", sec_intro_title_8: "🌿 介绍", sec_intro_body_8: "<p>大海 (壬)</p>", sec_flow_title_8: "🌊 大运", sec_flow_body_8: "<p>新流</p>", sec_yearly_title_8: "🌅 今年", sec_yearly_body_8: "<p>海外</p>", sec_monthly_title_8: "🗓️ 月度", sec_monthly_body_8: "<p>适应</p>", sec_wealth_title_8: "💰 财富", sec_wealth_body_8: "<p>贸易</p>", sec_career_title_8: "✨ 事业", sec_career_body_8: "<p>自由</p>", sec_academic_title_8: "📚 学业", sec_academic_body_8: "<p>聪明</p>", sec_love_title_8: "🌸 恋爱", sec_love_body_8: "<p>自由</p>", sec_health_title_8: "🍃 健康", sec_health_body_8: "<p>喝水</p>", sec_advice_title_8: "🍯 建议", sec_advice_body_8: "<p>倾诉</p>",
-    mock_daily_head_9: "🍯 今日", mock_daily_body_9: "<p>直觉</p>", sec_intro_title_9: "🌿 介绍", sec_intro_body_9: "<p>春雨 (癸)</p>", sec_flow_title_9: "🌊 大运", sec_flow_body_9: "<p>融化</p>", sec_yearly_title_9: "🌅 今年", sec_yearly_body_9: "<p>智慧</p>", sec_monthly_title_9: "🗓️ 月度", sec_monthly_body_9: "<p>创意</p>", sec_wealth_title_9: "💰 财富", sec_wealth_body_9: "<p>安静</p>", sec_career_title_9: "✨ 事业", sec_career_body_9: "<p>策划</p>", sec_academic_title_9: "📚 学业", sec_academic_body_9: "<p>研究</p>", sec_love_title_9: "🌸 恋爱", sec_love_body_9: "<p>共鸣</p>", sec_health_title_9: "🍃 健康", sec_health_body_9: "<p>保暖</p>", sec_advice_title_9: "🍯 建议", sec_advice_body_9: "<p>运动</p>"
+    unknown_pillar: "不明", unknown_desc: "不明",
+    privacy_notice: "🔒 入力情報はサーバーに保存されず、デバイス内で安全に処理されます。",
+    share_sheet_title: "物語をシェアする", share_btn_native: "その他の共有", share_btn_link: "リンクをコピー",
+
+    ad_title: "スポンサーメッセージ", ad_desc: "ミツバチが蜜を集めています！🐝💦<br>少々お待ちください。", ad_timer_prefix: "残り時間 ", ad_timer_suffix: " 秒", ad_reward: "🍯 準備完了！",
+    loading_title: "命式を算出中...", loading_sub: "生まれた日の気運を集めて、綺麗な森を描いています。少々お待ちください。",
+    reveal_title: "あなたの自然の気運", reveal_sub: "心の風景を形作る4つの本質的な気運が到着しました。", btn_read_story: "運勢の物語を開く",
+    your_saju_label: "さあ、あなたの心の中の風景をお見せしましょう。", explore_title: "他の物語も無料で聞いてみますか？",
+    m_title: "私の四柱推命の気運", m_desc: "* 赤い枠(日柱)があなたを代表する核心の気運です。", m_year: "年", m_month: "月", m_day: "日", m_time: "時間",
+    r_daily_title: "今日の優しい助言", r_yearly_title: "今年の温かい足跡", r_wealth_title: "お財布の中の風景画", r_love_title: "私のそばの温もり", r_career_title: "蝶が飛び立つ職業運", r_academic_title: "知恵が湧き出る学業運", r_health_title: "体の優しい声", r_full_title: "あなたへのマスター解説書",
+    
+    time_ja: "23:30 ~ 01:29 (子の刻)", time_chuk: "01:30 ~ 03:29 (丑の刻)", time_in: "03:30 ~ 05:29 (寅の刻)", time_myo: "05:30 ~ 07:29 (卯の刻)", time_jin: "07:30 ~ 09:29 (辰の刻)", time_sa: "09:30 ~ 11:29 (巳の刻)", time_o: "11:30 ~ 13:29 (午の刻)", time_mi: "13:30 ~ 15:29 (未の刻)", time_shin: "15:30 ~ 17:29 (申の刻)", time_yu: "17:30 ~ 19:29 (酉の刻)", time_sul: "19:30 ~ 21:29 (戌の刻)", time_hae: "21:30 ~ 23:29 (亥の刻)",
+    btn_save_img: "画像保存", btn_share: "共有する", saving_img: "保存中...", saved_img: "保存完了！", copied: "コピー完了！",
+    share_title: "🍯 四柱推命ミツバチが伝える自然の気運", share_text: "無料で読む温かい四柱推命ストーリー！あなたの心の風景画はどんな姿でしょうか？今すぐ確認してみてください。",
+
+    mock_daily_head_0: "🍯 今日の運勢: 思考のスイッチを切って動きましょう", mock_daily_body_0: "<h3>自然の温度</h3><p>何か新しいことを始めなさいと、自然があなたの背中を軽く押してくれています。</p><h3>ミツバチの処方箋</h3><p>頭の中の完璧な想像よりも、外に出した不器用な行動が幸運の種をもたらします。</p>", sec_intro_title_0: "🌿 心の風景: 空に向かって真っ直ぐ伸びる大樹 (甲)", sec_intro_body_0: "<p>あなたは静かな湖畔に深く根を下ろした<strong>大きく頼もしい木</strong>です。上に向かって成長しようとする生命力に満ちています。</p>", sec_flow_title_0: "🌊 運命の流れ", sec_flow_body_0: "<p>これまで心に抱いていたアイデアが、温かい日差しを受けて現実的な結果として現れる成長の段階です。</p>", sec_yearly_title_0: "🌅 今年の運勢", sec_yearly_body_0: "<p>今年は現実的な結果が手に入り始めます。一人で全てを解決しようとせず、外に出てコミュニケーションを取りましょう。</p>", sec_monthly_title_0: "🗓️ 今年の流れ", sec_monthly_body_0: "<ul><li><strong>[上半期]</strong> 躊躇せずに今すぐ始めてください。貴人が助けてくれます。</li><li><strong>[下半期]</strong> 汗のしずくが金銭となって現れます。内実を固めましょう。</li></ul>", sec_wealth_title_0: "💰 金運: 枯れることのない金銭の畑", sec_wealth_body_0: "<p>巨大な財産は「深みのある専門性」から湧き出る泉のように流れ出ます。</p>", sec_career_title_0: "✨ 成功運: 全体を見渡すメンター", sec_career_body_0: "<p>全体像を把握する「賢明なメンター」やリーダーの役割が完璧に合っています。</p>", sec_academic_title_0: "📚 学業運: スポンジのような吸収力", sec_academic_body_0: "<p>スポンジが水を吸い込むように知識を吸収する才能があります。完璧主義を手放しましょう。</p>", sec_love_title_0: "🌸 恋愛運: 冷たい深淵を温める日差し", sec_love_body_0: "<p>明るく笑いながら手を引いてくれる、明るく温かい人が最高のパートナーです。</p>", sec_health_title_0: "🍃 健康運: 体温を上げましょう", sec_health_body_0: "<p>季節の変わり目には体を温かく保つ必要があります。</p>", sec_advice_title_0: "🍯 優しい助言", sec_advice_body_0: "<p>日差しを浴びながら散歩してみてください。ポジティブな行動力を与えてくれます。</p>",
+
+    mock_daily_head_1: "🍯 今日の運勢: 状況に合わせて柔軟に", mock_daily_body_1: "<h3>自然の温度</h3><p>強い風が吹いています。真っ直ぐ立って折れるよりも、葦のように柔らかく横たわる知恵が必要です。</p><h3>ミツバチの処方箋</h3><p>助けが必要なら躊躇せずに周りに手を差し伸べてください。</p>", sec_intro_title_1: "🌿 心の風景: 生命力あふれるツタ (乙)", sec_intro_body_1: "<p>あなたは岩の隙間でも花を咲かせる<strong>柔軟で強靭なツタ(草花)</strong>です。優れた社交性と現実適応力でどこでも生き残る天性の魅力を持っています。</p>", sec_flow_title_1: "🌊 運命の流れ", sec_flow_body_1: "<p>あなたの成長を助けてくれる頼もしい協力者やシステムに出会い、高く飛躍する流れです。</p>", sec_yearly_title_1: "🌅 今年の運勢", sec_yearly_body_1: "<p>今年は人々に会い、人脈を広げることで思いがけない大きな利益を得ることになります。</p>", sec_monthly_title_1: "🗓️ 今年の流れ", sec_monthly_body_1: "<ul><li><strong>[上半期]</strong> わずかな努力でも称賛を受けます。</li><li><strong>[下半期]</strong> 人脈が大きな助けとなります。</li></ul>", sec_wealth_title_1: "💰 金運: 人を通じて入ってくる金銭", sec_wealth_body_1: "<p>人が集まる場所でトレンドをキャッチし、美味しい収益を上げます。</p>", sec_career_title_1: "✨ 成功運: 完璧なコミュニケーター", sec_career_body_1: "<p>組織内で対立を仲裁し、雰囲気を和らげるあなたは、かけがえのない人材です。</p>", sec_academic_title_1: "📚 学業運: グループスタディのエース", sec_academic_body_1: "<p>一人で勉強するよりも、他人と議論し教え合うことで遥かに多くのことを学びます。</p>", sec_love_title_1: "🌸 恋愛運: 優しく細やかな配慮", sec_love_body_1: "<p>無愛想に見えても心の中で気遣ってくれる人が合っています。</p>", sec_health_title_1: "🍃 健康運: 神経性疾患に注意", sec_health_body_1: "<p>他人の顔色を伺うため神経性ストレスが溜まりやすいです。アロマテラピーをおすすめします。</p>", sec_advice_title_1: "🍯 優しい助言", sec_advice_body_1: "<p>全ての人にとって良い人になる必要はありません。断る勇気を持ちましょう。</p>",
+
+    mock_daily_head_2: "🍯 今日の運勢: あなたの光を明るく照らして", mock_daily_body_2: "<h3>自然の温度</h3><p>あなたの能力と魅力が人々の注目を集める華やかな日です。</p><h3>ミツバチの処方箋</h3><p>今日だけは自信を持って前に出て、プロジェクトをリードしてみてください。</p>", sec_intro_title_2: "🌿 心の風景: 万物を公平に照らす太陽 (丙)", sec_intro_body_2: "<p>あなたは暗闇を追い払い命を与える<strong>眩しい太陽</strong>です。裏表がなく公明正大で華やかさを楽しむ最高のリーダーです。</p>", sec_flow_title_2: "🌊 運命の流れ", sec_flow_body_2: "<p>あなたの名前を広く知らせ、多くの人々に良い影響を与える華やかな大運です。</p>", sec_yearly_title_2: "🌅 今年の運勢", sec_yearly_body_2: "<p>もどかしかった問題が解決し、昇進、合格、名誉上昇の強い気運が入ってきています。</p>", sec_monthly_title_2: "🗓️ 今年の流れ", sec_monthly_body_2: "<ul><li><strong>[上半期]</strong> 活動力が旺盛になります。オーバーペースにならないよう注意してください。</li><li><strong>[下半期]</strong> 目に見える成果と名誉を得て、華やかに一年を締めくくります。</li></ul>", sec_wealth_title_2: "💰 金運: 目に見える確実な成果", sec_wealth_body_2: "<p>表面に現れる株式、あるいは短期的な眩しい成果でお金を稼ぎます。</p>", sec_career_title_2: "✨ 成功運: スポットライトを浴びるショーマンシップ", sec_career_body_2: "<p>教育、放送、あるいは大衆の前に立つ職業群で大成します。</p>", sec_academic_title_2: "📚 学業運: 競争を楽しむ優等生", sec_academic_body_2: "<p>ライバルがいる時、勝負欲が燃え上がり普段の200%の実力を発揮します。</p>", sec_love_title_2: "🌸 恋愛運: 正直で情熱的な愛", sec_love_body_2: "<p>駆け引きを嫌い直進するスタイルです。嘘がなく透明で正直な人が一番合っています。</p>", sec_health_title_2: "🍃 健康運: 心血管と目の健康", sec_health_body_2: "<p>エネルギーを放出しすぎるため、ドライアイ等に注意する必要があります。</p>", sec_advice_title_2: "🍯 優しい助言", sec_advice_body_2: "<p>カッとなる性質に注意し、怒った時は3秒間目を閉じて深呼吸をしてください。</p>",
+
+    mock_daily_head_3: "🍯 今日の運勢: 焦りを捨てて一休み", mock_daily_body_3: "<h3>自然の温度</h3><p>早く何かを終わらせてしまいたいという焦りや、スピードが出ないことへのもどかしさがこみ上げてくるかもしれません。</p><h3>ミツバチの処方箋</h3><p>今日は沈黙して一歩休む余裕そのものが、後悔を防ぐ最高の知恵となります。</p>", sec_intro_title_3: "🌿 心の風景: 暗闇を照らす温かい焚き火 (丁)", sec_intro_body_3: "<p>あなたは真っ暗な夜道を案内してくれる<strong>優しいキャンドルであり焚き火</strong>です。自己犠牲の精神が強く、芸術的感受性が豊かです。</p>", sec_flow_title_3: "🌊 運命の流れ", sec_flow_body_3: "<p>自分とスピードが違う人々と歩調を合わせる方法を学び、真のリーダーに生まれ変わります。</p>", sec_yearly_title_3: "🌅 今年の運勢", sec_yearly_body_3: "<p>物事が遅延するかもしれません。川が流れるように流れに身を任せてみてください。</p>", sec_monthly_title_3: "🗓️ 今年の流れ", sec_monthly_body_3: "<ul><li><strong>[上半期]</strong> 衝動的な決定を避け、周囲のフィードバックを受け入れてください。</li><li><strong>[下半期]</strong> 妥協が幸運の鍵となり、実質的な報酬を得ます。</li></ul>", sec_wealth_title_3: "💰 金運: 財布に南京錠をかける", sec_wealth_body_3: "<p>気前よくスケール大きくお金を使ってしまいがちなので、定期預金などに縛っておくことが必須です。</p>", sec_career_title_3: "✨ 成功運: 舞台を直接指揮するプランナー", sec_career_body_3: "<p>受動的な業務は息が詰まります。あなたの感覚が光る企画、マーケティング、デザインが似合います。</p>", sec_academic_title_3: "📚 学業運: 集中する一夜漬けの天才", sec_academic_body_3: "<p>退屈には耐えられませんが、お尻に火がつけば凄まじい超集中力を見せます。</p>", sec_love_title_3: "🌸 恋愛運: 炎を包み込む海", sec_love_body_3: "<p>広い懐であなたの敏感ささえも全て受け止めてくれる、落ち着いて頼もしい人がぴったりです。</p>", sec_health_title_3: "🍃 健康運: 熱くなったエンジンを冷やす", sec_health_body_3: "<p>じっと横になって何も考えない「ぼーっとする時間」が最高の薬です。</p>", sec_advice_title_3: "🍯 優しい助言", sec_advice_body_3: "<p>重要な決定を下す時は、必ず一晩だけ寝て起きてから明日に決定してください。</p>",
+
+    mock_daily_head_4: "🍯 今日の運勢: 大山のように黙々と", mock_daily_body_4: "<h3>自然の温度</h3><p>周囲で騒ぎが起こるかもしれませんが、あなたは黙々と中心を保つべき日です。</p><h3>ミツバチの処方箋</h3><p>軽率な言動を慎み、温かい眼差しで周囲の不安を鎮めてあげてください。</p>", sec_intro_title_4: "🌿 心の風景: 変らずその場を守る大山 (戊)", sec_intro_body_4: "<p>あなたは雨風が吹いても絶対に動かない<strong>頼もしい大山</strong>です。無愛想に見えても心は誰よりも深く、包容力を持っています。</p>", sec_flow_title_4: "🌊 運命の流れ", sec_flow_body_4: "<p>痩せこけた土にようやく綺麗な花が育ち始め、あなたを訪ねる人が多くなります。</p>", sec_yearly_title_4: "🌅 今年の運勢", sec_yearly_body_4: "<p>これまで築き上げた信頼が、大きな文書運や契約運として返ってきます。揺るがずに推進してください。</p>", sec_monthly_title_4: "🗓️ 今年の流れ", sec_monthly_body_4: "<ul><li><strong>[上半期]</strong> 忍耐力を要する事がありますが、基盤を固める過程です。</li><li><strong>[下半期]</strong> 有利な高地を占領し尊敬を受けます。</li></ul>", sec_wealth_title_4: "💰 金運: 揺るがない長期投資", sec_wealth_body_4: "<p>短期的なまぐれよりも、不動産や長期的な価値投資で巨大な富を蓄積します。</p>", sec_career_title_4: "✨ 成功運: 皆が寄りかかれるリーダー", sec_career_body_4: "<p>仲裁者の役割や、信頼が命である金融、公職、不動産分野で大成できます。</p>", sec_academic_title_4: "📚 学業運: お尻で勝負する粘り強さ", sec_academic_body_4: "<p>小賢しい真似をせず、正直に時間を注ぎ込んでついに大きな成果を成し遂げます。</p>", sec_love_title_4: "🌸 恋愛運: 近づいてくるのを待つ岩", sec_love_body_4: "<p>表現が苦手なあなたを可愛く見てくれ、先に近づいてきてくれる明るい人が良いです。</p>", sec_health_title_4: "🍃 健康運: 消化器官のケア", sec_health_body_4: "<p>ストレスを受けると胃腸にすぐにサインが出ます。規則正しい食事が重要です。</p>", sec_advice_title_4: "🍯 優しい助言", sec_advice_body_4: "<p>たまには重厚な体面を下ろし、子供のように大声で笑ってみる時間を持ちましょう。</p>",
+
+    mock_daily_head_5: "🍯 今日の運勢: 周囲の人を慰めて", mock_daily_body_5: "<h3>自然の温度</h3><p>あなたの温かい慰めが周囲の人々に大きな力となる日です。</p><h3>ミツバチの処方箋</h3><p>親しい人にコーヒーを一杯ごちそうし、話を聞いてあげてください。</p>", sec_intro_title_5: "🌿 心の風景: 万物を育む優しい庭園 (己)", sec_intro_body_5: "<p>あなたは綺麗な花を咲かせる<strong>柔らかく肥沃な庭園</strong>です。母親のような優しさと実利的な一面を持っています。</p>", sec_flow_title_5: "🌊 運命の流れ", sec_flow_body_5: "<p>これまで丹念に種を蒔いてきた畑から、ついに充実した実を結び始める流れです。</p>", sec_yearly_title_5: "🌅 今年の運勢", sec_yearly_body_5: "<p>表向きの華やかな仕事よりも、財布と心をしっかり満たす実利的な一年になります。</p>", sec_monthly_title_5: "🗓️ 今年の流れ", sec_monthly_body_5: "<ul><li><strong>[上半期]</strong> 周囲の人を気遣っていると良い提案が入ってきます。</li><li><strong>[下半期]</strong> ささやかですが確実な成果が集まり大きな喜びとなります。</li></ul>", sec_wealth_title_5: "💰 金運: コツコツ貯まる財産", sec_wealth_body_5: "<p>一発を狙うより、塵も積もれば山となる貯蓄と几帳面な管理で大きなお金持ちになります。</p>", sec_career_title_5: "✨ 成功運: 静かに盤を揺るがす隠れた実力者", sec_career_body_5: "<p>前に出るより後ろで組織を管理し、実務に責任を持つ教育、会計、相談分野の最高の専門家です。</p>", sec_academic_title_5: "📚 学業運: 整理整頓の達人", sec_academic_body_5: "<p>ノートをきれいに整理し、学んだことを落ち着いて自分のものとして消化する能力が卓越しています。</p>", sec_love_title_5: "🌸 恋愛運: 快適に休める憩いの場", sec_love_body_5: "<p>燃えるような愛よりも、友達のように快適で安心感を与える優しい恋愛を好みます。</p>", sec_health_title_5: "🍃 健康運: 甘いものに注意", sec_health_body_5: "<p>ストレスを受けると甘いものや暴食で解消しやすいので、軽い散歩が必須です。</p>", sec_advice_title_5: "🍯 優しい助言", sec_advice_body_5: "<p>他人を気遣うあまり自分の心の庭が枯れないよう、自分自身へのご褒美も頻繁にあげてください。</p>",
+
+    mock_daily_head_6: "🍯 今日の運勢: 断固として断ち切る", mock_daily_body_6: "<h3>自然の温度</h3><p>曖昧な人間関係や決定を下せなかったことに対し、確実な線を引くべきタイミングです。</p><h3>ミツバチの処方箋</h3><p>断固たる態度は冷酷さではありません。自分を守るための健康的なフェンスを立ててください。</p>", sec_intro_title_6: "🌿 心の風景: 不義を許さない鋼鉄 (庚)", sec_intro_body_6: "<p>あなたは折れても曲がらない<strong>巨大な岩や斧</strong>です。義理と決断力が他を圧倒し、一度決めたことは最後までやり遂げます。</p>", sec_flow_title_6: "🌊 運命の流れ", sec_flow_body_6: "<p>数々の試練と鍛錬を経て、ついに世の中が必要とする完璧な名剣として完成される時期です。</p>", sec_yearly_title_6: "🌅 今年の運勢", sec_yearly_body_6: "<p>古い習慣や関係を整理し、独立したり新しい事業、プロジェクトを始めるのに完璧な年です。</p>", sec_monthly_title_6: "🗓️ 今年の流れ", sec_monthly_body_6: "<ul><li><strong>[上半期]</strong> 思い切った整理整頓を通じて、新しい挑戦のための推進力を得ます。</li><li><strong>[下半期]</strong> 揺るぎなく成果を固め、専門分野で頭角を現します。</li></ul>", sec_wealth_title_6: "💰 金運: 技術と資格が金鉱", sec_wealth_body_6: "<p>確実な技術力、あるいはライセンスを基盤に、絶えずお金を生み出す固い金運です。</p>", sec_career_title_6: "✨ 成功運: 原理原則を守る守護者", sec_career_body_6: "<p>医療、軍警、IT開発など、正確性と原則が命である分野で最高の権威者になれます。</p>", sec_academic_title_6: "📚 学業運: 目標志向的なブルドーザー", sec_academic_body_6: "<p>一度目標を設定すると、周囲の誘惑を全て断ち切り、黙々と合格だけに向かって進みます。</p>", sec_love_title_6: "🌸 恋愛運: 一度信じたら最後まで行く義理", sec_love_body_6: "<p>恋に落ちるまで時間がかかりますが、一度自分の人だと思えば最後まで責任を持つロマンチストです。</p>", sec_health_title_6: "🍃 健康運: 呼吸器と関節のケア", sec_health_body_6: "<p>肺や呼吸器が弱い可能性があるため、澄んだ空気を吸う有酸素運動と関節のストレッチを楽しんでください。</p>", sec_advice_title_6: "🍯 優しい助言", sec_advice_body_6: "<p>鋭さを少し収め、「私もよくわからない」と隙を見せる柔らかさを持ってみてください。</p>",
+
+    mock_daily_head_7: "🍯 今日の運勢: 丸く微笑んで", mock_daily_body_7: "<h3>自然の温度</h3><p>五感が敏感になり、他人の不器用な仕事を指摘したい衝動が強く起こります。</p><h3>ミツバチの処方箋</h3><p>「そんなこともある」と優しく見過ごしてあげる大人な思いやりを発揮してみてください。</p>", sec_intro_title_7: "🌿 心の風景: 精巧に細工された輝く宝石 (辛)", sec_intro_body_7: "<p>あなたは澄んだ水の中にある<strong>洗練された宝石</strong>のようです。美的感覚に優れていますが、完璧主義があなたを敏感にします。</p>", sec_flow_title_7: "🌊 運命の流れ", sec_flow_body_7: "<p>冷たかった心に春風が吹き、自分とスタイルが違う人々とも円満に付き合う方法を学びます。</p>", sec_yearly_title_7: "🌅 今年の運勢", sec_yearly_body_7: "<p>状況を無理にコントロールしようとせず、「これくらいでいいや」と笑って流してください。</p>", sec_monthly_title_7: "🗓️ 今年の流れ", sec_monthly_body_7: "<ul><li><strong>[上半期]</strong> プライドを下ろし妥協すれば、結んだ縁が大きな資産となります。</li><li><strong>[下半期]</strong> 重要なプロジェクトを成功に導きますが、年末には心を休ませてください。</li></ul>", sec_wealth_title_7: "💰 金運: 優しさが巨大な金銭", sec_wealth_body_7: "<p>冒険的な投資は避けます。巨大な財産はあなたの能力を見抜いた高級人脈から出ます。</p>", sec_career_title_7: "✨ 成功運: 寸鉄人を刺すプロフェッショナル", sec_career_body_7: "<p>鋭い分析力が最高の武器です。金融、IT、ビューティー、法務など精巧さが求められる場所で輝きます。</p>", sec_academic_title_7: "📚 学業運: 完璧への執着を手放す", sec_academic_body_7: "<p>解けない問題一つにこだわって全体の流れを逃さないよう、時間配分を練習してください。</p>", sec_love_title_7: "🌸 恋愛運: 温かく抱きしめてくれる人", sec_love_body_7: "<p>冷たい理性の壁を優しく溶かしてくれるユーモラスな人に出会ってください。</p>", sec_health_title_7: "🍃 健康運: 神経を柔らかく", sec_health_body_7: "<p>極度の緊張状態で完璧を期そうとして偏頭痛になりやすいため、ストレッチと瞑想が必須です。</p>", sec_advice_title_7: "🍯 優しい助言", sec_advice_body_7: "<p>たまには乱れた姿でも大丈夫です。自分への過酷な鞭打ちをやめてください。</p>",
+
+    mock_daily_head_8: "🍯 今日の運勢: 巨大な波の流れに身を任せて", mock_daily_body_8: "<h3>自然の温度</h3><p>何かを無理に変えようとするより、自然に流れるままにしておく方が遥かに良い結果をもたらします。</p><h3>ミツバチの処方箋</h3><p>意地を張るより、周囲の様々な意見を豊かに受け入れる海の広さを見せてください。</p>", sec_intro_title_8: "🌿 心の風景: 全てを抱く巨大な海 (壬)", sec_intro_body_8: "<p>あなたはどんな汚れも洗い流し抱きしめる<strong>深くて巨大な海</strong>です。圧倒的な包容力と柔軟性を持っています。</p>", sec_flow_title_8: "🌊 運命の流れ", sec_flow_body_8: "<p>塞がっていた問題がすっきりと通り、淀んだ水を抜け出し、より大きな舞台へと進む時期です。</p>", sec_yearly_title_8: "🌅 今年の運勢", sec_yearly_body_8: "<p>移動運が強いです。転職や引越し、あるいは海外に関連する事で良い知らせが届きます。</p>", sec_monthly_title_8: "🗓️ 今年の流れ", sec_monthly_body_8: "<ul><li><strong>[上半期]</strong> 新しい環境に適応し情報網を広げる時期です。</li><li><strong>[下半期]</strong> 持ち前の柔軟な対応で危機をチャンスに変え、大きな利益を得ます。</li></ul>", sec_wealth_title_8: "💰 金運: 国境のない広大な金銭", sec_wealth_body_8: "<p>小さなお金には興味がありません。貿易、流通、あるいはスケールの大きな投資で富の流れを作ります。</p>", sec_career_title_8: "✨ 成功運: 縛られない自由な魂", sec_career_body_8: "<p>退屈な反復業務はあなたを枯らします。海外業務、企画、外交、流通業がぴったりです。</p>", sec_academic_title_8: "📚 学業運: スポンジのような天才的理解力", sec_academic_body_8: "<p>一度原理を理解すれば応用力が優れていますが、興味のない分野は見向きもしない短所があります。</p>", sec_love_title_8: "🌸 恋愛運: 自由を認めてくれる頼もしい港", sec_love_body_8: "<p>あなたの広く変化に富む性向を理解し、束縛しない頼もしい港のような人が最高の縁です。</p>", sec_health_title_8: "🍃 健康運: 水分バランスと下半身の健康", sec_health_body_8: "<p>水気運が強く、腎臓や泌尿器系の健康を日頃からケアし、半身浴を頻繁にするのが良いです。</p>", sec_advice_title_8: "🍯 優しい助言", sec_advice_body_8: "<p>本音を深い海の底に隠さず、たまには信じる人に愚痴をこぼしてみてください。</p>",
+
+    mock_daily_head_9: "🍯 今日の運勢: 静かに直感を信じて", mock_daily_body_9: "<h3>自然の温度</h3><p>頭で計算するよりも、あなたの鋭い直感と感覚が100%正解を指し示す日です。</p><h3>ミツバチの処方箋</h3><p>騒がしく行動せず、静かに本を読みながら心の声に耳を傾けてみてください。</p>", sec_intro_title_9: "🌿 心の風景: 万物を潤す賢明な春雨 (癸)", sec_intro_body_9: "<p>あなたは静かに地に染み込み命を呼び覚ます<strong>澄んだ露であり春雨</strong>です。内には途方もない直感力と生存力を隠しています。</p>", sec_flow_title_9: "🌊 運命の流れ", sec_flow_body_9: "<p>これまで停滞していた考えや財物がついに溶け出し、軽快に流れていく活気ある時期です。</p>", sec_yearly_title_9: "🌅 今年の運勢", sec_yearly_body_9: "<p>正面突破よりも特有の柔らかく迂回的な知恵を発揮し、結局望むものを全て手に入れます。</p>", sec_monthly_title_9: "🗓️ 今年の流れ", sec_monthly_body_9: "<ul><li><strong>[上半期]</strong> 静かに周囲の動向を伺い、知識をスポンジのように吸収してください。</li><li><strong>[下半期]</strong> あなたの奇抜なアイデアが採用され、周囲を驚かせます。</li></ul>", sec_wealth_title_9: "💰 金運: 枯れずにチョロチョロ流れる泉", sec_wealth_body_9: "<p>派手にお金は稼ぎませんが、卓越した情報収集力と知恵でこっそり実利のある富を蓄積します。</p>", sec_career_title_9: "✨ 成功運: ひらめくアイデアバンク", sec_career_body_9: "<p>前で号令をかけるより、後ろで盤を組む参謀、研究、教育、IT、哲学分野で頭角を現します。</p>", sec_academic_title_9: "📚 学業運: 掘り下げる学究派", sec_academic_body_9: "<p>一分野に深く掘り下げて研究する能力が卓越しており、学者や研究員として大成できる頭脳です。</p>", sec_love_title_9: "🌸 恋愛運: 私の感性を撫でてくれる人", sec_love_body_9: "<p>敏感で繊細なあなたの感情線をぴったりと理解し、優しく共感してくれる感性的な人が良いです。</p>", sec_health_title_9: "🍃 健康運: 冷たい体を温める習慣", sec_health_body_9: "<p>体が冷えやすく憂鬱感に陥りやすいので、温かいお茶をよく飲み、日差しをたくさん浴びる必要があります。</p>", sec_advice_title_9: "🍯 優しい助言", sec_advice_body_9: "<p>否定的な考えに一度陥ると深い沼になります。憂鬱な時は無条件に外に出て体を動かしてください。</p>"
   }
 };
 </script>
