@@ -38,22 +38,16 @@
   body {
     font-family: 'Nunito', 'Jua', sans-serif;
     font-weight: 500;
-    /* 미리보기 화면에서 이미지가 안 뜰 때 보여지는 귀여운 동화풍 잔디밭 배경 */
-    background: linear-gradient(to bottom, #A1D4F4 0%, #D0F0FF 40%, #85C860 40%, #5DAA3B 100%);
-    background-attachment: fixed;
-    color: var(--ink);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-  
-  /* 실제 모동숲 이미지가 렌더링되는 레이어 (로컬 다운로드 후 같은 폴더에 넣으면 작동) */
-  body::before {
-    content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    /* 대표님이 만들어주신 모동숲 이미지로 완전 고정! */
+    background-color: #8FD1A3; /* 미리보기용 귀여운 잔디색 */
     background-image: url('image_ebb8cb.png');
     background-size: cover;
     background-position: center bottom;
+    background-attachment: fixed;
     background-repeat: no-repeat;
-    z-index: 0; pointer-events: none;
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
   }
 
   /* 가독성을 위해 배경 위에 투명한 화이트톤 막을 살짝 씌워줍니다 */
