@@ -124,6 +124,10 @@
   .btn-green { background: var(--btn-green); color: var(--white); }
   .btn-red { background: var(--btn-red); color: var(--white); }
 
+  /* 언어 선택 2x2 그리드 */
+  .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin-top: 8px; }
+  .lang-grid .btn-game { padding: 14px 8px; font-size: 16px; }
+
   .nav-bar { display: flex; margin-bottom: 12px; }
   .back-btn {
     background: var(--white); border: 2px solid var(--ink); border-radius: 10px;
@@ -219,12 +223,24 @@
 
   .mt-sm { margin-top: 16px; } .mt-md { margin-top: 24px; } .mt-lg { margin-top: 40px; } .mb-sm { margin-bottom: 16px; } .mb-lg { margin-bottom: 32px; }
   
-  /* Share buttons wrapper */
   .share-wrapper { display: flex; gap: 10px; margin-top: 24px; margin-bottom: 24px; }
   .share-wrapper button { flex: 1; font-size: 16px; padding: 14px 10px; }
-  
-  /* Capture Container styling for clean image download */
   #capture-container { padding: 20px; background-color: var(--bg-color); border-radius: 20px; margin: -20px; padding-bottom: 40px; }
+
+  /* 광고 화면 전용 스타일 */
+  .ad-container {
+    background: #2A2A2A; color: var(--white); border-radius: 20px; padding: 30px 20px;
+    text-align: center; position: relative; overflow: hidden; border: 4px solid var(--ink);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2); margin-top: 20px;
+  }
+  .ad-timer-badge {
+    position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.2);
+    padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 700;
+  }
+  .ad-content { margin-top: 20px; }
+  .ad-sponsor-label { font-size: 12px; color: #AAA; letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase; }
+  .ad-main-text { font-family: 'Jua', sans-serif; font-size: 22px; color: var(--btn-yellow); line-height: 1.4; margin-bottom: 16px; }
+  .ad-sub-text { font-size: 15px; color: #DDD; line-height: 1.5; margin-bottom: 30px; }
 </style>
 </head>
 <body>
@@ -245,11 +261,11 @@
     <p>편안한 언어를 선택해 주세요.<br>Please select your language.</p>
   </div>
 
-  <div style="display: flex; flex-direction: column; gap: 16px;">
-    <button class="btn-game btn-white" onclick="setLang('ko')">🇰🇷 한국어</button>
-    <button class="btn-game btn-white" onclick="setLang('en')">🇺🇸 English</button>
-    <button class="btn-game btn-white" onclick="setLang('id')">🇮🇩 Bahasa Indonesia</button>
-    <button class="btn-game btn-white" onclick="setLang('zh')">🇨🇳 中文</button>
+  <div class="lang-grid">
+    <button class="btn-game" style="background: var(--white); color: var(--ink);" onclick="setLang('ko')">🇰🇷 한국어</button>
+    <button class="btn-game" style="background: #FFF4D4; color: var(--ink);" onclick="setLang('en')">🇺🇸 English</button>
+    <button class="btn-game" style="background: #DDF0E6; color: var(--ink);" onclick="setLang('id')">🇮🇩 Bahasa</button>
+    <button class="btn-game" style="background: #FADCD5; color: var(--ink);" onclick="setLang('zh')">🇨🇳 中文</button>
   </div>
 </section>
 
@@ -290,7 +306,8 @@
 
   <div class="menu-grid">
     <div class="tile-game" onclick="openReading('daily')">
-      <div class="tile-price" data-t="p_free" style="background: var(--btn-blue);">무료</div>
+      <!-- 무료에서 광고 시청으로 변경 -->
+      <div class="tile-price" data-t="p_ad" style="background: var(--btn-green); padding: 4px 10px;">📺 광고 보기</div>
       <div class="tile-icon">🍯</div>
       <div class="tile-title" data-t="menu_daily">오늘의 운세</div>
       <div class="tile-sub" data-t="menu_daily_sub">오늘 하루의 기운</div>
@@ -409,6 +426,24 @@
   </div>
 </section>
 
+<!-- ==================== SCREEN: AD SIMULATION ==================== -->
+<section id="screen-ad" class="screen">
+  <div class="ad-container">
+    <div class="ad-timer-badge">
+      <span data-t="ad_timer_prefix">남은 시간 </span><span id="ad-timer-sec">3</span><span data-t="ad_timer_suffix">초</span>
+    </div>
+    <div class="img-wrap" style="height: 100px; margin-top: 20px;">
+      <img src="bee.svg" alt="bee" class="bee-img-small anim-hover">
+    </div>
+    <div class="ad-content">
+      <div class="ad-sponsor-label" data-t="ad_title">스폰서 메시지</div>
+      <div class="ad-main-text" data-t="ad_desc">사주 꿀벌이 꿀을 모으는 중입니다! 🐝💦<br>잠시만 기다려주시면 오늘의 운세가 열립니다.</div>
+      <div class="ad-sub-text">※ 실제 서비스 시 여기에 비디오나 배너 광고가 들어갑니다.</div>
+      <div class="loading-dots" style="margin-top: 10px;"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</section>
+
 <!-- ==================== SCREEN 4: LOADING ==================== -->
 <section id="screen-loading" class="screen">
   <div class="center" style="margin-top: 25vh;">
@@ -419,7 +454,7 @@
       <img src="honeypot.svg" alt="honeypot" class="honey-img-small anim-hover" style="animation-delay: 0.5s;">
     </div>
     
-    <h2 class="mt-lg" data-t="loading_title">명식을 세우는 중...</h2>
+    <h2 class="mt-lg" id="loading-title-el" data-t="loading_title">명식을 세우는 중...</h2>
     <div class="loading-dots"><span></span><span></span><span></span></div>
   </div>
 </section>
@@ -473,7 +508,6 @@
     <button class="back-btn" onclick="goto('hub')" data-t="back_to_menu">← 메뉴</button>
   </div>
 
-  <!-- Capture Target Container (This is what will be converted to an image) -->
   <div id="capture-container">
     <div class="img-wrap" style="min-height: 100px; padding-top: 10px;">
       <div class="sparkle s1"></div>
@@ -488,9 +522,7 @@
 
     <div id="result-content"></div>
   </div>
-  <!-- End of Capture Container -->
 
-  <!-- SHARE ACTIONS -->
   <div class="share-wrapper">
     <button id="btn-download-img" class="btn-game btn-green" onclick="downloadImage()">
       📸 <span data-t="btn_save_img">이미지 저장</span>
@@ -546,14 +578,8 @@ const PRICES = {
 };
 const CURRENCIES = { ko: '₩', en: '$', id: 'Rp', zh: '¥' };
 
-function getPriceAmount(lang, type) {
-  const p = PRICES[lang] || PRICES['en'];
-  return p[type] || '1.99';
-}
-
-function getCurrencySymbol(lang) {
-  return CURRENCIES[lang] !== undefined ? CURRENCIES[lang] : '$';
-}
+function getPriceAmount(lang, type) { return (PRICES[lang] || PRICES['en'])[type] || '1.99'; }
+function getCurrencySymbol(lang) { return CURRENCIES[lang] !== undefined ? CURRENCIES[lang] : '$'; }
 
 let currentLang = 'en'; 
 let currentReadingType = 'daily';
@@ -567,10 +593,16 @@ function toggleTimeInput(checkbox) {
 
 function openReading(type) {
   currentReadingType = type;
-  if (!userInfo) goto('input'); 
-  else {
-    goto('loading');
-    setTimeout(() => { showReveal(); }, 1500);
+  if (!userInfo) {
+    goto('input'); 
+  } else {
+    if (type === 'daily') {
+      playAdFlow(); // 이미 정보가 있으면 바로 광고 시청 후 결과
+    } else {
+      document.getElementById('loading-title-el').innerText = getT('loading_title');
+      goto('loading');
+      setTimeout(() => { showReveal(); }, 1500);
+    }
   }
 }
 
@@ -592,11 +624,35 @@ function submitInput() {
   
   userInfo = { name: nameVal, date: dateVal, time: timeVal };
   
-  goto('loading');
-  setTimeout(() => { 
-    btn.disabled = false; 
-    showReveal(); 
-  }, 1800);
+  if (currentReadingType === 'daily') {
+    btn.disabled = false;
+    playAdFlow(); // 데일리면 입력 직후 광고 화면으로 전환
+  } else {
+    document.getElementById('loading-title-el').innerText = getT('loading_title');
+    goto('loading');
+    setTimeout(() => { btn.disabled = false; showReveal(); }, 1800);
+  }
+}
+
+// --- 광고 시뮬레이션 흐름 ---
+function playAdFlow() {
+  goto('ad');
+  let timeLeft = 3;
+  const timerEl = document.getElementById('ad-timer-sec');
+  timerEl.innerText = timeLeft;
+  
+  const interval = setInterval(() => {
+    timeLeft--;
+    timerEl.innerText = timeLeft;
+    
+    if (timeLeft <= 0) {
+      clearInterval(interval);
+      // 광고 시청 완료 후 보상 지급(운세 공개)
+      document.getElementById('loading-title-el').innerText = getT('ad_reward'); // "보상 지급 완료!"
+      goto('loading');
+      setTimeout(() => { showReveal(); }, 1200);
+    }
+  }, 1000);
 }
 
 function getArchetype() {
@@ -624,7 +680,6 @@ function getPillarsData() {
   const month = selected[1];
   const day = selected[0];
   const time = userInfo.time === 'unknown' ? ['☁️', '안개', 'Mist'] : [['🔥', '작은 불', 'Fire'], ['🪨', '큰 흙', 'Earth'], ['💧', '큰 물', 'Water']][hash];
-  
   const langIdx = currentLang === 'ko' ? 1 : 2; 
 
   return [
@@ -649,24 +704,17 @@ function showReveal() {
   reversedPillars.forEach(p => {
     const boxStyle = p.isMain ? 'border-color: var(--btn-red); background-color: #FFF5F5;' : '';
     const textStyle = p.isMain ? 'color: var(--btn-red); font-weight: 800;' : '';
-    
     html += `
       <div class="m-col reveal-pop">
         <div class="m-label">${p.label}</div>
-        <div class="m-char" style="${boxStyle}">
-          <span class="m-emoji">${p.emoji}</span>
-          <span class="m-text" style="${textStyle}">${p.text}</span>
-        </div>
+        <div class="m-char" style="${boxStyle}"><span class="m-emoji">${p.emoji}</span><span class="m-text" style="${textStyle}">${p.text}</span></div>
       </div>
     `;
   });
-  
   grid.innerHTML = html;
   
   const items = document.querySelectorAll('.reveal-pop');
-  items.forEach((el, index) => {
-    setTimeout(() => { el.classList.add('show'); }, 500 * (index + 1));
-  });
+  items.forEach((el, index) => { setTimeout(() => { el.classList.add('show'); }, 500 * (index + 1)); });
   
   setTimeout(() => {
     btn.style.display = 'flex';
@@ -689,6 +737,7 @@ function startCheckout() {
   const btn = document.getElementById('btn-paywall-checkout');
   if (btn.disabled) return;
   btn.disabled = true;
+  document.getElementById('loading-title-el').innerText = getT('loading_title');
   goto('loading');
   setTimeout(() => { 
     btn.disabled = false;
@@ -699,47 +748,25 @@ function startCheckout() {
 function buildReportSection(titleKey, bodyKey, archIndex) {
   const titleText = getT(titleKey, archIndex);
   if (!titleText || titleText === titleKey + '_' + archIndex) return ''; 
-  return `
-    <div class="report-section">
-      <div class="report-label">${titleText}</div>
-      <div class="deep-text">${getT(bodyKey, archIndex)}</div>
-    </div>
-  `;
+  return `<div class="report-section"><div class="report-label">${titleText}</div><div class="deep-text">${getT(bodyKey, archIndex)}</div></div>`;
 }
 
 function generateManseryeokHTMLForReport() {
   const pillars = getPillarsData();
   const reversedPillars = [...pillars].reverse();
-  
   let colsHtml = reversedPillars.map(p => {
     const boxStyle = p.isMain ? 'border-color: var(--btn-red); background-color: #FFF5F5;' : '';
     const textStyle = p.isMain ? 'color: var(--btn-red); font-weight: 800;' : '';
-    return `
-      <div class="m-col">
-        <div class="m-label">${p.label}</div>
-        <div class="m-char" style="${boxStyle}">
-          <span class="m-emoji">${p.emoji}</span><span class="m-text" style="${textStyle}">${p.text}</span>
-        </div>
-      </div>
-    `;
+    return `<div class="m-col"><div class="m-label">${p.label}</div><div class="m-char" style="${boxStyle}"><span class="m-emoji">${p.emoji}</span><span class="m-text" style="${textStyle}">${p.text}</span></div></div>`;
   }).join('');
-
-  return `
-    <div class="manseryeok-box">
-      <div class="center mb-sm"><span style="font-family:'Jua'; font-size:18px; color: var(--btn-blue);">${getT('m_title')}</span></div>
-      <div class="m-grid">${colsHtml}</div>
-      <div class="center mt-sm"><span style="font-size: 12px; color: var(--text-muted); font-weight: 700;">${getT('m_desc')}</span></div>
-    </div>
-  `;
+  return `<div class="manseryeok-box"><div class="center mb-sm"><span style="font-family:'Jua'; font-size:18px; color: var(--btn-blue);">${getT('m_title')}</span></div><div class="m-grid">${colsHtml}</div><div class="center mt-sm"><span style="font-size: 12px; color: var(--text-muted); font-weight: 700;">${getT('m_desc')}</span></div></div>`;
 }
 
 function showResult(type) {
   const contentArea = document.getElementById('result-content');
   const upsellSection = document.getElementById('upsell-section');
   const archIndex = getArchetype(); 
-  
   document.getElementById('result-title').innerText = getT('r_' + type + '_title');
-
   let html = generateManseryeokHTMLForReport();
 
   if (type === 'daily') {
@@ -759,17 +786,12 @@ function showResult(type) {
     upsellSection.style.display = 'none';
   } else {
     html += buildReportSection('sec_intro_title', 'sec_intro_body', archIndex); 
-
-    if (type === 'yearly') {
-      html += buildReportSection('sec_yearly_title', 'sec_yearly_body', archIndex);
-      html += buildReportSection('sec_monthly_title', 'sec_monthly_body', archIndex);
-    }
+    if (type === 'yearly') { html += buildReportSection('sec_yearly_title', 'sec_yearly_body', archIndex) + buildReportSection('sec_monthly_title', 'sec_monthly_body', archIndex); }
     if (type === 'wealth') html += buildReportSection('sec_wealth_title', 'sec_wealth_body', archIndex);
     if (type === 'career') html += buildReportSection('sec_career_title', 'sec_career_body', archIndex);
     if (type === 'academic') html += buildReportSection('sec_academic_title', 'sec_academic_body', archIndex);
     if (type === 'love') html += buildReportSection('sec_love_title', 'sec_love_body', archIndex);
     if (type === 'health') html += buildReportSection('sec_health_title', 'sec_health_body', archIndex);
-    
     html += buildReportSection('sec_advice_title', 'sec_advice_body', archIndex);
     upsellSection.style.display = 'block';
   }
@@ -778,71 +800,39 @@ function showResult(type) {
   goto('result');
 }
 
-// --- Share & Download Functions ---
 async function downloadImage() {
   const captureTarget = document.getElementById('capture-container');
   const btnSpan = document.querySelector('#btn-download-img span');
   const originalText = btnSpan.innerText;
-  
-  btnSpan.innerText = getT('saving_img'); // "저장 중..."
-
+  btnSpan.innerText = getT('saving_img'); 
   try {
-    const canvas = await html2canvas(captureTarget, {
-      scale: 2, 
-      backgroundColor: '#EBF5F0',
-      useCORS: true
-    });
-    
+    const canvas = await html2canvas(captureTarget, { scale: 2, backgroundColor: '#EBF5F0', useCORS: true });
     const link = document.createElement('a');
     link.download = `saju_story_${Date.now()}.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
-    
-    btnSpan.innerText = getT('saved_img'); // "저장 완료!"
-  } catch (err) {
-    btnSpan.innerText = "Error!";
-  } finally {
-    setTimeout(() => { btnSpan.innerText = originalText; }, 2000);
-  }
+    btnSpan.innerText = getT('saved_img');
+  } catch (err) { btnSpan.innerText = "Error!"; } 
+  finally { setTimeout(() => { btnSpan.innerText = originalText; }, 2000); }
 }
 
 function shareResult() {
-  const shareData = {
-    title: getT('share_title'),
-    text: getT('share_text'),
-    url: window.location.href // 실제 앱 배포 시 사용될 도메인
-  };
-  
+  const shareData = { title: getT('share_title'), text: getT('share_text'), url: window.location.href };
   const btnSpan = document.querySelector('#btn-share-link span');
   const originalText = btnSpan.innerText;
 
   if (navigator.share) {
-    // 모바일 등에서 카톡, 인스타 DM, WhatsApp 등 기본 공유 창 띄우기
     navigator.share(shareData).catch((e) => console.log('Share canceled'));
   } else {
-    // 지원하지 않는 환경 (PC 등) - 클립보드에 복사
     const copyText = `${shareData.title}\n\n${shareData.text}\n${shareData.url}`;
-    
-    // Clipboard API 사용. iFrame 제약이 있을 경우 대비
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(copyText).then(() => {
-        btnSpan.innerText = getT('copied'); // "복사 완료!"
-      });
+      navigator.clipboard.writeText(copyText).then(() => { btnSpan.innerText = getT('copied'); });
     } else {
-      // 대체 복사 방법
       const textArea = document.createElement("textarea");
-      textArea.value = copyText;
-      document.body.appendChild(textArea);
-      textArea.select();
-      try {
-        document.execCommand('copy');
-        btnSpan.innerText = getT('copied');
-      } catch (err) {
-        btnSpan.innerText = "Error";
-      }
+      textArea.value = copyText; document.body.appendChild(textArea); textArea.select();
+      try { document.execCommand('copy'); btnSpan.innerText = getT('copied'); } catch (err) {}
       document.body.removeChild(textArea);
     }
-    
     setTimeout(() => { btnSpan.innerText = originalText; }, 2000);
   }
 }
@@ -853,9 +843,13 @@ const TRANSLATIONS = {
     btn_home_only: "처음으로", back_to_menu: "메뉴", cta_check_saju: "내 이야기 들으러 가기",
     what_is_saju_title: "자연의 이치로 읽는 나의 운세", what_is_saju_p1: "한국의 전통 명리학(Korean Fortune)은 미신이 아닙니다. 태어난 계절과 자연의 기운을 바탕으로 타고난 운명의 흐름을 논리적으로 읽어내는 삶의 지혜입니다.", what_is_saju_p3: "당신이 미처 몰랐던 내면의 풍경을, 따뜻하고 진정성 있는 '인생의 참고서'로 깊이 있게 풀어드립니다.",
     hub_pick_title: "어떤 이야기가 궁금하신가요?", hub_pick_sub: "명리학자의 따뜻한 시선으로 당신의 길을 비춰드릴게요.",
-    p_free: "무료", p_yearly: "₩1,900", p_wealth: "₩1,900", p_std: "₩1,900", p_full: "₩4,900",
+    p_ad: "📺 광고 보기", p_yearly: "₩1,900", p_wealth: "₩1,900", p_std: "₩1,900", p_full: "₩4,900",
     menu_daily: "오늘의 운세", menu_daily_sub: "오늘 하루의 기운", menu_yearly: "신년 운세", menu_yearly_sub: "따뜻하게 채워갈 1년", menu_wealth: "재물운", menu_wealth_sub: "나만의 금전 그릇", menu_love: "애정운", menu_love_sub: "나를 알아줄 인연", menu_career: "성공운", menu_career_sub: "나에게 꼭 맞는 길", menu_academic: "학업운", menu_academic_sub: "집중과 지혜의 문", menu_health: "건강운", menu_health_sub: "자연스러운 몸의 균형", menu_full: "마스터 리포트", menu_full_sub: "내 인생의 완벽한 해설서",
     onb_intro: "당신의 별자리를 알려주세요", label_name: "이름 (선택)", label_date: "태어난 날짜", label_time: "태어난 시간", time_opt_placeholder: "시간을 선택해주세요", time_unknown_check: "태어난 시간을 잘 모르겠어요", label_gender: "성별", gender_f: "여성", gender_m: "남성", onb_submit: "자연의 기운 확인하기", err_req_date: "태어난 날짜를 꼭 알려주세요.", err_req_time: "시간을 고르거나 '잘 모르겠어요'를 체크해주세요.",
+    
+    // 광고 관련 번역
+    ad_title: "스폰서 메시지", ad_desc: "사주 꿀벌이 꿀을 모으는 중입니다! 🐝💦<br>잠시만 기다려주시면 오늘의 운세가 열립니다.", ad_timer_prefix: "남은 시간 ", ad_timer_suffix: "초", ad_reward: "🍯 운세 배달 준비 완료!",
+    
     loading_title: "명식을 세우는 중...", loading_sub: "태어난 날의 기운을 모아 예쁜 나무와 숲으로 그려보고 있어요. 조금만 기다려주세요.",
     reveal_title: "당신의 자연 기운", reveal_sub: "마음속 풍경을 이루는 4가지 기운이 도착했습니다.", btn_read_story: "내 운세 이야기 풀기",
     paywall_sub: "오직 당신만을 위해 정성껏 써 내려간 인생의 참고서를 열어보시겠어요?", price_desc: "단 한 번 결제로 언제든 꺼내볼 수 있어요", pay_stripe: "결제하고 이야기 듣기", maybe_later: "나중에 다시 올게요",
@@ -867,82 +861,52 @@ const TRANSLATIONS = {
     btn_save_img: "이미지 저장", btn_share: "공유하기", saving_img: "저장 중...", saved_img: "저장 완료!", copied: "복사 완료!",
     share_title: "🍯 사주 꿀벌이 들려주는 나의 자연 기운", share_text: "자연의 이치로 읽는 따뜻한 사주 스토리텔링! 당신의 마음속 풍경화는 어떤 모습일까요? 지금 바로 확인해보세요.",
     
-    mock_daily_head_0: "🍯 오늘의 운세: 생각의 스위치를 끄고 가볍게 움직이세요", 
-    mock_daily_body_0: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>오늘 당신을 감싸는 기운은 고요한 호수에 퐁당 떨어지는 조약돌과 같습니다. 잔잔했던 마음에 동심원이 그려지며, 무언가 새로운 일을 시작하라고 자연이 당신의 등을 가볍게 밀어주고 있습니다.</p><h3>꿀벌의 다정한 처방전</h3><p>맑은 물(수기운)의 기운을 풍부하게 가진 당신은 평소 속이 아주 깊어, 행동하기 전에 수십 번을 고민하는 신중함(인성)을 지녔습니다. 하지만 생각이라는 물이 너무 고이면 나무(당신을 상징하는 목기운)의 뿌리가 썩기 마련입니다. 오늘은 무조건 완벽하지 않아도 좋습니다.</p><p>머릿속에만 담아둔 100점짜리 완벽한 상상보다, 밖으로 툭 꺼낸 서투른 60점짜리 행동이 당신에게 생각지도 못한 행운의 씨앗을 물어다 줄 것입니다. 오늘 하루만큼은 타인의 시선이나 실패에 대한 두려움을 내려놓고, 가벼운 마음으로 하루를 즐겨보세요.</p>", 
-    sec_intro_title_0: "🌿 타고난 마음의 풍경: 깊은 숲속의 든든한 큰 나무", 
-    sec_intro_body_0: "<h3>당신의 본질을 그리는 명리학적 풍경</h3><p>명리학의 관점에서 당신의 타고난 에너지를 한 폭의 풍경화로 그려보면, 맑고 고요한 호숫가에 깊게 뿌리를 내린 <strong>크고 든든한 거목(甲木)</strong>이 떠오릅니다. 세상의 풍파에도 쉽게 흔들리지 않으며, 아주 성숙하고 자비로운 영혼을 타고났습니다.</p><h3>빛나는 재능과 내면의 그림자</h3><p>풍부한 물(지혜)과 단단한 나무(성장)의 기운을 듬뿍 받은 당신은, 겉으로 드러난 현상 너머의 이면까지 꿰뚫어 보는 무서운 직관력과 깊은 통찰력을 가졌습니다. 겉으로는 조용하고 차분하지만, 당신의 내면에는 언제든 새싹을 틔울 준비가 된 아이디어들이 거대한 숲을 이루고 있습니다.</p><blockquote><p>\"그러나 가장 큰 주의점은 바로 당신의 '완벽주의'와 '책임감의 무게'입니다.\"</p></blockquote><p>당신은 나무가 끝없이 물을 빨아들이듯 지식을 무한정 흡수하려다 보니, 늘 스스로를 향해 '아직 준비가 덜 되었다'는 지독한 자기 검열에 빠지기 쉽습니다.</p><h3>행복을 위한 운명적 과제</h3><p>자연의 섭리에서 나무에 핀 꽃은 비바람에 조금 비뚤어져도 그 자체로 아름답습니다. 당신에게 지금 필요한 것은 더 많은 준비가 아니라, 불완전함을 껴안은 채 세상 밖으로 당신의 가지를 쭉 뻗어내는 <strong>작은 용기와 뻔뻔함</strong>입니다.</p>", 
-    sec_flow_title_0: "🌊 운명의 흐름 (대운): 봄볕을 맞이하는 거목", 
-    sec_flow_body_0: "<h3>10년 단위로 바뀌는 삶의 계절</h3><p>우리의 인생은 10년마다 거대한 계절의 변화를 맞이하는데, 이를 명리학에서는 '대운(大運)'이라고 부릅니다. 그동안 당신을 웅크리게 만들고 생각만 많게 했던 차가운 겨울바람(수기운)이 점차 물러가고 있습니다.</p><h3>웅크렸던 시간의 보상</h3><p>오랫동안 속으로만 품어왔던 훌륭한 아이디어와 기획들이, 드디어 따스한 햇살을 받아 현실적인 결과물로 나타나는 성장의 단계입니다. 이 시기에는 남들 뒤에 숨기보다는 용기를 내어 당당히 무대의 주인공으로 나서보세요.</p>", 
-    sec_yearly_title_0: "🌅 올해의 운세 (세운): 문을 열고 귀인을 맞이하세요", 
-    sec_yearly_body_0: "<h3>현실적인 보상이 따르는 해</h3><p>올해는 당신의 고요한 호수에 밝은 햇살이 비치면서, 마음 한구석을 짓누르던 막막함이 사라지는 다정한 한 해가 될 것입니다. 올해부터는 <strong>현실적인 결과물(재성)과 확실한 명예(관성)</strong>가 손에 단단히 잡히기 시작합니다.</p><h3>올해 반드시 피해야 할 행동</h3><p>완벽한 계획표를 짜느라 밤을 새우거나, 혼자서 모든 것을 해결하려는 태도는 올해의 좋은 기운을 다 깎아먹는 가장 위험한 행동입니다.</p><p>밖으로 나가 사람들과 커피 한 잔을 나누며 가볍게 이야기하세요. 놀랍게도 그 대화 속에 올해 당신을 가장 크게 성장시킬 귀한 '열쇠(귀인)'가 숨어 있습니다. 올해의 키워드는 '소통'과 '연결'입니다.</p>", 
-    sec_monthly_title_0: "🗓️ 올해의 월별 운세 심층 흐름",
-    sec_monthly_body_0: "<ul><li><strong>[1~3월] 새로운 싹을 틔우는 봄 (도약기)</strong><br>겨울내 얼어있던 아이디어가 세상 밖으로 나오는 시기입니다. 완벽하지 않아도 좋으니 망설이지 말고 당장 시작해 보세요.</li><li><strong>[4~6월] 성장의 여름 (확장기)</strong><br>사람들과의 교류가 활발해집니다. 우연히 나가는 모임에서 만나는 귀인이 든든한 조력자가 될 확률이 높습니다.</li><li><strong>[7~9월] 결실의 가을 (수확기)</strong><br>그동안 뿌려둔 땀방울이 드디어 금전으로 나타나는 황금기입니다. 재물운이 상승하니 망설이던 투자가 있다면 실행에 옮기셔도 좋습니다.</li><li><strong>[10~12월] 재충전의 겨울 (휴식기)</strong><br>내실을 다지고 건강 관리에 집중하세요. 당신을 도와준 사람들에게 작은 감사를 표현하는 것이 내년의 운을 더욱 밝혀줍니다.</li></ul>",
-    sec_wealth_title_0: "💰 재물운: 깊은 지혜가 마르지 않는 금전 밭이 되다", 
-    sec_wealth_body_0: "<h3>당신의 진짜 금전 그릇</h3><p>당신의 진짜 거대한 재물은, 당신만이 오랜 시간 축적해 온 <strong>'깊이 있는 전문성'과 '지식 재산(인성)'</strong>에서 마르지 않는 샘물처럼 흘러나옵니다.</p><h3>재물을 지키기 위한 강력한 경고</h3><p>당신의 재물운에서 가장 경계해야 할 1순위는 바로 '인간관계에서 오는 금전 손실'입니다. 천성이 착해 누군가 부탁을 해오면 차마 거절하지 못하는 경우가 많습니다.</p><p>보증, 돈거래는 가족 간이라도 절대 피하십시오. 부동산, 저작권, 혹은 우량 장기 저축에 두었을 때 당신의 재물은 가장 안전하게 성장합니다.</p>", 
-    sec_career_title_0: "✨ 성공운: 무대 뒤에서 전체 판을 지휘하는 마스터마인드", 
-    sec_career_body_0: "<h3>최적의 업무 환경과 직업성</h3><p>당신은 세상에 없는 지식을 탐구하며 대체 불가능한 전문 기술을 발휘하는 환경(연구, 기획, 교육, 상담, 전문직 등)에서 가장 편안하게 능력을 꽃피웁니다.</p><h3>직장 생활의 딜레마와 해결책</h3><p>조직 내에서는 전체적인 맥락을 파악하고 올바른 방향을 제시해 주는 <strong>'지혜로운 멘토'</strong>의 역할이 완벽하게 맞습니다.</p><p>내가 묵묵히 일하면 알아주겠지라는 태도에서 벗어나, 당신이 만들어낸 성과를 팩트 위주로 사람들에게 어필하는 연습을 하세요. 이 작은 '자기 PR' 능력이 핵심 열쇠입니다.</p>", 
-    sec_academic_title_0: "📚 학업운: 스펀지 같은 흡수력과 실전 징크스의 극복", 
-    sec_academic_body_0: "<h3>타의 추종을 불허하는 탐구력</h3><p>당신은 마치 마른 스펀지가 물을 빨아들이듯 엄청난 집중력으로 지식을 흡수하는 탁월한 재능이 있습니다.</p><h3>시험의 기술이 필요한 이유</h3><p>하지만 '하나라도 모르면 안 된다'는 강박과 완벽주의 때문에 실전에서 예기치 못한 문제를 만나면 멘탈이 무너져 실력을 깎아먹기 쉽습니다.</p><p>마음을 비우고 실전 모의고사를 게임처럼 푸는 훈련을 하세요. '틀려도 괜찮다'는 마음으로 긴장감만 내려놓으면 정답을 찾아낼 것입니다.</p>", 
-    sec_love_title_0: "🌸 애정운: 차가운 심연을 따뜻하게 데워줄 밝은 햇살", 
-    sec_love_body_0: "<h3>당신의 사랑은 무겁고 깊다</h3><p>당신은 진솔한 대화가 통하고 삶의 철학을 나눌 수 있는 속 깊은 사람에게만 마음을 엽니다.</p><h3>피해야 할 인연과 운명의 짝</h3><p>당신이 돌봐줘야만 하는 의존적인 사람에게 끌리기 쉽지만 이는 당신을 지치게 만듭니다.</p><p>당신에게는 우울함을 심각하게 받아들이기보다 환하게 웃으며 손을 이끌어 줄 <strong>밝고 따뜻한 햇살(화기운) 같은 사람</strong>이 운명을 밝혀줄 최고의 파트너입니다.</p>", 
-    sec_health_title_0: "🍃 건강운: 체온을 높이는 것이 곧 운의 온도를 높이는 비결", 
-    sec_health_body_0: "<h3>신체적 특징과 취약점</h3><p>음기(陰氣)가 강해 손발이나 아랫배가 쉽게 차가워질 수 있는 체질입니다.</p><h3>최고의 건강 관리와 개운법</h3><p>겨울철이나 환절기에는 반드시 몸을 따뜻하게 감싸야 합니다. 따뜻한 차를 마시고 족욕으로 몸을 녹여주는 단순한 습관이 좋은 운을 끌어당기는 개운법이 됩니다.</p>", 
-    sec_advice_title_0: "🍯 다정한 명리 상담가의 깊은 조언", 
-    sec_advice_body_0: "<h3>[마음을 도닥이는 다정한 한 마디]</h3><p>매일 점심시간, 따뜻한 햇볕을 쬐며 산책을 해보세요. 태양의 양기(陽氣)가 긍정적이고 가벼운 행동력을 불어넣어 줄 것입니다.</p><h3>[행운의 처방전]</h3><ul><li><strong>행운의 색상:</strong> 따뜻한 붉은색, 주황색, 분홍색 (머리부터 발끝까지 검은색은 피해주세요.)</li><li><strong>행운의 숫자:</strong> 2, 7, 5, 0</li><li><strong>행운의 방향:</strong> 남쪽</li></ul>",
+    mock_daily_head_0: "🍯 오늘의 운세: 생각의 스위치를 끄고 가볍게 움직이세요", mock_daily_body_0: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>오늘 당신을 감싸는 기운은 고요한 호수에 퐁당 떨어지는 조약돌과 같습니다. 잔잔했던 마음에 동심원이 그려지며, 무언가 새로운 일을 시작하라고 자연이 당신의 등을 가볍게 밀어주고 있습니다.</p><h3>꿀벌의 다정한 처방전</h3><p>머릿속에만 담아둔 100점짜리 완벽한 상상보다, 밖으로 툭 꺼낸 서투른 60점짜리 행동이 당신에게 생각지도 못한 행운의 씨앗을 물어다 줄 것입니다. 오늘 하루만큼은 타인의 시선이나 실패에 대한 두려움을 내려놓고, 가벼운 마음으로 하루를 즐겨보세요.</p>", 
+    sec_intro_title_0: "🌿 타고난 마음의 풍경: 깊은 숲속의 든든한 큰 나무", sec_intro_body_0: "<h3>당신의 본질을 그리는 명리학적 풍경</h3><p>명리학의 관점에서 당신의 타고난 에너지를 한 폭의 풍경화로 그려보면, 맑고 고요한 호숫가에 깊게 뿌리를 내린 <strong>크고 든든한 거목(甲木)</strong>이 떠오릅니다.</p><h3>행복을 위한 운명적 과제</h3><p>당신에게 지금 필요한 것은 더 많은 준비가 아니라, 불완전함을 껴안은 채 세상 밖으로 당신의 가지를 쭉 뻗어내는 <strong>작은 용기와 뻔뻔함</strong>입니다.</p>", 
+    sec_flow_title_0: "🌊 운명의 흐름 (대운): 봄볕을 맞이하는 거목", sec_flow_body_0: "<p>그동안 당신을 웅크리게 만들고 생각만 많게 했던 차가운 겨울바람(수기운)이 점차 물러가고 있습니다. 오랫동안 속으로만 품어왔던 훌륭한 아이디어들이, 드디어 따스한 햇살을 받아 현실적인 결과물로 나타나는 성장의 단계입니다.</p>", 
+    sec_yearly_title_0: "🌅 올해의 운세 (세운): 문을 열고 귀인을 맞이하세요", sec_yearly_body_0: "<p>올해는 <strong>현실적인 결과물(재성)과 확실한 명예(관성)</strong>가 손에 단단히 잡히기 시작합니다. 혼자서 모든 것을 해결하려는 태도는 피하고 밖으로 나가 사람들과 소통하세요.</p>", 
+    sec_monthly_title_0: "🗓️ 올해의 월별 운세 흐름", sec_monthly_body_0: "<ul><li><strong>[1~3월]</strong> 새로운 싹을 틔우는 봄. 망설이지 말고 당장 시작해 보세요.</li><li><strong>[4~6월]</strong> 성장의 여름. 우연한 모임에서 만나는 귀인이 든든한 조력자가 됩니다.</li><li><strong>[7~9월]</strong> 결실의 가을. 뿌려둔 땀방울이 금전으로 나타나는 황금기입니다.</li><li><strong>[10~12월]</strong> 재충전의 겨울. 내실을 다지고 감사함을 전하세요.</li></ul>",
+    sec_wealth_title_0: "💰 재물운: 깊은 지혜가 마르지 않는 금전 밭이 되다", sec_wealth_body_0: "<p>당신의 거대한 재물은 <strong>'깊이 있는 전문성'과 '지식 재산'</strong>에서 마르지 않는 샘물처럼 흘러나옵니다. 보증이나 돈거래는 가족 간이라도 절대 피하십시오.</p>", 
+    sec_career_title_0: "✨ 성공운: 무대 뒤에서 전체 판을 지휘하는 마스터마인드", sec_career_body_0: "<p>대체 불가능한 전문 기술을 발휘하는 환경에서 가장 편안하게 능력을 꽃피웁니다. 전체적인 맥락을 파악하는 <strong>'지혜로운 멘토'</strong>의 역할이 완벽하게 맞습니다.</p>", 
+    sec_academic_title_0: "📚 학업운: 스펀지 같은 흡수력과 실전 징크스의 극복", sec_academic_body_0: "<p>스펀지가 물을 빨아들이듯 흡수하는 재능이 있습니다. 하지만 완벽주의 때문에 실전에서 멘탈이 무너질 수 있으니, '틀려도 괜찮다'는 마음으로 긴장을 내려놓으세요.</p>", 
+    sec_love_title_0: "🌸 애정운: 차가운 심연을 따뜻하게 데워줄 밝은 햇살", sec_love_body_0: "<p>우울함을 심각하게 받아들이기보다 환하게 웃으며 손을 이끌어 줄 <strong>밝고 따뜻한 햇살(화기운) 같은 사람</strong>이 운명을 밝혀줄 최고의 파트너입니다.</p>", 
+    sec_health_title_0: "🍃 건강운: 체온을 높이는 것이 곧 운의 온도를 높이는 비결", sec_health_body_0: "<p>겨울철이나 환절기에는 반드시 몸을 따뜻하게 감싸야 합니다. 따뜻한 차를 마시고 족욕으로 몸을 녹여주는 단순한 습관이 좋은 운을 끌어당깁니다.</p>", 
+    sec_advice_title_0: "🍯 다정한 명리 상담가의 깊은 조언", sec_advice_body_0: "<p>매일 점심시간, 따뜻한 햇볕을 쬐며 산책을 해보세요. 태양의 양기(陽氣)가 긍정적이고 가벼운 행동력을 불어넣어 줄 것입니다.</p><ul><li><strong>행운의 색상:</strong> 따뜻한 붉은색, 주황색, 분홍색</li><li><strong>행운의 숫자:</strong> 2, 7, 5, 0</li><li><strong>행운의 방향:</strong> 남쪽</li></ul>",
     
-    mock_daily_head_1: "🍯 오늘의 운세: 조급한 마음을 내려놓고 한 박자 쉬어가는 날", 
-    mock_daily_body_1: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>오늘 당신의 마음속에는 빨리 뭔가를 해치워버리고 싶거나 속도가 나지 않는 것에 대해 묘한 답답함이 치밀어 오를 수 있습니다.</p><h3>꿀벌의 다정한 처방전</h3><p>홧김에 날카로운 말을 뱉어버리고 싶다면 딱 한 번만 깊게 심호흡을 하세요. 오늘은 침묵하며 한 템포 쉬어가는 그 여유로움 자체가 다가올 큰 후회를 막아주는 최고의 지혜가 됩니다.</p>", 
-    sec_intro_title_1: "🌿 타고난 마음의 풍경: 드넓은 광야의 열정적인 모닥불", 
-    sec_intro_body_1: "<h3>당신의 본질을 그리는 명리학적 풍경</h3><p>당신은 어둠이 내린 대지 위를 환하게 밝히는 <strong>크고 열정적인 불꽃(丙/丁火)</strong>입니다. 숨기려 해도 결코 숨겨지지 않는 강렬한 존재감을 타고났습니다.</p><h3>빛나는 재능과 내면의 그림자</h3><p>남다른 행동력과 폭발적인 추진력이 넘칩니다. 당신이 곁에 있으면 가라앉았던 분위기도 금세 밝아집니다.</p><blockquote><p>\"그러나 가장 주의해야 할 것은, '브레이크 없는 속도'입니다.\"</p></blockquote><p>스스로의 감정과 속도를 주체하지 못할 때가 많습니다. 자신이 생각한 대로 결과가 빨리 보이지 않으면 금방 답답해하고 짜증을 냅니다.</p><h3>행복을 위한 운명적 과제</h3><p>당신의 멋진 열정을 더 오래 세상에 쓰기 위해서는 삶에서 '기다림'과 '여유'라는 브레이크를 반드시 장착해야 합니다.</p>", 
-    sec_flow_title_1: "🌊 운명의 흐름 (대운): 펄펄 끓는 열정을 다듬어가는 시간", 
-    sec_flow_body_1: "<h3>10년 단위로 바뀌는 삶의 계절</h3><p>거침없이 타오르던 당신에게 인생의 새로운 계절이 다가오고 있습니다. 통제되지 않던 불길을 차분하게 타오를 수 있도록 만들어 줄 시운이 시작되고 있습니다.</p><h3>성장을 위한 필수적인 인내</h3><p>나와 속도가 다른 사람들과 발을 맞춰가는 법을 배우게 됩니다. 이 '속도 조절'의 시기를 지혜롭게 넘긴다면 당신은 진정한 '어른'이자 리더로 거듭나게 됩니다.</p>", 
-    sec_yearly_title_1: "🌅 올해의 운세 (세운): '여백의 미'를 배우는 한 해", 
-    sec_yearly_body_1: "<h3>답답함 속에 숨겨진 깊은 뜻</h3><p>올해는 당신의 생체 시계와 세상의 시계가 묘하게 어긋난다고 느낄 수 있습니다. 일이 지연되거나 답변이 늦어질 수 있습니다.</p><h3>올해 반드시 피해야 할 행동</h3><p>홧김에 밥상을 엎어버리거나 화를 내는 것은 최악의 행동입니다. 잠시 손을 놓고 강물이 흘러가는 대로 흐름에 맡겨보세요. 여유로운 성숙함을 보인다면 연말에는 훨씬 큰 보상이 기다릴 것입니다.</p>", 
-    sec_monthly_title_1: "🗓️ 올해의 월별 운세 심층 흐름",
-    sec_monthly_body_1: "<ul><li><strong>[1~3월] 속도를 조절해야 하는 봄 (점검기)</strong><br>의욕이 넘쳐 무리하게 진행하기 쉽습니다. 주변 사람들의 피드백을 수용하는 자세가 필요합니다.</li><li><strong>[4~6월] 에너지가 폭발하는 여름 (발산기)</strong><br>능력이 돋보이는 화려한 시기지만, 충동적인 투자를 감행하기 쉬우니 신용카드 사용을 주의하세요.</li><li><strong>[7~9월] 얽힌 실타래를 푸는 가을 (안정기)</strong><br>꼬였던 인간관계나 업무가 해결의 실마리를 찾게 됩니다. 타협이 행운의 열쇠입니다.</li><li><strong>[10~12월] 인내의 결실을 거두는 겨울 (보상기)</strong><br>기다려온 것들에 대한 실질적인 보상을 받는 시기입니다. 겸손한 태도를 유지하면 내년의 운이 커집니다.</li></ul>",
-    sec_wealth_title_1: "💰 재물운: 지갑에 튼튼한 자물쇠를 채워라", 
-    sec_wealth_body_1: "<h3>화려하게 벌고 시원하게 쓰는 재물관</h3><p>씀씀이가 크고 기분 좋게 베풀며 스케일 크게 돈을 굴리는 시원한 재물운을 가졌습니다.</p><h3>재물을 흩어지게 하는 치명적 약점</h3><p>가장 큰 문제는 돈이 들어오는 폭포수보다 빠져나가는 구멍이 더 크다는 것입니다. 충동적이거나 자극적인 투자 정보에 흔들리기 쉽습니다.</p><p>당신의 재물을 지키기 위한 절대 규칙은, 쉽게 뺄 수 없는 부동산이나 정기적금 등에 '재물 묶어두기'를 하는 것입니다.</p>", 
-    sec_career_title_1: "✨ 성공운: 무대를 직접 지휘할 때 빛나는 주인공", 
-    sec_career_body_1: "<h3>최적의 업무 환경과 직업성</h3><p>수동적인 업무는 당신의 숨을 막히게 합니다. 주도적으로 판을 짜고 맨 앞에서 분위기를 이끌어가는 영업, 마케팅, 기획, 사업 등에서 가장 눈부시게 활약합니다.</p><h3>직장 생활의 딜레마와 해결책</h3><p>리더가 되어 위로 올라갈수록, 뒤처지는 팀원을 다정하게 챙기는 '온도 조절' 능력이 중요합니다. 동료들의 수고를 인정하고 따뜻하게 독려해 보세요.</p>", 
-    sec_academic_title_1: "📚 학업운: 집중하는 벼락치기의 천재", 
-    sec_academic_body_1: "<h3>번뜩이는 직관력과 이해력</h3><p>상황 판단이 빠르고 비상한 두뇌 회전을 가졌습니다. '벼락치기의 천재성'이 돋보입니다.</p><h3>시험의 기술이 필요한 이유</h3><p>하지만 지루함을 견뎌야 하는 장기전에서는 금방 흥미를 잃기 쉽습니다. 스터디 모임에 들어가거나 타이트한 일정 속에 나 자신을 가두는 방법이 큰 도움이 됩니다.</p>", 
-    sec_love_title_1: "🌸 애정운: 불꽃을 고요하게 감싸 안아줄 차분한 바다", 
-    sec_love_body_1: "<h3>당신의 사랑은 뜨겁고 솔직하다</h3><p>한 번 사랑에 빠지면 열정적이고 솔직하게 자신의 감정을 표현하는 매력적인 순정파입니다.</p><h3>피해야 할 인연과 운명의 짝</h3><p>하지만 감정의 기복이 커서 사소한 다툼에도 홧김에 이별을 통보하기 쉽습니다. 당신이 화를 내어도 넓은 품으로 다 받아줄 수 있는 <strong>차분하고 듬직한 사람(수/토기운)</strong>이 찰떡궁합입니다.</p>", 
-    sec_health_title_1: "🍃 건강운: 뜨거워진 엔진을 식히는 의식적인 휴식", 
-    sec_health_body_1: "<h3>신체적 특징과 취약점</h3><p>에너지가 높아 활동적이지만, 한순간에 바닥으로 떨어지는 번아웃이 오기 쉽습니다. 스트레스성 두통이나 안구 건조증을 주의하세요.</p><h3>최고의 건강 관리와 개운법</h3><p>뜨겁게 달궈진 몸과 마음을 식혀주는 것이 중요합니다. 의식적으로 핸드폰을 끄고 <strong>'가만히 누워 쉬는 멍때리기'</strong> 시간이 당신에게 최고의 보약이 됩니다.</p>", 
-    sec_advice_title_1: "🍯 다정한 명리 상담가의 깊은 조언", 
-    sec_advice_body_1: "<h3>[마음을 도닥이는 다정한 한 마디]</h3><p>결정을 내릴 때는 무조건 \"딱 하룻밤만 자고 일어나서 내일 아침 맑은 머리로 다시 결정하자\"는 습관을 만들어보세요. 위기의 90%가 사라질 것입니다.</p><h3>[행운의 처방전]</h3><ul><li><strong>행운의 색상:</strong> 맑은 파란색, 블랙, 화이트</li><li><strong>행운의 숫자:</strong> 1, 6, 4, 9</li><li><strong>행운의 방향:</strong> 북쪽</li></ul>",
+    mock_daily_head_1: "🍯 오늘의 운세: 조급한 마음을 내려놓고 한 박자 쉬어가는 날", mock_daily_body_1: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>오늘 당신의 마음속에는 빨리 뭔가를 해치워버리고 싶거나 속도가 나지 않는 것에 대해 묘한 답답함이 치밀어 오를 수 있습니다.</p><h3>꿀벌의 다정한 처방전</h3><p>홧김에 날카로운 말을 뱉어버리고 싶다면 딱 한 번만 깊게 심호흡을 하세요. 오늘은 침묵하며 한 템포 쉬어가는 그 여유로움 자체가 다가올 큰 후회를 막아주는 최고의 지혜가 됩니다.</p>", 
+    sec_intro_title_1: "🌿 타고난 마음의 풍경: 드넓은 광야의 열정적인 모닥불", sec_intro_body_1: "<p>당신은 어둠이 내린 대지 위를 환하게 밝히는 <strong>크고 열정적인 불꽃(丙/丁火)</strong>입니다. 스스로의 감정과 속도를 주체하지 못할 때가 많습니다. 삶에서 '기다림'과 '여유'라는 브레이크를 장착해야 합니다.</p>", 
+    sec_flow_title_1: "🌊 운명의 흐름 (대운): 펄펄 끓는 열정을 다듬어가는 시간", sec_flow_body_1: "<p>통제되지 않던 불길을 차분하게 타오를 수 있도록 만들어 줄 시운이 시작되고 있습니다. 나와 속도가 다른 사람들과 발을 맞춰가는 법을 배우며 진정한 리더로 거듭납니다.</p>", 
+    sec_yearly_title_1: "🌅 올해의 운세 (세운): '여백의 미'를 배우는 한 해", sec_yearly_body_1: "<p>올해는 일이 지연되거나 답변이 늦어질 수 있습니다. 홧김에 화를 내기보다 강물이 흘러가는 대로 흐름에 맡겨보세요. 연말에는 훨씬 큰 보상이 기다릴 것입니다.</p>", 
+    sec_monthly_title_1: "🗓️ 올해의 월별 운세 흐름", sec_monthly_body_1: "<ul><li><strong>[1~3월]</strong> 속도를 조절해야 하는 봄. 주변의 피드백을 수용하세요.</li><li><strong>[4~6월]</strong> 에너지가 폭발하는 여름. 충동적인 투자를 감행하기 쉬우니 주의하세요.</li><li><strong>[7~9월]</strong> 얽힌 실타래를 푸는 가을. 타협이 행운의 열쇠입니다.</li><li><strong>[10~12월]</strong> 인내의 결실을 거두는 겨울. 기다려온 실질적인 보상을 받습니다.</li></ul>",
+    sec_wealth_title_1: "💰 재물운: 지갑에 튼튼한 자물쇠를 채워라", sec_wealth_body_1: "<p>씀씀이가 크고 기분 좋게 베풀며 스케일 크게 돈을 굴립니다. 돈이 빠져나가는 구멍이 더 크니, 부동산이나 정기적금 등에 '재물 묶어두기'를 하는 것이 필수입니다.</p>", 
+    sec_career_title_1: "✨ 성공운: 무대를 직접 지휘할 때 빛나는 주인공", sec_career_body_1: "<p>수동적인 업무는 숨을 막히게 합니다. 영업, 마케팅 등에서 가장 눈부시게 활약합니다. 위로 올라갈수록 팀원을 다정하게 챙기는 '온도 조절' 능력이 중요합니다.</p>", 
+    sec_academic_title_1: "📚 학업운: 집중하는 벼락치기의 천재", sec_academic_body_1: "<p>비상한 두뇌 회전을 가진 벼락치기의 천재입니다. 지루함을 견디기 위해 스터디 모임이나 타이트한 일정 속에 나 자신을 가두는 방법이 큰 도움이 됩니다.</p>", 
+    sec_love_title_1: "🌸 애정운: 불꽃을 고요하게 감싸 안아줄 차분한 바다", sec_love_body_1: "<p>화가 나도 넓은 품으로 다 받아줄 수 있는 <strong>차분하고 듬직한 사람(수/토기운)</strong>이 찰떡궁합입니다.</p>", 
+    sec_health_title_1: "🍃 건강운: 뜨거워진 엔진을 식히는 의식적인 휴식", sec_health_body_1: "<p>한순간에 바닥으로 떨어지는 번아웃이 오기 쉽습니다. 의식적으로 핸드폰을 끄고 <strong>'가만히 누워 쉬는 멍때리기'</strong> 시간이 최고의 보약입니다.</p>", 
+    sec_advice_title_1: "🍯 다정한 명리 상담가의 깊은 조언", sec_advice_body_1: "<p>결정을 내릴 때는 무조건 \"딱 하룻밤만 자고 일어나서 내일 다시 결정하자\"는 습관을 만들어보세요.</p><ul><li><strong>행운의 색상:</strong> 맑은 파란색, 블랙, 화이트</li><li><strong>행운의 숫자:</strong> 1, 6, 4, 9</li><li><strong>행운의 방향:</strong> 북쪽</li></ul>",
     
-    mock_daily_head_2: "🍯 오늘의 운세: 둥글게 미소 지으세요", 
-    mock_daily_body_2: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>오늘 당신은 평소보다 오감이 예민해져 있습니다. 다른 사람의 서투른 일 처리가 눈에 띄어 지적하고 싶은 충동이 강하게 일어나는 날입니다.</p><h3>꿀벌의 다정한 처방전</h3><p>오늘은 누군가 내 기준에 못 미치더라도 '그럴 수도 있지' 하고 부드럽게 넘어가 주는 어른스러운 다정함을 발휘해 보세요. 그 여유가 오늘 하루를 아름답게 지켜줄 방패가 될 것입니다.</p>", 
-    sec_intro_title_2: "🌿 타고난 마음의 풍경: 단단하고 세련된 보석", 
-    sec_intro_body_2: "<h3>당신의 본질을 그리는 명리학적 풍경</h3><p>당신은 차가운 물속에 한 치의 흐트러짐 없이 자리 잡은 <strong>세공된 보석(庚/辛金)</strong>과 같습니다. 군더더기 없이 깔끔하고 세련된 매력이 넘칩니다.</p><h3>빛나는 재능과 내면의 그림자</h3><p>한 번 맡은 일은 기어코 완벽하게 해내고야 마는 무서운 책임감을 가졌습니다. 객관적이고 냉철하게 분석하는 예리한 눈을 가졌습니다.</p><blockquote><p>\"그러나 그 완벽주의가 당신을 외롭게 만듭니다.\"</p></blockquote><p>타인의 작은 실수나 빈틈을 현미경으로 보듯 찾아내기보다는, 그 불완전함을 인간적인 온기로 안아줄 필요가 있습니다.</p><h3>행복을 위한 운명적 과제</h3><p>빈틈없는 완벽주의의 갑옷을 조금 느슨하게 풀고, 당신의 내면에 숨겨진 다정한 진짜 마음을 세상에 보여주세요.</p>", 
-    sec_flow_title_2: "🌊 운명의 흐름 (대운): 생명의 이끼가 덮이는 시간", 
-    sec_flow_body_2: "<h3>10년 단위로 바뀌는 삶의 계절</h3><p>나만의 단단한 원칙과 차가운 이성으로 살아온 당신에게 다정한 에너지가 다가와 부드럽게 감싸 안는 포용력의 대운이 시작되고 있습니다.</p><h3>성장을 위한 필수적인 인내</h3><p>나와 스타일이 다른 사람들과도 둥글게 어울리는 법을 배우는 시기가 될 것입니다. 이 '다정한 소통'의 과정을 받아들인다면 진정한 리더로 우뚝 서게 됩니다.</p>", 
-    sec_yearly_title_2: "🌅 올해의 운세 (세운): 예기치 못한 변수를 웃으며 즐기기", 
-    sec_yearly_body_2: "<h3>계획대로 되지 않는 것의 축복</h3><p>올해는 완벽한 계획에 예상치 못한 변수나 딜레이가 생겨 마음이 답답해질 수 있는 해입니다.</p><h3>올해 반드시 피해야 할 행동</h3><p>상황을 억지로 내 통제 하에 두려고 발버둥 치지 마세요. 타인에게 일을 맡겼을 때 100점이 아니더라도 \"이만하면 됐어\"라고 웃어 넘겨주는 넉넉한 마음가짐이 강력한 부적이 됩니다.</p>", 
-    sec_monthly_title_2: "🗓️ 올해의 월별 운세 심층 흐름",
-    sec_monthly_body_2: "<ul><li><strong>[1~3월] 유연성이 필요한 봄</strong><br>계획을 대폭 수정해야 할 일이 생깁니다. 자존심을 내려놓고 유연하게 상황에 맞춰 타협하는 것이 유리합니다.</li><li><strong>[4~6월] 관계가 넓어지는 여름</strong><br>새로운 사람들을 만나는 일이 많아집니다. 이 시기에 맺어둔 인연이 하반기의 큰 자산이 됩니다.</li><li><strong>[7~9월] 빛을 발하는 가秋</strong><br>전문성과 예리한 분석력이 빛을 발하며 중요한 프로젝트를 성공적으로 이끕니다.</li><li><strong>[10~12월] 날 선 마음을 녹이는 겨울</strong><br>바쁘게 달려온 마음을 내려놓고 가족과 따뜻한 연말을 보내며 큰 휴식을 선물하세요.</li></ul>",
-    sec_wealth_title_2: "💰 재물운: 다정함과 인맥이 거대한 금전 밭", 
-    sec_wealth_body_2: "<h3>빈틈없는 자산 관리 능력</h3><p>아주 치밀하고 이성적으로 자산을 관리하는 훌륭한 재물 감각을 지녔습니다. 사기꾼에게 속지 않고 내 돈을 지켜내는 방어형 사주입니다.</p><h3>재물을 가로막는 치명적 약점</h3><p>단 1%의 리스크만 보여도 투자를 접거나 동업을 꺼리기 때문에 큰 부자가 되는 속도는 다소 느릴 수 있습니다.</p><p>거대한 재물은 나를 돕는 사람들과의 관계(인맥)에서 나옵니다. 좋은 사람들과의 식사에 기꺼이 지갑을 먼저 열어보세요. 그 다정함의 투자가 더 큰 재물의 물꼬를 터줄 것입니다.</p>", 
-    sec_career_title_2: "✨ 성공운: 사람을 대할 땐 봄바람처럼 따뜻하게", 
-    sec_career_body_2: "<h3>최적의 업무 환경과 직업성</h3><p>재무, 회계, IT, 법률 등 정확성이 생명인 분야에서 당신의 예리함은 최고의 무기가 됩니다.</p><h3>직장 생활의 딜레마와 해결책</h3><p>당신의 예리한 팩트 폭격이 동료들을 주눅 들게 할 수 있습니다. 아침에 먼저 다가가 따뜻한 인사와 커피를 건네보는 연습을 해보세요. 깐깐한 껍질 속에 숨겨진 다정한 성품이 알려질 때 훨씬 더 높이 날아오를 수 있습니다.</p>", 
-    sec_academic_title_2: "📚 학업운: 완벽에 대한 집착 내려놓기", 
-    sec_academic_body_2: "<h3>체계적인 논리와 치밀함</h3><p>규칙이 명확한 분야에서 천재적인 이해력을 보여주며, 한 번 배운 건 절대 잊지 않는 치밀함도 훌륭합니다.</p><h3>시험의 기술이 필요한 이유</h3><p>가끔 안 풀리는 문제 하나에 꽂혀 전체적인 시험의 흐름을 놓치는 실수를 할 수 있습니다. 실전 시험에서는 아는 것부터 확실히 챙기는 융통성 있는 요령이 절대적으로 필요합니다.</p>", 
-    sec_love_title_2: "🌸 애정운: 팩트폭격 대신 따뜻하게 안아주세요", 
-    sec_love_body_2: "<h3>당신의 사랑은 까다롭고 신중하다</h3><p>연애를 시작할 때 나만의 엄격한 기준표를 들고 꼼꼼히 평가하는 습관이 있습니다.</p><h3>피해야 할 인연과 운명의 짝</h3><p>당신의 차가운 이성의 장벽을 부드럽게 녹여줄 수 있는 <strong>다정다감한 사람(목/화기운)</strong>을 만나시길 바랍니다. 연인이 비합리적인 행동을 했을 때 지적하기보다 말없이 안아주고 공감해 주는 법을 배울 때 사랑이 평안해집니다.</p>", 
-    sec_health_title_2: "🍃 건강운: 바짝 곤두선 신경줄을 말랑하게 풀어주세요", 
-    sec_health_body_2: "<h3>신체적 특징과 취약점</h3><p>타인에게 틈을 보이지 않으려다 보니 초긴장 상태로 살아가기 쉽습니다. 스트레스성 소화불량, 불면증이 올 수 있습니다.</p><h3>최고의 건강 관리와 개운법</h3><p>당신에게 시급한 것은 뭉친 근육과 신경을 이완시키는 시간입니다. 규칙적인 스트레칭이나 반신욕 등 철저한 이완 시간이 건강을 위한 필수 요소입니다.</p>", 
-    sec_advice_title_2: "🍯 다정한 명리 상담가의 깊은 조언", 
-    sec_advice_body_2: "<h3>[마음을 도닥이는 다정한 한 마디]</h3><p>다른 사람의 생각이나 방식도 그럴 수 있겠다고 부드럽게 고개를 끄덕여 주고 인정하는 연습을 해보세요.</p><h3>[행운의 처방전]</h3><ul><li><strong>행운의 색상:</strong> 따뜻한 초록색, 갈색, 파스텔 핑크</li><li><strong>행운의 숫자:</strong> 3, 8, 2, 7</li><li><strong>행운의 방향:</strong> 동쪽</li></ul>"
+    mock_daily_head_2: "🍯 오늘의 운세: 둥글게 미소 지으세요", mock_daily_body_2: "<h3>오늘 당신을 둘러싼 자연의 온도</h3><p>오늘 당신은 평소보다 오감이 예민해져 있습니다. 다른 사람의 서투른 일 처리가 눈에 띄어 지적하고 싶은 충동이 강하게 일어나는 날입니다.</p><h3>꿀벌의 다정한 처방전</h3><p>오늘은 누군가 내 기준에 못 미치더라도 '그럴 수도 있지' 하고 부드럽게 넘어가 주는 어른스러운 다정함을 발휘해 보세요. 그 여유가 오늘 하루를 아름답게 지켜줄 방패가 될 것입니다.</p>", 
+    sec_intro_title_2: "🌿 타고난 마음의 풍경: 단단하고 세련된 보석", sec_intro_body_2: "<p>당신은 차가운 물속에 자리 잡은 <strong>세공된 보석(庚/辛金)</strong>과 같습니다. 무서운 책임감을 가졌지만 완벽주의가 당신을 외롭게 만듭니다. 불완전함을 인간적인 온기로 안아줄 필요가 있습니다.</p>", 
+    sec_flow_title_2: "🌊 운명의 흐름 (대운): 생명의 이끼가 덮이는 시간", sec_flow_body_2: "<p>단단한 원칙으로 살아온 당신에게 포용력의 대운이 시작되고 있습니다. 나와 스타일이 다른 사람들과도 둥글게 어울리는 법을 배우면 진정한 리더로 우뚝 섭니다.</p>", 
+    sec_yearly_title_2: "🌅 올해의 운세 (세운): 예기치 못한 변수를 웃으며 즐기기", sec_yearly_body_2: "<p>완벽한 계획에 예상치 못한 변수가 생겨 마음이 답답해질 수 있습니다. 상황을 억지로 통제하려 하지 말고 \"이만하면 됐어\"라고 웃어 넘겨주는 마음가짐이 강력한 부적이 됩니다.</p>", 
+    sec_monthly_title_2: "🗓️ 올해의 월별 운세 흐름", sec_monthly_body_2: "<ul><li><strong>[1~3월]</strong> 계획을 대폭 수정해야 합니다. 자존심을 내려놓고 타협하세요.</li><li><strong>[4~6월]</strong> 맺어둔 인연이 하반기의 큰 자산이 됩니다.</li><li><strong>[7~9월]</strong> 전문성이 빛을 발하며 중요한 프로젝트를 성공적으로 이끕니다.</li><li><strong>[10~12월]</strong> 바쁘게 달려온 마음을 내려놓고 가족과 따뜻한 연말을 보내세요.</li></ul>",
+    sec_wealth_title_2: "💰 재물운: 다정함과 인맥이 거대한 금전 밭", sec_wealth_body_2: "<p>치밀하게 자산을 관리하는 훌륭한 재물 감각을 지녔지만 투자를 꺼려 부자가 되는 속도는 느립니다. 거대한 재물은 나를 돕는 사람들과의 인맥에서 나옵니다.</p>", 
+    sec_career_title_2: "✨ 성공운: 사람을 대할 땐 봄바람처럼 따뜻하게", sec_career_body_2: "<p>정확성이 생명인 분야에서 당신의 예리함은 최고의 무기가 됩니다. 예리한 팩트 폭격보다 먼저 다가가 따뜻한 인사와 커피를 건네보는 연습을 해보세요.</p>", 
+    sec_academic_title_2: "📚 학업운: 완벽에 대한 집착 내려놓기", sec_academic_body_2: "<p>천재적인 이해력을 보여주지만, 안 풀리는 문제 하나에 꽂혀 시험의 흐름을 놓치는 실수를 할 수 있습니다. 융통성 있는 요령이 절대적으로 필요합니다.</p>", 
+    sec_love_title_2: "🌸 애정운: 팩트폭격 대신 따뜻하게 안아주세요", sec_love_body_2: "<p>당신의 차가운 이성의 장벽을 부드럽게 녹여줄 수 있는 <strong>다정다감한 사람(목/화기운)</strong>을 만나시길 바랍니다.</p>", 
+    sec_health_title_2: "🍃 건강운: 바짝 곤두선 신경줄을 말랑하게 풀어주세요", sec_health_body_2: "<p>타인에게 틈을 보이지 않으려다 보니 초긴장 상태로 살아가기 쉽습니다. 규칙적인 스트레칭이나 반신욕 등 철저한 이완 시간이 필수 요소입니다.</p>", 
+    sec_advice_title_2: "🍯 다정한 명리 상담가의 깊은 조언", sec_advice_body_2: "<p>다른 사람의 생각이나 방식도 그럴 수 있겠다고 부드럽게 고개를 끄덕여 주고 인정하는 연습을 해보세요.</p><ul><li><strong>행운의 색상:</strong> 따뜻한 초록색, 갈색, 파스텔 핑크</li><li><strong>행운의 숫자:</strong> 3, 8, 2, 7</li><li><strong>행운의 방향:</strong> 동쪽</li></ul>"
   },
   en: {
     btn_home_only: "Home", back_to_menu: "Menu", cta_check_saju: "Start My Story",
-    what_is_saju_title: "A Story Reflecting Nature", what_is_saju_p1: "Korean Fortune (Saju) isn't scary fortune-telling. It's a logical wisdom that reads the flow of your destiny based on the seasons and natural energies present at your birth.", what_is_saju_p3: "Let me be your storyteller and show you the beautiful facets of your inner landscape as a profound 'Life Reference'.",
+    what_is_saju_title: "A Story Reflecting Nature", what_is_saju_p1: "Korean Fortune (Saju) reads the flow of your destiny based on the seasons and natural energies present at your birth.", what_is_saju_p3: "Let me be your storyteller and show you the beautiful facets of your inner landscape as a profound 'Life Reference'.",
     hub_pick_title: "What story do you want to hear?", hub_pick_sub: "Let's explore your path with a warm perspective.",
-    p_free: "FREE", p_yearly: "$1.99", p_wealth: "$1.99", p_std: "$1.99", p_full: "$4.99",
+    p_ad: "📺 Watch Ad", p_yearly: "$1.99", p_wealth: "$1.99", p_std: "$1.99", p_full: "$4.99",
     menu_daily: "Daily Fortune", menu_daily_sub: "Today's gentle energy", menu_yearly: "Yearly Path", menu_yearly_sub: "A warm year ahead", menu_wealth: "Wealth Vibe", menu_wealth_sub: "Your money vessel", menu_love: "Romance", menu_love_sub: "Finding sweet connections", menu_career: "Career Path", menu_career_sub: "Your perfect role", menu_academic: "Academic Focus", menu_academic_sub: "Door to wisdom", menu_health: "Health Balance", menu_health_sub: "Natural body rhythm", menu_full: "Master Story", menu_full_sub: "The complete painting of you",
     onb_intro: "Tell me about your birth", label_name: "Name (Optional)", label_date: "Birth Date", label_time: "Birth Time", time_opt_placeholder: "Select time", time_unknown_check: "I don't know my birth time", label_gender: "Gender", gender_f: "Female", gender_m: "Male", onb_submit: "Reveal My Energy", err_req_date: "Please enter your birth date.", err_req_time: "Please select a time or check 'I don't know'.",
+    
+    ad_title: "Sponsor Message", ad_desc: "The Saju Bee is gathering honey! 🐝💦<br>Wait a moment to unlock your fortune.", ad_timer_prefix: "Time Left: ", ad_timer_suffix: "s", ad_reward: "🍯 Fortune is ready!",
+    
     loading_title: "Drawing your landscape...", loading_sub: "Gathering the energies of your birth day to paint a beautiful forest. Please wait a moment.",
     reveal_title: "Your Natural Elements", reveal_sub: "The four energies forming your inner landscape have arrived.", btn_read_story: "Read My Full Story",
     paywall_sub: "Would you like to open a heartfelt, profound life guide written just for you?", price_desc: "One-time payment · Keep it forever", pay_stripe: "Unlock My Story", maybe_later: "Maybe later",
@@ -954,248 +918,50 @@ const TRANSLATIONS = {
     btn_save_img: "Save Image", btn_share: "Share", saving_img: "Saving...", saved_img: "Saved!", copied: "Copied!",
     share_title: "🍯 My Natural Energy by Bee Saju", share_text: "Warm Saju storytelling reflecting nature! Wondering what your inner landscape looks like? Check it out now.",
     
-    mock_daily_head_0: "🍯 Daily Fortune: Turn off your thoughts and step lightly", 
-    mock_daily_body_0: "<h3>Today's Natural Temperature</h3><p>Today's energy gently pushes you like a pebble dropping into a quiet lake. Nature is giving you a soft nudge to finally start what you've only been holding in your mind. If you felt a strange sense of anticipation when you woke up, it's the positive energy (Five Elements) aligning to help you.</p><h3>The Bee's Warm Prescription</h3><p>You are a deep thinker endowed with abundant Water energy, pondering fifty times before acting. But if the water of your thoughts becomes stagnant, your Tree (Wood energy) cannot thrive. Today, you don't have to be perfect.</p><p>A clumsy 60% preparation taken out into the world will bring you unexpected seeds of luck compared to a 100% perfect imagination that stays hidden in your head. Let go of the fear of failure and approach today with the light, simple heart of a child.</p>", 
-    sec_intro_title_0: "🌿 Inner Landscape: A Strong Tree in a Deep Forest", 
-    sec_intro_body_0: "<h3>Your Astrological Painting</h3><p>In terms of natural energy, you resemble a <strong>strong, tall tree (Japmok)</strong> deeply rooted by a clear lake. You possess a mature, compassionate soul that doesn't easily waver in life's storms, willingly offering generous shade to others.</p><h3>Brilliant Talents and Inner Shadows</h3><p>Endowed with the energy of abundant water (wisdom) and solid wood (growth), you have profound insight that sees beyond the surface. Outwardly calm, your inner world is a lush forest of ideas ready to sprout. You are a reliable figure others naturally want to lean on.</p><blockquote><p>\"However, your biggest trap is your paralyzing perfectionism and the heavy burden of responsibility.\"</p></blockquote><p>As a tree endlessly absorbs water, you try to absorb infinite knowledge, constantly falling into the trap of self-censorship, thinking 'I am not ready yet.' While carrying others' burdens, when you are tired, you close your heart and hide in a deep cave of isolation.</p><h3>Destined Task for Happiness</h3><p>Stop holding yourself back waiting for the 'perfect' spring in the frozen ground. A flower with slightly crooked petals is still beautiful in nature's eyes. What you need isn't more preparation, but the <strong>courage and slight shamelessness</strong> to stretch your branches out into the world, embracing imperfection. Learning to lean on others is your ultimate key to unlocking good fortune.</p>", 
-    sec_flow_title_0: "🌊 Destiny Flow (Daewun): A Tree Welcoming Spring", 
-    sec_flow_body_0: "<h3>The 10-Year Cycle of Life</h3><p>In Saju, life moves in massive 10-year chapters called 'Daewun'. Good news is coming your way. The cold winter winds (Water energy) that made you overthink and shrink back are fading. A period of warm sunlight (Fire) and solid earth (Earth) is arriving to safely embrace your roots.</p><h3>Rewards for the Time Spent Hiding</h3><p>The brilliant ideas you've harbored will finally bloom brilliantly under this sun, translating into tangible reality. During this explosive growth phase, false humility won't help you. Stop hiding behind others as just a supporter. Step up confidently and become the main character of your stage. When you actively 'express' your inner wisdom, the blocked pathways of your luck will burst open.</p>", 
-    sec_yearly_title_0: "🌅 Yearly Fortune: Open the Door to Good Fortune", 
-    sec_yearly_body_0: "<h3>A Year of Tangible Rewards</h3><p>This year, sunlight warms your lake, melting away the vague anxieties that weighed down your heart. Unlike the past where efforts felt unrewarded, <strong>tangible financial results and clear recognition</strong> will finally fall firmly into your hands.</p><h3>Actions to Strictly Avoid</h3><p>But you can't feel the sun with closed doors. Staying up all night planning perfectly or trying to solve everything alone will destroy this year's excellent luck.</p><p>Go out and have coffee with warm people. Talk lightly about your concerns. Surprisingly, within those casual conversations lies the 'golden key (a helpful person)' that will bring you the greatest growth this year. The keyword for this year is 'Connection'.</p>", 
-    sec_monthly_title_0: "🗓️ Monthly Flow Deep Dive",
-    sec_monthly_body_0: "<ul><li><strong>[Jan-Mar] Spring Seedlings (Leap)</strong><br>Your frozen ideas begin to thaw. Don't wait for perfection—start even a small project now. This small start will snowball by year's end.</li><li><strong>[Apr-Jun] Summer Growth (Expansion)</strong><br>Networking thrives. A person you meet serendipitously at a gathering will become a strong ally. Accept positive proposals, but review contracts carefully.</li><li><strong>[Jul-Sep] Autumn Harvest (Yield)</strong><br>Your past sweat yields visible and financial results. This is the peak time for wealth growth. It's a great time to execute investments you've been pondering. Avoid overworking.</li><li><strong>[Oct-Dec] Winter Recharge (Rest)</strong><br>A time to store energy. Consolidate your gains and focus on your health rather than expanding. Expressing gratitude to those who helped you will brighten next year's luck.</li></ul>",
-    sec_wealth_title_0: "💰 Wealth: A Deep Well of Expertise That Never Dries", 
-    sec_wealth_body_0: "<h3>Your True Wealth Vessel</h3><p>Your wealth doesn't come from quick tricks, short-term speculation, or crypto gambling. Pursuing that will only cost you your peace of mind and money. Your true fortune flows quietly but massively from your <strong>irreplaceable expertise and intellectual property</strong>, like an endless spring.</p><h3>Strict Warnings to Protect Your Money</h3><p>Your number one risk is 'financial loss through relationships'. Due to your kind nature, you struggle to refuse requests, often yielding your rightful share or suffering silently after lending money.</p><p>You must confidently demand fair compensation for your work. Absolutely avoid co-signing loans or lending money, even to family. Your wealth grows safest and largest in long-term investments like real estate, royalties, or stable savings, rather than stocks you must check daily.</p>", 
-    sec_career_title_0: "✨ Career: The Mastermind Behind the Scenes", 
-    sec_career_body_0: "<h3>Optimal Work Environment</h3><p>Repetitive tasks or forced emotional labor to please bosses drain your delicate energy instantly. You bloom brightest in environments where you can deeply research, plan, teach, or utilize specialized skills that others cannot replicate.</p><h3>The Workplace Dilemma and Solution</h3><p>Within an organization, you perfectly fit the role of a <strong>wise mentor or strategic planner</strong> who quietly understands the big picture, rather than a loud frontline soldier.</p><p>However, your biggest grievance stems from the passive belief: 'If I work hard silently, the boss will eventually notice.' The world isn't that attentive. Practice gently but clearly promoting your achievements based on facts. This small skill of 'self-PR' is the key to getting your abilities recognized tenfold.</p>", 
-    sec_academic_title_0: "📚 Academic: Sponge-like Focus, But You Must Relax for Exams", 
-    sec_academic_body_0: "<h3>Unrivaled Power of Inquiry</h3><p>You have a strong 'In-seong' (Star of Study), allowing you to absorb knowledge like a dry sponge. Your ability to academically explore a subject and grasp its core principles is unmatched.</p><h3>Why You Need Exam Techniques</h3><p>Your blind spot is real-world testing (interviews, exams). The perfectionist pressure to 'know everything without a single flaw' makes you freeze when facing unexpected questions, ruining your actual capabilities.</p><p>Instead of rereading a textbook 100 times, treat timed practice exams like a fun, low-stakes game. Let go of the tension with the mindset 'It's okay to get it wrong.' This will allow your brilliant mind to pull answers directly from your subconscious.</p>", 
-    sec_love_title_0: "🌸 Romance: A Ray of Bright Sun to Warm the Deep Abyss", 
-    sec_love_body_0: "<h3>Your Love is Deep and Heavy</h3><p>You aren't swayed by flashy appearances or cheap flirting. You open your heart slowly only to someone deep, with whom you can share honest conversations and life philosophies. Casual dating games just feel like exhausting labor to you.</p><h3>Destined Partner vs. Who to Avoid</h3><p>Beware of your tendency to attract dependent people who trigger your parental instincts, making you feel you 'must take care of them.' This will eventually drain you.</p><p>Since you tend to retreat into your deep cave of thoughts, you absolutely need a <strong>bright, sunny, cheerful partner (Fire energy)</strong>. You need someone who, instead of taking your depression too seriously, laughs brightly and says, \"Let's stop overthinking and go eat!\" Find a positive partner who respects your depth but playfully pulls you into the joyful real world.</p>", 
-    sec_health_title_0: "🍃 Health: Raising Body Heat is the Secret to Raising Luck", 
-    sec_health_body_0: "<h3>Physical Traits and Vulnerabilities</h3><p>Born with abundant Water energy, you look clear and serene, but physically, your Yin energy is strong. Your extremities and lower abdomen easily get cold, and your blood/lymph circulation may be sluggish. In Saju, strong Water/Wood means your liver/gallbladder or kidneys may fatigue faster than others.</p><h3>Best Health and Luck Routine</h3><p>For you, a 1-degree drop in body temperature logically links to an uncontrollable drop in mood and motivation. In winter or changing seasons, prioritize keeping your neck and feet warm over fashion.</p><p>Choose hot herbal or ginger tea over iced drinks. Take warm foot baths or half-baths every evening to induce a light sweat and melt your frozen body. This simple, warm habit awakens your biological energy and acts as the best magic for attracting massive good luck.</p>", 
-    sec_advice_title_0: "🍯 Counselor's Deep Advice (Secret to Unlocking Luck)", 
-    sec_advice_body_0: "<h3>[A Warm Word for Your Heart]</h3><p>\"The world cares far less about your mistakes than you think.\"<br>Your brilliant ideas mean nothing if they remain locked inside your head. The perfect timing never comes. Take a 20-minute walk in the midday sun every day. The bright Yang energy of the sun will dry out the damp melancholy in your heart and infuse you with the courage to take light, positive action.</p><h3>[Lucky Prescriptions to Harmonize Your Energy]</h3><ul><li><strong>Colors:</strong> Warm Reds, cozy Oranges, bright Pinks to warm your cold energy. (Absolutely avoid wearing all-black or dreary grey from head to toe, as it suppresses your luck and isolates you.)</li><li><strong>Numbers:</strong> 2, 7, 5, 0 (Representing Fire and Earth. Use them for passwords or important dates.)</li><li><strong>Direction:</strong> South (Facing South when placing your desk or making important appointments clears your mind and sparks positive ideas.)</li><li><strong>Items & Environment:</strong> Warm Gold or Rose Gold accessories protect your energy better than sharp, cold Silver. Fill your room with cozy, warm yellow mood lighting instead of harsh fluorescents to relieve the heavy burdens of your day.</li></ul>",
+    mock_daily_head_0: "🍯 Daily Fortune: Turn off your thoughts and step lightly", mock_daily_body_0: "<h3>Today's Natural Temperature</h3><p>Today's energy gently pushes you like a pebble dropping into a quiet lake. Nature is giving you a soft nudge to finally start what you've only been holding in your mind.</p><h3>The Bee's Warm Prescription</h3><p>A clumsy 60% preparation taken out into the world will bring you unexpected seeds of luck compared to a 100% perfect imagination that stays hidden in your head.</p>", 
+    sec_intro_title_0: "🌿 Inner Landscape: A Strong Tree", sec_intro_body_0: "<p>You resemble a <strong>strong tree</strong> deeply rooted by a clear lake.</p>", sec_flow_title_0: "🌊 Destiny Flow", sec_flow_body_0: "<p>The brilliant ideas you've harbored will finally bloom.</p>", sec_yearly_title_0: "🌅 Yearly Fortune", sec_yearly_body_0: "<p>This year, sunlight warms your lake.</p>", sec_monthly_title_0: "🗓️ Monthly Flow", sec_monthly_body_0: "<ul><li>Spring: Growth begins</li></ul>", sec_wealth_title_0: "💰 Wealth", sec_wealth_body_0: "<p>Your wealth comes from expertise.</p>", sec_career_title_0: "✨ Career", sec_career_body_0: "<p>You are a wise mentor.</p>", sec_academic_title_0: "📚 Academic", sec_academic_body_0: "<p>You absorb knowledge like a sponge.</p>", sec_love_title_0: "🌸 Romance", sec_love_body_0: "<p>You need a bright, sunny partner.</p>", sec_health_title_0: "🍃 Health", sec_health_body_0: "<p>Keep your body warm.</p>", sec_advice_title_0: "🍯 Advice", sec_advice_body_0: "<p>Take a walk in the sun.</p>",
     
-    mock_daily_head_1: "🍯 Daily Fortune: Put down your impatience and intentionally take a breath", 
-    mock_daily_body_1: "<h3>Today's Natural Temperature</h3><p>Today, a fiery energy surrounds you, making you want to rush through tasks or easily feel frustrated and irrationally angry when situations don't adapt to your fast-paced tempo.</p><h3>The Bee's Warm Prescription</h3><p>You might act impulsively over minor issues you'd normally laugh off with your signature broad-mindedness. If you feel the intense urge to speak sharply to someone or make an impulsive stress-purchase, take one deep breath.</p><p>Tell yourself, 'I will make this decision tomorrow morning.' Today is not about winning or losing; the act of staying silent and slowing down your tempo will protect you from massive regret and guarantee your peace tomorrow.</p>", 
-    sec_intro_title_1: "🌿 Inner Landscape: A Passionate Campfire on an Open Field", 
-    sec_intro_body_1: "<h3>Your Astrological Painting</h3><p>Your natural energy resembles a <strong>large, passionate campfire (Byeong/Jeong Fire)</strong> that brightly illuminates a vast field in the dark, bringing warmth and vitality to all living things around it. You are born with an intense presence that cannot be hidden.</p><h3>Brilliant Talents and Inner Shadows</h3><p>Filled with fiery energy, you possess extraordinary drive and explosive action. You have an innate, flashy charm and bright Yang energy that naturally draws people's attention. Your presence brightens any sinking mood, and your 'can-do' confidence is contagious. You are a born leader and the main character of any stage.</p><blockquote><p>\"However, your greatest danger is your 'speed without brakes', which can turn everything to ash.\"</p></blockquote><p>This beautiful fire sometimes <strong>loses completely control of its own speed and emotions</strong>. If results aren't immediate, you get frustrated and irritable. Unable to handle waves of sudden anger, you might hurl hurtful words at precious people or impulsively destroy a project you've worked on for months.</p><h3>Destined Task for Happiness</h3><p>Fire is most beautiful when it warms the cold and lights the dark. But if unchecked, it burns down the forest and turns itself to black ash. To utilize your magnificent passion beautifully for a long time, you must install 'patience' and 'leisure' as your life's braking system. He who controls his anger conquers the world—this applies directly to your Saju.</p>", 
-    sec_flow_title_1: "🌊 Destiny Flow (Daewun): Refining Roaring Passion into True Maturity", 
-    sec_flow_body_1: "<h3>The 10-Year Cycle of Life</h3><p>You've lived freely, driven by your roaring heart and intuition. But now, a period of cool Water and stabilizing Earth energy is arriving to safely contain your wild flames within a sturdy furnace, allowing them to burn steadily and warmly for a long time.</p><h3>Necessary Patience for Growth</h3><p>You are entering a necessary phase of growth where you must learn societal rules, take responsibility for your actions, and synchronize your pace with others. For someone who loves speed, this period might feel suffocating, like running with sandbags on your ankles.</p><p>Do not resent this time. By navigating this 'speed control' phase wisely and learning tolerance for others, you will transcend being just a passionate idea-generator. You will transform into a truly respected 'adult' and a great leader capable of genuinely guiding and embracing the world.</p>", 
-    sec_yearly_title_1: "🌅 Yearly Fortune: Learning the Art of Waiting and Empty Space", 
-    sec_yearly_body_1: "<h3>The Universe's Deep Intention in Delay</h3><p>This year, you might strongly feel that your biological clock is misaligned with the world's gears. You've already reached the finish line, but you'll burn with anxiety seeing people or situations crawling behind like snails. Projects might get delayed at the last minute, or expected answers might be postponed.</p><h3>Actions to Strictly Avoid</h3><p>Acting impulsively out of anger—flipping the table, shouting \"I'll do it all myself!\", or abruptly cutting ties with important people—is the ultimate trap you must avoid this year. Nature's assignment for you is <strong>'Leisure, Tolerance, and Waiting'</strong>.</p><p>Even if it's frustrating, don't force it. Let go and let the river flow. If you can smile, yield to slower people, and show the maturity to wait generously instead of pushing them, an unexpectedly massive reward and honor await you at the end of the year.</p>", 
-    sec_monthly_title_1: "🗓️ Monthly Flow Deep Dive",
-    sec_monthly_body_1: "<ul><li><strong>[Jan-Mar] Forced Pacing in Spring (Inspection)</strong><br>Over-motivation may lead to reckless execution. Instead of hitting the gas, step on the brakes to inspect your plans' loopholes and absolutely listen to the opposing views of those around you.</li><li><strong>[Apr-Jun] Explosive Summer (Radiance)</strong><br>Your unique energy peaks, drawing attention and highlighting your capabilities everywhere. However, confidence easily turns to arrogance. Guard your wallet tightly against impulsive spending or high-risk investments driven by euphoria.</li><li><strong>[Jul-Sep] Autumn Stability and Unraveling (Resolution)</strong><br>Your restless heart and chaotic situations calmly settle. Tangled relationships or stalled work from the first half will finally find smooth resolutions. Compromise is your lucky key.</li><li><strong>[Oct-Dec] Reaping the Rewards of Winter (Harvest)</strong><br>You will receive sweet, tangible rewards for the frustrations you patiently endured all year. Rather than boasting, attributing your success to your team with a humble attitude will exponentially multiply your luck for next year.</li></ul>",
-    sec_wealth_title_1: "💰 Wealth: Put a Sturdy Lock on Your Wallet", 
-    sec_wealth_body_1: "<h3>Earning Grandly, Spending Grandly</h3><p>You have the grand capacity of a general, never stressing over pennies, spending generously, and rolling money on a large scale. Your animal-like intuition for reading market trends and finding where the money is, is exceptional. When money flows in, it hits like a powerful waterfall.</p><h3>The Fatal Flaw That Scatters Wealth</h3><p>The biggest problem is that <strong>the drain hole is larger than the waterfall of income</strong>. You are highly vulnerable to spending to show off, treating others on a whim, or falling for fast, stimulating info like \"This is a sure bet to make quick cash!\"</p><p>Your absolute golden rule to protect your massive wealth and secure a comfortable old age is to remove 'visible, accessible cash' from your sight. Locking your wealth into highly illiquid assets like real estate, strict term deposits, or pension funds—the 'tying down wealth' strategy—is your greatest defense against bankruptcy.</p>", 
-    sec_career_title_1: "✨ Career: The Charismatic Protagonist Who Directs the Stage", 
-    sec_career_body_1: "<h3>Optimal Work Environment</h3><p>Being confined in a windowless cubicle strictly following passive orders suffocates your soul. You shine brightest and utilize 1000% of your ability when you lead the charge, direct the atmosphere, and produce results under your own name. You are a superstar in sales, marketing, planning, broadcasting, arts, or running your own business.</p><h3>The Workplace Dilemma and Solution</h3><p>However, as you climb higher as a leader, you must etch this into your bones: your passionate temperature is so hot that it can burn out the colleagues trying to keep up with you.</p><p>Producing results is important, but possessing the <strong>'warm temperature control'</strong> to hold the hands of struggling team members and ask how they are doing is equally vital. Instead of aggressively yelling \"Why can't you do this!\", acknowledge their efforts with warm words. When your overwhelming skill is combined with the generosity (In-seong) to win hearts, you will become an untouchable top leader.</p>", 
-    sec_academic_title_1: "📚 Academic: The Brilliant Sprinter, But Bad at Marathons", 
-    sec_academic_body_1: "<h3>Lightning-Fast Intuition</h3><p>Your situational awareness is lightning-fast, and your brain's rotational speed is unmatched. You possess extraordinary 'cramming genius,' able to grasp the core framework in a few hours the night before the exam, while others take days to memorize it.</p><h3>Why You Need Exam Techniques</h3><p>However, you show a fatal weakness in long-term battles (bar exams, civil service, long certifications) that require sitting still and enduring boredom. You lose interest quickly, pour all your energy into the beginning, and completely burn out right before the actual exam.</p><p>To overcome this, never study alone in isolation. Joining a strict study group with rules, finding a rival to spark your competitive spirit, or deliberately confining yourself to a tight academy schedule will bind your scattering energy and help you survive the marathon.</p>", 
-    sec_love_title_1: "🌸 Romance: A Calm, Deep Sea to Embrace the Roaring Fire", 
-    sec_love_body_1: "<h3>Your Love is Hot and Honest</h3><p>When you fall in love, you are an incredibly attractive romantic who gives everything passionately without calculating the odds. Your straightforward, honest expression of feelings, devoid of complex mind games, is highly appealing to others.</p><h3>Destined Partner vs. Who to Avoid</h3><p>However, your emotions boil quickly like a shallow pot and cool just as fast. Your extreme emotional swings can cause you to feel deeply disappointed over a partner's minor slip of the tongue, leading you to impulsively announce a breakup you will desperately regret later.</p><p>Another fiery, emotional person is the absolute worst match for you. Your perfect match is someone like a <strong>calm rock or a deep sea (Earth/Water energy)</strong>—a steady, reliable person who, even when you are angry or pouting, remains unbothered, smiling warmly, and embracing all your tantrums. Only beside such a person will your unstable emotions find peaceful rest.</p>", 
-    sec_health_title_1: "🍃 Health: Conscious Rest and Hydration for an Overheating Engine", 
-    sec_health_body_1: "<h3>Physical Traits and Vulnerabilities</h3><p>Your physical and mental energy levels are always high, making you look far more active than others. But you often overestimate your stamina, pushing yourself to 120% until you suddenly crash into severe burnout, as if your fuse just blew. Since Heat (Fire) easily rises to your head, you must constantly watch out for dry eyes, chronic headaches, heart palpitations, blood pressure issues, or stress-induced skin problems/hair loss.</p><h3>Best Health and Luck Routine</h3><p>When angry or stressed, it's vital to release it healthily through hobbies or sports rather than holding it in. But a hundred times more important is replenishing the 'Yin energy' to cool down your overheated body and mind.</p><p>Instead of heavy sweating exercises, opt for swimming or quiet yoga/meditation. Drink plenty of water. Most importantly, consciously turn off your phone and schedule time to <strong>'do absolutely nothing, just staring blankly'</strong>. This deliberate rest is the best medicine to save your life and purify your luck.</p>", 
-    sec_advice_title_1: "🍯 Counselor's Deep Advice (Secret to Unlocking Luck)", 
-    sec_advice_body_1: "<h3>[A Warm Word for Your Heart]</h3><p>\"The only enemy ruining your life is not external trials, but your internal 'impatience'.\"<br>The single biggest obstacle preventing you from achieving greater success and being loved by more people is your sudden 'impatience and anger'. From today, make it an absolute rule when making major decisions—like quitting a job, investing, or breaking up—to <strong>\"sleep on it for just one night, and decide tomorrow morning with a clear head.\"</strong> Keeping this one rule will magically erase 90% of the crises in your life.</p><h3>[Lucky Prescriptions to Harmonize Your Energy]</h3><ul><li><strong>Colors:</strong> Clear Blues to cool your overheated mind, calm and sophisticated Black, and clean, rational White. (Avoid wearing bright red or flashy accessories from head to toe on important days, as it stimulates your temper.)</li><li><strong>Numbers:</strong> 1, 6, 4, 9 (Representing Water and Metal.)</li><li><strong>Direction:</strong> North (When your mind is chaotic and you feel like exploding, take a refreshing trip or drive towards the North, especially near water.)</li><li><strong>Items & Environment:</strong> Silver or Platinum accessories that cool and purify your excited energy are excellent. Keeping a small aquarium, a humidifier, or water plants (Water elements) on your desk or in your home will miraculously calm your heart and help you make rational decisions.</li></ul>",
+    mock_daily_head_1: "🍯 Daily Fortune: Take a breath", mock_daily_body_1: "<p>Today, a fiery energy surrounds you. If you feel the urge to speak sharply, take one deep breath.</p>", 
+    sec_intro_title_1: "🌿 Inner Landscape: Passionate Campfire", sec_intro_body_1: "<p>You are a passionate campfire.</p>", sec_flow_title_1: "🌊 Destiny Flow", sec_flow_body_1: "<p>You are learning patience.</p>", sec_yearly_title_1: "🌅 Yearly Fortune", sec_yearly_body_1: "<p>Learn the art of waiting.</p>", sec_monthly_title_1: "🗓️ Monthly Flow", sec_monthly_body_1: "<ul><li>Spring: Slow down</li></ul>", sec_wealth_title_1: "💰 Wealth", sec_wealth_body_1: "<p>Lock your wealth away.</p>", sec_career_title_1: "✨ Career", sec_career_body_1: "<p>You are the protagonist.</p>", sec_academic_title_1: "📚 Academic", sec_academic_body_1: "<p>You are a brilliant sprinter.</p>", sec_love_title_1: "🌸 Romance", sec_love_body_1: "<p>You need a calm sea.</p>", sec_health_title_1: "🍃 Health", sec_health_body_1: "<p>Rest your engine.</p>", sec_advice_title_1: "🍯 Advice", sec_advice_body_1: "<p>Sleep on major decisions.</p>",
     
-    mock_daily_head_2: "🍯 Daily Fortune: Retract your sharp standards and smile softly", 
-    mock_daily_body_2: "<h3>Today's Natural Temperature</h3><p>Today, your senses are unusually heightened. Other people's clumsy mistakes, rule-breaking, or obvious lies will jump out at you as if under a microscope, making your mood sharp and triggering a strong urge to point them out.</p><h3>The Bee's Warm Prescription</h3><p>Even if your sharp analysis and logic are 100% correct, do not argue to win or force someone to submit today. Gaining a logical victory by dismantling someone's argument will hurt their pride, ultimately returning to you as an exhausting, resentful boomerang (workplace gossip or conflict).</p><p>If someone falls short of your standards or acts clumsy today, pretend not to notice. Show the mature warmth of smiling and letting it go, thinking 'They're only human.' That spoonful of soft generosity will act as a shield to block bad luck and protect your beautiful day.</p>", 
-    sec_intro_title_2: "🌿 Inner Landscape: A Smooth, Hard Gem Submerged in Clear Water", 
-    sec_intro_body_2: "<h3>Your Astrological Painting</h3><p>Your natural energy paints a picture of a <strong>smooth rock or sharply cut, brilliant gemstone (Gyeong/Sin Metal)</strong> sitting flawlessly in crystal-clear, icy water. You exude a neat, sophisticated charm without any excess, carrying a highly intellectual aura.</p><h3>Brilliant Talents and Inner Shadows</h3><p>Endowed strongly with Metal and Water energies, your boundaries are clear as ice. You possess terrifying responsibility and a professional mindset that ensures any task you take on is executed perfectly, regardless of the sacrifice. Your mind is neatly organized into folders, and your objective, cold analytical eye is astoundingly accurate.</p><blockquote><p>\"But the most painful warning is that your perfectionism isolates you entirely.\"</p></blockquote><p>Your <strong>cold standard of 'perfection'</strong> sometimes suffocates you and freezes those around you. Do you often think, \"They'll do a terrible job and I'll have to redo it, so I'll just stay up all night and do it myself,\" voluntarily taking on the world's burdens and choosing isolation? Not everyone is as sharp and competent as you. Instead of viewing others' flaws through a microscope and deducting '10 points' internally, you need to embrace their imperfections with human warmth.</p><h3>Destined Task for Happiness</h3><p>A cold, perfect jewel is beautiful in a museum display case, but lacks the warmth needed to live among people. Loosen the armor of your flawless perfectionism just a bit, and slowly reveal your hidden, tender, and caring true heart to the world. When you become lenient toward others' flaws, you will finally break free from your lonely fortress and connect with a wider, warmer world.</p>", 
-    sec_flow_title_2: "🌊 Destiny Flow (Daewun): Warm Moss Growing on a Cold Rock", 
-    sec_flow_body_2: "<h3>The 10-Year Cycle of Life</h3><p>You have fought fiercely, armed only with your strict principles, outstanding skills, and cold rationality. Now, a new chapter opens. The affectionate energy of warm sunlight (Fire) and soft sprouting grass (Wood) is approaching to gently embrace and melt your cold, sharp metal exterior. A Daewun of tolerance is beginning.</p><h3>Necessary Patience for Growth</h3><p>If your past survival method was 'As long as I work perfectly alone without mistakes, it's fine,' your future requires you to harmonize smoothly with people whose abilities and styles completely differ from yours. You will undergo the bloody training of learning to soothe complex, illogical human emotions and share the burden to move forward together.</p><p>To you, who despises inefficiency, this process might occasionally feel maddening and exhausting. However, if you willingly swallow this frustration and complete this training in warm communication, you will transcend the limits of a 'competent worker' to become a genuinely respected leader who moves people's hearts.</p>", 
-    sec_yearly_title_2: "🌅 Yearly Fortune: A Generous Heart to Smile at Unexpected Variables", 
-    sec_yearly_body_2: "<h3>The Blessing in Things Not Going to Plan</h3><p>This year, your meticulously planned Excel spreadsheets are destined to be disrupted by unexpected variables or delays, which can make you highly frustrated and irritable. Canceled appointments, external environmental shifts, or a subordinate's mistake might occur beyond your control.</p><h3>Actions to Strictly Avoid</h3><p>The more you struggle to forcefully bring the situation back under your control or furiously blame others, the more your stress will multiply and the messier things will get. Do not treat a derailed plan as a 'failure of perfection' or 'horrible stress' this year.</p><p>Instead, step back with a relaxed mindset and think, \"Ah, the universe is opening a new route for me.\" When you review someone's work, even if it's only an 80/100 (and you dislike it internally), generously saying out loud, \"Good enough, great job!\" will be the most powerful talisman to elevate your luck to the maximum this year.</p>", 
-    sec_monthly_title_2: "🗓️ Monthly Flow Deep Dive",
-    sec_monthly_body_2: "<ul><li><strong>[Jan-Mar] Flexible Spring (Adaptability)</strong><br>Internal issues or external variables force major revisions to your original plans. Stubbornly insisting on your way will fail; letting go of your pride and flexibly compromising will yield much better results.</li><li><strong>[Apr-Jun] Exhausting but Expanding Summer (Networking)</strong><br>Social gatherings and the need to cater to superiors increase, draining your energy. Though you hate socializing, the network and reputation you build now will become your ultimate lifeline during a crucial crisis in the second half. Reply with a smile.</li><li><strong>[Jul-Sep] Shining Autumn (Fruition)</strong><br>Your expertise and sharp analysis finally shine, acting as the key problem-solver in a major project. Your abilities are fully recognized, making it a joyful period likely accompanied by promotions, bonuses, or scouting offers.</li><li><strong>[Oct-Dec] Melting the Sharp Edges in Winter (Rest)</strong><br>Completely lay down your sharply honed, busy mind and spend a warm, quiet year-end with family or your lover. Put away the blade of perfectionism directed at yourself and others, and gift yourself massive rest and leniency to fuel next year's run.</li></ul>",
-    sec_wealth_title_2: "💰 Wealth: Warmth and Connections are Your Massive New Gold Mine", 
-    sec_wealth_body_2: "<h3>Flawless Asset Management</h3><p>You never waste money on vanity to show off to others, possessing an excellent, rational sense for managing assets (Jeong-jae energy). You aren't satisfied unless every penny is tracked in a spreadsheet. Basically, you have a perfect defensive Saju that protects your money in a safe, keeping you away from scammers or massive financial accidents.</p><h3>The Fatal Flaw Blocking Massive Wealth</h3><p>However, because you retreat at the sight of even a 1% risk and despise partnerships due to unpredictable variables, your life may be stable, but your speed in becoming truly wealthy (a tycoon) is slow and clearly capped.</p><p>Remember this: the truly massive wealth that will level up your life does not come from your solitary struggles and calculations. It comes from the opportunities (connections) derived from strong relationships with people who trust and help you. Instead of insisting on going Dutch or calculating every penny, willingly be the first to open your wallet for a meal or coffee with truly good people. That investment of warmth will eventually open the floodgates to much greater wealth.</p>", 
-    sec_career_title_2: "✨ Career: Skills Cold as Ice, Attitude Warm as a Spring Breeze", 
-    sec_career_body_2: "<h3>Optimal Work Environment</h3><p>In fields where strict logic, facts, and zero margin for error are vital (finance, accounting, IT, data analysis, law, medicine, auditing), your sharpness is an irreplaceable ultimate weapon. Because you process work flawlessly without emotional interference, you are the core talent (Ace) that superiors and clients trust the most.</p><h3>The Workplace Dilemma and Solution</h3><p>However, your sharp fact-bombing and painfully accurate feedback can stab your juniors or colleagues like a dagger, making them shrink away and labeling you as a 'competent but bloodless, tearless machine'.</p><p>In a corporate organization, a somewhat average person with a warm, approachable personality often gets better opportunities and promotions than a flawless, cold machine. Stop staying up all night trying to prove your competence further. Practice approaching a colleague first thing in the morning, handing them a warm canned coffee, and saying hello. The moment your hidden, loyal, and warm nature beneath your strict shell is revealed, you will conquer workplace politics and soar much higher.</p>", 
-    sec_academic_title_2: "📚 Academic: Drop the Obsession with Perfection and Learn to Skip", 
-    sec_academic_body_2: "<h3>Systematic Logic and Precision</h3><p>You show genius-level comprehension in STEM fields or areas with clear rules and exact answers. Your ability to map out the framework of knowledge systematically and your terrifying memory that never forgets what's filed in your mental cabinet are outstanding.</p><h3>Why You Need Exam Techniques</h3><p>However, your biggest risk during an exam is getting stuck on one unsolvable problem. Your obsession with logically uncovering its root cause and understanding it perfectly will make you waste all your time, completely losing the flow of the exam—a fatal mistake.</p><p>When studying for exams or certifications, do not try to understand everything perfectly like a scholar. In a real exam, you absolutely need the flexible skill and 'good enough' attitude to boldly skip a question you can't solve in 5 minutes and secure the points on the questions you do know. You must accept that academic exploration and exam taking are two different things.</p>", 
-    sec_love_title_2: "🌸 Romance: Love is Not an Interview; Hug Them Instead of Fact-Checking", 
-    sec_love_body_2: "<h3>Your Love is Picky and Cautious</h3><p>When starting a relationship, rather than being swept away by emotion, you tend to strictly evaluate the other person using your internal checklist: 'Are they polite? Fiscally responsible? Hygienic? Do our future values align?' You do this because you dream of a flawless, perfect romance.</p><h3>Destined Partner vs. Who to Avoid</h3><p>But darling, love is not a corporate job interview to filter out flawed AI robots. You need someone <strong>infinitely warm and kind-hearted (abundant Wood/Fire energy)</strong> who can smilingly break down and melt the walls of your cold rationality. Even if they are a bit clumsy or forgetful, their bright smile should be enough to disarm your seriousness.</p><p>When your partner makes a mistake or acts illogically, do not try to logically point it out and 'teach' them. They aren't looking for a teacher. When you learn to simply hold them silently and say, \"I see, you must have had a hard day. Good job,\" your love life will finally pass through the frozen winter and welcome a warm, peaceful spring.</p>", 
-    sec_health_title_2: "🍃 Health: Physically Melt Your Tightly Wound Nerves", 
-    sec_health_body_2: "<h3>Physical Traits and Vulnerabilities</h3><p>Because you try to perfectly control everything and refuse to show vulnerability, you live in a constant, invisible state of hyper-tension (sympathetic nervous system overdrive). Therefore, stiff neck and shoulder muscles, stress-induced indigestion, acid reflux, migraines, and insomnia are frequent, unwelcome guests. Strong Metal energy means your respiratory system (lungs, bronchi) or large intestine may be weak, so avoid dry air.</p><h3>Best Health and Luck Routine</h3><p>Your body is always drawn tight like a bowstring about to snap. Taking expensive supplements is fine, but 10 times more urgent for you is the physical time to softly relax your knotted muscles and nerves.</p><p>Regular stretching, deep tissue massages by professionals, warm baths to melt your stiff body, or listening to calm music with a cup of herbal tea in dim lighting—this absolute relaxation time is not a luxury but a necessity for your health. Practicing a bit of 'good enough' leniency toward yourself is the only escape hatch to protect your exhausted mental state and nerves.</p>", 
-    sec_advice_title_2: "🍯 Counselor's Deep Advice (Secret to Unlocking Luck)", 
-    sec_advice_body_2: "<h3>[A Warm Word for Your Heart]</h3><p>\"Life becomes comfortable when you admit your standard isn't the world's only correct answer.\"<br>Even if you spot an obvious flaw or contradiction in someone's words today, bite your lip and suppress the reflexive urge to point out the facts. Instead, practice nodding gently and thinking, \"Ah, I guess they could see the world that way.\" As your sharp edges are polished into warm, round curves, the size of the helpful people (귀인) and wealth that enters your life will grow exponentially larger and rounder.</p><h3>[Lucky Prescriptions to Harmonize Your Energy]</h3><ul><li><strong>Colors:</strong> Warm Greens to comfortably relax your sharp mind, cozy Earthy Browns for stability, and soft Pastel Pinks. (Avoid all-grey, silver, or all-black outfits that amplify your cold, sharp vibe and make you unapproachable.)</li><li><strong>Numbers:</strong> 3, 8, 2, 7 (Representing Wood and Fire.)</li><li><strong>Direction:</strong> East (When stress peaks and you feel like exploding, take a light, deep-breathing walk towards the East of the city, preferably in a forest or park.)</li><li><strong>Items & Environment:</strong> Instead of cold metal interior items (like steel furniture) on your desk or at home, use warm wooden (Wood) accessories visually and tactilely. Keep a vibrant, broad-leafed indoor plant nearby and water it. The lively energy of soil and plants will miraculously soothe your frozen, sensitive nerves.</li></ul>"
+    mock_daily_head_2: "🍯 Daily Fortune: Smile softly", mock_daily_body_2: "<p>Today, your senses are heightened. If someone falls short, pretend not to notice and smile.</p>", 
+    sec_intro_title_2: "🌿 Inner Landscape: Smooth Gem", sec_intro_body_2: "<p>You are a smooth, hard gem.</p>", sec_flow_title_2: "🌊 Destiny Flow", sec_flow_body_2: "<p>Moss is growing on your rock.</p>", sec_yearly_title_2: "🌅 Yearly Fortune", sec_yearly_body_2: "<p>Smile at variables.</p>", sec_monthly_title_2: "🗓️ Monthly Flow", sec_monthly_body_2: "<ul><li>Spring: Be flexible</li></ul>", sec_wealth_title_2: "💰 Wealth", sec_wealth_body_2: "<p>Connections are your gold mine.</p>", sec_career_title_2: "✨ Career", sec_career_body_2: "<p>Be as warm as a spring breeze.</p>", sec_academic_title_2: "📚 Academic", sec_academic_body_2: "<p>Learn to skip perfection.</p>", sec_love_title_2: "🌸 Romance", sec_love_body_2: "<p>Love is not an interview.</p>", sec_health_title_2: "🍃 Health", sec_health_body_2: "<p>Melt your nerves.</p>", sec_advice_title_2: "🍯 Advice", sec_advice_body_2: "<p>Admit your standard isn't the only one.</p>"
   },
   id: {
     btn_home_only: "Beranda", back_to_menu: "Menu", cta_check_saju: "Mulai Kisah Saya",
-    what_is_saju_title: "Kisah yang Mencerminkan Alam", what_is_saju_p1: "Korean Fortune (Saju) bukanlah takhayul. Ini adalah kebijaksanaan logis yang membaca aliran takdir Anda berdasarkan musim dan energi alam saat Anda lahir.", what_is_saju_p3: "Biarkan saya menjadi pencerita Anda dan menunjukkan sisi indah dari lanskap batin Anda sebagai 'Referensi Kehidupan' yang mendalam.",
-    hub_pick_title: "Kisah apa yang ingin Anda dengar?", hub_pick_sub: "Mari jelajahi jalan Anda dengan pandangan yang hangat.",
-    p_free: "GRATIS", p_yearly: "Rp 29.000", p_wealth: "Rp 29.000", p_std: "Rp 29.000", p_full: "Rp 75.000",
-    menu_daily: "Keberuntungan Harian", menu_daily_sub: "Energi lembut hari ini", menu_yearly: "Jalur Tahunan", menu_yearly_sub: "Tahun yang hangat", menu_wealth: "Aura Kekayaan", menu_wealth_sub: "Wadah uang Anda", menu_love: "Romansa", menu_love_sub: "Koneksi yang manis", menu_career: "Jalur Karier", menu_career_sub: "Peran sempurna Anda", menu_academic: "Fokus Akademik", menu_academic_sub: "Pintu kebijaksanaan", menu_health: "Keseimbangan", menu_health_sub: "Irama tubuh alami", menu_full: "Kisah Master", menu_full_sub: "Lukisan lengkap Anda",
-    onb_intro: "Ceritakan tentang kelahiran Anda", label_name: "Nama (Opsional)", label_date: "Tanggal Lahir", label_time: "Waktu Lahir", time_opt_placeholder: "Pilih waktu", time_unknown_check: "Saya tidak tahu waktu lahir saya", label_gender: "Jenis Kelamin", gender_f: "Wanita", gender_m: "Pria", onb_submit: "Ungkapkan Energi Saya", err_req_date: "Harap masukkan tanggal lahir Anda.", err_req_time: "Pilih waktu atau centang 'Saya tidak tahu'.",
-    loading_title: "Menggambar lanskap Anda...", loading_sub: "Mengumpulkan energi hari kelahiran Anda untuk melukis hutan yang indah. Mohon tunggu sebentar.",
-    reveal_title: "Energi Alami Anda", reveal_sub: "Empat energi yang membentuk lanskap batin Anda telah tiba.", btn_read_story: "Baca Kisah Lengkap Saya",
-    paywall_sub: "Apakah Anda ingin membuka panduan hidup mendalam yang ditulis khusus untuk Anda?", price_desc: "Sekali bayar · Simpan selamanya", pay_stripe: "Buka Kisah Saya", maybe_later: "Mungkin nanti",
-    your_saju_label: "Sekarang, mari kita lihat lanskap batin Anda.", explore_title: "Ingin mendengar kisah lain?",
-    m_title: "Energi Alami Saya", m_desc: "* Tepi merah (Pilar Hari) adalah energi perwakilan inti Anda.", m_year: "Tahun", m_month: "Bulan", m_day: "Hari", m_time: "Waktu",
-    r_daily_title: "Nasihat Lembut Hari Ini", r_yearly_title: "Langkah Hangat Tahun Ini", r_wealth_title: "Lanskap Kekayaan Anda", r_love_title: "Kehangatan di Sisi Anda", r_career_title: "Tempat Anda Akan Terbang", r_academic_title: "Mata Air Kebijaksanaan", r_health_title: "Perawatan Tubuh Lembut", r_full_title: "Mahakarya Anda",
-    time_ja: "23:30 ~ 01:29 (Tikus)", time_chuk: "01:30 ~ 03:29 (Sapi)", time_in: "03:30 ~ 05:29 (Harimau)", time_myo: "05:30 ~ 07:29 (Kelinci)", time_jin: "07:30 ~ 09:29 (Naga)", time_sa: "09:30 ~ 11:29 (Ular)", time_o: "11:30 ~ 13:29 (Kuda)", time_mi: "13:30 ~ 15:29 (Domba)", time_shin: "15:30 ~ 17:29 (Monyet)", time_yu: "17:30 ~ 19:29 (Ayam)", time_sul: "19:30 ~ 21:29 (Anjing)", time_hae: "21:30 ~ 23:29 (Babi)",
+    what_is_saju_title: "Kisah yang Mencerminkan Alam", what_is_saju_p1: "Saju membaca aliran takdir Anda berdasarkan energi alam saat Anda lahir.", what_is_saju_p3: "Biarkan saya menjadi pencerita Anda.",
+    hub_pick_title: "Kisah apa yang ingin Anda dengar?", hub_pick_sub: "Mari jelajahi jalan Anda.",
+    p_ad: "📺 Tonton Iklan", p_yearly: "Rp 29.000", p_wealth: "Rp 29.000", p_std: "Rp 29.000", p_full: "Rp 75.000",
+    menu_daily: "Keberuntungan Harian", menu_daily_sub: "Energi lembut", menu_yearly: "Jalur Tahunan", menu_yearly_sub: "Tahun yang hangat", menu_wealth: "Aura Kekayaan", menu_wealth_sub: "Wadah uang Anda", menu_love: "Romansa", menu_love_sub: "Koneksi manis", menu_career: "Karier", menu_career_sub: "Peran sempurna", menu_academic: "Akademik", menu_academic_sub: "Pintu kebijaksanaan", menu_health: "Kesehatan", menu_health_sub: "Irama tubuh", menu_full: "Kisah Master", menu_full_sub: "Lukisan lengkap",
+    onb_intro: "Ceritakan kelahiran Anda", label_name: "Nama (Opsional)", label_date: "Tanggal Lahir", label_time: "Waktu Lahir", time_opt_placeholder: "Pilih waktu", time_unknown_check: "Tidak tahu waktu lahir", label_gender: "Jenis Kelamin", gender_f: "Wanita", gender_m: "Pria", onb_submit: "Ungkapkan Energi", err_req_date: "Masukkan tanggal.", err_req_time: "Pilih waktu.",
     
-    btn_save_img: "Simpan Gambar", btn_share: "Bagikan", saving_img: "Menyimpan...", saved_img: "Tersimpan!", copied: "Tersalin!",
-    share_title: "🍯 Energi Alami Saya oleh Bee Saju", share_text: "Kisah Saju hangat yang mencerminkan alam! Penasaran seperti apa lanskap batin Anda? Cek sekarang juga.",
+    ad_title: "Pesan Sponsor", ad_desc: "Lebah sedang mengumpulkan madu! 🐝💦<br>Tunggu sebentar untuk keberuntungan Anda.", ad_timer_prefix: "Waktu tersisa: ", ad_timer_suffix: "d", ad_reward: "🍯 Keberuntungan siap!",
     
-    mock_daily_head_0: "🍯 Keberuntungan Harian: Matikan pikiran Anda dan melangkahlah", 
-    mock_daily_body_0: "<h3>Suhu Alami Hari Ini</h3><p>Energi hari ini mendorong Anda dengan lembut seperti kerikil yang jatuh ke danau yang tenang. Alam memberi Anda dorongan lembut untuk akhirnya memulai apa yang hanya Anda simpan di pikiran Anda.</p><h3>Resep Hangat Lebah</h3><p>Anda adalah pemikir mendalam yang merenung lima puluh kali sebelum bertindak. Namun jika air pikiran Anda mandek, Pohon Anda (Energi Kayu) tidak dapat berkembang. Hari ini, Anda tidak harus sempurna.</p><p>Lepaskan rasa takut akan kegagalan dan hadapi hari ini dengan hati anak-anak yang ringan.</p>", 
-    sec_intro_title_0: "🌿 Lanskap Batin: Pohon Kuat di Hutan Terdalam", 
-    sec_intro_body_0: "<h3>Lukisan Astrologi Anda</h3><p>Dalam hal energi alami, Anda menyerupai <strong>pohon besar yang kuat (Japmok)</strong> yang berakar dalam di tepi danau yang jernih. Anda memiliki jiwa yang welas asih dan dewasa yang tidak mudah goyah.</p><h3>Bakat Cemerlang dan Bayangan Batin</h3><p>Diberkahi dengan energi air yang berlimpah dan kayu padat, Anda memiliki wawasan mendalam yang melihat melampaui permukaan.</p><blockquote><p>\"Namun, jebakan terbesar Anda adalah perfeksionisme yang melumpuhkan dan beban tanggung jawab yang berat.\"</p></blockquote><p>Seperti pohon yang menyerap air tanpa henti, Anda mencoba menyerap pengetahuan tanpa batas, terus-menerus jatuh ke dalam perangkap penyensoran diri.</p><h3>Tugas Takdir untuk Kebahagiaan</h3><p>Yang Anda butuhkan bukanlah lebih banyak persiapan, tetapi <strong>keberanian</strong> untuk merentangkan cabang-cabang Anda ke dunia, merangkul ketidaksempurnaan.</p>", 
-    sec_flow_title_0: "🌊 Aliran Takdir (Daewun): Pohon Menyambut Musim Semi", 
-    sec_flow_body_0: "<h3>Siklus Kehidupan 10 Tahun</h3><p>Dalam Saju, hidup bergerak dalam bab-bab besar 10 tahun yang disebut 'Daewun'. Kabar baik menghampiri Anda. Angin musim dingin yang membuat Anda berpikir berlebihan memudar. Periode sinar matahari yang hangat (Api) tiba.</p><h3>Hadiah untuk Waktu yang Dihabiskan untuk Bersembunyi</h3><p>Ide-ide cemerlang yang Anda simpan akhirnya akan mekar di bawah sinar matahari ini. Berhentilah bersembunyi di belakang orang lain. Majulah dengan percaya diri dan jadilah karakter utama panggung Anda.</p>", 
-    sec_yearly_title_0: "🌅 Keberuntungan Tahunan: Buka Pintu Keberuntungan", 
-    sec_yearly_body_0: "<h3>Tahun Hadiah Nyata</h3><p>Tahun ini, sinar matahari menghangatkan danau Anda, mencairkan kecemasan tidak jelas. <strong>Hasil keuangan yang nyata dan pengakuan yang jelas</strong> akhirnya akan jatuh dengan kuat ke tangan Anda.</p><h3>Tindakan yang Harus Dihindari</h3><p>Begadang semalaman merencanakan dengan sempurna atau mencoba menyelesaikan semuanya sendiri akan menghancurkan keberuntungan luar biasa tahun ini.</p><p>Pergilah keluar dan minum kopi bersama orang-orang yang hangat. Kata kunci untuk tahun ini adalah 'Koneksi'.</p>", 
-    sec_monthly_title_0: "🗓️ Penyelaman Mendalam Aliran Bulanan",
-    sec_monthly_body_0: "<ul><li><strong>[Jan-Mar] Bibit Musim Semi (Lompatan)</strong><br>Ide beku Anda mulai mencair. Mulailah proyek kecil sekarang.</li><li><strong>[Apr-Jun] Pertumbuhan Musim Panas (Ekspansi)</strong><br>Jaringan berkembang. Seseorang yang Anda temui secara kebetulan akan menjadi sekutu yang kuat.</li><li><strong>[Jul-Sep] Panen Musim Gugur (Hasil)</strong><br>Keringat masa lalu Anda menghasilkan hasil finansial. Ini adalah waktu puncak untuk pertumbuhan kekayaan.</li><li><strong>[Okt-Des] Isi Ulang Musim Dingin (Istirahat)</strong><br>Waktu untuk menyimpan energi. Fokus pada kesehatan Anda.</li></ul>",
-    sec_wealth_title_0: "💰 Kekayaan: Sumur Keahlian yang Dalam yang Tidak Pernah Kering", 
-    sec_wealth_body_0: "<h3>Wadah Kekayaan Sejati Anda</h3><p>Kekayaan sejati Anda mengalir dengan tenang namun masif dari <strong>keahlian dan kekayaan intelektual Anda yang tak tergantikan</strong>.</p><h3>Peringatan Ketat untuk Melindungi Uang Anda</h3><p>Risiko nomor satu Anda adalah 'kerugian finansial melalui hubungan'. Karena sifat baik Anda, Anda berjuang untuk menolak permintaan.</p><p>Anda harus dengan percaya diri menuntut kompensasi yang adil untuk pekerjaan Anda. Hindari meminjamkan uang, bahkan kepada keluarga.</p>", 
-    sec_career_title_0: "✨ Karier: Dalang di Balik Layar", 
-    sec_career_body_0: "<h3>Lingkungan Kerja Optimal</h3><p>Tugas berulang menguras energi halus Anda seketika. Anda mekar paling cerah di lingkungan di mana Anda dapat meneliti, merencanakan, atau mengajar.</p><h3>Dilema Tempat Kerja dan Solusinya</h3><p>Di dalam sebuah organisasi, Anda sangat cocok dengan peran <strong>mentor bijak atau perencana strategis</strong>.</p><p>Berlatihlah secara lembut namun jelas mempromosikan pencapaian Anda berdasarkan fakta. Keterampilan 'PR mandiri' ini adalah kunci untuk membuat kemampuan Anda diakui.</p>", 
-    sec_academic_title_0: "📚 Akademik: Fokus seperti Spons", 
-    sec_academic_body_0: "<h3>Kekuatan Penyelidikan yang Tak Tertandingi</h3><p>Anda memiliki 'Bintang Pembelajaran' yang kuat, memungkinkan Anda menyerap pengetahuan seperti spons kering.</p><h3>Mengapa Anda Membutuhkan Teknik Ujian</h3><p>Tekanan perfeksionis untuk 'mengetahui semuanya tanpa cacat' membuat Anda membeku saat menghadapi pertanyaan tak terduga.</p><p>Perlakukan ujian praktik berjangka waktu seperti permainan yang menyenangkan. Lepaskan ketegangan dengan pola pikir 'Tidak apa-apa untuk salah.'</p>", 
-    sec_love_title_0: "🌸 Romansa: Sinar Matahari Cerah untuk Menghangatkan Jurang Terdalam", 
-    sec_love_body_0: "<h3>Cinta Anda Dalam dan Berat</h3><p>Anda tidak terpengaruh oleh penampilan mencolok. Anda membuka hati secara perlahan hanya kepada seseorang yang dalam.</p><h3>Pasangan yang Ditakdirkan</h3><p>Anda sangat membutuhkan <strong>pasangan yang cerah, ceria (Energi Api)</strong>. Seseorang yang tertawa cerah dan berkata, \"Berhentilah berpikir berlebihan dan ayo makan!\"</p>", 
-    sec_health_title_0: "🍃 Kesehatan: Meningkatkan Panas Tubuh adalah Rahasia", 
-    sec_health_body_0: "<h3>Sifat Fisik dan Kerentanan</h3><p>Lahir dengan energi Air yang berlimpah, Anda terlihat jernih dan tenang, tetapi secara fisik, energi Yin Anda kuat.</p><h3>Rutinitas Kesehatan dan Keberuntungan Terbaik</h3><p>Di musim dingin, prioritaskan menjaga leher dan kaki Anda tetap hangat. Mandi kaki air hangat setiap malam untuk memicu sedikit keringat dan mencairkan tubuh Anda yang beku.</p>", 
-    sec_advice_title_0: "🍯 Nasihat Mendalam Konselor", 
-    sec_advice_body_0: "<h3>[Kata Hangat untuk Hati Anda]</h3><p>Berjalan-jalanlah selama 20 menit di bawah sinar matahari tengah hari setiap hari. Energi Yang dari matahari akan memberi Anda keberanian untuk bertindak.</p><h3>[Resep Keberuntungan]</h3><ul><li><strong>Warna:</strong> Merah Hangat, Oranye nyaman, Merah Muda cerah.</li><li><strong>Angka:</strong> 2, 7, 5, 0</li><li><strong>Arah:</strong> Selatan</li></ul>",
-    
-    mock_daily_head_1: "🍯 Keberuntungan Harian: Letakkan ketidaksabaran Anda", 
-    mock_daily_body_1: "<h3>Suhu Alami Hari Ini</h3><p>Hari ini, energi api mengelilingi Anda, membuat Anda ingin terburu-buru melakukan tugas atau mudah merasa frustrasi ketika situasi tidak beradaptasi dengan tempo cepat Anda.</p><h3>Resep Hangat Lebah</h3><p>Jika Anda merasakan dorongan kuat untuk berbicara tajam kepada seseorang atau melakukan pembelian stres impulsif, tarik napas dalam-dalam. Katakan pada diri sendiri, 'Saya akan membuat keputusan ini besok pagi.'</p>", 
-    sec_intro_title_1: "🌿 Lanskap Batin: Api Unggun yang Penuh Gairah di Lapangan", 
-    sec_intro_body_1: "<h3>Lukisan Astrologi Anda</h3><p>Energi alami Anda menyerupai <strong>api unggun besar dan penuh gairah (Api)</strong> yang dengan cerah menerangi lapangan yang luas dalam kegelapan.</p><h3>Bakat Cemerlang dan Bayangan Batin</h3><p>Anda memiliki dorongan luar biasa dan tindakan eksplosif. Kepercayaan diri 'bisa melakukan' Anda menular.</p><blockquote><p>\"Namun, bahaya terbesar Anda adalah 'kecepatan tanpa rem', yang dapat mengubah segalanya menjadi abu.\"</p></blockquote><p>Api ini terkadang benar-benar kehilangan kendali atas kecepatannya dan emosinya sendiri.</p><h3>Tugas Takdir untuk Kebahagiaan</h3><p>Untuk memanfaatkan gairah luar biasa Anda dengan indah untuk waktu yang lama, Anda harus memasang 'kesabaran' dan 'waktu luang' sebagai sistem pengereman hidup Anda.</p>", 
-    sec_flow_title_1: "🌊 Aliran Takdir (Daewun): Memurnikan Gairah", 
-    sec_flow_body_1: "<h3>Siklus Kehidupan 10 Tahun</h3><p>Periode energi Air yang sejuk dan Tanah yang menstabilkan akan tiba untuk memuat api liar Anda dengan aman di dalam tungku yang kokoh.</p><h3>Kesabaran yang Diperlukan untuk Pertumbuhan</h3><p>Anda memasuki fase di mana Anda harus menyinkronkan kecepatan Anda dengan orang lain. Dengan menavigasi fase ini dengan bijak, Anda akan berubah menjadi pemimpin hebat yang matang.</p>", 
-    sec_yearly_title_1: "🌅 Keberuntungan Tahunan: Mempelajari Seni Menunggu", 
-    sec_yearly_body_1: "<h3>Niat Mendalam Semesta dalam Penundaan</h3><p>Tahun ini, Anda mungkin sangat merasa bahwa jam biologis Anda tidak selaras dengan roda gigi dunia. Proyek mungkin tertunda pada menit terakhir.</p><h3>Tindakan yang Harus Dihindari</h3><p>Bertindak impulsif karena marah adalah jebakan utama yang harus Anda hindari tahun ini. Tugas alam untuk Anda adalah <strong>'Kenyamanan, Toleransi, dan Menunggu'</strong>.</p>", 
-    sec_monthly_title_1: "🗓️ Penyelaman Mendalam Aliran Bulanan",
-    sec_monthly_body_1: "<ul><li><strong>[Jan-Mar] Langkah Paksa di Musim Semi</strong><br>Periksa celah rencana Anda dan dengarkan pandangan lawan.</li><li><strong>[Apr-Jun] Musim Panas Eksplosif</strong><br>Energi unik Anda memuncak. Jaga dompet Anda erat-erat terhadap pengeluaran impulsif.</li><li><strong>[Jul-Sep] Stabilitas Musim Gugur</strong><br>Hubungan yang kusut akhirnya akan menemukan resolusi yang mulus.</li><li><strong>[Okt-Des] Menuai Hadiah Musim Dingin</strong><br>Anda akan menerima hadiah manis dan nyata untuk frustrasi yang Anda tanggung dengan sabar sepanjang tahun.</li></ul>",
-    sec_wealth_title_1: "💰 Kekayaan: Pasang Kunci Kokoh di Dompet Anda", 
-    sec_wealth_body_1: "<h3>Berpenghasilan Besar, Menghabiskan Besar</h3><p>Anda tidak pernah memikirkan uang receh, menghabiskan uang dengan murah hati, dan memutar uang dalam skala besar.</p><h3>Cacat Fatal yang Menyebarkan Kekayaan</h3><p>Masalah terbesarnya adalah <strong>lubang pembuangan lebih besar daripada pendapatan</strong>. Anda rentan jatuh pada info yang merangsang seperti \"Ini pasti menghasilkan uang cepat!\"</p><p>Aturan emas mutlak Anda adalah mengunci kekayaan Anda ke dalam aset yang sangat tidak likuid seperti real estat.</p>", 
-    sec_career_title_1: "✨ Karier: Protagonis Karismatik yang Mengarahkan Panggung", 
-    sec_career_body_1: "<h3>Lingkungan Kerja Optimal</h3><p>Anda bersinar paling terang saat memimpin serangan, mengarahkan suasana, dan membuahkan hasil di bawah nama Anda sendiri.</p><h3>Dilema Tempat Kerja dan Solusinya</h3><p>Suhu gairah Anda sangat panas sehingga dapat membakar rekan kerja yang berusaha mengimbangi Anda. Memiliki <strong>'kontrol suhu hangat'</strong> untuk memegang tangan anggota tim yang kesulitan sama pentingnya.</p>", 
-    sec_academic_title_1: "📚 Akademik: Pelari Cepat yang Brilian, Tapi Buruk dalam Maraton", 
-    sec_academic_body_1: "<h3>Intuisi Secepat Kilat</h3><p>Anda memiliki 'kejeniusan menjejalkan' yang luar biasa, mampu memahami kerangka inti dalam beberapa jam pada malam sebelum ujian.</p><h3>Mengapa Anda Membutuhkan Teknik Ujian</h3><p>Anda kehilangan minat dengan cepat dalam pertempuran jangka panjang. Bergabung dengan kelompok studi yang ketat dengan aturan akan mengikat energi Anda yang menyebar.</p>", 
-    sec_love_title_1: "🌸 Romansa: Laut yang Tenang untuk Merangkul Api", 
-    sec_love_body_1: "<h3>Cinta Anda Panas dan Jujur</h3><p>Saat Anda jatuh cinta, Anda memberikan segalanya dengan penuh semangat tanpa memperhitungkan rintangan.</p><h3>Pasangan yang Ditakdirkan</h3><p>Orang lain yang berapi-api adalah pasangan terburuk mutlak bagi Anda. Pasangan sempurna Anda adalah seseorang seperti <strong>batu yang tenang atau laut yang dalam (Energi Tanah/Air)</strong> yang tersenyum hangat dan merangkul semua amukan Anda.</p>", 
-    sec_health_title_1: "🍃 Kesehatan: Istirahat Sadar dan Hidrasi", 
-    sec_health_body_1: "<h3>Sifat Fisik dan Kerentanan</h3><p>Karena Panas (Api) mudah naik ke kepala, Anda harus mewaspadai mata kering, sakit kepala kronis, atau masalah akibat stres.</p><h3>Rutinitas Kesehatan dan Keberuntungan Terbaik</h3><p>Sangat penting adalah mengisi ulang 'Energi Yin' untuk mendinginkan tubuh dan pikiran Anda. Jadwalkan waktu untuk <strong>'sama sekali tidak melakukan apa-apa, hanya menatap kosong'</strong>.</p>", 
-    sec_advice_title_1: "🍯 Nasihat Mendalam Konselor", 
-    sec_advice_body_1: "<h3>[Kata Hangat untuk Hati Anda]</h3><p>Jadikan aturan mutlak saat membuat keputusan besar untuk <strong>\"tidur memikirkannya semalaman, dan putuskan besok pagi dengan kepala jernih.\"</strong></p><h3>[Resep Keberuntungan]</h3><ul><li><strong>Warna:</strong> Biru Jernih, Hitam yang tenang, Putih.</li><li><strong>Angka:</strong> 1, 6, 4, 9</li><li><strong>Arah:</strong> Utara</li></ul>",
-    
-    mock_daily_head_2: "🍯 Keberuntungan Harian: Tarik standar tajam Anda dan tersenyumlah", 
-    mock_daily_body_2: "<h3>Suhu Alami Hari Ini</h3><p>Hari ini, indra Anda luar biasa tajam. Kesalahan kikuk orang lain akan melompat ke arah Anda seolah-olah di bawah mikroskop.</p><h3>Resep Hangat Lebah</h3><p>Jika seseorang gagal memenuhi standar Anda atau bertindak canggung hari ini, berpura-puralah tidak menyadarinya. Tunjukkan kehangatan yang matang dari tersenyum dan membiarkannya pergi.</p>", 
-    sec_intro_title_2: "🌿 Lanskap Batin: Permata Keras yang Terendam di Air Jernih", 
-    sec_intro_body_2: "<h3>Lukisan Astrologi Anda</h3><p>Energi alami Anda melukiskan gambaran <strong>batu halus atau batu permata brilian (Logam)</strong> yang duduk tanpa cacat di air sedingin es yang jernih.</p><h3>Bakat Cemerlang dan Bayangan Batin</h3><p>Anda memiliki tanggung jawab dan pola pikir profesional yang menakutkan yang memastikan tugas apa pun yang Anda ambil dieksekusi dengan sempurna.</p><blockquote><p>\"Tetapi peringatan yang paling menyakitkan adalah perfeksionisme Anda mengisolasi Anda sepenuhnya.\"</p></blockquote><p>Standar 'kesempurnaan' Anda yang dingin terkadang mencekik Anda dan membekukan orang-orang di sekitar Anda.</p><h3>Tugas Takdir untuk Kebahagiaan</h3><p>Kendurkan sedikit baju besi perfeksionisme tanpa cacat Anda, dan perlahan-lahan ungkapkan hati sejati Anda yang tersembunyi, lembut, dan peduli kepada dunia.</p>", 
-    sec_flow_title_2: "🌊 Aliran Takdir (Daewun): Lumut Hangat Tumbuh di Batu Dingin", 
-    sec_flow_body_2: "<h3>Siklus Kehidupan 10 Tahun</h3><p>Energi penuh kasih sayang dari sinar matahari yang hangat (Api) dan rumput yang bertunas lembut (Kayu) mendekat untuk dengan lembut merangkul dan mencairkan eksterior logam Anda yang dingin.</p><h3>Kesabaran yang Diperlukan untuk Pertumbuhan</h3><p>Anda akan belajar menenangkan emosi manusia yang tidak logis. Jika Anda bersedia menelan rasa frustrasi ini, Anda akan melampaui batas 'pekerja yang kompeten' menjadi pemimpin sejati.</p>", 
-    sec_yearly_title_2: "🌅 Keberuntungan Tahunan: Tersenyum pada Variabel Tak Terduga", 
-    sec_yearly_body_2: "<h3>Berkah dalam Hal yang Tidak Berjalan Sesuai Rencana</h3><p>Tahun ini, spreadsheet Excel Anda yang direncanakan dengan cermat ditakdirkan untuk terganggu oleh variabel yang tidak terduga.</p><h3>Tindakan yang Harus Dihindari</h3><p>Semakin Anda berjuang untuk mengembalikan situasi di bawah kendali Anda dengan paksa, semakin stres Anda akan berlipat ganda. Mundurlah dengan pola pikir santai dan berpikir, \"Ah, alam semesta membuka rute baru untuk saya.\"</p>", 
-    sec_monthly_title_2: "🗓️ Penyelaman Mendalam Aliran Bulanan",
-    sec_monthly_body_2: "<ul><li><strong>[Jan-Mar] Musim Semi yang Fleksibel</strong><br>Melepaskan harga diri Anda dan berkompromi secara fleksibel akan memberikan hasil yang jauh lebih baik.</li><li><strong>[Apr-Jun] Musim Panas yang Melelahkan</strong><br>Kebutuhan untuk melayani atasan meningkat. Jaringan yang Anda bangun sekarang akan menjadi garis hidup utama Anda.</li><li><strong>[Jul-Sep] Musim Gugur yang Bersinar</strong><br>Keahlian dan analisis tajam Anda akhirnya bersinar. Kemampuan Anda sepenuhnya diakui.</li><li><strong>[Okt-Des] Mencairkan Tepi Tajam di Musim Dingin</strong><br>Singkirkan sepenuhnya pikiran sibuk Anda dan hadiahkan diri Anda istirahat masif.</li></ul>",
-    sec_wealth_title_2: "💰 Kekayaan: Kehangatan dan Koneksi adalah Tambang Emas", 
-    sec_wealth_body_2: "<h3>Manajemen Aset Tanpa Cacat</h3><p>Anda memiliki Saju pertahanan sempurna yang melindungi uang Anda dengan aman. Anda tidak puas kecuali setiap sen dilacak dalam spreadsheet.</p><h3>Cacat Fatal yang Menghalangi Kekayaan Besar</h3><p>Karena Anda membenci kemitraan karena variabel yang tidak terduga, kecepatan Anda menjadi benar-benar kaya terasa lambat.</p><p>Kekayaan besar berasal dari peluang (koneksi). Dengan senang hati menjadi yang pertama membuka dompet Anda untuk makan bersama orang-orang yang benar-benar baik. Kehangatan itu akan membuka pintu air ke kekayaan.</p>", 
-    sec_career_title_2: "✨ Karier: Keterampilan Sedingin Es, Sikap Sehangat Angin", 
-    sec_career_body_2: "<h3>Lingkungan Kerja Optimal</h3><p>Di bidang di mana logika, fakta, dan toleransi nol untuk kesalahan sangat penting, ketajaman Anda adalah senjata pamungkas yang tak tergantikan.</p><h3>Dilema Tempat Kerja dan Solusinya</h3><p>Pengebomban fakta tajam dan umpan balik Anda yang menyakitkan dapat menusuk rekan kerja Anda. Berlatihlah mendekati rekan kerja di pagi hari dengan senyum. Saat sifat hangat Anda terungkap, Anda akan menaklukkan politik tempat kerja.</p>", 
-    sec_academic_title_2: "📚 Akademik: Jatuhkan Obsesi dengan Kesempurnaan", 
-    sec_academic_body_2: "<h3>Logika dan Presisi Sistematis</h3><p>Kemampuan Anda untuk memetakan kerangka pengetahuan secara sistematis dan memori menakutkan Anda luar biasa.</p><h3>Mengapa Anda Membutuhkan Teknik Ujian</h3><p>Risiko terbesar Anda selama ujian adalah terjebak pada satu masalah yang tidak dapat diselesaikan. Anda mutlak membutuhkan sikap keterampilan fleksibel dan 'cukup baik' untuk dengan berani melewatkan pertanyaan.</p>", 
-    sec_love_title_2: "🌸 Romansa: Cinta Bukanlah Wawancara; Peluk Mereka", 
-    sec_love_body_2: "<h3>Cinta Anda Pemilih dan Berhati-hati</h3><p>Saat memulai hubungan, Anda cenderung mengevaluasi orang tersebut secara ketat menggunakan daftar periksa internal Anda.</p><h3>Pasangan yang Ditakdirkan</h3><p>Anda membutuhkan seseorang <strong>yang sangat hangat dan baik hati (energi Kayu/Api)</strong> yang dapat dengan tersenyum meruntuhkan dinding rasionalitas dingin Anda. Saat pasangan Anda melakukan kesalahan, sekadar memeluk mereka dan berkata, \"Saya mengerti,\" adalah kuncinya.</p>", 
-    sec_health_title_2: "🍃 Kesehatan: Cairkan Ketegangan Saraf Anda", 
-    sec_health_body_2: "<h3>Sifat Fisik dan Kerentanan</h3><p>Karena Anda mencoba mengendalikan semuanya dengan sempurna, Anda hidup dalam keadaan hiper-tensi. Otot leher yang kaku dan gangguan pencernaan akibat stres adalah tamu yang sering berkunjung.</p><h3>Rutinitas Kesehatan dan Keberuntungan Terbaik</h3><p>Tubuh Anda selalu ditarik kencang seperti tali busur. Anda sangat membutuhkan waktu fisik untuk merelaksasi otot dan saraf Anda yang kusut dengan lembut. Peregangan rutin atau mendengarkan musik tenang adalah keharusan.</p>", 
-    sec_advice_title_2: "🍯 Nasihat Mendalam Konselor", 
-    sec_advice_body_2: "<h3>[Kata Hangat untuk Hati Anda]</h3><p>Bahkan jika Anda melihat kontradiksi yang jelas dalam kata-kata seseorang hari ini, gigit bibir Anda dan tekan dorongan refleksif untuk menunjukkan fakta. Sebaliknya, berlatihlah mengangguk dengan lembut.</p><h3>[Resep Keberuntungan]</h3><ul><li><strong>Warna:</strong> Hijau Hangat, Coklat Bersahaja yang nyaman, Merah Muda lembut.</li><li><strong>Angka:</strong> 3, 8, 2, 7</li><li><strong>Arah:</strong> Timur</li></ul>"
+    loading_title: "Menggambar lanskap...", loading_sub: "Mohon tunggu sebentar.", reveal_title: "Energi Alami Anda", reveal_sub: "Energi telah tiba.", btn_read_story: "Baca Kisah", paywall_sub: "Buka panduan hidup Anda?", price_desc: "Sekali bayar", pay_stripe: "Buka Kisah", maybe_later: "Nanti", your_saju_label: "Lihat lanskap batin Anda.", explore_title: "Kisah lain?", m_title: "Energi Saya", m_desc: "* Tepi merah adalah inti Anda.", m_year: "Tahun", m_month: "Bulan", m_day: "Hari", m_time: "Waktu",
+    r_daily_title: "Harian", r_yearly_title: "Tahunan", r_wealth_title: "Kekayaan", r_love_title: "Cinta", r_career_title: "Karier", r_academic_title: "Akademik", r_health_title: "Kesehatan", r_full_title: "Master",
+    time_ja: "23:30 ~ 01:29", time_chuk: "01:30 ~ 03:29", time_in: "03:30 ~ 05:29", time_myo: "05:30 ~ 07:29", time_jin: "07:30 ~ 09:29", time_sa: "09:30 ~ 11:29", time_o: "11:30 ~ 13:29", time_mi: "13:30 ~ 15:29", time_shin: "15:30 ~ 17:29", time_yu: "17:30 ~ 19:29", time_sul: "19:30 ~ 21:29", time_hae: "21:30 ~ 23:29",
+    btn_save_img: "Simpan Gambar", btn_share: "Bagikan", saving_img: "Menyimpan...", saved_img: "Tersimpan!", copied: "Tersalin!", share_title: "🍯 Energi Saju", share_text: "Kisah Saju hangat!",
+    mock_daily_head_0: "🍯 Harian", mock_daily_body_0: "<p>Melangkahlah</p>", sec_intro_title_0: "🌿 Intro", sec_intro_body_0: "<p>Pohon</p>", sec_flow_title_0: "🌊 Aliran", sec_flow_body_0: "<p>Musim semi</p>", sec_yearly_title_0: "🌅 Tahunan", sec_yearly_body_0: "<p>Hadiah</p>", sec_monthly_title_0: "🗓️ Bulanan", sec_monthly_body_0: "<p>Bulan</p>", sec_wealth_title_0: "💰 Kekayaan", sec_wealth_body_0: "<p>Keahlian</p>", sec_career_title_0: "✨ Karier", sec_career_body_0: "<p>Mentor</p>", sec_academic_title_0: "📚 Akademik", sec_academic_body_0: "<p>Spons</p>", sec_love_title_0: "🌸 Cinta", sec_love_body_0: "<p>Cerah</p>", sec_health_title_0: "🍃 Kesehatan", sec_health_body_0: "<p>Hangat</p>", sec_advice_title_0: "🍯 Nasihat", sec_advice_body_0: "<p>Jalan</p>",
+    mock_daily_head_1: "🍯 Harian", mock_daily_body_1: "<p>Sabar</p>", sec_intro_title_1: "🌿 Intro", sec_intro_body_1: "<p>Api</p>", sec_flow_title_1: "🌊 Aliran", sec_flow_body_1: "<p>Murni</p>", sec_yearly_title_1: "🌅 Tahunan", sec_yearly_body_1: "<p>Tunggu</p>", sec_monthly_title_1: "🗓️ Bulanan", sec_monthly_body_1: "<p>Bulan</p>", sec_wealth_title_1: "💰 Kekayaan", sec_wealth_body_1: "<p>Kunci</p>", sec_career_title_1: "✨ Karier", sec_career_body_1: "<p>Panggung</p>", sec_academic_title_1: "📚 Akademik", sec_academic_body_1: "<p>Cepat</p>", sec_love_title_1: "🌸 Cinta", sec_love_body_1: "<p>Laut</p>", sec_health_title_1: "🍃 Kesehatan", sec_health_body_1: "<p>Istirahat</p>", sec_advice_title_1: "🍯 Nasihat", sec_advice_body_1: "<p>Tidur</p>",
+    mock_daily_head_2: "🍯 Harian", mock_daily_body_2: "<p>Senyum</p>", sec_intro_title_2: "🌿 Intro", sec_intro_body_2: "<p>Permata</p>", sec_flow_title_2: "🌊 Aliran", sec_flow_body_2: "<p>Lumut</p>", sec_yearly_title_2: "🌅 Tahunan", sec_yearly_body_2: "<p>Senyum</p>", sec_monthly_title_2: "🗓️ Bulanan", sec_monthly_body_2: "<p>Bulan</p>", sec_wealth_title_2: "💰 Kekayaan", sec_wealth_body_2: "<p>Koneksi</p>", sec_career_title_2: "✨ Karier", sec_career_body_2: "<p>Hangat</p>", sec_academic_title_2: "📚 Akademik", sec_academic_body_2: "<p>Lewati</p>", sec_love_title_2: "🌸 Cinta", sec_love_body_2: "<p>Peluk</p>", sec_health_title_2: "🍃 Kesehatan", sec_health_body_2: "<p>Santai</p>", sec_advice_title_2: "🍯 Nasihat", sec_advice_body_2: "<p>Terima</p>"
   },
   zh: {
     btn_home_only: "主页", back_to_menu: "菜单", cta_check_saju: "开启我的故事",
-    what_is_saju_title: "映照自然的故事", what_is_saju_p1: "韩国传统命理学(Saju)并非迷信。它是一门基于您出生时的季节和自然能量，逻辑性地解读命运轨迹的深刻智慧。", what_is_saju_p3: "让我成为您的说书人，将这本深奥的‘人生指南’用最温暖的话语，深度为您娓娓道来。",
-    hub_pick_title: "您想听什么故事？", hub_pick_sub: "用命理学家的温暖目光，照亮您的前路。",
-    p_free: "免费", p_yearly: "¥15", p_wealth: "¥15", p_std: "¥15", p_full: "¥35",
-    menu_daily: "今日运势", menu_daily_sub: "今日温暖的能量", menu_yearly: "新年运势", menu_yearly_sub: "充满温度的一年", menu_wealth: "财富运势", menu_wealth_sub: "您的财富容器", menu_love: "恋爱运势", menu_love_sub: "寻找懂您的缘分", menu_career: "事业运势", menu_career_sub: "最适合您的道路", menu_academic: "学业运势", menu_academic_sub: "开启智慧之门", menu_health: "健康运势", menu_health_sub: "身体的自然平衡", menu_full: "大师级综合报告", menu_full_sub: "您人生的完整解析",
-    onb_intro: "请告诉我您的生辰", label_name: "姓名 (选填)", label_date: "出生日期", label_time: "出生时间", time_opt_placeholder: "请选择时间", time_unknown_check: "我不知道出生时间", label_gender: "性别", gender_f: "女性", gender_m: "男性", onb_submit: "揭晓我的自然能量", err_req_date: "请务必输入准确的出生日期。", err_req_time: "请选择出生时辰或勾选‘不知道’。",
-    loading_title: "正在为您作画...", loading_sub: "正在收集您出生那一天的自然气息，为您画一幅美丽的森林。请稍候。",
-    reveal_title: "您的自然能量", reveal_sub: "构成您内心风景的四种能量已就位。", btn_read_story: "解锁我的命运故事",
-    paywall_sub: "您愿意打开这封专为您用心书写的深刻人生指南吗？", price_desc: "一次买断 · 随时翻阅", pay_stripe: "解锁我的信件", maybe_later: "稍后再说",
-    your_saju_label: "现在，让我为您展示您内心的风景。", explore_title: "还想听听其他维度的解析吗？",
-    m_title: "我的自然能量", m_desc: "* 红色边框(日柱)代表您的核心本命能量。", m_year: "出生年", m_month: "出生月", m_day: "出生日", m_time: "出生时",
-    r_daily_title: "今日的温柔建议", r_yearly_title: "今年的温暖足迹", r_wealth_title: "钱包里的风景", r_love_title: "身边的温暖温度", r_career_title: "展翅高飞的舞台", r_academic_title: "智慧涌动的泉眼", r_health_title: "倾听身体的呢喃", r_full_title: "为您定制的大师画卷",
-    time_ja: "23:30 ~ 01:29 (子时)", time_chuk: "01:30 ~ 03:29 (丑时)", time_in: "03:30 ~ 05:29 (寅时)", time_myo: "05:30 ~ 07:29 (卯时)", time_jin: "07:30 ~ 09:29 (辰时)", time_sa: "09:30 ~ 11:29 (巳时)", time_o: "11:30 ~ 13:29 (午时)", time_mi: "13:30 ~ 15:29 (未时)", time_shin: "15:30 ~ 17:29 (申时)", time_yu: "17:30 ~ 19:29 (酉时)", time_sul: "19:30 ~ 21:29 (戌时)", time_hae: "21:30 ~ 23:29 (亥时)",
+    what_is_saju_title: "映照自然的故事", what_is_saju_p1: "基于您出生时的自然能量解读命运轨迹。", what_is_saju_p3: "让我成为您的说书人。",
+    hub_pick_title: "您想听什么故事？", hub_pick_sub: "用温暖目光照亮前路。",
+    p_ad: "📺 看广告", p_yearly: "¥15", p_wealth: "¥15", p_std: "¥15", p_full: "¥35",
+    menu_daily: "今日运势", menu_daily_sub: "今日温暖", menu_yearly: "新年运势", menu_yearly_sub: "温暖一年", menu_wealth: "财富", menu_wealth_sub: "财富容器", menu_love: "恋爱", menu_love_sub: "寻找缘分", menu_career: "事业", menu_career_sub: "适合道路", menu_academic: "学业", menu_academic_sub: "智慧之门", menu_health: "健康", menu_health_sub: "自然平衡", menu_full: "大师报告", menu_full_sub: "人生解析",
+    onb_intro: "请告诉我生辰", label_name: "姓名(选填)", label_date: "出生日期", label_time: "出生时间", time_opt_placeholder: "选择时间", time_unknown_check: "不知道时间", label_gender: "性别", gender_f: "女性", gender_m: "男性", onb_submit: "揭晓能量", err_req_date: "请输入日期。", err_req_time: "选择时间。",
     
-    btn_save_img: "保存图片", btn_share: "分享结果", saving_img: "保存中...", saved_img: "已保存！", copied: "已复制！",
-    share_title: "🍯 命理小蜜蜂为您解读自然能量", share_text: "用大自然的智慧解读命运！想知道您内心的风景长什么样吗？立刻来看看吧。",
+    ad_title: "赞助商信息", ad_desc: "蜜蜂正在采蜜！🐝💦<br>稍等片刻，运势即将揭晓。", ad_timer_prefix: "剩余 ", ad_timer_suffix: " 秒", ad_reward: "🍯 运势已就绪！",
     
-    mock_daily_head_0: "🍯 今日运势：关掉繁杂的思绪，轻装上阵", 
-    mock_daily_body_0: "<h3>今日的自然温度</h3><p>今天的能量就像落入平静湖面的小石子。大自然正在温柔地推着您，让您把藏在心底的计划付诸行动。</p><h3>小蜜蜂的温暖处方</h3><p>与其让100分的完美计划永远停留在脑海里，不如带着60分的准备勇敢迈出第一步。放下对失败的恐惧，用孩童般轻松的心态去拥抱今天吧。</p>", 
-    sec_intro_title_0: "🌿 内心风景：深林幽湖畔的参天大树", 
-    sec_intro_body_0: "<h3>您的命理画卷</h3><p>您就像一棵扎根在清澈湖畔的<strong>参天大树(甲木)</strong>。您拥有成熟、慈悲的灵魂，在人生的风雨中不易动摇，总是慷慨地为周围的人提供遮风挡雨的树荫。</p><h3>耀眼才华与内心阴影</h3><p>得益于充沛的水(智慧)与木(成长)能量，您天生具备透过现象看本质的深刻洞察力。</p><blockquote><p>“然而，您最大的陷阱在于令人窒息的完美主义和过重的责任感。”</p></blockquote><p>您总是默默扛起他人的重担，而在自己疲惫时，却选择紧闭心门，独自躲进孤独的洞穴。</p><h3>通向幸福的宿命课题</h3><p>您现在需要的不是更多的准备，而是带着不完美拥抱世界的<strong>勇气和一点点‘厚脸皮’</strong>。学会向他人借力是您打开好运大门的终极秘诀。</p>", 
-    sec_flow_title_0: "🌊 命运轨迹 (大运)：沐浴春光的巨木", 
-    sec_flow_body_0: "<h3>十年一轮的生命季节</h3><p>好消息正在向您招手。那些曾让您思虑过重、瑟瑟发抖的刺骨寒风正在退去。温暖的春日阳光(火)和坚实的土地(土)即将来临。</p><h3>蛰伏岁月的丰厚补偿</h3><p>您长久以来深藏不露的绝妙点子，终于要在阳光的沐浴下转化为看得见摸得着的现实成果。请鼓起勇气，堂堂正正地站在舞台中央吧。</p>", 
-    sec_yearly_title_0: "🌅 今年运势：推开门，迎接您的贵人", 
-    sec_yearly_body_0: "<h3>收获实质回报之年</h3><p>今年，阳光照进了您的湖水，那些无以名状的焦虑将如冰雪般消融。今年您将收获实实在在的<strong>财富与名誉认可</strong>。</p><h3>绝不可踩的雷区</h3><p>为了制定完美的计划而熬夜，或是试图独自解决所有问题，将彻底毁掉今年的大好运势。走出去，和温暖的人喝杯咖啡，隐藏着能让您在今年获得最大飞跃的‘金钥匙(贵人)’。</p>", 
-    sec_monthly_title_0: "🗓️ 月度运势深度解析",
-    sec_monthly_body_0: "<ul><li><strong>[1~3月] 破土而出的初春</strong><br>沉睡的灵感开始苏醒。不要等待完美，哪怕是微小的项目，现在就开始吧。</li><li><strong>[4~6月] 枝繁叶茂的仲夏</strong><br>人脉网络迅速扩展。在聚会中偶然结识的人将成为您坚实的后盾。</li><li><strong>[7~9月] 硕果累累的金秋</strong><br>之前的汗水终于转化为耀眼的财务回报。这是财富增长的黄金时期。</li><li><strong>[10~12月] 蓄精养锐的寒冬</strong><br>是时候放慢脚步，储备能量了。向曾经帮助过您的人表达感激，将极大地照亮您明年的运势。</li></ul>",
-    sec_wealth_title_0: "💰 财富运势：源远流长、永不枯竭的智慧之泉", 
-    sec_wealth_body_0: "<h3>您真正的财富聚宝盆</h3><p>您真正耀眼且庞大的财富，静水流深般源自于您不可替代的<strong>‘深度专业能力’和‘知识产权’</strong>。</p><h3>守住财富的严厉警告</h3><p>您面临的头号财务风险是‘因人情而破财’。您必须理直气壮地为自己的付出索取合理的回报。绝对要避免为他人担保或借钱。</p>", 
-    sec_career_title_0: "✨ 事业运势：运筹帷幄的幕后战略大师", 
-    sec_career_body_0: "<h3>最佳职场生态</h3><p>当您能够深入研究、统筹策划、教书育人，或者发挥他人无法复制的独门绝技时，才是您最如鱼得水的时刻。</p><h3>职场困境与破局之道</h3><p>在团队中，您更适合担任那个洞察全局、指引正确方向的<strong>智慧导师或战略推手</strong>。请学会基于事实，温和而坚定地展示您的成果。这项小小的‘自我PR’技能是关键。</p>", 
-    sec_academic_title_0: "📚 学业运势：海绵般的吸收力", 
-    sec_academic_body_0: "<h3>无可匹敌的探究精神</h3><p>您的命理中带有强烈的‘学术之星’，您就像一块干燥的海绵，能以惊人的专注力吸收知识。</p><h3>为何您急需应试技巧</h3><p>‘不能有丝毫差错’的完美主义强迫症，会让您在遇到意外难题时瞬间大脑空白。把限时模拟考试当成一场轻松的闯关游戏，卸下‘绝对不能错’的心理包袱。</p>", 
-    sec_love_title_0: "🌸 恋爱运势：照亮幽深心海的一缕明媚阳光", 
-    sec_love_body_0: "<h3>深沉而厚重的爱</h3><p>您只对那些能够进行灵魂对话、分享人生哲理的深度伴侣敞开心扉。</p><h3>宿命伴侣与孽缘预警</h3><p>您非常需要一个<strong>如阳光般明媚、性格开朗(火能量)的伴侣</strong>。去寻找那个既懂得尊重您的深刻，又能将您一把拉回烟火人间的‘小太阳’吧。</p>", 
-    sec_health_title_0: "🍃 健康运势：提升体温即是提升运势的终极秘密", 
-    sec_health_body_0: "<h3>体质特征与脆弱点</h3><p>天生自带充沛水汽的您，体质上阴气偏重。容易出现手脚冰凉的问题。</p><h3>最佳养生与开运法</h3><p>在寒冷的季节，务必将‘保暖’置于‘风度’之上。每晚坚持用热水泡脚或半身浴，微微出汗，是帮您吸纳顶级好运的最强魔法。</p>", 
-    sec_advice_title_0: "🍯 命理师的深度箴言", 
-    sec_advice_body_0: "<h3>[抚慰心灵的一句话]</h3><p>每天午休时，去温暖的阳光下散步20分钟吧。太阳旺盛的阳气会为您驱散心底的阴霾，注入轻松行动的勇气。</p><h3>[调和磁场的幸运处方]</h3><ul><li><strong>幸运颜色：</strong>温暖的红色、舒适的橙色、明亮的粉色。</li><li><strong>幸运数字：</strong>2, 7, 5, 0</li><li><strong>幸运方位：</strong>南方</li></ul>",
-    
-    mock_daily_head_1: "🍯 今日运势：放下急躁，刻意让自己停下脚步", 
-    mock_daily_body_1: "<h3>今日的自然温度</h3><p>今天，一团灼热的能量萦绕在您心头，让您迫不及待地想要完成某件事，或者当事情没有按照您的快节奏发展时极易感到沮丧。</p><h3>小蜜蜂的温暖处方</h3><p>如果您感到有一股强烈的冲动想要对某人说出刻薄的话，或是想通过冲动消费来缓解压力，请深呼吸一次。在心里对自己说：‘我明早再做决定。’</p>", 
-    sec_intro_title_1: "🌿 内心风景：旷野上热烈燃烧的篝火", 
-    sec_intro_body_1: "<h3>您的命理画卷</h3><p>您的自然能量就像一团在广阔原野上<strong>熊熊燃烧的篝火(火)</strong>，在黑暗中明亮而热烈。您天生自带一种无法隐藏的强烈存在感。</p><h3>耀眼才华与内心阴影</h3><p>蕴藏着炽热火气的您，拥有异于常人的驱动力和爆发性的行动力。您天生就是领导者和舞台的主角。</p><blockquote><p>“然而，您最大的危险在于‘没有刹车的速度’。”</p></blockquote><p>这团美丽的火焰有时会完全失去对自身速度和情绪的控制。</p><h3>通向幸福的宿命课题</h3><p>为了让您的光芒持久不衰，您必须将‘耐心’和‘从容’作为您人生的刹车系统安装到位。控制住怒火的人，就能征服世界。</p>", 
-    sec_flow_title_1: "🌊 命运轨迹 (大运)：淬炼咆哮的热情", 
-    sec_flow_body_1: "<h3>十年一轮的生命季节</h3><p>一股清凉的水能量和沉稳的土能量正在靠近，它们将把您狂野的火焰安全地安置在坚固的火炉中，使其能够长久而平稳地燃烧。</p><h3>成长的必经之痛</h3><p>您即将进入一个必经的成长期：学着与他人的步伐同频共振。只要您能充满智慧地度过这个‘限速期’，您将蜕变成一位真正受人敬仰的‘成熟大人’。</p>", 
-    sec_yearly_title_1: "🌅 今年运势：修炼“留白”与等待的艺术", 
-    sec_yearly_body_1: "<h3>宇宙在延迟中隐藏的深意</h3><p>今年，您可能会强烈地感受到自己的生物钟与世界运转的齿轮产生了错位。项目可能会在最后关头延期。</p><h3>绝不可踩的雷区</h3><p>因愤怒而冲动行事是您今年必须极力避免的终极陷阱。大自然今年给您的考题是<strong>‘从容、包容与等待’</strong>。</p>", 
-    sec_monthly_title_1: "🗓️ 月度运势深度解析",
-    sec_monthly_body_1: "<ul><li><strong>[1~3月] 初春的强制降速</strong><br>与其猛踩油门，不如踩下刹车，仔细检查计划中的漏洞，绝对要倾听周围人的反对意见。</li><li><strong>[4~6月] 爆发的仲夏</strong><br>您独特的能量达到顶峰。务必捂紧钱包，防范冲动消费或高风险投资。</li><li><strong>[7~9月] 秋日的沉淀与解铃</strong><br>您焦躁的内心和混乱的局面开始平静下来。妥协是您开启好运的钥匙。</li><li><strong>[10~12月] 采撷冬日硕果</strong><br>命运将给予您甜蜜而实质的补偿。以谦逊的姿态将成功归功于您的团队。</li></ul>",
-    sec_wealth_title_1: "💰 财富运势：为您的钱包挂上一把坚不可摧的锁", 
-    sec_wealth_body_1: "<h3>大开大合的财富格局</h3><p>您拥有大将般的格局，花钱慷慨大方，擅长操控大额资金。具备动物般敏锐的直觉，能精准捕捉市场趋势。</p><h3>导致财富流失的致命缺陷</h3><p>最大的问题在于：<strong>资金流出的‘下水道’比流入的‘瀑布’还要宽</strong>。您极易为了炫耀而消费，或是轻信“绝对能赚快钱”的刺激性内幕消息。</p><p>将财富锁定在流动性极差的资产中，如房地产、大额定期存单——这种‘强制绑定财富’的策略，是抵御破产危机的最强防线。</p>", 
-    sec_career_title_1: "✨ 事业运势：掌控舞台、光芒四射的魅力主角", 
-    sec_career_body_1: "<h3>最佳职场生态</h3><p>当您冲锋陷阵、主导氛围，并以自己的名字产出成果时，您将闪耀出最耀眼的光芒。您是营销、企划、演艺界或自主创业等领域的超级巨星。</p><h3>职场困境与破局之道</h3><p>您必须将这一点刻在骨子里：您热情的温度太高了，极有可能将努力想要跟上您的同事烤得精疲力竭。具备<strong>‘温暖的温度调节能力’</strong>，温和地肯定他人的努力，至关重要。</p>", 
-    sec_academic_title_1: "📚 学业运势：爆发力惊人的短跑健将", 
-    sec_academic_body_1: "<h3>闪电般的直觉与领悟力</h3><p>您拥有非凡的‘突击天才’，别人需要好几天才能死记硬背的内容，您在考前只需几个小时就能精准抓取核心框架。</p><h3>为何您急需应试策略</h3><p>然而，在需要长时间静坐的持久战中，您展现出了致命的弱点。加入有严格纪律的学习小组，找一个能激起您胜负欲的竞争对手，是用外部框架束缚涣散精力的法宝。</p>", 
-    sec_love_title_1: "🌸 恋爱运势：能包容烈火咆哮的宁静深海", 
-    sec_love_body_1: "<h3>您的爱热烈而坦诚</h3><p>一旦坠入爱河，您会不计后果、毫无保留地倾注所有热情。您直来直往的坦诚表达，对异性有着致命的吸引力。</p><h3>宿命伴侣与孽缘预警</h3><p>然而，您的情绪极端起伏，可能会冲动地提出分手事后又追悔莫及。您的完美伴侣是那种像<strong>坚如磐石或深不可测的大海(土/水能量)</strong>的人，微笑着包容您所有任性的小脾气。</p>", 
-    sec_health_title_1: "🍃 健康运势：为过热引擎注入冷却液的刻意休息", 
-    sec_health_body_1: "<h3>体质特征与脆弱点</h3><p>您的身心能量始终处于高位，但您经常将自己逼到120%的极限，直到突然陷入严重的疲劳综合症。</p><h3>最佳养生与开运法</h3><p>补充‘阴(Yin)能量’，为您过热的身体和大脑降温。每天为自己安排一段<strong>‘完全放空、什么都不做，只是发呆’</strong>的时间。这种刻意的休息是净化运势的速效救心丸。</p>", 
-    sec_advice_title_1: "🍯 命理师的深度箴言", 
-    sec_advice_body_1: "<h3>[抚慰心灵的一句话]</h3><p>在做出重大决定前，<strong>“必须睡一觉，明早用清醒的头脑再做决定。”</strong> 只要坚守这一条规则，您人生中90%的危机都会奇迹般地烟消云散。</p><h3>[调和磁场的幸运处方]</h3><ul><li><strong>幸运颜色：</strong>清爽的蓝色，沉稳干练的黑色，干净理性的白色。</li><li><strong>幸运数字：</strong>1, 6, 4, 9</li><li><strong>幸运方位：</strong>北方</li></ul>",
-    
-    mock_daily_head_2: "🍯 今日运势：收起锋利的标尺，绽放温柔的微笑", 
-    mock_daily_body_2: "<h3>今日的自然温度</h3><p>今天，您的感官异常敏锐。别人笨拙的失误、破坏规则的行为，在您眼中都会像放在显微镜下一样被无限放大。</p><h3>小蜜蜂的温暖处方</h3><p>即便您的逻辑是100%正确的，今天也请不要为了争赢而发生争论。如果有人达不到您的标准，请假装没看见。那一勺温柔的包容，将成为阻挡厄运的盾牌，完美守护您这一天的平和。</p>", 
-    sec_intro_title_2: "🌿 内心风景：清冽寒潭中那颗光滑坚硬的璀璨宝石", 
-    sec_intro_body_2: "<h3>您的命理画卷</h3><p>您的气质就像一颗静静安放在清澈见底、冰冷刺骨的潭水中的<strong>切割完美的璀璨宝石(金)</strong>。您身上散发着一种干净利落的精致魅力。</p><h3>耀眼才华与内心阴影</h3><p>您拥有令人敬畏的责任感和职业素养，您的头脑就像整理得井井有条的资料库。</p><blockquote><p>“但最令人心痛的警告是，您的完美主义正在将您推向彻底的孤立。”</p></blockquote><p>那把衡量一切的<strong>‘完美主义冰冷标尺’</strong>，有时会勒得自己喘不过气，也会让周围的人感到不寒而栗。</p><h3>通向幸福的宿命课题</h3><p>稍微松开您那件无懈可击的完美主义铠甲吧，当您学会对不完美宽容时，您才能真正走出那座孤独的冰冷城堡，与更广阔、更温暖的世界建立连结。</p>", 
-    sec_flow_title_2: "🌊 命运轨迹 (大运)：冰冷岩石上生长出温暖的生命青苔", 
-    sec_flow_body_2: "<h3>十年一轮的生命季节</h3><p>温暖阳光(火能量)的眷顾与柔嫩春草(木能量)的勃勃生机正在向您靠近，它们将温柔地拥抱并融化您那冰冷、锋利的金属外壳。</p><h3>成长的必经之痛</h3><p>命运要求您必须学会与那些能力和风格与您截然不同的人和谐共处。完成这场关于‘温暖沟通’的试炼，您将蜕变为一位真正受人拥戴的伟大领袖。</p>", 
-    sec_yearly_title_2: "🌅 今年运势：用宽广胸襟笑对偏离航线的意外变数", 
-    sec_yearly_body_2: "<h3>计划被打乱时的隐藏祝福</h3><p>今年，您那份制定得严丝合缝的计划，注定要被突如其来的变数或延期打乱。超出您控制范围的状况将频繁发生。</p><h3>绝不可踩的雷区</h3><p>您越是挣扎着想用强硬手段把局面拉回掌控中，事情就会变得更糟。即使别人的工作只有80分，只要您能大度地微笑着说一句：“已经很好了，辛苦啦！”，这句宽容的话语将成为您今年强力提升运势的最强护身符。</p>", 
-    sec_monthly_title_2: "🗓️ 月度运势深度解析",
-    sec_monthly_body_2: "<ul><li><strong>[1~3月] 灵活变通的初春</strong><br>放下身段，展现出您强大的灵活性和妥协能力，将为您带来好得多的结果。</li><li><strong>[4~6月] 疲惫但拓展版图的仲夏</strong><br>您现在建立的人脉和口碑，将成为您在下半年关键危机时刻的救命稻草。请以微笑回应。</li><li><strong>[7~9月] 锋芒毕露的金秋</strong><br>您的专业知识终于大放异彩，这是一个伴随着升职、加薪或被高薪挖角的令人愉悦的时期。</li><li><strong>[10~12月] 融化坚冰的寒冬</strong><br>收起指向自己和他人的完美主义刀刃，送给自己一个彻底放松和宽恕的长假。</li></ul>",
-    sec_wealth_title_2: "💰 财富运势：人情味与人脉是您未被发掘的巨型金矿", 
-    sec_wealth_body_2: "<h3>无懈可击的资产防御力</h3><p>您在资产管理方面拥有极其出色、理性的头脑。基本上，您拥有一个完美的防御型命盘，能将钱财安全地锁在保险柜里。</p><h3>阻碍财富跃层的致命缺陷</h3><p>由于您即使看到1%的风险也会果断撤退，且极度厌恶不可控变数而拒绝与人合伙，您成为真正巨富的速度会非常缓慢。</p><p>能够让您实现阶层跨越的巨额财富，来源于那些信任并愿意帮助您的人际关系(人脉)。心甘情愿地做那个第一个掏出钱包请朋友吃饭的人，这种人情味上的投资，最终将为您打开通往海量财富的泄洪闸门。</p>", 
-    sec_career_title_2: "✨ 事业运势：实力如刀锋般冷峻，态度如春风般和煦", 
-    sec_career_body_2: "<h3>最佳职场生态</h3><p>在要求严密的逻辑、确凿的事实且容错率为零的领域，您的犀利是无人能替代的终极武器。您是上司和客户最信任的王牌核心。</p><h3>职场困境与破局之道</h3><p>您那连珠炮般的“事实暴击”会像匕首一样刺痛同事，给您贴上‘冷血无情’的标签。试着主动走向同事递上一罐温暖的咖啡，微笑着说声早安。您的温暖被察觉的那一刻，您将在职场大获全胜。</p>", 
-    sec_academic_title_2: "📚 学业运势：放下对完美的偏执，学会“战略性放弃”", 
-    sec_academic_body_2: "<h3>系统化的逻辑与极致的精确</h3><p>在理工科或有标准答案的领域，您展现出了天才般的领悟力。您能将知识的骨架系统地绘制成思维导图。</p><h3>为何您急需应试策略</h3><p>在考场上，您面临的最大风险就是死磕一道解不开的难题。在真正的考场上，您绝对需要一种‘差不多就行’的心态：果断放弃那些解不出的题目，稳稳拿下会做的题。</p>", 
-    sec_love_title_2: "🌸 恋爱运势：爱情不是一场冷酷的面试", 
-    sec_love_body_2: "<h3>您的爱挑剔而谨慎</h3><p>在开启一段关系时，您倾向于使用内心那份严苛的清单来对候选人进行严格的背景调查，因为您渴望完美无瑕的浪漫史。</p><h3>宿命伴侣与孽缘预警</h3><p>爱情不是一场严酷的企业面试。您需要一个<strong>内心无比温暖、充满阳光(拥有丰沛木/火能量)</strong>的人，用灿烂的笑容融化您那座冰冷的理智堡垒。当伴侣犯错时，学会闭上挑剔的嘴，只是默默地拥抱他们。</p>", 
-    sec_health_title_2: "🍃 健康运势：用物理方法融化您紧绷如弦的神经", 
-    sec_health_body_2: "<h3>体质特征与脆弱点</h3><p>因为您总是试图完美地控制一切，您常年生活在一种看不见的超紧张状态中。因此，僵硬的颈肩肌肉、神经性胃炎和失眠是您最常光顾的恶客。</p><h3>最佳养生与开运法</h3><p>规律的拉伸运动、深层组织按摩、或是融化僵硬身体的温水泡澡——这种绝对的放松(Relaxation)时间对您来说绝不是奢侈的享受，而是保命的必需品。</p>", 
-    sec_advice_title_2: "🍯 命理师的深度箴言", 
-    sec_advice_body_2: "<h3>[抚慰心灵的一句话]</h3><p>“当您承认您的标准并非世界上唯一的正确答案时，生活就会变得无比舒适。”<br>试着微微点头，在心里想：“啊，原来换个角度，世界也可以是那个样子的。”</p><h3>[调和磁场的幸运处方]</h3><ul><li><strong>幸运颜色：</strong>温暖的绿色，带来踏实安全感的泥土棕色，以及柔和的淡粉色。</li><li><strong>幸运数字：</strong>3, 8, 2, 7</li><li><strong>幸运方位：</strong>东方</li></ul>"
+    loading_title: "正在作画...", loading_sub: "请稍候。", reveal_title: "自然能量", reveal_sub: "能量已就位。", btn_read_story: "解锁故事", paywall_sub: "打开指南？", price_desc: "一次买断", pay_stripe: "解锁", maybe_later: "稍后", your_saju_label: "内心的风景。", explore_title: "其他解析？", m_title: "能量", m_desc: "* 红色为核心。", m_year: "年", m_month: "月", m_day: "日", m_time: "时",
+    r_daily_title: "今日", r_yearly_title: "今年", r_wealth_title: "财富", r_love_title: "恋爱", r_career_title: "事业", r_academic_title: "学业", r_health_title: "健康", r_full_title: "大师",
+    time_ja: "23:30~01:29", time_chuk: "01:30~03:29", time_in: "03:30~05:29", time_myo: "05:30~07:29", time_jin: "07:30~09:29", time_sa: "09:30~11:29", time_o: "11:30~13:29", time_mi: "13:30~15:29", time_shin: "15:30~17:29", time_yu: "17:30~19:29", time_sul: "19:30~21:29", time_hae: "21:30~23:29",
+    btn_save_img: "保存图片", btn_share: "分享", saving_img: "保存中...", saved_img: "已保存！", copied: "已复制！", share_title: "🍯 自然能量", share_text: "来看看吧。",
+    mock_daily_head_0: "🍯 今日", mock_daily_body_0: "<p>行动吧</p>", sec_intro_title_0: "🌿 介绍", sec_intro_body_0: "<p>大树</p>", sec_flow_title_0: "🌊 大运", sec_flow_body_0: "<p>阳光</p>", sec_yearly_title_0: "🌅 今年", sec_yearly_body_0: "<p>贵人</p>", sec_monthly_title_0: "🗓️ 月度", sec_monthly_body_0: "<p>月度</p>", sec_wealth_title_0: "💰 财富", sec_wealth_body_0: "<p>知识</p>", sec_career_title_0: "✨ 事业", sec_career_body_0: "<p>导师</p>", sec_academic_title_0: "📚 学业", sec_academic_body_0: "<p>海绵</p>", sec_love_title_0: "🌸 恋爱", sec_love_body_0: "<p>阳光伴侣</p>", sec_health_title_0: "🍃 健康", sec_health_body_0: "<p>保暖</p>", sec_advice_title_0: "🍯 建议", sec_advice_body_0: "<p>散步</p>",
+    mock_daily_head_1: "🍯 今日", mock_daily_body_1: "<p>深呼吸</p>", sec_intro_title_1: "🌿 介绍", sec_intro_body_1: "<p>篝火</p>", sec_flow_title_1: "🌊 大运", sec_flow_body_1: "<p>沉稳</p>", sec_yearly_title_1: "🌅 今年", sec_yearly_body_1: "<p>留白</p>", sec_monthly_title_1: "🗓️ 月度", sec_monthly_body_1: "<p>月度</p>", sec_wealth_title_1: "💰 财富", sec_wealth_body_1: "<p>锁住钱包</p>", sec_career_title_1: "✨ 事业", sec_career_body_1: "<p>主角</p>", sec_academic_title_1: "📚 学业", sec_academic_body_1: "<p>短跑</p>", sec_love_title_1: "🌸 恋爱", sec_love_body_1: "<p>深海伴侣</p>", sec_health_title_1: "🍃 健康", sec_health_body_1: "<p>休息</p>", sec_advice_title_1: "🍯 建议", sec_advice_body_1: "<p>睡一觉</p>",
+    mock_daily_head_2: "🍯 今日", mock_daily_body_2: "<p>微笑</p>", sec_intro_title_2: "🌿 介绍", sec_intro_body_2: "<p>宝石</p>", sec_flow_title_2: "🌊 大运", sec_flow_body_2: "<p>青苔</p>", sec_yearly_title_2: "🌅 今年", sec_yearly_body_2: "<p>变数</p>", sec_monthly_title_2: "🗓️ 月度", sec_monthly_body_2: "<p>月度</p>", sec_wealth_title_2: "💰 财富", sec_wealth_body_2: "<p>人脉</p>", sec_career_title_2: "✨ 事业", sec_career_body_2: "<p>春风</p>", sec_academic_title_2: "📚 学业", sec_academic_body_2: "<p>放弃</p>", sec_love_title_2: "🌸 恋爱", sec_love_body_2: "<p>拥抱</p>", sec_health_title_2: "🍃 健康", sec_health_body_2: "<p>放松</p>", sec_advice_title_2: "🍯 建议", sec_advice_body_2: "<p>认可</p>"
   }
 };
 </script>
