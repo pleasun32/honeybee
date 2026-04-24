@@ -533,16 +533,23 @@ function submitInput() {
   setTimeout(() => { btn.disabled = false; showReveal(); }, 1800);
 }
 
+let adInterval = null;
+
 function playAdFlow(type) {
   goto('ad');
   let timeLeft = type === 'full' ? 7 : (type === 'daily' ? 3 : 5);
   const timerEl = document.getElementById('ad-timer-sec');
   timerEl.innerText = timeLeft;
   
-  const interval = setInterval(() => {
+  if (adInterval) clearInterval(adInterval);
+  
+  adInterval = setInterval(() => {
     timeLeft--;
     timerEl.innerText = timeLeft;
-    if (timeLeft <= 0) { clearInterval(interval); showResult(type); }
+    if (timeLeft <= 0) { 
+      clearInterval(adInterval); 
+      showResult(type); 
+    }
   }, 1000);
 }
 
