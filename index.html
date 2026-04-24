@@ -57,19 +57,21 @@
   
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { min-height: 100vh; height: 100%; }
-  body {
+
+body {
     font-family: 'Nunito', 'Jua', sans-serif;
     font-weight: 500;
-    background-color: #8FD1A3;
-    background-image: url('image_ebb8cb.png');
+    background-color: #EBF5F0; /* 배경이 로딩되기 전 보일 깔끔한 기본 배경색으로 맞췄습니다 */
+    background-image: url('background.svg'); /* 👈 새로 업로드한 이미지 이름! */
     background-size: cover;
-    background-position: center bottom;
+    background-position: center bottom; /* 이미지가 아래쪽을 기준으로 예쁘게 깔립니다 */
     background-attachment: fixed;
     background-repeat: no-repeat;
     color: var(--ink);
     min-height: 100vh;
     overflow-x: hidden;
   }
+ 
 
   body::after {
     content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
