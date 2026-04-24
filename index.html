@@ -1107,6 +1107,98 @@ Object.keys(DEEP_ADVICE).forEach(arch => {
     TRANSLATIONS[lang][`sec_mentor_body_${arch}`] = DEEP_ADVICE[arch][lang].mentorBody;
   });
 });
+
+// 1. 태어난 해(띠)와 달(계절)을 분석하여 4개국어 심층 리딩을 제공하는 데이터
+const EXTRA_PILLAR_ADVICE = {
+  zodiac: {
+    "子": { ko: { t: "🐭 나의 숨겨진 무기 (쥐띠)", b: "<p>뛰어난 눈치와 적응력으로 어떤 환경에서도 살아남는 지혜를 가졌습니다. 남들이 보지 못하는 세밀한 기회를 포착하는 것이 당신의 가장 큰 무기입니다.</p>" }, en: { t: "🐭 Hidden Weapon (Rat)", b: "<p>You possess quick wit and adaptability. Your greatest weapon is spotting subtle opportunities others miss.</p>" }, id: { t: "🐭 Senjata Tersembunyi (Tikus)", b: "<p>Anda memiliki kecerdasan dan kemampuan beradaptasi yang cepat. Senjata terbesar Anda adalah melihat peluang kecil yang dilewatkan orang lain.</p>" }, ja: { t: "🐭 隠された武器 (子年)", b: "<p>優れた機転と適応力でどんな環境でも生き残る知恵を持っています。他人が見逃す細かい機会を捉えるのが最大の武器です。</p>" } },
+    "丑": { ko: { t: "🐮 나의 숨겨진 무기 (소띠)", b: "<p>묵묵히 목표를 향해 나아가는 무서운 끈기와 책임감을 가졌습니다. 당장은 느려 보여도 결국 가장 높은 곳에 도달하는 대기만성형입니다.</p>" }, en: { t: "🐮 Hidden Weapon (Ox)", b: "<p>You have terrifying persistence and responsibility. You may seem slow, but you always reach the highest peak.</p>" }, id: { t: "🐮 Senjata Tersembunyi (Kerbau)", b: "<p>Anda memiliki kegigihan dan tanggung jawab yang luar biasa. Anda selalu mencapai puncak tertinggi pada akhirnya.</p>" }, ja: { t: "🐮 隠された武器 (丑年)", b: "<p>黙々と目標に向かって進む恐ろしい忍耐力と責任感を持っています。大器晩成型です。</p>" } },
+    "寅": { ko: { t: "🐯 나의 숨겨진 무기 (호랑이띠)", b: "<p>불의를 참지 못하는 강한 리더십과 독립심이 있습니다. 남들이 두려워하는 길을 가장 먼저 개척해 내는 폭발적인 추진력이 매력입니다.</p>" }, en: { t: "🐯 Hidden Weapon (Tiger)", b: "<p>You have strong leadership and independence. Your explosive drive to pioneer new paths is your charm.</p>" }, id: { t: "🐯 Senjata Tersembunyi (Harimau)", b: "<p>Anda memiliki kepemimpinan dan kemandirian yang kuat. Dorongan eksplosif Anda untuk merintis jalan baru sangat menawan.</p>" }, ja: { t: "🐯 隠された武器 (寅年)", b: "<p>強いリーダーシップと独立心を持っています。誰も恐れる道を最初に開拓する爆発的な推進力が魅力です。</p>" } },
+    "卯": { ko: { t: "🐰 나의 숨겨진 무기 (토끼띠)", b: "<p>부드러운 카리스마와 뛰어난 사교성으로 적을 만들지 않습니다. 어떤 갈등도 평화롭게 해결하는 외교관 같은 재능이 있습니다.</p>" }, en: { t: "🐰 Hidden Weapon (Rabbit)", b: "<p>You have soft charisma and excellent sociability. You possess a diplomat-like talent for resolving conflicts peacefully.</p>" }, id: { t: "🐰 Senjata Tersembunyi (Kelinci)", b: "<p>Anda memiliki karisma lembut dan kemampuan bersosialisasi yang sangat baik. Anda berbakat seperti diplomat dalam menyelesaikan konflik.</p>" }, ja: { t: "🐰 隠された武器 (卯年)", b: "<p>柔らかなカリスマ性と優れた社交性で敵を作りません。どんな対立も平和に解決する外交官のような才能があります。</p>" } },
+    "辰": { ko: { t: "🐲 나의 숨겨진 무기 (용띠)", b: "<p>스케일이 다르고 이상이 높습니다. 평범함을 거부하고 항상 더 큰 무대를 꿈꾸며, 무에서 유를 창조해 내는 스케일이 당신의 무기입니다.</p>" }, en: { t: "🐲 Hidden Weapon (Dragon)", b: "<p>You dream big and refuse to be ordinary. Your ability to create something out of nothing on a grand scale is your weapon.</p>" }, id: { t: "🐲 Senjata Tersembunyi (Naga)", b: "<p>Anda bermimpi besar dan menolak menjadi biasa. Kemampuan Anda menciptakan sesuatu dari ketiadaan adalah senjata Anda.</p>" }, ja: { t: "🐲 隠された武器 (辰年)", b: "<p>スケールが大きく理想が高いです。平凡さを拒み、常に大きな舞台を夢見るスケールの大きさがあなたの武器です。</p>" } },
+    "巳": { ko: { t: "🐍 나의 숨겨진 무기 (뱀띠)", b: "<p>겉으로는 차분해 보이지만 속에는 뜨거운 야망을 품고 있습니다. 한 번 목표를 정하면 무서운 집중력으로 파고드는 완벽주의자입니다.</p>" }, en: { t: "🐍 Hidden Weapon (Snake)", b: "<p>Calm on the outside, but burning with ambition inside. You are a perfectionist with terrifying focus once you set a goal.</p>" }, id: { t: "🐍 Senjata Tersembunyi (Ular)", b: "<p>Tenang di luar, tapi penuh ambisi di dalam. Anda adalah perfeksionis dengan fokus luar biasa setelah menetapkan tujuan.</p>" }, ja: { t: "🐍 隠された武器 (巳年)", b: "<p>外見は落ち着いていますが、内には熱い野望を秘めています。一度目標を定めると恐ろしい集中力を見せる完璧主義者です。</p>" } },
+    "午": { ko: { t: "🐴 나의 숨겨진 무기 (말띠)", b: "<p>구속받는 것을 싫어하고 자유롭게 넓은 들판을 달리고 싶어 합니다. 솔직하고 뒤끝 없는 시원시원한 성격이 사람들을 끌어당깁니다.</p>" }, en: { t: "🐴 Hidden Weapon (Horse)", b: "<p>You hate being restricted and love freedom. Your honest and cool personality naturally attracts people.</p>" }, id: { t: "🐴 Senjata Tersembunyi (Kuda)", b: "<p>Anda benci dibatasi dan mencintai kebebasan. Kepribadian Anda yang jujur dan santai secara alami menarik orang lain.</p>" }, ja: { t: "🐴 隠された武器 (午年)", b: "<p>束縛を嫌い、自由に広い野原を走ることを好みます。正直でさっぱりとした性格が人々を引き付けます。</p>" } },
+    "未": { ko: { t: "🐑 나의 숨겨진 무기 (양띠)", b: "<p>매우 온화해 보이지만 내면에는 절대 꺾이지 않는 강한 자존심이 있습니다. 척박한 환경에서도 살아남는 엄청난 생존력이 숨어있습니다.</p>" }, en: { t: "🐑 Hidden Weapon (Sheep)", b: "<p>Gentle on the outside, but you have unbreakable inner pride. You possess incredible survival skills in tough environments.</p>" }, id: { t: "🐑 Senjata Tersembunyi (Kambing)", b: "<p>Lembut di luar, namun memiliki harga diri yang tak terpatahkan. Anda memiliki keterampilan bertahan hidup yang luar biasa di lingkungan yang sulit.</p>" }, ja: { t: "🐑 隠された武器 (未年)", b: "<p>非常に穏やかに見えますが、内面には決して折れない強いプライドがあります。過酷な環境でも生き残る生存力が隠れています。</p>" } },
+    "申": { ko: { t: "🐵 나의 숨겨진 무기 (원숭이띠)", b: "<p>다방면에 재주가 많은 팔방미인입니다. 어떤 어려운 문제도 유머와 센스로 가볍게 넘겨버리는 천재적인 문제 해결 능력이 있습니다.</p>" }, en: { t: "🐵 Hidden Weapon (Monkey)", b: "<p>You are a multi-talented genius. You easily overcome difficult problems with humor and pure wit.</p>" }, id: { t: "🐵 Senjata Tersembunyi (Monyet)", b: "<p>Anda adalah jenius serba bisa. Anda dengan mudah mengatasi masalah sulit dengan humor dan kecerdasan murni.</p>" }, ja: { t: "🐵 隠された武器 (申年)", b: "<p>多方面に才能がある八方美人です。どんな難しい問題もユーモアとセンスで軽く乗り越える天才的な問題解決能力があります。</p>" } },
+    "酉": { ko: { t: "🐔 나의 숨겨진 무기 (닭띠)", b: "<p>통찰력이 뛰어나고 미적 감각이 탁월합니다. 본질을 꿰뚫어 보는 예리한 눈썰미로 남들이 놓치는 디테일을 완성해 내는 완벽주의자입니다.</p>" }, en: { t: "🐔 Hidden Weapon (Rooster)", b: "<p>You have excellent insight and aesthetic sense. Your sharp eye for detail makes you a perfect finisher.</p>" }, id: { t: "🐔 Senjata Tersembunyi (Ayam)", b: "<p>Anda memiliki wawasan dan selera estetika yang sangat baik. Mata tajam Anda terhadap detail membuat Anda sangat perfeksionis.</p>" }, ja: { t: "🐔 隠された武器 (酉年)", b: "<p>洞察力と美意識が抜群です。本質を見抜く鋭い眼力で他人が見逃すディテールを完成させる完璧主義者です。</p>" } },
+    "戌": { ko: { t: "🐶 나의 숨겨진 무기 (개띠)", b: "<p>한 번 맺은 인연은 절대 배신하지 않는 엄청난 의리와 충성심의 소유자입니다. 진정성 있고 책임감 있는 모습이 가장 큰 자산입니다.</p>" }, en: { t: "🐶 Hidden Weapon (Dog)", b: "<p>You possess incredible loyalty and never betray a connection. Your sincerity and responsibility are your biggest assets.</p>" }, id: { t: "🐶 Senjata Tersembunyi (Anjing)", b: "<p>Anda memiliki kesetiaan yang luar biasa dan tidak pernah mengkhianati hubungan. Ketulusan dan tanggung jawab adalah aset terbesar Anda.</p>" }, ja: { t: "🐶 隠された武器 (戌年)", b: "<p>一度結んだ縁は絶対に裏切らない、驚異的な義理と忠誠心の持ち主です。誠実で責任感のある姿が最大の資産です。</p>" } },
+    "亥": { ko: { t: "🐷 나의 숨겨진 무기 (돼지띠)", b: "<p>거짓을 모르는 순수함과 넓은 마음을 가졌습니다. 베풀기를 좋아하며, 낙천적인 에너지가 결국 주변의 행운과 재물을 끌어당깁니다.</p>" }, en: { t: "🐷 Hidden Weapon (Pig)", b: "<p>You have pure innocence and a generous heart. Your optimistic energy naturally attracts good luck and wealth.</p>" }, id: { t: "🐷 Senjata Tersembunyi (Babi)", b: "<p>Anda memiliki kepolosan murni dan hati yang murah hati. Energi optimis Anda secara alami menarik nasib baik dan kekayaan.</p>" }, ja: { t: "🐷 隠された武器 (亥年)", b: "<p>嘘を知らない純粋さと広い心を持っています。楽天的なエネルギーが結果的に幸運と財を引き寄せます。</p>" } }
+  },
+  season: {
+    "spring": { ko: { t: "🌱 계절이 주는 무대 (봄 출생)", b: "<p>만물이 소생하는 봄에 태어난 당신은 늘 <strong>새로운 것을 시작하고 기획하는 일</strong>에 유리합니다. 호기심과 생명력이 당신의 무대를 넓혀줍니다.</p>" }, en: { t: "🌱 Stage of Season (Born in Spring)", b: "<p>Born in Spring, you excel at <strong>starting and planning new things</strong>. Curiosity and vitality expand your stage.</p>" }, id: { t: "🌱 Panggung Musim (Lahir di Musim Semi)", b: "<p>Lahir di Musim Semi, Anda unggul dalam <strong>memulai dan merencanakan hal-hal baru</strong>. Keingintahuan dan vitalitas memperluas panggung Anda.</p>" }, ja: { t: "🌱 季節が与える舞台 (春生まれ)", b: "<p>万物が蘇る春に生まれたあなたは、常に<strong>新しいことを始め、企画すること</strong>に有利です。好奇心と生命力があなたの舞台を広げます。</p>" } },
+    "summer": { ko: { t: "☀️ 계절이 주는 무대 (여름 출생)", b: "<p>에너지가 폭발하는 여름에 태어난 당신은 <strong>자신을 적극적으로 드러내고 화려하게 활동할 때</strong> 운이 열립니다. 열정적으로 도전하세요!</p>" }, en: { t: "☀️ Stage of Season (Born in Summer)", b: "<p>Born in Summer, your luck opens when you <strong>actively express yourself and take action</strong>. Challenge with passion!</p>" }, id: { t: "☀️ Panggung Musim (Lahir di Musim Panas)", b: "<p>Lahir di Musim Panas, keberuntungan Anda terbuka ketika Anda <strong>secara aktif mengekspresikan diri dan bertindak</strong>. Tantang dengan semangat!</p>" }, ja: { t: "☀️ 季節が与える舞台 (夏生まれ)", b: "<p>エネルギーが爆発する夏に生まれたあなたは、<strong>自分を積極的に表現し活動する時</strong>に運が開けます。情熱的に挑戦してください！</p>" } },
+    "autumn": { ko: { t: "🍂 계절이 주는 무대 (가을 출생)", b: "<p>결실의 계절인 가을에 태어난 당신은 <strong>결과를 수확하고 실속을 챙기는 능력</strong>이 뛰어납니다. 냉정하게 상황을 분석하고 결단력을 발휘하세요.</p>" }, en: { t: "🍂 Stage of Season (Born in Autumn)", b: "<p>Born in Autumn, you have great ability in <strong>harvesting results and securing practical gains</strong>. Use your analytical skills.</p>" }, id: { t: "🍂 Panggung Musim (Lahir di Musim Gugur)", b: "<p>Lahir di Musim Gugur, Anda memiliki kemampuan hebat dalam <strong>menuai hasil dan mengamankan keuntungan praktis</strong>. Gunakan analisis Anda.</p>" }, ja: { t: "🍂 季節が与える舞台 (秋生まれ)", b: "<p>結実の秋に生まれたあなたは、<strong>結果を収穫し実質的な利益を得る能力</strong>に優れています。冷静に状況を分析し決断力を発揮してください。</p>" } },
+    "winter": { ko: { t: "❄️ 계절이 주는 무대 (겨울 출생)", b: "<p>지혜의 계절인 겨울에 태어난 당신은 <strong>깊이 생각하고 미래를 계획하는 능력</strong>이 탁월합니다. 겉으로 드러내기보다 속으로 힘을 기르는 것이 좋습니다.</p>" }, en: { t: "❄️ Stage of Season (Born in Winter)", b: "<p>Born in Winter, your talent lies in <strong>deep thinking and planning for the future</strong>. Building inner strength is your key to success.</p>" }, id: { t: "❄️ Panggung Musim (Lahir di Musim Dingin)", b: "<p>Lahir di Musim Dingin, bakat Anda terletak pada <strong>pemikiran mendalam dan perencanaan masa depan</strong>. Membangun kekuatan batin adalah kuncinya.</p>" }, ja: { t: "❄️ 季節が与える舞台 (冬生まれ)", b: "<p>知恵の季節である冬に生まれたあなたは、<strong>深く考え未来を計画する能力</strong>が卓越しています。内なる力を養うことが成功の鍵です。</p>" } }
+  }
+};
+
+// 2. 사주 8글자를 모두 읽어 결과 화면을 풍성하게 만들어주는 새로운 showResult 덮어쓰기!
+function showResult(type) {
+  const contentArea = document.getElementById('result-content');
+  const upsellSection = document.getElementById('upsell-section');
+  const archIndex = getArchetype(); 
+  
+  // 띠(년지)와 계절(월지) 뽑아내기
+  let yearZhi = currentSaju ? currentSaju.yearPillar.charAt(1) : '子';
+  let monthZhi = currentSaju ? currentSaju.monthPillar.charAt(1) : '子';
+  
+  // 월지를 계절로 변환
+  let seasonKey = "winter";
+  if ("寅卯辰".includes(monthZhi)) seasonKey = "spring";
+  else if ("巳午未".includes(monthZhi)) seasonKey = "summer";
+  else if ("申酉戌".includes(monthZhi)) seasonKey = "autumn";
+
+  // 현재 언어 세팅
+  const lang = currentLang || 'ko';
+  
+  // 띠와 계절 조언 HTML 조립
+  let extraHtml = '';
+  if (EXTRA_PILLAR_ADVICE.zodiac[yearZhi]) {
+      const zData = EXTRA_PILLAR_ADVICE.zodiac[yearZhi][lang] || EXTRA_PILLAR_ADVICE.zodiac[yearZhi]['en'];
+      extraHtml += `<div class="report-section"><div class="honey-drip"></div><div class="report-label">${zData.t}</div><div class="deep-text">${zData.b}</div></div>`;
+  }
+  if (EXTRA_PILLAR_ADVICE.season[seasonKey]) {
+      const sData = EXTRA_PILLAR_ADVICE.season[seasonKey][lang] || EXTRA_PILLAR_ADVICE.season[seasonKey]['en'];
+      extraHtml += `<div class="report-section"><div class="honey-drip"></div><div class="report-label">${sData.t}</div><div class="deep-text">${sData.b}</div></div>`;
+  }
+
+  document.getElementById('result-title').innerText = getT('r_' + type + '_title');
+  let html = generateManseryeokHTMLForReport();
+
+  if (type === 'daily') {
+    html += buildReportSection('mock_daily_head', 'mock_daily_body', archIndex);
+    upsellSection.style.display = 'block';
+  } else if (type === 'full') {
+    html += buildReportSection('sec_intro_title', 'sec_intro_body', archIndex) +
+            // 👇 일간(나의 기운) + 년지(띠 무기) + 월지(계절 무대) 심층 결합!
+            extraHtml + 
+            buildReportSection('sec_flow_title', 'sec_flow_body', archIndex) +
+            buildReportSection('sec_yearly_title', 'sec_yearly_body', archIndex) +
+            buildReportSection('sec_monthly_title', 'sec_monthly_body', archIndex) +
+            buildReportSection('sec_wealth_title', 'sec_wealth_body', archIndex) +
+            buildReportSection('sec_career_title', 'sec_career_body', archIndex) +
+            buildReportSection('sec_academic_title', 'sec_academic_body', archIndex) +
+            buildReportSection('sec_love_title', 'sec_love_body', archIndex) +
+            buildReportSection('sec_health_title', 'sec_health_body', archIndex) +
+            buildReportSection('sec_color_title', 'sec_color_body', archIndex) + 
+            buildReportSection('sec_mentor_title', 'sec_mentor_body', archIndex) + 
+            buildReportSection('sec_advice_title', 'sec_advice_body', archIndex);
+    upsellSection.style.display = 'none';
+  } else {
+    html += buildReportSection('sec_intro_title', 'sec_intro_body', archIndex); 
+    if (type === 'yearly') { html += buildReportSection('sec_yearly_title', 'sec_yearly_body', archIndex) + buildReportSection('sec_monthly_title', 'sec_monthly_body', archIndex); }
+    if (type === 'wealth') html += buildReportSection('sec_wealth_title', 'sec_wealth_body', archIndex);
+    if (type === 'career') html += buildReportSection('sec_career_title', 'sec_career_body', archIndex);
+    if (type === 'academic') html += buildReportSection('sec_academic_title', 'sec_academic_body', archIndex);
+    if (type === 'love') html += buildReportSection('sec_love_title', 'sec_love_body', archIndex);
+    if (type === 'health') html += buildReportSection('sec_health_title', 'sec_health_body', archIndex);
+    html += buildReportSection('sec_advice_title', 'sec_advice_body', archIndex);
+    upsellSection.style.display = 'block';
+  }
+  html += buildLunchSection();
+  contentArea.innerHTML = html;
+  goto('result');
+}
  
 </script>
 </body>
