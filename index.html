@@ -813,6 +813,21 @@ const LUNCH_MENUS = [
   { name: "월남쌈 (Spring Rolls)", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80", desc: "다양한 채소와 고기를 라이스페이퍼에 쏙! 건강하고 다채로운 식감의 향연." },
   { name: "분짜 (Bun Cha)", img: "https://images.unsplash.com/photo-1582878826629-29b7ad1cb431?w=600&q=80", desc: "새콤달콤한 차가운 국물에 숯불구이 돼지고기와 면을 적셔 먹는 별미!" }
 ];
+
+ // 랜덤으로 메뉴를 뽑아 HTML로 만들어주는 함수
+function buildLunchSection() {
+  const randomIndex = Math.floor(Math.random() * LUNCH_MENUS.length);
+  const menu = LUNCH_MENUS[randomIndex];
+  
+  return `
+    <div class="lunch-box mt-md">
+      <div class="lunch-title">🍽️ 꿀벌의 오늘 점심 추천!</div>
+      <img src="${menu.img}" alt="${menu.name}" class="lunch-img" crossorigin="anonymous">
+      <div class="lunch-name">${menu.name}</div>
+      <div class="lunch-desc">${menu.desc}</div>
+    </div>
+  `;
+}
 const TRANSLATIONS = {
   ko: {
     btn_home_only: "처음으로", back_to_menu: "메뉴", cta_check_saju: "내 이야기 들으러 가기",
