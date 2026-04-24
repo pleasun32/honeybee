@@ -21,6 +21,20 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4394607454861717" crossorigin="anonymous"></script>
 
 <style>
+
+ /* 구글 애드센스 광고가 들어갈 예비 자리 */
+.ad-placeholder {
+  background-color: #fcfcfc;
+  border: 2px dashed #e0e0e0;
+  color: #aaa;
+  text-align: center;
+  padding: 30px 10px;
+  margin: 25px 0;
+  border-radius: 12px;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+ 
   * {
     box-sizing: border-box;
     word-break: keep-all; 
@@ -672,10 +686,36 @@ function generateManseryeokHTMLForReport() {
   return `<div class="manseryeok-box"><div class="center mb-sm"><span style="font-family:'Jua'; font-size:18px; color: var(--btn-blue);">${getT('m_title')}</span></div><div class="m-grid">${colsHtml}</div><div class="center mt-sm"><span style="font-size: 12px; color: var(--text-muted); font-weight: 700;">${getT('m_desc')}</span></div></div>`;
 }
 
+
 function showResult(type) {
   const contentArea = document.getElementById('result-content');
   const upsellSection = document.getElementById('upsell-section');
   const archIndex = getArchetype(); 
+  
+  // 띠(년지)와 계절(월지) 뽑아내기
+  let yearZhi = currentSaju ? currentSaju.yearPillar.charAt(1) : '子';
+  let monthZhi = currentSaju ? currentSaju.monthPillar.charAt(1) : '子';
+  
+  let seasonKey = "winter";
+  if ("寅卯辰".includes(monthZhi)) seasonKey = "spring";
+  else if ("巳午未".includes(monthZhi)) seasonKey = "summer";
+  else if ("申酉戌".includes(monthZhi)) seasonKey = "autumn";
+
+  const lang = currentLang || 'ko';
+  
+  let extraHtml = '';
+  if (EXTRA_PILLAR_ADVICE.zodiac[yearZhi]) {
+      const zData = EXTRA_PILLAR_ADVICE.zodiac[yearZhi][lang] || EXTRA_PILLAR_ADVICE.zodiac[yearZhi]['en'];
+      extraHtml += `<div class="report-section"><div class="honey-drip"></div><div class="report-label">${zData.t}</div><div class="deep-text">${zData.b}</div></div>`;
+  }
+  if (EXTRA_PILLAR_ADVICE.season[seasonKey]) {
+      const sData = EXTRA_PILLAR_ADVICE.season[seasonKey][lang] || EXTRA_PILLAR_ADVICE.season[seasonKey]['en'];
+      extraHtml += `<div class="report-section"><div class="honey-drip"></div><div class="report-label">${sData.t}</div><div class="deep-text">${sData.b}</div></div>`;
+  }
+
+  // 광고가 들어갈 빈 박스 HTML (승인 후 이 부분을 구글 코드로 교체합니다)
+  const adBoxHTML = `<div class="ad-placeholder">🍯 꿀벌의 스폰서 광고 자리 (AdSense) 🍯</div>`;
+
   document.getElementById('result-title').innerText = getT('r_' + type + '_title');
   let html = generateManseryeokHTMLForReport();
 
@@ -684,15 +724,18 @@ function showResult(type) {
     upsellSection.style.display = 'block';
   } else if (type === 'full') {
     html += buildReportSection('sec_intro_title', 'sec_intro_body', archIndex) +
+            extraHtml + 
+            adBoxHTML + // 🎯 첫 번째 광고: 성향 분석을 읽고 난 직후!
             buildReportSection('sec_flow_title', 'sec_flow_body', archIndex) +
             buildReportSection('sec_yearly_title', 'sec_yearly_body', archIndex) +
             buildReportSection('sec_monthly_title', 'sec_monthly_body', archIndex) +
+            adBoxHTML + // 🎯 두 번째 광고: 운세 흐름을 읽고 재물운을 보기 직전!
             buildReportSection('sec_wealth_title', 'sec_wealth_body', archIndex) +
             buildReportSection('sec_career_title', 'sec_career_body', archIndex) +
             buildReportSection('sec_academic_title', 'sec_academic_body', archIndex) +
+            adBoxHTML + // 🎯 세 번째 광고: 직업운을 읽고 애정/건강운으로 넘어가는 타이밍!
             buildReportSection('sec_love_title', 'sec_love_body', archIndex) +
             buildReportSection('sec_health_title', 'sec_health_body', archIndex) +
-            // 👇 여기에 '컬러 조언'과 '귀인 조언' 섹션이 새롭게 추가되었습니다!
             buildReportSection('sec_color_title', 'sec_color_body', archIndex) + 
             buildReportSection('sec_mentor_title', 'sec_mentor_body', archIndex) + 
             buildReportSection('sec_advice_title', 'sec_advice_body', archIndex);
@@ -705,6 +748,7 @@ function showResult(type) {
     if (type === 'academic') html += buildReportSection('sec_academic_title', 'sec_academic_body', archIndex);
     if (type === 'love') html += buildReportSection('sec_love_title', 'sec_love_body', archIndex);
     if (type === 'health') html += buildReportSection('sec_health_title', 'sec_health_body', archIndex);
+    html += adBoxHTML; // 개별 운세 하단에도 하나 추가
     html += buildReportSection('sec_advice_title', 'sec_advice_body', archIndex);
     upsellSection.style.display = 'block';
   }
@@ -712,6 +756,7 @@ function showResult(type) {
   contentArea.innerHTML = html;
   goto('result');
 }
+ 
 
 async function downloadImage() {
   const captureTarget = document.getElementById('capture-container');
