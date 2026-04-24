@@ -275,13 +275,17 @@
   .ad-content { margin-top: 20px; }
   .ad-sponsor-label { font-size: 12px; color: var(--text-muted); font-family: 'Jua', sans-serif; margin-bottom: 8px; }
   .ad-main-text { font-family: 'Jua', sans-serif; font-size: 20px; color: var(--ink); line-height: 1.4; margin-bottom: 16px; }
-/* 점심 메뉴 추천 스타일 */
-  .lunch-box { background: #FFF5F5; border: var(--border-width) solid var(--btn-red); border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 4px 0 rgba(224, 137, 118, 0.2); }
-  .lunch-title { font-family: 'Jua', sans-serif; font-size: 19px; color: var(--btn-red); margin-bottom: 14px; }
-  .lunch-img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; border: 2px solid var(--ink); margin-bottom: 14px; }
-  .lunch-name { font-family: 'Jua', sans-serif; font-size: 22px; color: var(--ink); margin-bottom: 6px; line-height: 1.2; }
-  .lunch-desc { font-family: 'Nunito', sans-serif; font-size: 14px; color: var(--text-muted); font-weight: 700; word-break: keep-all; }
 
+/* 오늘의 행운 아이템 스타일 */
+  .lucky-box { background: #FFF5F5; border: var(--border-width) solid var(--btn-red); border-radius: 16px; padding: 24px 20px; box-shadow: 0 4px 0 rgba(224, 137, 118, 0.2); margin-top: 24px; }
+  .lucky-title { font-family: 'Jua', sans-serif; font-size: 20px; color: var(--btn-red); margin-bottom: 18px; text-align: center; }
+  .lucky-grid { display: flex; flex-direction: column; gap: 12px; }
+  .lucky-item { display: flex; align-items: center; background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 14px 16px; gap: 12px; }
+  .lucky-icon { font-size: 28px; line-height: 1; }
+  .lucky-text-wrap { display: flex; flex-direction: column; text-align: left; }
+  .lucky-label { font-size: 12px; font-weight: 800; color: var(--text-muted); font-family: 'Nunito', sans-serif; margin-bottom: 2px; }
+  .lucky-value { font-family: 'Jua', sans-serif; font-size: 17px; color: var(--ink); }
+ 
 </style>
 </head>
 <body>
@@ -730,95 +734,77 @@ function copyLink() {
   }
 }
 
-// 🍽️ 글로벌 점심 메뉴 데이터 (총 50가지: 한식, 중식, 일식, 양식, 아시안)
-const LUNCH_MENUS = [
-  // 🇰🇷 [한식]
-  { img: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=600&q=80", name: { ko: "비빔밥", en: "Bibimbap", id: "Bibimbap", ja: "ビビンバ" }, desc: { ko: "신선한 나물과 고추장의 조화! 든든한 한 그릇 어떠세요?", en: "Harmony of fresh veggies and chili paste! A hearty meal.", id: "Harmoni sayuran segar dan pasta cabai! Sangat mengenyangkan.", ja: "新鮮なナムルとコチュジャンのハーモニー！" } },
-  { img: "https://images.unsplash.com/photo-1548943487-a2e4f43b4850?w=600&q=80", name: { ko: "김치찌개", en: "Kimchi Stew", id: "Rebusan Kimchi", ja: "キムチチゲ" }, desc: { ko: "얼큰한 국물에 밥 한 공기 뚝딱 비워보세요.", en: "Enjoy a bowl of rice with this spicy, comforting stew.", id: "Nikmati semangkuk nasi dengan rebusan pedas ini.", ja: "ピリ辛のスープでご飯が進みます。" } },
-  { img: "https://images.unsplash.com/photo-1548943487-a2e4f43b4850?w=600&q=80", name: { ko: "된장찌개", en: "Soybean Paste Stew", id: "Rebusan Pasta Kedelai", ja: "テンジャンチゲ" }, desc: { ko: "구수하고 깊은 맛! 속을 편안하게 달래줍니다.", en: "Deep, savory flavor! Comforts your stomach gently.", id: "Rasa gurih yang dalam! Menenangkan perut Anda.", ja: "香ばしく深い味わい！お腹を優しく満たします。" } },
-  { img: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=600&q=80", name: { ko: "제육볶음", en: "Spicy Stir-fried Pork", id: "Babi Tumis Pedas", ja: "豚肉の甘辛炒め" }, desc: { ko: "매콤달콤 불향 가득! 상추쌈에 크게 싸서 즐겨보세요.", en: "Spicy, sweet, and smoky! Wrap it in lettuce.", id: "Pedas, manis, dan berasap! Bungkus dengan selada.", ja: "甘辛い味付けと香ばしさ！サンチュに包んでどうぞ。" } },
-  { img: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=600&q=80", name: { ko: "불고기", en: "Bulgogi", id: "Bulgogi", ja: "プルコギ" }, desc: { ko: "단짠단짠의 정석! 기분 좋아지는 맛입니다.", en: "Sweet and savory! A taste that makes you happy.", id: "Manis dan gurih! Rasa yang membuat Anda bahagia.", ja: "甘じょっぱさの定番！元気が出る味です。" } },
-  { img: "https://images.unsplash.com/photo-1548943487-a2e4f43b4850?w=600&q=80", name: { ko: "국밥", en: "Gukbap", id: "Gukbap", ja: "クッパ" }, desc: { ko: "뜨끈한 진한 국물! 깍두기 얹어서 든든하게 채우세요.", en: "Hot and rich soup! Fill yourself up warmly.", id: "Sup panas dan kaya rasa! Sangat menghangatkan.", ja: "熱々の濃厚スープ！心まで温まります。" } },
-  { img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80", name: { ko: "냉면", en: "Cold Noodles", id: "Mi Dingin", ja: "冷麺" }, desc: { ko: "가슴속까지 시원해지는 육수! 입맛 없을 때 딱 좋아요.", en: "Refreshing cold broth! Perfect when you lose your appetite.", id: "Kaldu dingin yang menyegarkan! Sempurna untuk cuaca panas.", ja: "胸の中まで涼しくなるスープ！食欲がない時にぴったり。" } },
-  { img: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=600&q=80", name: { ko: "떡볶이", en: "Tteokbokki", id: "Tteokbokki", ja: "トッポッキ" }, desc: { ko: "스트레스 팍! 풀리는 매콤함. 튀김과 곁들이면 완벽하죠.", en: "Spicy stress-reliever! Perfect with fried snacks.", id: "Penghilang stres yang pedas! Sempurna dengan gorengan.", ja: "ストレス解消の辛さ！揚げ物と一緒にどうぞ。" } },
-  { img: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=600&q=80", name: { ko: "삼겹살", en: "Grilled Pork Belly", id: "Perut Babi Panggang", ja: "サムギョプサル" }, desc: { ko: "지글지글 굽는 소리부터 맛있다! 낮에 먹는 고기가 최고죠.", en: "Sizzling sounds make it tastier! Daytime BBQ is the best.", id: "Suara panggangan membuatnya lebih lezat!", ja: "ジュージュー焼く音から美味しい！昼からのお肉は最高。" } },
-  { img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80", name: { ko: "칼국수", en: "Kalguksu", id: "Kalguksu", ja: "カルグクス" }, desc: { ko: "진한 육수에 쫄깃한 면발! 겉절이와 찰떡궁합입니다.", en: "Chewy noodles in rich broth! Great with fresh kimchi.", id: "Mi kenyal dalam kaldu kaya rasa!", ja: "濃厚スープにモチモチの麺！キムチとの相性抜群です。" } },
+// 🍀 다국어 지원: 오늘의 행운 아이템 데이터
+const LUCKY_DATA = {
+  colors: [
+    { ko: "포근한 베이지", en: "Cozy Beige", id: "Krem Nyaman", ja: "温かみのあるベージュ", em: "🧥" },
+    { ko: "싱그러운 초록", en: "Fresh Green", id: "Hijau Segar", ja: "爽やかなグリーン", em: "🌿" },
+    { ko: "정열적인 레드", en: "Passionate Red", id: "Merah Menyala", ja: "情熱的なレッド", em: "🍎" },
+    { ko: "차분한 네이비", en: "Calm Navy", id: "Biru Dongker Tenang", ja: "落ち着いたネイビー", em: "🌌" },
+    { ko: "화사한 옐로우", en: "Bright Yellow", id: "Kuning Cerah", ja: "華やかなイエロー", em: "🌻" },
+    { ko: "순백의 화이트", en: "Pure White", id: "Putih Bersih", ja: "純白のホワイト", em: "🕊️" },
+    { ko: "신비로운 퍼플", en: "Mystic Purple", id: "Ungu Mistik", ja: "神秘的なパープル", em: "🔮" }
+  ],
+  items: [
+    { ko: "손수건", en: "Handkerchief", id: "Sapu Tangan", ja: "ハンカチ", em: "🧣" },
+    { ko: "머그컵", en: "Mug", id: "Mug", ja: "マグカップ", em: "☕" },
+    { ko: "은반지", en: "Silver Ring", id: "Cincin Perak", ja: "シルバーリング", em: "💍" },
+    { ko: "향수", en: "Perfume", id: "Parfum", ja: "香水", em: "✨" },
+    { ko: "손목시계", en: "Wristwatch", id: "Jam Tangan", ja: "腕時計", em: "⌚" },
+    { ko: "작은 수첩", en: "Small Notebook", id: "Buku Catatan Kecil", ja: "小さな手帳", em: "📓" },
+    { ko: "우산", en: "Umbrella", id: "Payung", ja: "傘", em: "☂️" }
+  ],
+  foods: [
+    { ko: "따뜻한 국밥 (찌개)", en: "Hot Soup with Rice", id: "Sup Panas dengan Nasi", ja: "温かいクッパ(スープ)", em: "🍲" },
+    { ko: "달콤한 케이크", en: "Sweet Cake", id: "Kue Manis", ja: "甘いケーキ", em: "🍰" },
+    { ko: "신선한 샐러드", en: "Fresh Salad", id: "Salad Segar", ja: "新鮮なサラダ", em: "🥗" },
+    { ko: "부드러운 초밥", en: "Sushi", id: "Sushi", ja: "お寿司", em: "🍣" },
+    { ko: "시원한 면요리", en: "Cold Noodles", id: "Mie Dingin", ja: "冷たい麺料理", em: "🍜" },
+    { ko: "매콤한 분식", en: "Spicy Snacks", id: "Camilan Pedas", ja: "ピリ辛の粉食", em: "🌶️" },
+    { ko: "향긋한 커피/차", en: "Aromatic Coffee/Tea", id: "Kopi/Teh Harum", ja: "香り高いコーヒー/お茶", em: "☕" }
+  ]
+};
 
-  // 🇨🇳 [중식]
-  { img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80", name: { ko: "짜장면", en: "Jajangmyeon", id: "Mi Saus Kedelai Hitam", ja: "ジャージャー麺" }, desc: { ko: "윤기 자르르 흐르는 마성의 춘장 소스!", en: "Glossy and addictive black bean sauce!", id: "Saus kacang hitam yang mengkilap dan adiktif!", ja: "ツヤツヤの魔性の黒味噌ソース！" } },
-  { img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80", name: { ko: "짬뽕", en: "Jjamppong", id: "Mi Sup Pedas Seafood", ja: "ちゃんぽん" }, desc: { ko: "불맛 가득하고 얼큰한 국물! 개운해질 거예요.", en: "Spicy and smoky seafood broth! Very refreshing.", id: "Kaldu makanan laut pedas dan berasap!", ja: "香ばしくてピリ辛のスープ！すっきりします。" } },
-  { img: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&q=80", name: { ko: "탕수육", en: "Sweet & Sour Pork", id: "Babi Asam Manis", ja: "酢豚" }, desc: { ko: "바삭한 튀김에 새콤달콤 소스! 무조건 맛있습니다.", en: "Crispy fried pork with sweet and sour sauce!", id: "Babi goreng renyah dengan saus asam manis!", ja: "サクサクの揚げ物に甘酸っぱいソース！絶対美味しいです。" } },
-  { img: "https://images.unsplash.com/photo-1548943487-a2e4f43b4850?w=600&q=80", name: { ko: "마라탕", en: "Malatang", id: "Malatang", ja: "麻辣湯" }, desc: { ko: "얼얼하고 매콤한 중독성! 좋아하는 재료 듬뿍.", en: "Numbing and spicy addiction! Pick your favorites.", id: "Kecanduan pedas dan mati rasa! Pilih favorit Anda.", ja: "シビれる辛さが病みつきに！お好みの具材をたっぷりと。" } },
-  { img: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=600&q=80", name: { ko: "볶음밥", en: "Fried Rice", id: "Nasi Goreng Cina", ja: "チャーハン" }, desc: { ko: "고슬고슬하게 볶아낸 밥알! 완벽한 한 끼.", en: "Perfectly stir-fried fluffy rice!", id: "Nasi goreng yang digoreng sempurna!", ja: "パラパラに炒めたご飯！完璧な一食です。" } },
-  { img: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&q=80", name: { ko: "깐풍기", en: "Spicy Garlic Fried Chicken", id: "Ayam Goreng Bawang Pedas", ja: "カンプンギ" }, desc: { ko: "매콤 짭짤한 소스에 버무린 바삭한 닭고기!", en: "Crispy chicken tossed in spicy garlic sauce!", id: "Ayam renyah dengan saus bawang putih pedas!", ja: "ピリ辛ソースを絡めたサクサクの鶏肉！" } },
-  { img: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&q=80", name: { ko: "딤섬", en: "Dim Sum", id: "Dim Sum", ja: "点心" }, desc: { ko: "육즙이 팡팡 터지는 따뜻한 만두! 가볍게 즐기세요.", en: "Warm dumplings bursting with juices!", id: "Pangsit hangat yang kaya akan jus!", ja: "肉汁たっぷりの温かい点心！軽く楽しんで。" } },
-  { img: "https://images.unsplash.com/photo-1548943487-a2e4f43b4850?w=600&q=80", name: { ko: "마파두부", en: "Mapo Tofu", id: "Tahu Mapo", ja: "麻婆豆腐" }, desc: { ko: "매콤하고 부드러운 환상적인 맛! 진정한 밥도둑.", en: "Spicy and soft fantastic taste! Perfect with rice.", id: "Rasa fantastis yang pedas dan lembut!", ja: "ピリ辛で柔らかい幻想的な味！ご飯が進みます。" } },
-  { img: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=600&q=80", name: { ko: "양꼬치", en: "Lamb Skewers", id: "Sate Kambing", ja: "羊肉の串焼き" }, desc: { ko: "쯔란에 콕 찍어 먹는 이색적인 점심은 어때요?", en: "Exotic lunch dipped in cumin spices!", id: "Makan siang eksotis dengan bumbu jintan!", ja: "スパイスをつけて食べるエキゾチックなランチはいかが？" } },
-  { img: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=600&q=80", name: { ko: "유산슬", en: "Stir-fried Seafood", id: "Tumis Seafood", ja: "八宝菜" }, desc: { ko: "해산물과 버섯의 부드러운 식감! 속이 편안합니다.", en: "Soft texture of seafood and mushrooms.", id: "Tekstur lembut makanan laut dan jamur.", ja: "シーフードとキノコの優しい食感！" } },
-
-  // 🇯🇵 [일식]
-  { img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80", name: { ko: "초밥", en: "Sushi", id: "Sushi", ja: "寿司" }, desc: { ko: "깔끔하고 정갈한 일식으로 산뜻하게 전환해보세요.", en: "Refresh yourself with neat and clean sushi.", id: "Segarkan diri Anda dengan sushi yang rapi dan bersih.", ja: "さっぱりとしたお寿司で気分をリフレッシュ！" } },
-  { img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80", name: { ko: "돈카츠", en: "Tonkatsu", id: "Tonkatsu", ja: "とんかつ" }, desc: { ko: "바삭바삭한 튀김옷 속에 촉촉한 육즙!", en: "Crispy outside, juicy pork inside!", id: "Renyah di luar, daging babi berair di dalam!", ja: "サクサクの衣の中にジューシーな肉汁！" } },
-  { img: "https://images.unsplash.com/photo-1557872943-16a5ac26437e?w=600&q=80", name: { ko: "라멘", en: "Ramen", id: "Ramen", ja: "ラーメン" }, desc: { ko: "진한 육수에 쫄깃한 생면! 반숙 계란은 필수입니다.", en: "Rich broth with chewy noodles!", id: "Kaldu kaya dengan mi kenyal!", ja: "濃厚スープにコシのある麺！" } },
-  { img: "https://images.unsplash.com/photo-1557872943-16a5ac26437e?w=600&q=80", name: { ko: "우동", en: "Udon", id: "Udon", ja: "うどん" }, desc: { ko: "오동통한 면발과 깔끔한 국물. 따뜻하게 호로록!", en: "Thick noodles and clean broth.", id: "Mi tebal dan kaldu bersih.", ja: "モチモチの麺とすっきりしたスープ。" } },
-  { img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80", name: { ko: "텐동", en: "Tendon", id: "Tendon", ja: "天丼" }, desc: { ko: "산처럼 쌓인 바삭한 튀김들! 특제 소스와 함께.", en: "Mountain of crispy tempura over rice!", id: "Gunungan tempura renyah di atas nasi!", ja: "山盛りのサクサク天ぷら！特製タレと一緒に。" } },
-  { img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80", name: { ko: "사케동", en: "Salmon Rice Bowl", id: "Mangkuk Nasi Salmon", ja: "サーモン丼" }, desc: { ko: "입에서 사르르 녹는 부드러운 생연어 덮밥!", en: "Melt-in-your-mouth fresh salmon over rice!", id: "Salmon segar yang meleleh di mulut Anda!", ja: "口の中でとろける柔らかい生サーモン丼！" } },
-  { img: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=600&q=80", name: { ko: "규동", en: "Gyudon", id: "Gyudon", ja: "牛丼" }, desc: { ko: "달짝지근하게 졸인 소고기가 밥 위에 한가득!", en: "Sweetly simmered beef piled high on rice!", id: "Daging sapi manis menumpuk di atas nasi!", ja: "甘辛く煮込んだ牛肉がご飯の上にたっぷり！" } },
-  { img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80", name: { ko: "소바", en: "Soba", id: "Soba", ja: "蕎麦" }, desc: { ko: "시원한 쯔유에 푹 담가 먹는 메밀면! 가볍게 즐기세요.", en: "Cold buckwheat noodles dipped in cool soy sauce!", id: "Mi soba dingin dicelupkan ke dalam saus kecap!", ja: "冷たいつゆにつけて食べるお蕎麦！" } },
-  { img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=600&q=80", name: { ko: "카레라이스", en: "Japanese Curry", id: "Kari Jepang", ja: "カレーライス" }, desc: { ko: "진하고 부드러운 일본식 카레! 토핑을 얹어보세요.", en: "Rich and smooth Japanese curry!", id: "Kari Jepang yang kaya dan lembut!", ja: "濃厚でまろやかな日本のカレー！" } },
-  { img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80", name: { ko: "가츠동", en: "Katsudon", id: "Katsudon", ja: "かつ丼" }, desc: { ko: "돈까스 위에 촉촉한 계란과 양파가 사르르!", en: "Pork cutlet topped with soft egg and onions!", id: "Potongan daging babi dengan telur lembut dan bawang!", ja: "トンカツの上にふんわり卵と玉ねぎがたっぷり！" } },
-
-  // 🇺🇸 [양식]
-  { img: "https://images.unsplash.com/photo-1621996311239-5ceaeef84a1e?w=600&q=80", name: { ko: "파스타", en: "Pasta", id: "Pasta", ja: "パスタ" }, desc: { ko: "분위기 있게 즐기는 부드러운 양식! 오늘은 면치기 어때요?", en: "Enjoy a smooth and classy pasta dish today!", id: "Nikmati hidangan pasta yang berkelas hari ini!", ja: "雰囲気よく楽しむ洋食！今日はパスタいかがですか？" } },
-  { img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80", name: { ko: "피자", en: "Pizza", id: "Pizza", ja: "ピザ" }, desc: { ko: "치즈가 듬뿍! 스트레스가 확 풀리는 맛.", en: "Loaded with cheese! A stress-relieving taste.", id: "Penuh dengan keju! Rasa yang menghilangkan stres.", ja: "チーズたっぷり！ストレスが吹き飛ぶ味。" } },
-  { img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80", name: { ko: "수제버거", en: "Craft Burger", id: "Burger Artisan", ja: "手作りバーガー" }, desc: { ko: "육즙이 팡팡! 입안 가득 에너지가 솟아나는 반란!", en: "Bursting with juices! Gives you full energy.", id: "Penuh dengan jus daging! Memberi Anda energi.", ja: "肉汁たっぷり！口いっぱいにエネルギーが湧き出ます！" } },
-  { img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80", name: { ko: "스테이크", en: "Steak", id: "Steak", ja: "ステーキ" }, desc: { ko: "치열했던 오늘 하루, 나를 위한 특별하고 든든한 보상!", en: "A special and hearty reward for your hard day!", id: "Hadiah istimewa untuk hari kerja keras Anda!", ja: "頑張った今日一日、自分への特別なご褒美！" } },
-  { img: "https://images.unsplash.com/photo-1621996311239-5ceaeef84a1e?w=600&q=80", name: { ko: "리조또", en: "Risotto", id: "Risotto", ja: "リゾット" }, desc: { ko: "부드럽고 꾸덕꾸덕한 식감! 진한 풍미를 느껴보세요.", en: "Creamy and rich texture! Feel the deep flavor.", id: "Tekstur krim dan kaya! Rasakan rasa yang dalam.", ja: "クリーミーで濃厚な食感！深い風味を感じてください。" } },
-  { img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80", name: { ko: "샌드위치", en: "Sandwich", id: "Sandwich", ja: "サンドイッチ" }, desc: { ko: "바쁜 날 간편하고 프레시하게 즐기기 좋습니다.", en: "Quick, simple, and fresh for a busy day.", id: "Cepat, sederhana, dan segar untuk hari yang sibuk.", ja: "忙しい日に手軽でフレッシュに楽しめます。" } },
-  { img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80", name: { ko: "샐러드", en: "Salad", id: "Salad", ja: "サラダ" }, desc: { ko: "몸이 가벼워지는 프레시한 점심! 건강한 선택.", en: "A fresh lunch that makes your body feel light!", id: "Makan siang segar yang membuat tubuh terasa ringan!", ja: "体が軽くなるフレッシュなランチ！健康的な選択。" } },
-  { img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80", name: { ko: "핫도그", en: "Hot Dog", id: "Hot Dog", ja: "ホットドッグ" }, desc: { ko: "탱글탱글한 소시지와 소스의 만남! 콜라와 함께.", en: "Juicy sausage meets tasty sauce!", id: "Sosis berair bertemu saus lezat!", ja: "ジューシーなソーセージとソースの出会い！" } },
-  { img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80", name: { ko: "브런치", en: "Brunch", id: "Brunch", ja: "ブランチ" }, desc: { ko: "프렌치토스트와 에그! 여유로운 주말의 기분을 내보세요.", en: "French toast and eggs! Feel the weekend vibe.", id: "Roti panggang Prancis dan telur! Rasakan suasana akhir pekan.", ja: "フレンチトーストと卵！リラックスした週末の気分を。" } },
-  { img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80", name: { ko: "타코", en: "Taco", id: "Taco", ja: "タコス" }, desc: { ko: "한입 베어 물면 멕시코가 눈앞에! 과카몰리 듬뿍.", en: "A bite of Mexico! Add plenty of guacamole.", id: "Satu gigitan Meksiko! Tambahkan banyak guacamole.", ja: "一口食べればメキシコ気分！ワカモレをたっぷりと。" } },
-
-  // 🌏 [아시안 / 기타]
-  { img: "https://images.unsplash.com/photo-1582878826629-29b7ad1cb431?w=600&q=80", name: { ko: "쌀국수", en: "Pho", id: "Pho", ja: "フォー" }, desc: { ko: "따뜻하고 깊은 고기 국물로 속을 부드럽게 달래보세요.", en: "Warm and deep meat broth to soothe your stomach.", id: "Kaldu daging yang hangat untuk menenangkan perut Anda.", ja: "温かく深いお肉のスープでお腹を優しく満たします。" } },
-  { img: "https://images.unsplash.com/photo-1559314809-0d155014e29e?w=600&q=80", name: { ko: "팟타이", en: "Pad Thai", id: "Pad Thai", ja: "パッタイ" }, desc: { ko: "단짠단짠 태국 요리! 땅콩가루 솔솔 뿌려보세요.", en: "Sweet and savory Thai dish! Sprinkle some peanuts.", id: "Hidangan manis dan gurih ala Thailand!", ja: "甘じょっぱいタイ料理！ピーナッツを振りかけて。" } },
-  { img: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=600&q=80", name: { ko: "나시고랭", en: "Nasi Goreng", id: "Nasi Goreng", ja: "ナシゴレン" }, desc: { ko: "세계에서 가장 맛있는 볶음밥! 노른자를 톡 터뜨리세요.", en: "World's tastiest fried rice! Pop the egg yolk.", id: "Nasi goreng terlezat di dunia! Pecahkan kuning telurnya.", ja: "世界一美味しいチャーハン！卵黄を崩してどうぞ。" } },
-  { img: "https://images.unsplash.com/photo-1548943487-a2e4f43b4850?w=600&q=80", name: { ko: "똠얌꿍", en: "Tom Yum Goong", id: "Tom Yum Goong", ja: "トムヤムクン" }, desc: { ko: "매콤, 새콤, 달콤함이 한 냄비에! 오감을 깨우는 수프.", en: "Spicy, sour, and sweet in one pot! Awakens senses.", id: "Pedas, asam, dan manis dalam satu panci!", ja: "辛味、酸味、甘味が一つに！五感を刺激するスープ。" } },
-  { img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=600&q=80", name: { ko: "인도 커리", en: "Indian Curry", id: "Kari India", ja: "インドカレー" }, desc: { ko: "향신료의 향연! 갓 구운 쫄깃한 난을 듬뿍 찍어 드세요.", en: "A feast of spices! Dip freshly baked naan in it.", id: "Pesta rempah-rempah! Celupkan roti naan segar.", ja: "スパイスの饗宴！焼きたてのナンをつけてどうぞ。" } },
-  { img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80", name: { ko: "케밥", en: "Kebab", id: "Kebab", ja: "ケバブ" }, desc: { ko: "불향 가득 품은 고기와 신선한 야채의 조합!", en: "Combination of smoky meat and fresh veggies!", id: "Kombinasi daging berasap dan sayuran segar!", ja: "香ばしいお肉と新鮮な野菜の組み合わせ！" } },
-  { img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=600&q=80", name: { ko: "푸팟퐁커리", en: "Crab Curry", id: "Kari Kepiting", ja: "プーパッポンカリー" }, desc: { ko: "부드러운 게살과 코코넛 밀크가 들어간 태국식 커리.", en: "Thai curry with soft crab meat and coconut milk.", id: "Kari Thailand dengan daging kepiting dan santan.", ja: "柔らかい蟹肉とココナッツミルクのタイカレー。" } },
-  { img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80", name: { ko: "반미", en: "Banh Mi", id: "Banh Mi", ja: "バインミー" }, desc: { ko: "바삭한 바게트 속에 고기와 채소! 베트남의 맛.", en: "Crispy baguette with meat and veggies! Taste of Vietnam.", id: "Baguette renyah dengan daging dan sayuran!", ja: "サクサクのバゲットにお肉と野菜！ベトナムの味。" } },
-  { img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80", name: { ko: "월남쌈", en: "Spring Rolls", id: "Lumpia Musim Semi", ja: "生春巻き" }, desc: { ko: "다양한 채소와 고기를 라이스페이퍼에 쏙! 건강한 식감.", en: "Veggies and meat wrapped in rice paper! Healthy bite.", id: "Sayuran dan daging dibungkus kertas beras!", ja: "たっぷりの野菜とお肉をライスペーパーで！ヘルシー。" } },
-  { img: "https://images.unsplash.com/photo-1582878826629-29b7ad1cb431?w=600&q=80", name: { ko: "분짜", en: "Bun Cha", id: "Bun Cha", ja: "ブンチャ" }, desc: { ko: "새콤달콤 차가운 국물에 숯불구이 고기와 면을 적셔먹어요!", en: "Dip grilled meat and noodles in a sweet and sour broth!", id: "Celupkan daging panggang dan mi dalam kaldu asam manis!", ja: "甘酸っぱいスープに炭火焼きのお肉と麺をつけて！" } }
-];
-
-// 랜덤으로 메뉴를 뽑아 현재 언어에 맞게 HTML로 만들어주는 함수
-function buildLunchSection() {
-  const randomIndex = Math.floor(Math.random() * LUNCH_MENUS.length);
-  const menu = LUNCH_MENUS[randomIndex];
-  
-  // 현재 설정된 언어 (기본값은 한국어)
+// 🍀 행운 아이템 섹션을 그려주는 함수
+function buildLuckyItemsSection() {
   const lang = currentLang || 'ko';
   
-  // 언어별 제목 (번역 파일에 넣을 필요 없이 여기서 바로 처리!)
-  const titleMap = {
-    ko: "🍽️ 꿀벌의 오늘 점심 추천!",
-    en: "🍽️ Bee's Lunch Pick for Today!",
-    id: "🍽️ Rekomendasi Makan Siang Lebah!",
-    ja: "🍽️ ミツバチの今日のおすすめランチ！"
-  };
-  
-  const lunchTitle = titleMap[lang] || titleMap['en'];
-  const menuName = menu.name[lang] || menu.name['en'];
-  const menuDesc = menu.desc[lang] || menu.desc['en'];
-  
+  const cLabel = { ko: "추천 색상", en: "Lucky Color", id: "Warna Keberuntungan", ja: "おすすめカラー" }[lang];
+  const iLabel = { ko: "추천 아이템", en: "Lucky Item", id: "Barang Keberuntungan", ja: "おすすめアイテム" }[lang];
+  const fLabel = { ko: "추천 음식", en: "Lucky Food", id: "Makanan Keberuntungan", ja: "おすすめフード" }[lang];
+  const title = { ko: "🍀 오늘의 행운 포인트", en: "🍀 Today's Lucky Points", id: "🍀 Poin Keberuntungan Hari Ini", ja: "🍀 今日の幸運ポイント" }[lang];
+
+  // 랜덤 뽑기
+  const rColor = LUCKY_DATA.colors[Math.floor(Math.random() * LUCKY_DATA.colors.length)];
+  const rItem = LUCKY_DATA.items[Math.floor(Math.random() * LUCKY_DATA.items.length)];
+  const rFood = LUCKY_DATA.foods[Math.floor(Math.random() * LUCKY_DATA.foods.length)];
+
   return `
-    <div class="lunch-box mt-md">
-      <div class="lunch-title">${lunchTitle}</div>
-      <img src="${menu.img}" alt="${menuName}" class="lunch-img" crossorigin="anonymous">
-      <div class="lunch-name">${menuName}</div>
-      <div class="lunch-desc">${menuDesc}</div>
+    <div class="lucky-box">
+      <div class="lucky-title">${title}</div>
+      <div class="lucky-grid">
+        <div class="lucky-item">
+          <div class="lucky-icon">${rColor.em}</div>
+          <div class="lucky-text-wrap">
+            <div class="lucky-label">${cLabel}</div>
+            <div class="lucky-value">${rColor[lang]}</div>
+          </div>
+        </div>
+        <div class="lucky-item">
+          <div class="lucky-icon">${rItem.em}</div>
+          <div class="lucky-text-wrap">
+            <div class="lucky-label">${iLabel}</div>
+            <div class="lucky-value">${rItem[lang]}</div>
+          </div>
+        </div>
+        <div class="lucky-item">
+          <div class="lucky-icon">${rFood.em}</div>
+          <div class="lucky-text-wrap">
+            <div class="lucky-label">${fLabel}</div>
+            <div class="lucky-value">${rFood[lang]}</div>
+          </div>
+        </div>
+      </div>
     </div>
   `;
 }
@@ -1106,7 +1092,8 @@ const EXTRA_PILLAR_ADVICE = {
   }
 };
 
-// 2. 사주 8글자를 모두 읽어 결과 화면을 풍성하게 만들어주는 새로운 showResult 덮어쓰기!
+
+// 🍯 모든 개별 운세가 꽉 차 보이도록 조합하는 마법의 showResult 함수
 function showResult(type) {
   const contentArea = document.getElementById('result-content');
   const upsellSection = document.getElementById('upsell-section');
@@ -1116,16 +1103,14 @@ function showResult(type) {
   let yearZhi = currentSaju ? currentSaju.yearPillar.charAt(1) : '子';
   let monthZhi = currentSaju ? currentSaju.monthPillar.charAt(1) : '子';
   
-  // 월지를 계절로 변환
   let seasonKey = "winter";
   if ("寅卯辰".includes(monthZhi)) seasonKey = "spring";
   else if ("巳午未".includes(monthZhi)) seasonKey = "summer";
   else if ("申酉戌".includes(monthZhi)) seasonKey = "autumn";
 
-  // 현재 언어 세팅
   const lang = currentLang || 'ko';
   
-  // 띠와 계절 조언 HTML 조립
+  // 띠와 계절 심층 조언 세팅
   let extraHtml = '';
   if (EXTRA_PILLAR_ADVICE.zodiac[yearZhi]) {
       const zData = EXTRA_PILLAR_ADVICE.zodiac[yearZhi][lang] || EXTRA_PILLAR_ADVICE.zodiac[yearZhi]['en'];
@@ -1136,44 +1121,159 @@ function showResult(type) {
       extraHtml += `<div class="report-section"><div class="honey-drip"></div><div class="report-label">${sData.t}</div><div class="deep-text">${sData.b}</div></div>`;
   }
 
+  const adBoxHTML = `<div class="ad-placeholder">🍯 꿀벌의 스폰서 광고 자리 (AdSense) 🍯</div>`;
   document.getElementById('result-title').innerText = getT('r_' + type + '_title');
+  
+  // 1. 만세력 표 (항상 표시)
   let html = generateManseryeokHTMLForReport();
 
-  if (type === 'daily') {
-    html += buildReportSection('mock_daily_head', 'mock_daily_body', archIndex);
-    upsellSection.style.display = 'block';
-  } else if (type === 'full') {
-    html += buildReportSection('sec_intro_title', 'sec_intro_body', archIndex) +
-            // 👇 일간(나의 기운) + 년지(띠 무기) + 월지(계절 무대) 심층 결합!
-            extraHtml + 
-            buildReportSection('sec_flow_title', 'sec_flow_body', archIndex) +
+  // 2. 나의 본질 (항상 표시)
+  html += buildReportSection('sec_intro_title', 'sec_intro_body', archIndex);
+  html += extraHtml; 
+  html += adBoxHTML;
+
+  // 3. 선택한 운세 내용 (엄청 길어진 버전)
+  if (type === 'full') {
+    html += buildReportSection('sec_flow_title', 'sec_flow_body', archIndex) +
             buildReportSection('sec_yearly_title', 'sec_yearly_body', archIndex) +
             buildReportSection('sec_monthly_title', 'sec_monthly_body', archIndex) +
             buildReportSection('sec_wealth_title', 'sec_wealth_body', archIndex) +
+            adBoxHTML +
             buildReportSection('sec_career_title', 'sec_career_body', archIndex) +
             buildReportSection('sec_academic_title', 'sec_academic_body', archIndex) +
             buildReportSection('sec_love_title', 'sec_love_body', archIndex) +
             buildReportSection('sec_health_title', 'sec_health_body', archIndex) +
             buildReportSection('sec_color_title', 'sec_color_body', archIndex) + 
-            buildReportSection('sec_mentor_title', 'sec_mentor_body', archIndex) + 
-            buildReportSection('sec_advice_title', 'sec_advice_body', archIndex);
+            buildReportSection('sec_mentor_title', 'sec_mentor_body', archIndex);
     upsellSection.style.display = 'none';
   } else {
-    html += buildReportSection('sec_intro_title', 'sec_intro_body', archIndex); 
-    if (type === 'yearly') { html += buildReportSection('sec_yearly_title', 'sec_yearly_body', archIndex) + buildReportSection('sec_monthly_title', 'sec_monthly_body', archIndex); }
-    if (type === 'wealth') html += buildReportSection('sec_wealth_title', 'sec_wealth_body', archIndex);
-    if (type === 'career') html += buildReportSection('sec_career_title', 'sec_career_body', archIndex);
-    if (type === 'academic') html += buildReportSection('sec_academic_title', 'sec_academic_body', archIndex);
-    if (type === 'love') html += buildReportSection('sec_love_title', 'sec_love_body', archIndex);
-    if (type === 'health') html += buildReportSection('sec_health_title', 'sec_health_body', archIndex);
-    html += buildReportSection('sec_advice_title', 'sec_advice_body', archIndex);
+    // 개별 메뉴 클릭 시 해당 내용 출력
+    if (type === 'daily') html += buildReportSection('mock_daily_head', 'mock_daily_body', archIndex);
+    else if (type === 'yearly') html += buildReportSection('sec_yearly_title', 'sec_yearly_body', archIndex);
+    else if (type === 'wealth') html += buildReportSection('sec_wealth_title', 'sec_wealth_body', archIndex);
+    else if (type === 'career') html += buildReportSection('sec_career_title', 'sec_career_body', archIndex);
+    else if (type === 'academic') html += buildReportSection('sec_academic_title', 'sec_academic_body', archIndex);
+    else if (type === 'love') html += buildReportSection('sec_love_title', 'sec_love_body', archIndex);
+    else if (type === 'health') html += buildReportSection('sec_health_title', 'sec_health_body', archIndex);
+    
     upsellSection.style.display = 'block';
   }
-  html += buildLunchSection();
+
+  // 4. 꿀벌의 다정한 조언 & 행운 아이템 (모든 메뉴 마지막에 쾅!)
+  html += buildReportSection('sec_advice_title', 'sec_advice_body', archIndex);
+  html += buildLuckyItemsSection(); 
+
   contentArea.innerHTML = html;
   goto('result');
 }
 
+// 🍯 '오늘의 운세'와 '신년 운세'를 초대형 심층 리포트로 자동 확장해 주는 엔진!
+const ELEMENTAL_TIME_FLOW = {
+  wood: { // 나무의 기운 (갑, 을)
+    daily: {
+      ko: { p: "자연이 당신의 성장을 돕기 위해 따뜻한 햇살과 단비를 내려주는 날입니다. 생각만 하던 일들을 밖으로 꺼내어 조심스럽게 첫발을 내디뎌 보세요.", pts: ["🌅 오전의 기운|복잡한 생각은 비우고 가벼운 스트레칭으로 뻗어나갈 준비를 하세요.", "☀️ 오후의 기운|당신의 의견을 적극적으로 어필하세요. 뜻밖의 조력자를 만납니다.", "🌙 저녁의 기운|외부로 향했던 에너지를 거두어들이고 휴식하며 내일을 기약하세요."] },
+      en: { p: "Nature is providing warm sunlight to help you grow today. Take the ideas you've only thought about and carefully take your first step.", pts: ["🌅 Morning|Clear complex thoughts and prepare with a light stretch.", "☀️ Afternoon|Actively appeal your opinions. You will meet a helper.", "🌙 Evening|Gather your energy and rest deeply for tomorrow."] }
+    },
+    yearly: {
+      ko: { p: "단단하게 얼어붙었던 땅이 녹고 드디어 당신의 뿌리가 넓게 뻗어나가는 확장과 성장의 1년입니다. 주저하지 말고 새로운 무대에 도전하여 당신의 영역을 넓히세요.", pts: ["🌱 봄~여름의 흐름|계획했던 일들을 거침없이 시작하세요. 귀인의 도움으로 추진력을 얻습니다.", "🍂 가을의 흐름|벌려놓은 일들을 차분하게 정리하고 실속있는 금전적 결과물로 수확하세요.", "❄️ 겨울의 흐름|내년을 위한 튼튼한 씨앗을 품고, 건강과 내면의 안정을 돌보는 휴식기를 가지세요."] },
+      en: { p: "The frozen ground melts, and your roots finally spread widely. It is a year of expansion and growth. Do not hesitate to challenge a new stage.", pts: ["🌱 Spring~Summer|Start your planned projects boldly. Gain momentum with help.", "🍂 Autumn|Organize your projects and harvest them into substantial financial results.", "❄️ Winter|Embrace seeds for next year and take a resting period for your health."] }
+    }
+  },
+  fire: { // 불의 기운 (병, 정)
+    daily: {
+      ko: { p: "당신의 안에 숨겨진 열정과 매력이 화려하게 불타오르는 날입니다. 사람들의 시선이 당신에게 집중되니, 주저하지 말고 무대의 주인공이 되어보세요.", pts: ["🌅 오전의 기운|에너지가 넘칩니다. 가장 중요하고 어려운 일을 오전에 빠르게 처리하세요.", "☀️ 오후의 기운|사람들과의 만남에서 강력한 리더십을 발휘하며 분위기를 주도합니다.", "🌙 저녁의 기운|타올랐던 열기를 식혀야 합니다. 미지근한 물로 샤워하며 열을 내리세요."] },
+      en: { p: "Your hidden passion and charm burn brightly today. People's attention is focused on you, so don't hesitate to become the main character.", pts: ["🌅 Morning|Full of energy. Handle the most important tasks quickly in the morning.", "☀️ Afternoon|Show strong leadership in meetings and lead the atmosphere.", "🌙 Evening|Cool down the heat. Take a lukewarm shower and relax."] }
+    },
+    yearly: {
+      ko: { p: "마침내 당신의 이름과 능력이 세상에 화려하게 알려지는 명예와 성공의 1년입니다. 숨어있지 말고 세상 밖으로 나와 당신의 가치를 마음껏 뽐내야 할 시기입니다.", pts: ["🌱 봄~여름의 흐름|활동력이 최고조에 달합니다. 눈부신 성과와 승진, 명예가 따릅니다.", "🍂 가을의 흐름|화려했던 성과들을 실제 통장 잔고(현실적인 부)로 굳혀야 할 때입니다.", "❄️ 겨울의 흐름|급하게 달려온 엔진을 끄고 차분히 다음 스텝을 위해 충전하세요."] },
+      en: { p: "A year of honor and success where your name and abilities are finally known to the world gorgeously. It's time to show off your value.", pts: ["🌱 Spring~Summer|Activity reaches its peak. Dazzling achievements and honor follow.", "🍂 Autumn|It is time to solidify flashy achievements into actual bank balances.", "❄️ Winter|Turn off the rushing engine and calmly recharge for the next step."] }
+    }
+  },
+  earth: { // 흙의 기운 (무, 기)
+    daily: {
+      ko: { p: "어떤 외부의 자극이나 혼란에도 흔들리지 않고 당신만의 묵직한 중심을 지켜내는 하루입니다. 당신의 듬직함이 누군가에겐 큰 위안이 됩니다.", pts: ["🌅 오전의 기운|따뜻한 차 한 잔으로 속을 달래며 차분하고 안정적으로 하루를 엽니다.", "☀️ 오후의 기운|주변의 갈등을 넉넉하게 중재하고 포용하는 해결사 역할을 하게 됩니다.", "🌙 저녁의 기운|소화기관이 쉴 수 있도록 자극적인 음식을 피하고 일찍 잠자리에 드세요."] },
+      en: { p: "A day where you keep your heavy center without being shaken by any external stimulation. Your reliability brings great comfort to someone.", pts: ["🌅 Morning|Open the day calmly and stably with a cup of warm tea.", "☀️ Afternoon|You act as a solver who generously mediates surrounding conflicts.", "🌙 Evening|Avoid stimulating food and go to bed early so your digestive system can rest."] }
+    },
+    yearly: {
+      ko: { p: "그동안 정성껏 다져온 땅 위에 튼튼한 집을 짓는 안정과 축적의 1년입니다. 요행을 바라기보다는 묵묵하고 성실한 땀방울이 거대한 재산으로 굳어집니다.", pts: ["🌱 봄~여름의 흐름|기반을 다지는 시기입니다. 서두르지 말고 사람들과의 신뢰를 쌓으세요.", "🍂 가을의 흐름|두터운 신뢰가 큰 계약이나 문서운으로 돌아와 유리한 고지를 점령합니다.", "❄️ 겨울의 흐름|쌓아둔 재산과 인맥을 꽉 쥐고 내실을 다지며 평화롭게 한 해를 마감합니다."] },
+      en: { p: "A year of stability and accumulation, building a sturdy house on the carefully prepared ground. Silent and sincere sweat solidifies into massive wealth.", pts: ["🌱 Spring~Summer|Time to lay the foundation. Build trust with people without rushing.", "🍂 Autumn|Deep trust returns as big contracts or document luck, taking a favorable position.", "❄️ Winter|Hold onto accumulated wealth and networks, solidifying your inner peace."] }
+    }
+  },
+  metal: { // 쇠의 기운 (경, 신)
+    daily: {
+      ko: { p: "흐릿했던 안개가 걷히고 당신의 예리한 판단력이 칼날처럼 빛나는 하루입니다. 미뤄왔던 결정이나 끊어내야 할 관계가 있다면 오늘이 바로 결단의 날입니다.", pts: ["🌅 오전의 기운|명확하고 이성적인 사고가 가능합니다. 중요한 계약이나 결정을 내리세요.", "☀️ 오후의 기운|완벽주의가 강해져 예민해질 수 있습니다. 타인의 실수를 부드럽게 넘겨주세요.", "🌙 저녁의 기운|딱딱해진 어깨와 목 근육을 폼롤러나 반신욕으로 말랑하게 풀어주어야 합니다."] },
+      en: { p: "The fog clears, and your sharp judgment shines like a blade. If there are delayed decisions or relationships to cut off, today is the day of resolution.", pts: ["🌅 Morning|Clear, rational thinking is possible. Make important contracts or decisions.", "☀️ Afternoon|Perfectionism may make you sensitive. Gently overlook others' mistakes.", "🌙 Evening|Soften your stiff shoulder and neck muscles with a warm bath or foam roller."] }
+    },
+    yearly: {
+      ko: { p: "과거의 낡은 껍질을 과감하게 베어내고 당신의 진짜 가치를 날카롭게 세우는 혁신의 1년입니다. 고도의 전문성과 기술력으로 타의 추종을 불허하는 성공을 이룹니다.", pts: ["🌱 봄~여름의 흐름|불필요한 관계와 습관을 정리정돈하며 새로운 목표를 향해 달릴 준비를 합니다.", "🍂 가을의 흐름|당신의 전문 분야에서 독보적인 성과를 내며 확실한 금전과 권력을 쟁취합니다.", "❄️ 겨울의 흐름|완벽을 향한 긴장감을 내려놓고, 예술이나 취미를 즐기며 정신을 맑게 비우세요."] },
+      en: { p: "A year of innovation, boldly cutting off the old shell and sharply establishing your true value. Achieve unrivaled success with high expertise.", pts: ["🌱 Spring~Summer|Clean up unnecessary relationships and habits, preparing to run towards new goals.", "🍂 Autumn|Make unrivaled achievements in your field, securing definite wealth and power.", "❄️ Winter|Let go of the tension for perfection. Clear your mind by enjoying arts or hobbies."] }
+    }
+  },
+  water: { // 물의 기운 (임, 계)
+    daily: {
+      ko: { p: "생각이 샘물처럼 맑게 솟아나고 직관력이 최고조에 달하는 하루입니다. 논리나 데이터보다 당신의 마음이 이끄는 방향이 100% 정답을 가리키고 있습니다.", pts: ["🌅 오전의 기운|조용히 명상하거나 책을 읽으며 하루의 흐름을 거시적으로 설계하세요.", "☀️ 오후의 기운|환경의 변화에 물처럼 유연하게 적응하며 뜻밖의 기발한 아이디어를 냅니다.", "🌙 저녁의 기운|타인의 감정을 흡수해 피곤할 수 있습니다. 혼자만의 조용한 동굴에서 힐링하세요."] },
+      en: { p: "A day when thoughts spring up clearly and intuition reaches its peak. The direction your heart leads points to the 100% correct answer over logic.", pts: ["🌅 Morning|Quietly meditate or read, macroscopically designing the flow of the day.", "☀️ Afternoon|Adapt flexibly to changes like water, coming up with brilliant ideas.", "🌙 Evening|You may be tired from absorbing others' emotions. Heal alone in your quiet cave."] }
+    },
+    yearly: {
+      ko: { p: "정체되어 있던 웅덩이를 벗어나 더 넓고 거대한 바다로 경쾌하게 흘러가는 이동과 확장의 1년입니다. 이직, 이사, 혹은 새로운 학문 등 변화를 두려워하지 마세요.", pts: ["🌱 봄~여름의 흐름|새로운 환경에 빠르게 스며들며 글로벌한 정보망과 인맥을 촘촘히 넓힙니다.", "🍂 가을의 흐름|흡수했던 지식과 정보들을 바탕으로 막혔던 문제를 시원하게 뚫고 큰 수익을 냅니다.", "❄️ 겨울의 흐름|가장 지혜로워지는 시기입니다. 겉으로 드러내기보단 내면의 철학을 깊이 다지세요."] },
+      en: { p: "A year of movement and expansion, happily flowing from a stagnant puddle into a vast ocean. Do not fear changes like job moves or new studies.", pts: ["🌱 Spring~Summer|Quickly absorb into new environments, expanding global networks widely.", "🍂 Autumn|Based on absorbed knowledge, coolly solve blocked problems and make huge profits.", "❄️ Winter|The time you become the wisest. Deepen your inner philosophy rather than showing off."] }
+    }
+  }
+};
+
+// 위 데이터를 번역 파일(TRANSLATIONS)에 덮어씌워 매일/매년 운세도 길게 만들어주는 마법!
+Object.keys(STEM_SPECIFICS).forEach(arch => {
+  const el = STEM_SPECIFICS[arch].el;
+  
+  ['ko', 'en', 'id', 'ja'].forEach(lang => {
+    if (!TRANSLATIONS[lang]) return;
+    
+    // 언어별 데이터 (없으면 영어로 대체)
+    const dData = ELEMENTAL_TIME_FLOW[el].daily[lang] || ELEMENTAL_TIME_FLOW[el].daily['en'];
+    const yData = ELEMENTAL_TIME_FLOW[el].yearly[lang] || ELEMENTAL_TIME_FLOW[el].yearly['en'];
+    
+    // 오늘의 운세 뻥튀기!
+    TRANSLATIONS[lang][`mock_daily_head_${arch}`] = (lang === 'ko' ? "🍯 꿀벌의 스페셜 데일리 리포트" : "🍯 Bee's Special Daily Report");
+    TRANSLATIONS[lang][`mock_daily_body_${arch}`] = `
+      <div class="massive-deep-report" style="line-height:1.8;">
+        <blockquote style="border-left: 4px solid var(--btn-yellow); padding: 15px; background: #fffdf5; border-radius: 5px; color:#555; margin-bottom:20px;">
+          ${dData.p}
+        </blockquote>
+        <ul style="list-style:none; padding:0;">
+          <li><strong style="color:var(--btn-blue); font-size:1.05em;">✔️ ${dData.pts[0].split('|')[0]}</strong><br>${dData.pts[0].split('|')[1]}</li><li style="height:10px;"></li>
+          <li><strong style="color:var(--btn-blue); font-size:1.05em;">✔️ ${dData.pts[1].split('|')[0]}</strong><br>${dData.pts[1].split('|')[1]}</li><li style="height:10px;"></li>
+          <li><strong style="color:var(--btn-blue); font-size:1.05em;">✔️ ${dData.pts[2].split('|')[0]}</strong><br>${dData.pts[2].split('|')[1]}</li>
+        </ul>
+      </div>
+    `;
+
+    // 신년 운세 뻥튀기! (sec_monthly_body는 비우고, yearly 하나에 몽땅 몰아넣기)
+    TRANSLATIONS[lang][`sec_yearly_title_${arch}`] = (lang === 'ko' ? "🌅 올 한 해의 완벽한 흐름" : "🌅 Perfect Flow of the Year");
+    TRANSLATIONS[lang][`sec_monthly_title_${arch}`] = "hide_me"; // 타이틀 숨김 처리용 더미 텍스트
+    
+    TRANSLATIONS[lang][`sec_yearly_body_${arch}`] = `
+      <div class="massive-deep-report" style="line-height:1.8;">
+        <blockquote style="border-left: 4px solid var(--btn-red); padding: 15px; background: #FFF5F5; border-radius: 5px; color:#555; margin-bottom:20px;">
+          ${yData.p}
+        </blockquote>
+        <ul style="list-style:none; padding:0;">
+          <li><strong style="color:var(--btn-red); font-size:1.05em;">✔️ ${yData.pts[0].split('|')[0]}</strong><br>${yData.pts[0].split('|')[1]}</li><li style="height:10px;"></li>
+          <li><strong style="color:var(--btn-red); font-size:1.05em;">✔️ ${yData.pts[1].split('|')[0]}</strong><br>${yData.pts[1].split('|')[1]}</li><li style="height:10px;"></li>
+          <li><strong style="color:var(--btn-red); font-size:1.05em;">✔️ ${yData.pts[2].split('|')[0]}</strong><br>${yData.pts[2].split('|')[1]}</li>
+        </ul>
+      </div>
+    `;
+  });
+});
+
+// 기존의 buildReportSection 함수를 아주 살짝 고쳐서 "hide_me"라는 타이틀이 오면 렌더링 안하게 막아줍니다.
+// 이 코드도 덮어씌워주세요.
+function buildReportSection(titleKey, bodyKey, archIndex) {
+  const titleText = getT(titleKey, archIndex);
+  if (!titleText || titleText === titleKey + '_' + archIndex || titleText === 'hide_me') return ''; 
+  return `<div class="report-section"><div class="honey-drip"></div><div class="report-label">${titleText}</div><div class="deep-text">${getT(bodyKey, archIndex)}</div></div>`;
+}
+ 
 // 🍯 [글로벌 초정밀 심층 리딩 엔진] 4개 국어로 박스당 15줄 이상의 전문가 리포트를 자동 생성합니다!
 
 // 1. 자연의 5대 원소별 방대한 베이스 스토리텔링 (공통)
