@@ -262,6 +262,13 @@
   .ad-content { margin-top: 20px; }
   .ad-sponsor-label { font-size: 12px; color: var(--text-muted); font-family: 'Jua', sans-serif; margin-bottom: 8px; }
   .ad-main-text { font-family: 'Jua', sans-serif; font-size: 20px; color: var(--ink); line-height: 1.4; margin-bottom: 16px; }
+/* 점심 메뉴 추천 스타일 */
+  .lunch-box { background: #FFF5F5; border: var(--border-width) solid var(--btn-red); border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 4px 0 rgba(224, 137, 118, 0.2); }
+  .lunch-title { font-family: 'Jua', sans-serif; font-size: 19px; color: var(--btn-red); margin-bottom: 14px; }
+  .lunch-img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; border: 2px solid var(--ink); margin-bottom: 14px; }
+  .lunch-name { font-family: 'Jua', sans-serif; font-size: 22px; color: var(--ink); margin-bottom: 6px; line-height: 1.2; }
+  .lunch-desc { font-family: 'Nunito', sans-serif; font-size: 14px; color: var(--text-muted); font-weight: 700; word-break: keep-all; }
+
 </style>
 </head>
 <body>
@@ -699,7 +706,7 @@ function showResult(type) {
     html += buildReportSection('sec_advice_title', 'sec_advice_body', archIndex);
     upsellSection.style.display = 'block';
   }
-
+html += buildLunchSection();
   contentArea.innerHTML = html;
   goto('result');
 }
@@ -744,7 +751,68 @@ function copyLink() {
     try { document.execCommand('copy'); doCopy(); } catch (err) {} document.body.removeChild(textArea);
   }
 }
+// 🍽️ 점심 메뉴 데이터 (총 50가지: 한식, 중식, 일식, 양식, 아시안)
+const LUNCH_MENUS = [
+  // 🇰🇷 [한식] 
+  { name: "비빔밥 (Bibimbap)", img: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=600&q=80", desc: "신선한 나물과 고추장의 조화! 든든하고 기운찬 한 그릇 어떠세요?" },
+  { name: "김치찌개 (Kimchi Stew)", img: "https://images.unsplash.com/photo-1548943487-a2e4f43b4850?w=600&q=80", desc: "한국인의 소울푸드! 얼큰한 국물에 밥 한 공기 뚝딱 비워보세요." },
+  { name: "된장찌개 (Soybean Stew)", img: "https://images.unsplash.com/photo-1548943487-a2e4f43b4850?w=600&q=80", desc: "구수하고 깊은 맛! 속을 편안하게 달래주는 든든한 점심입니다." },
+  { name: "제육볶음 (Spicy Pork)", img: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=600&q=80", desc: "매콤달콤 불향 가득! 상추쌈에 크게 싸서 입안 가득 즐겨보세요." },
+  { name: "불고기 (Bulgogi)", img: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=600&q=80", desc: "단짠단짠의 정석! 남녀노소 누구나 좋아하는 기분 좋은 맛입니다." },
+  { name: "국밥 (Gukbap)", img: "https://images.unsplash.com/photo-1548943487-a2e4f43b4850?w=600&q=80", desc: "뜨끈한 뚝배기에 담긴 진한 국물! 깍두기 얹어서 든든하게 채우세요." },
+  { name: "냉면 (Cold Noodles)", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80", desc: "가슴속까지 시원해지는 육수! 입맛 없을 때 호로록 먹기 딱 좋아요." },
+  { name: "떡볶이 (Tteokbokki)", img: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=600&q=80", desc: "스트레스 팍! 풀리는 매콤함. 튀김과 순대까지 곁들이면 완벽하죠." },
+  { name: "삼겹살 (Pork Belly)", img: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=600&q=80", desc: "지글지글 굽는 소리부터 맛있다! 낮에 먹는 고기가 진짜 맛있는 거 아시죠?" },
+  { name: "칼국수 (Kalguksu)", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80", desc: "진한 바지락 육수나 닭 육수에 쫄깃한 면발! 겉절이와 찰떡궁합입니다." },
 
+  // 🇨🇳 [중식]
+  { name: "짜장면 (Jajangmyeon)", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80", desc: "윤기 자르르 흐르는 마성의 춘장 소스! 오늘 점심은 중식 어때요?" },
+  { name: "짬뽕 (Jjamppong)", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80", desc: "불맛 가득하고 얼큰한 국물! 땀 흘리며 먹고 나면 개운해질 거예요." },
+  { name: "탕수육 (Sweet & Sour Pork)", img: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&q=80", desc: "바삭한 튀김에 새콤달콤 소스! 부먹이든 찍먹이든 무조건 맛있습니다." },
+  { name: "마라탕 (Malatang)", img: "https://images.unsplash.com/photo-1548943487-a2e4f43b4850?w=600&q=80", desc: "얼얼하고 매콤한 중독성! 내가 좋아하는 재료만 듬뿍 넣어 끓여보세요." },
+  { name: "볶음밥 (Fried Rice)", img: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=600&q=80", desc: "고슬고슬하게 볶아낸 밥알! 짜장 소스와 짬뽕 국물까지 완벽한 트리오." },
+  { name: "깐풍기 (Kkanpunggi)", img: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&q=80", desc: "매콤 짭짤한 소스에 버무린 바삭한 닭고기! 특별한 점심으로 제격입니다." },
+  { name: "딤섬 (Dim Sum)", img: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&q=80", desc: "육즙이 팡팡 터지는 따뜻한 만두! 가볍지만 기분 좋은 한 끼가 될 거예요." },
+  { name: "마파두부 (Mapo Tofu)", img: "https://images.unsplash.com/photo-1548943487-a2e4f43b4850?w=600&q=80", desc: "매콤하고 부드러운 두부의 환상적인 맛! 밥에 슥슥 비벼 먹으면 밥도둑입니다." },
+  { name: "양꼬치 (Lamb Skewers)", img: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?w=600&q=80", desc: "빙글빙글 돌아가는 재미! 쯔란에 콕 찍어 먹는 이색적인 점심은 어때요?" },
+  { name: "유산슬 (Yusanseul)", img: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=600&q=80", desc: "해산물과 버섯의 부드러운 식감! 속이 편안하면서도 고급스러운 맛입니다." },
+
+  // 🇯🇵 [일식]
+  { name: "초밥 (Sushi)", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80", desc: "깔끔하고 정갈한 일식으로 무거웠던 기분을 산뜻하게 전환해보세요." },
+  { name: "돈카츠 (Tonkatsu)", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80", desc: "바삭바삭한 튀김옷 속에 촉촉한 육즙! 든든하게 배를 채워주는 마법." },
+  { name: "라멘 (Ramen)", img: "https://images.unsplash.com/photo-1557872943-16a5ac26437e?w=600&q=80", desc: "진한 돼지뼈 육수에 쫄깃한 생면! 반숙 계란(아지타마고)은 필수입니다." },
+  { name: "우동 (Udon)", img: "https://images.unsplash.com/photo-1557872943-16a5ac26437e?w=600&q=80", desc: "오동통하고 쫄깃한 면발과 깔끔한 가쓰오부시 국물. 따뜻하게 호로록!" },
+  { name: "텐동 (Tendon)", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80", desc: "그릇 위로 산처럼 쌓인 바삭한 튀김들! 특제 간장 소스와 비벼 먹는 별미." },
+  { name: "사케동 (Salmon Bowl)", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80", desc: "입에서 사르르 녹는 부드러운 생연어 덮밥! 연어는 언제나 옳습니다." },
+  { name: "규동 (Beef Bowl)", img: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=600&q=80", desc: "달짝지근하게 졸인 소고기가 밥 위에 한가득! 바쁠 때 빠르게 먹기도 좋아요." },
+  { name: "소바 (Soba)", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80", desc: "시원한 쯔유에 푹 담가 먹는 메밀면! 속이 더부룩할 때 가볍게 즐기세요." },
+  { name: "카레라이스 (Japanese Curry)", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=600&q=80", desc: "진하고 부드러운 일본식 카레! 돈까스나 새우튀김을 토핑으로 얹어보세요." },
+  { name: "가츠동 (Pork Cutlet Bowl)", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80", desc: "돈까스 위에 촉촉한 계란과 양파가 사르르! 부드러움과 든든함의 끝판왕." },
+
+  // 🇺🇸 [양식]
+  { name: "파스타 (Pasta)", img: "https://images.unsplash.com/photo-1621996311239-5ceaeef84a1e?w=600&q=80", desc: "분위기 있게 즐기는 부드러운 양식! 크림, 토마토, 오일 중 오늘의 픽은?" },
+  { name: "피자 (Pizza)", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80", desc: "치즈가 듬뿍! 스트레스가 확 풀리는 맛, 동료들과 나눠 먹기 좋아요." },
+  { name: "수제버거 (Burger)", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80", desc: "육즙이 팡팡! 입안 가득 에너지가 솟아나는 맛있는 반란!" },
+  { name: "스테이크 (Steak)", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80", desc: "치열했던 오늘 하루, 나를 위한 특별하고 든든한 보상!" },
+  { name: "리조또 (Risotto)", img: "https://images.unsplash.com/photo-1621996311239-5ceaeef84a1e?w=600&q=80", desc: "부드럽고 꾸덕꾸덕한 식감! 밥알 사이사이 스며든 진한 풍미를 느껴보세요." },
+  { name: "샌드위치 (Sandwich)", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80", desc: "바삭하게 구운 빵 사이에 신선한 채소 듬뿍! 바쁜 날 간편하고 프레시하게." },
+  { name: "샐러드 (Salad)", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80", desc: "몸이 가벼워지는 프레시한 점심! 내 몸을 위한 건강하고 가벼운 선택." },
+  { name: "핫도그 (Hot Dog)", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80", desc: "탱글탱글한 소시지와 짭조름한 소스의 만남! 콜라 한 잔과 함께면 끝." },
+  { name: "브런치 (Brunch)", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80", desc: "프렌치토스트, 스크램블 에그, 소시지! 여유로운 주말의 기분을 내보세요." },
+  { name: "타코 (Taco)", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80", desc: "한입 베어 물면 멕시코가 눈앞에! 과카몰리와 사워크림을 듬뿍 올려보세요." },
+
+  // 🌏 [아시안 / 기타]
+  { name: "쌀국수 (Pho)", img: "https://images.unsplash.com/photo-1582878826629-29b7ad1cb431?w=600&q=80", desc: "따뜻하고 깊은 고기 국물로 긴장했던 속을 부드럽게 달래보세요." },
+  { name: "팟타이 (Pad Thai)", img: "https://images.unsplash.com/photo-1559314809-0d155014e29e?w=600&q=80", desc: "단짠단짠 매력의 태국 요리! 땅콩가루 솔솔 뿌려 여행 온 기분을 내보세요." },
+  { name: "나시고랭 (Nasi Goreng)", img: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=600&q=80", desc: "세계에서 가장 맛있는 볶음밥 중 하나! 계란 프라이 노른자를 톡 터뜨려보세요." },
+  { name: "똠얌꿍 (Tom Yum Goong)", img: "https://images.unsplash.com/photo-1548943487-a2e4f43b4850?w=600&q=80", desc: "매콤, 새콤, 달콤함이 한 냄비에! 오감을 깨우는 강렬한 수프입니다." },
+  { name: "인도 커리 (Indian Curry)", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=600&q=80", desc: "풍성한 향신료의 향연! 갓 구운 쫄깃한 난을 듬뿍 찍어 드세요." },
+  { name: "케밥 (Kebab)", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80", desc: "불향 가득 품은 고기와 신선한 야채의 조합! 간편하지만 이국적인 한 끼." },
+  { name: "푸팟퐁커리 (Crab Curry)", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=600&q=80", desc: "부드러운 게살과 코코넛 밀크가 들어간 부드러운 태국식 커리입니다." },
+  { name: "반미 (Banh Mi)", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80", desc: "바삭한 바게트 속에 짭조름한 고기와 아삭한 채소! 베트남의 맛을 느껴보세요." },
+  { name: "월남쌈 (Spring Rolls)", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80", desc: "다양한 채소와 고기를 라이스페이퍼에 쏙! 건강하고 다채로운 식감의 향연." },
+  { name: "분짜 (Bun Cha)", img: "https://images.unsplash.com/photo-1582878826629-29b7ad1cb431?w=600&q=80", desc: "새콤달콤한 차가운 국물에 숯불구이 돼지고기와 면을 적셔 먹는 별미!" }
+];
 const TRANSLATIONS = {
   ko: {
     btn_home_only: "처음으로", back_to_menu: "메뉴", cta_check_saju: "내 이야기 들으러 가기",
