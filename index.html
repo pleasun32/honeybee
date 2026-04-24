@@ -693,6 +693,9 @@ function showResult(type) {
             buildReportSection('sec_academic_title', 'sec_academic_body', archIndex) +
             buildReportSection('sec_love_title', 'sec_love_body', archIndex) +
             buildReportSection('sec_health_title', 'sec_health_body', archIndex) +
+            // 👇 여기에 '컬러 조언'과 '귀인 조언' 섹션이 새롭게 추가되었습니다!
+            buildReportSection('sec_color_title', 'sec_color_body', archIndex) + 
+            buildReportSection('sec_mentor_title', 'sec_mentor_body', archIndex) + 
             buildReportSection('sec_advice_title', 'sec_advice_body', archIndex);
     upsellSection.style.display = 'none';
   } else {
@@ -706,7 +709,7 @@ function showResult(type) {
     html += buildReportSection('sec_advice_title', 'sec_advice_body', archIndex);
     upsellSection.style.display = 'block';
   }
-html += buildLunchSection();
+  html += buildLunchSection();
   contentArea.innerHTML = html;
   goto('result');
 }
@@ -1030,6 +1033,81 @@ const TRANSLATIONS = {
     mock_daily_head_9: "🍯 今日の運勢: 静かに直感を信じて", mock_daily_body_9: "<h3>自然の温度</h3><p>今日は論理的な計算よりも、あなたの鋭い直感が100%正しい答えを指し示しています。</p><h3>ミツバチの処方箋</h3><p>騒がしく行動しないでください。静かに本を読み、瞑想し、心の声に深く耳を傾けてください。</p>", sec_intro_title_9: "🌿 心の風景: 万物を潤す賢明な春雨 (癸)", sec_intro_body_9: "<p>あなたは生命を呼び覚ます<strong>澄んだ春雨</strong>です。内に計り知れない直感力と強力な生存スキルを隠しています。</p>", sec_flow_title_9: "🌊 運命の流れ", sec_flow_body_9: "<p>停滞していた思考や富が、ついに美しく澄んだ小川のように陽気に溶け出して流れるでしょう。</p>", sec_yearly_title_9: "🌅 今年の運勢", sec_yearly_body_9: "<p>真正面から衝突するよりも、柔らかく間接的な知恵を使うことで、望む全てを成し遂げるでしょう。</p>", sec_monthly_title_9: "🗓️ 今年の流れ", sec_monthly_body_9: "<ul><li><strong>[上半期]</strong> 静かにトレンドを観察し、質の高い知識を吸収してください。</li><li><strong>[下半期]</strong> あなたの素晴らしいアイデアが、周囲の人々を喜ばしく驚かせるでしょう。</li></ul>", sec_wealth_title_9: "💰 金運: 枯れずに流れる泉", sec_wealth_body_9: "<p>優れた情報収集能力と純粋な知恵を用いて、実質的な富を静かに蓄積していきます。</p>", sec_career_title_9: "✨ 成功運: ひらめくアイデアバンク", sec_career_body_9: "<p>背後から物事を完璧に組み立てるマスター戦略家、研究者、あるいは教育者として最も際立ちます。</p>", sec_academic_title_9: "📚 学業運: 掘り下げる深い研究者", sec_academic_body_9: "<p>学者のような素晴らしい頭脳を持ち、一つの特定の分野を信じられないほど深く掘り下げることに優れています。</p>", sec_love_title_9: "🌸 恋愛運: 深い感情の共鳴", sec_love_body_9: "<p>あなたの繊細な感受性に完璧に共感してくれる感情豊かな人が、あなたにとって最大のパートナーです。</p>", sec_health_title_9: "🍃 健康運: 冷えやすい体を温める習慣", sec_health_body_9: "<p>体が非常に冷えやすいです。温かいお茶を頻繁に飲み、温かい日差しをたっぷり浴びてください。</p>", sec_advice_title_9: "🍯 優しい助言", sec_advice_body_9: "<p>否定的な思考は、あなたにとってすぐに深い沼となります。気分が落ち込んでいる時は、無理にでも外に出て体を動かしてください。</p>"
   }
 };
+// 🍯 [추가 데이터] 10가지 기운별 행운의 컬러 & 귀인(조언자) 4개국어 심층 조언
+const DEEP_ADVICE = {
+  0: { // 甲 (갑목)
+    ko: { colorTitle: "🎨 행운의 컬러 & 스타일링", colorBody: "<p>생명력을 더해주는 <strong>푸른색(Green/Blue) 계열</strong>의 옷이나 액세서리가 좋습니다. 나무 향이나 숲 향기가 나는 향수를 뿌리면 행운이 상승합니다.</p>", mentorTitle: "🤝 나의 귀인과 조언자", mentorBody: "<p>당신의 뜨거운 열정을 차분하게 식혀주고 통찰력을 주는 <strong>조용하고 수용적인 사람(수 기운)</strong>의 조언을 곁에 두세요.</p>" },
+    en: { colorTitle: "🎨 Lucky Color & Styling", colorBody: "<p>Wearing <strong>Green or Blue tones</strong> will boost your vitality. Using a forest-scented perfume invites good luck.</p>", mentorTitle: "🤝 Your Mentor & Guide", mentorBody: "<p>Keep <strong>calm and receptive people</strong> close to you. Their quiet wisdom will perfectly balance your passionate energy.</p>" },
+    id: { colorTitle: "🎨 Warna & Gaya Keberuntungan", colorBody: "<p>Mengenakan <strong>warna Hijau atau Biru</strong> akan meningkatkan vitalitas Anda. Parfum beraroma hutan akan memanggil keberuntungan.</p>", mentorTitle: "🤝 Mentor & Penasihat Anda", mentorBody: "<p>Dekati <strong>orang yang tenang dan bijaksana</strong>. Nasihat mereka akan menyeimbangkan semangat menggebu Anda.</p>" },
+    ja: { colorTitle: "🎨 ラッキーカラー＆スタイル", colorBody: "<p>生命力を高める<strong>青や緑系(グリーン/ブルー)</strong>の服が幸運を呼びます。森の香りの香水もおすすめです。</p>", mentorTitle: "🤝 あなたの貴人と助言者", mentorBody: "<p>あなたの情熱を落ち着かせ、深い洞察を与えてくれる<strong>静かで受容的な人</strong>のアドバイスを大切にしてください。</p>" }
+  },
+  1: { // 乙 (을목)
+    ko: { colorTitle: "🎨 행운의 컬러 & 스타일링", colorBody: "<p>바람에 흔들리는 부드러운 <strong>파스텔 톤이나 플로럴 패턴</strong>이 매력을 극대화합니다. 너무 각진 옷보다는 부드러운 소재를 선택하세요.</p>", mentorTitle: "🤝 나의 귀인과 조언자", mentorBody: "<p>당신이 기대어 쉴 수 있는 <strong>크고 든든한 버팀목 같은 사람</strong>이 귀인입니다. 결단력이 강한 리더형과 함께할 때 높이 성장합니다.</p>" },
+    en: { colorTitle: "🎨 Lucky Color & Styling", colorBody: "<p>Soft <strong>pastel tones and floral patterns</strong> maximize your charm. Choose soft, flowing fabrics over stiff clothing.</p>", mentorTitle: "🤝 Your Mentor & Guide", mentorBody: "<p>Your best mentors are <strong>strong, dependable figures</strong> you can lean on. Partner with decisive leaders to grow significantly.</p>" },
+    id: { colorTitle: "🎨 Warna & Gaya Keberuntungan", colorBody: "<p><strong>Warna pastel lembut dan motif bunga</strong> akan memaksimalkan pesona Anda. Pilih kain yang lembut dan jatuh.</p>", mentorTitle: "🤝 Mentor & Penasihat Anda", mentorBody: "<p>Mentor terbaik Anda adalah <strong>sosok yang kuat dan dapat diandalkan</strong>. Bermitra dengan pemimpin yang tegas akan membuat Anda sukses.</p>" },
+    ja: { colorTitle: "🎨 ラッキーカラー＆スタイル", colorBody: "<p>風に揺れるような<strong>パステルカラーや花柄</strong>があなたの魅力を最大化します。柔らかい素材の服を選んでください。</p>", mentorTitle: "🤝 あなたの貴人と助言者", mentorBody: "<p>あなたが寄りかかって休める<strong>頼もしい大木のような人</strong>が貴人です。決断力のあるリーダーと組むと大きく成長します。</p>" }
+  },
+  2: { // 丙 (병화)
+    ko: { colorTitle: "🎨 행운의 컬러 & 스타일링", colorBody: "<p>자신감을 돋보이게 하는 <strong>강렬한 레드(Red)나 오렌지(Orange)</strong>로 포인트를 주세요. 화려하고 눈에 띄는 스타일이 기운을 살려줍니다.</p>", mentorTitle: "🤝 나의 귀인과 조언자", mentorBody: "<p>당신의 아이디어를 지지하고 연료를 공급해 줄 <strong>창의적이고 기획력이 뛰어난 사람(목 기운)</strong>을 곁에 두세요.</p>" },
+    en: { colorTitle: "🎨 Lucky Color & Styling", colorBody: "<p>Highlight your confidence with <strong>vibrant Red or Orange</strong>. A bold, eye-catching style boosts your natural energy.</p>", mentorTitle: "🤝 Your Mentor & Guide", mentorBody: "<p>Keep <strong>creative and supportive planners</strong> close. They will act as the perfect fuel for your brilliant ideas.</p>" },
+    id: { colorTitle: "🎨 Warna & Gaya Keberuntungan", colorBody: "<p>Tunjukkan kepercayaan diri Anda dengan sentuhan <strong>Merah atau Oranye menyala</strong>. Gaya yang berani akan menghidupkan energi Anda.</p>", mentorTitle: "🤝 Mentor & Penasihat Anda", mentorBody: "<p>Dekati <strong>perencana yang kreatif dan suportif</strong>. Mereka akan menjadi bahan bakar yang sempurna untuk ide-ide brilian Anda.</p>" },
+    ja: { colorTitle: "🎨 ラッキーカラー＆スタイル", colorBody: "<p>自信を引き立てる<strong>強烈なレッドやオレンジ</strong>をポイントにしてください。華やかで目立つスタイルが運気を高めます。</p>", mentorTitle: "🤝 あなたの貴人と助言者", mentorBody: "<p>あなたのアイデアを支持し、燃料を供給してくれる<strong>創造的で企画力のある人</strong>をそばに置いてください。</p>" }
+  },
+  3: { // 丁 (정화)
+    ko: { colorTitle: "🎨 행운의 컬러 & 스타일링", colorBody: "<p>따뜻함을 전하는 <strong>핑크(Pink)나 버건디(Burgundy)</strong> 색상이 좋습니다. 은은한 조명 아래서 빛나는 작은 액세서리가 행운의 아이템입니다.</p>", mentorTitle: "🤝 나의 귀인과 조언자", mentorBody: "<p>감정의 기복을 잡아줄 수 있는 <strong>현실적이고 흔들림 없는 사람</strong>이 당신의 불안함을 잠재워 줄 최고의 조언자입니다.</p>" },
+    en: { colorTitle: "🎨 Lucky Color & Styling", colorBody: "<p>Warm <strong>Pink or Burgundy</strong> suits you best. Small, delicate jewelry that sparkles gently is your lucky item.</p>", mentorTitle: "🤝 Your Mentor & Guide", mentorBody: "<p>A <strong>realistic, grounded person</strong> who doesn't sway easily is your best advisor to calm your emotional fluctuations.</p>" },
+    id: { colorTitle: "🎨 Warna & Gaya Keberuntungan", colorBody: "<p>Warna <strong>Merah Muda hangat atau Burgundy</strong> sangat cocok untuk Anda. Perhiasan kecil yang berkilau lembut adalah barang keberuntungan Anda.</p>", mentorTitle: "🤝 Mentor & Penasihat Anda", mentorBody: "<p><strong>Orang yang realistis dan membumi</strong> yang bisa menstabilkan emosi Anda adalah penasihat terbaik Anda.</p>" },
+    ja: { colorTitle: "🎨 ラッキーカラー＆スタイル", colorBody: "<p>温かさを伝える<strong>ピンクやバーガンディ</strong>がおすすめです。控えめに輝く小さなアクセサリーが幸運のアイテムです。</p>", mentorTitle: "🤝 あなたの貴人と助言者", mentorBody: "<p>感情の起伏を落ち着かせてくれる、<strong>現実的でブレない人</strong>があなたの最高の助言者となります。</p>" }
+  },
+  4: { // 戊 (무토)
+    ko: { colorTitle: "🎨 행운의 컬러 & 스타일링", colorBody: "<p>안정감을 주는 <strong>브라운(Brown)이나 베이지, 머스타드 옐로우</strong>가 길합니다. 유행을 타지 않는 클래식하고 단정한 정장이 가장 잘 어울립니다.</p>", mentorTitle: "🤝 나의 귀인과 조언자", mentorBody: "<p>너무 신중한 당신에게 행동력을 불어넣어 줄 <strong>열정적이고 에너지 넘치는 사람(화 기운)</strong>이 훌륭한 자극제가 됩니다.</p>" },
+    en: { colorTitle: "🎨 Lucky Color & Styling", colorBody: "<p>Stabilizing colors like <strong>Brown, Beige, and Mustard Yellow</strong> are lucky. Classic, timeless suits look best on you.</p>", mentorTitle: "🤝 Your Mentor & Guide", mentorBody: "<p>A <strong>passionate and highly energetic person</strong> will be an excellent catalyst, giving you the push to take action.</p>" },
+    id: { colorTitle: "🎨 Warna & Gaya Keberuntungan", colorBody: "<p>Warna stabil seperti <strong>Coklat, Krem, dan Kuning Mustard</strong> adalah pembawa keberuntungan. Setelan klasik dan rapi paling cocok untuk Anda.</p>", mentorTitle: "🤝 Mentor & Penasihat Anda", mentorBody: "<p><strong>Orang yang bersemangat dan energik</strong> akan menjadi pendorong yang hebat bagi Anda yang terkadang terlalu berhati-hati.</p>" },
+    ja: { colorTitle: "🎨 ラッキーカラー＆スタイル", colorBody: "<p>安心感を与える<strong>ブラウン、ベージュ、マスタードイエロー</strong>が吉です。流行り廃りのないクラシックなスーツがよく似合います。</p>", mentorTitle: "🤝 あなたの貴人と助言者", mentorBody: "<p>慎重すぎるあなたに行動力を吹き込んでくれる、<strong>情熱的でエネルギーに満ちた人</strong>が素晴らしい刺激を与えてくれます。</p>" }
+  },
+  5: { // 己 (기토)
+    ko: { colorTitle: "🎨 행운의 컬러 & 스타일링", colorBody: "<p>친근함을 더해주는 <strong>소프트 옐로우나 코랄(Coral)</strong> 색상을 추천합니다. 너무 화려한 것보다는 편안하고 실용적인 캐주얼이 당신의 인복을 부릅니다.</p>", mentorTitle: "🤝 나의 귀인과 조언자", mentorBody: "<p>당신의 숨은 가치를 알아봐 주고, 밝은 곳으로 이끌어 주는 <strong>긍정적이고 따뜻한 낙천주의자</strong>를 가까이 하세요.</p>" },
+    en: { colorTitle: "🎨 Lucky Color & Styling", colorBody: "<p>Friendly colors like <strong>Soft Yellow or Coral</strong> are recommended. Comfortable, practical casual wear brings you good people.</p>", mentorTitle: "🤝 Your Mentor & Guide", mentorBody: "<p>Keep <strong>positive and warm optimists</strong> close. They recognize your hidden value and guide you towards the light.</p>" },
+    id: { colorTitle: "🎨 Warna & Gaya Keberuntungan", colorBody: "<p>Warna bersahabat seperti <strong>Kuning Lembut atau Coral</strong> sangat disarankan. Pakaian kasual yang nyaman dan praktis akan menarik orang baik.</p>", mentorTitle: "🤝 Mentor & Penasihat Anda", mentorBody: "<p>Dekati <strong>orang optimis yang positif dan hangat</strong> yang mengenali nilai tersembunyi Anda dan membimbing Anda menuju cahaya.</p>" },
+    ja: { colorTitle: "🎨 ラッキーカラー＆スタイル", colorBody: "<p>親しみやすさを増す<strong>ソフトイエローやコーラル</strong>をおすすめします。実用的でリラックスしたカジュアルスタイルが対人運を上げます。</p>", mentorTitle: "🤝 あなたの貴人と助言者", mentorBody: "<p>あなたの隠れた価値を見抜き、明るい場所へと導いてくれる<strong>ポジティブで温かい楽天家</strong>をそばに置いてください。</p>" }
+  },
+  6: { // 庚 (경금)
+    ko: { colorTitle: "🎨 행운의 컬러 & 스타일링", colorBody: "<p>당신의 단단함을 돋보이게 하는 <strong>화이트(White)나 실버, 모노톤</strong>이 완벽합니다. 금속 시계나 심플한 주얼리가 운기를 크게 상승시킵니다.</p>", mentorTitle: "🤝 나의 귀인과 조언자", mentorBody: "<p>가끔 너무 직설적인 당신의 모서리를 부드럽게 감싸줄 <strong>포용력 넓은 어른스러운 사람(토 기운)</strong>이 진정한 귀인입니다.</p>" },
+    en: { colorTitle: "🎨 Lucky Color & Styling", colorBody: "<p><strong>White, Silver, or Monotones</strong> highlight your solid nature beautifully. A metallic watch or simple jewelry significantly boosts your luck.</p>", mentorTitle: "🤝 Your Mentor & Guide", mentorBody: "<p>A <strong>mature, embracing person</strong> who can softly smooth out your blunt edges is your true mentor.</p>" },
+    id: { colorTitle: "🎨 Warna & Gaya Keberuntungan", colorBody: "<p>Warna <strong>Putih, Perak, atau Monoton</strong> dengan sempurna menonjolkan ketegasan Anda. Jam tangan logam atau perhiasan sederhana akan meningkatkan energi Anda.</p>", mentorTitle: "🤝 Mentor & Penasihat Anda", mentorBody: "<p><strong>Orang dewasa yang sabar dan merangkul</strong> yang bisa menghaluskan sikap terus terang Anda adalah penasihat sejati Anda.</p>" },
+    ja: { colorTitle: "🎨 ラッキーカラー＆スタイル", colorBody: "<p>あなたの芯の強さを引き立てる<strong>ホワイトやシルバー、モノトーン</strong>が完璧です。金属製の時計やシンプルなジュエリーが運気を大幅に上昇させます。</p>", mentorTitle: "🤝 あなたの貴人と助言者", mentorBody: "<p>時折直球すぎるあなたの角を優しく包み込んでくれる、<strong>包容力のある大人な人</strong>が真の貴人です。</p>" }
+  },
+  7: { // 辛 (신금)
+    ko: { colorTitle: "🎨 행운의 컬러 & 스타일링", colorBody: "<p>고급스러움을 강조하는 <strong>아이보리나 화이트, 골드(Gold)</strong> 포인트가 잘 어울립니다. 깔끔하게 다려진 옷이 당신의 섬세한 기운을 지켜줍니다.</p>", mentorTitle: "🤝 나의 귀인과 조언자", mentorBody: "<p>당신의 예민한 고민을 깊이 이해하고, 맑은 물처럼 정화해 줄 <strong>사색적이고 지혜로운 사람(수 기운)</strong>을 만나세요.</p>" },
+    en: { colorTitle: "🎨 Lucky Color & Styling", colorBody: "<p><strong>Ivory, White, and Gold accents</strong> emphasize your elegance. Neatly ironed, crisp clothes protect your delicate energy.</p>", mentorTitle: "🤝 Your Mentor & Guide", mentorBody: "<p>Connect with <strong>deep thinkers and wise people (Water energy)</strong> who understand your sensitivities and purify your worries.</p>" },
+    id: { colorTitle: "🎨 Warna & Gaya Keberuntungan", colorBody: "<p>Sentuhan <strong>Gading, Putih, dan Emas</strong> sangat cocok untuk menonjolkan kemewahan Anda. Pakaian yang disetrika rapi menjaga energi halus Anda.</p>", mentorTitle: "🤝 Mentor & Penasihat Anda", mentorBody: "<p>Temui <strong>pemikir yang dalam dan bijaksana</strong> yang bisa memahami kekhawatiran sensitif Anda dan menjernihkan pikiran Anda.</p>" },
+    ja: { colorTitle: "🎨 ラッキーカラー＆スタイル", colorBody: "<p>高級感を強調する<strong>アイボリーやホワイト、ゴールド</strong>のポイントが似合います。綺麗にアイロンがけされた服があなたの繊細な気を守ります。</p>", mentorTitle: "🤝 あなたの貴人と助言者", mentorBody: "<p>あなたの敏感な悩みを深く理解し、澄んだ水のように浄化してくれる<strong>思索的で知恵のある人</strong>と交流してください。</p>" }
+  },
+  8: { // 壬 (임수)
+    ko: { colorTitle: "🎨 행운의 컬러 & 스타일링", colorBody: "<p>깊은 바다를 닮은 <strong>블랙(Black)이나 네이비(Navy)</strong>가 행운의 색입니다. 몸에 딱 붙는 옷보다는 스케일이 큰 오버핏이나 흐르는 실루엣이 좋습니다.</p>", mentorTitle: "🤝 나의 귀인과 조언자", mentorBody: "<p>때로는 방황하기 쉬운 당신에게 정확한 방향과 결단을 내려줄 <strong>이성적이고 논리적인 전략가(금 기운)</strong>가 필요합니다.</p>" },
+    en: { colorTitle: "🎨 Lucky Color & Styling", colorBody: "<p>Colors resembling the deep ocean like <strong>Black or Navy</strong> are lucky. Flowing silhouettes or oversized fits suit you better than tight clothes.</p>", mentorTitle: "🤝 Your Mentor & Guide", mentorBody: "<p>You need a <strong>rational and logical strategist</strong> who can give you clear direction and decisions when you feel lost.</p>" },
+    id: { colorTitle: "🎨 Warna & Gaya Keberuntungan", colorBody: "<p>Warna laut dalam seperti <strong>Hitam atau Biru Dongker</strong> adalah warna keberuntungan Anda. Pakaian longgar atau siluet yang jatuh lebih baik daripada pakaian ketat.</p>", mentorTitle: "🤝 Mentor & Penasihat Anda", mentorBody: "<p>Anda membutuhkan <strong>ahli strategi yang rasional dan logis</strong> untuk memberikan arah yang jelas saat Anda merasa bimbang.</p>" },
+    ja: { colorTitle: "🎨 ラッキーカラー＆スタイル", colorBody: "<p>深い海に似た<strong>ブラックやネイビー</strong>が幸運の色です。体に密着する服よりも、オーバーサイズや流れるようなシルエットがおすすめです。</p>", mentorTitle: "🤝 あなたの貴人と助言者", mentorBody: "<p>時に迷いやすいあなたに、正確な方向と決断を下してくれる<strong>理性的で論理的な戦略家</strong>が必要です。</p>" }
+  },
+  9: { // 癸 (계수)
+    ko: { colorTitle: "🎨 행운의 컬러 & 스타일링", colorBody: "<p>깨끗하고 청아한 느낌의 <strong>스카이블루나 블랙, 투명한 액세서리</strong>가 길합니다. 당신의 촉을 맑게 유지해 주는 실버 반지를 착용해 보세요.</p>", mentorTitle: "🤝 나의 귀인과 조언자", mentorBody: "<p>여리고 감성적인 당신을 세상의 풍파로부터 든든하게 지켜줄 <strong>원칙주의자이자 든든한 보호자</strong> 역할을 해줄 사람이 귀인입니다.</p>" },
+    en: { colorTitle: "🎨 Lucky Color & Styling", colorBody: "<p>Clear colors like <strong>Sky Blue, Black, and transparent accessories</strong> are lucky. Wear a silver ring to keep your intuition crystal clear.</p>", mentorTitle: "🤝 Your Mentor & Guide", mentorBody: "<p>A <strong>principled person and a solid protector</strong> who shields your delicate emotions from the harsh world is your true mentor.</p>" },
+    id: { colorTitle: "🎨 Warna & Gaya Keberuntungan", colorBody: "<p>Warna jernih seperti <strong>Biru Langit, Hitam, dan aksesori transparan</strong> membawa keberuntungan. Cincin perak akan menjaga intuisi Anda tetap tajam.</p>", mentorTitle: "🤝 Mentor & Penasihat Anda", mentorBody: "<p>Orang yang berprinsip dan <strong>pelindung yang solid</strong> yang bisa melindungi hati Anda yang rapuh dari kerasnya dunia adalah penolong Anda.</p>" },
+    ja: { colorTitle: "🎨 ラッキーカラー＆スタイル", colorBody: "<p>清潔感のある<strong>スカイブルーやブラック、透明なアクセサリー</strong>が吉です。直感を研ぎ澄ますためにシルバーの指輪をつけてみてください。</p>", mentorTitle: "🤝 あなたの貴人と助言者", mentorBody: "<p>繊細なあなたを世間の荒波からしっかりと守ってくれる、<strong>原則主義者であり頼もしい保護者</strong>となる人が貴人です。</p>" }
+  }
+};
+
+// 위 데이터를 기존 번역본(TRANSLATIONS)에 자동으로 싹 합쳐주는 마법의 코드!
+Object.keys(DEEP_ADVICE).forEach(arch => {
+  ['ko', 'en', 'id', 'ja'].forEach(lang => {
+    if (!TRANSLATIONS[lang]) TRANSLATIONS[lang] = {};
+    TRANSLATIONS[lang][`sec_color_title_${arch}`] = DEEP_ADVICE[arch][lang].colorTitle;
+    TRANSLATIONS[lang][`sec_color_body_${arch}`] = DEEP_ADVICE[arch][lang].colorBody;
+    TRANSLATIONS[lang][`sec_mentor_title_${arch}`] = DEEP_ADVICE[arch][lang].mentorTitle;
+    TRANSLATIONS[lang][`sec_mentor_body_${arch}`] = DEEP_ADVICE[arch][lang].mentorBody;
+  });
+});
+ 
 </script>
 </body>
 </html>
