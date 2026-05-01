@@ -345,15 +345,15 @@
   <div class="img-wrap" style="min-height: 120px;"><img src="honeypot.svg" alt="honeypot" class="honey-img-small anim-hover" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1206/1206584.png'"></div>
   <div class="center mb-sm"><h1 data-t="hub_pick_title">무엇이 궁금하신가요?</h1></div>
 
-  <div class="menu-grid">
-    <div class="tile-game" onclick="openReading('daily')"><div class="tile-price" data-t="p_ad_short">📺 3초 광고</div><div class="tile-icon">🍯</div><div class="tile-title" data-t="menu_daily">오늘의 운세</div><div class="tile-sub" data-t="menu_daily_sub">오늘 하루의 기운</div></div>
-    <div class="tile-game" onclick="openReading('yearly')"><div class="tile-price badge-normal" data-t="p_ad_normal">📺 5초 광고</div><div class="tile-icon">🌅</div><div class="tile-title" data-t="menu_yearly">신년 운세</div><div class="tile-sub" data-t="menu_yearly_sub">따뜻한 1년 계획</div></div>
-    <div class="tile-game" onclick="openReading('wealth')"><div class="tile-price badge-normal" data-t="p_ad_normal">📺 5초 광고</div><div class="tile-icon">💰</div><div class="tile-title" data-t="menu_wealth">재물운</div><div class="tile-sub" data-t="menu_wealth_sub">나만의 금전 그릇</div></div>
-    <div class="tile-game" onclick="openReading('love')"><div class="tile-price badge-normal" data-t="p_ad_normal">📺 5초 광고</div><div class="tile-icon">🌸</div><div class="tile-title" data-t="menu_love">애정운</div><div class="tile-sub" data-t="menu_love_sub">다정한 인연 찾기</div></div>
-    <div class="tile-game" onclick="openReading('career')"><div class="tile-price badge-normal" data-t="p_ad_normal">📺 5초 광고</div><div class="tile-icon">✨</div><div class="tile-title" data-t="menu_career">성공운</div><div class="tile-sub" data-t="menu_career_sub">나에게 맞는 길</div></div>
-    <div class="tile-game" onclick="openReading('academic')"><div class="tile-price badge-normal" data-t="p_ad_normal">📺 5초 광고</div><div class="tile-icon">📚</div><div class="tile-title" data-t="menu_academic">학업운</div><div class="tile-sub" data-t="menu_academic_sub">지혜의 흐름</div></div>
-    <div class="tile-game" onclick="openReading('health')"><div class="tile-price badge-normal" data-t="p_ad_normal">📺 5초 광고</div><div class="tile-icon">🍃</div><div class="tile-title" data-t="menu_health">건강운</div><div class="tile-sub" data-t="menu_health_sub">자연스러운 균형</div></div>
-    <div class="tile-game special" onclick="openReading('full')"><div class="tile-price badge-premium" data-t="p_ad_premium">📺 7초 프리미엄</div><div class="tile-icon">📖</div><div class="tile-title" data-t="menu_full">마스터 리포트</div><div class="tile-sub" data-t="menu_full_sub" style="color:#FFF;">내 인생의 풍경화</div></div>
+<div class="menu-grid">
+    <div class="tile-game" onclick="openReading('daily')"><div class="tile-icon">🍯</div><div class="tile-title" data-t="menu_daily">오늘의 운세</div><div class="tile-sub" data-t="menu_daily_sub">오늘 하루의 기운</div></div>
+    <div class="tile-game" onclick="openReading('yearly')"><div class="tile-icon">🌅</div><div class="tile-title" data-t="menu_yearly">신년 운세</div><div class="tile-sub" data-t="menu_yearly_sub">따뜻한 1년 계획</div></div>
+    <div class="tile-game" onclick="openReading('wealth')"><div class="tile-icon">💰</div><div class="tile-title" data-t="menu_wealth">재물운</div><div class="tile-sub" data-t="menu_wealth_sub">나만의 금전 그릇</div></div>
+    <div class="tile-game" onclick="openReading('love')"><div class="tile-icon">🌸</div><div class="tile-title" data-t="menu_love">애정운</div><div class="tile-sub" data-t="menu_love_sub">다정한 인연 찾기</div></div>
+    <div class="tile-game" onclick="openReading('career')"><div class="tile-icon">✨</div><div class="tile-title" data-t="menu_career">성공운</div><div class="tile-sub" data-t="menu_career_sub">나에게 맞는 길</div></div>
+    <div class="tile-game" onclick="openReading('academic')"><div class="tile-icon">📚</div><div class="tile-title" data-t="menu_academic">학업운</div><div class="tile-sub" data-t="menu_academic_sub">지혜의 흐름</div></div>
+    <div class="tile-game" onclick="openReading('health')"><div class="tile-icon">🍃</div><div class="tile-title" data-t="menu_health">건강운</div><div class="tile-sub" data-t="menu_health_sub">자연스러운 균형</div></div>
+    <div class="tile-game special" onclick="openReading('full')"><div class="tile-price badge-premium">💎 $2.00</div><div class="tile-icon">📖</div><div class="tile-title" data-t="menu_full">마스터 리포트</div><div class="tile-sub" data-t="menu_full_sub" style="color:#FFF;">내 인생의 풍경화</div></div>
   </div>
 </section>
 
@@ -500,7 +500,22 @@
 </div>
 
 </div>
-
+<!-- ==================== PAYMENT MODAL ==================== -->
+<div id="payment-modal" class="modal-overlay" onclick="closePaymentModal(event)">
+  <div class="share-sheet" onclick="event.stopPropagation()">
+    <div class="share-header">
+      <div class="share-title">💎 프리미엄 리포트 결제</div>
+      <button class="btn-close-modal" onclick="closePaymentModal(event)">✕</button>
+    </div>
+    <div style="text-align: center; margin-bottom: 20px;">
+      <div style="font-size: 40px; margin-bottom: 10px;">📖</div>
+      <p style="font-size: 16px; margin-bottom: 5px;">모든 운세가 포함된 마스터 리포트입니다.</p>
+      <h2 style="color: var(--btn-red); font-size: 28px;">USD $2.00</h2>
+    </div>
+    <button class="btn-game btn-blue" onclick="processPaymentAndShowResult()" style="width: 100%; margin-bottom: 10px;">결제하고 결과 보기 (UI 테스트)</button>
+  </div>
+</div>
+  
 <script>
 function goto(screenId) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -541,53 +556,37 @@ function toggleTimeInput(checkbox) {
 
 function openReading(type) {
   currentReadingType = type;
-  if (!userInfo) goto('input'); 
-  else playAdFlow(type);
-}
-
-function submitInput() {
-  const btn = document.getElementById('btn-submit-form');
-  if (btn.disabled) return; 
-
-  const dateVal = document.getElementById('input-date').value;
-  const isUnknownTime = document.getElementById('input-time-unknown').checked;
-  const timeVal = isUnknownTime ? 'unknown' : document.getElementById('input-time').value;
-  const nameVal = document.getElementById('input-name').value;
-  const errBox = document.getElementById('form-error');
-
-  if (!nameVal.trim()) { errBox.innerText = getT('err_req_name'); errBox.style.display = 'block'; return; }
-  if (!dateVal) { errBox.innerText = getT('err_req_date'); errBox.style.display = 'block'; return; }
-  if (!timeVal) { errBox.innerText = getT('err_req_time'); errBox.style.display = 'block'; return; }
-  
-  errBox.style.display = 'none';
-  btn.disabled = true; 
-  
-  userInfo = { name: nameVal, date: dateVal, time: timeVal };
-  currentSaju = calculateRealSaju(dateVal, timeVal);
-  
-  document.getElementById('loading-title-el').innerText = getT('loading_title');
-  goto('loading');
-  setTimeout(() => { btn.disabled = false; showReveal(); }, 1800);
-}
-
-let adInterval = null;
-
-function playAdFlow(type) {
-  goto('ad');
-  let timeLeft = type === 'full' ? 7 : (type === 'daily' ? 3 : 5);
-  const timerEl = document.getElementById('ad-timer-sec');
-  timerEl.innerText = timeLeft;
-  
-  if (adInterval) clearInterval(adInterval);
-  
-  adInterval = setInterval(() => {
-    timeLeft--;
-    timerEl.innerText = timeLeft;
-    if (timeLeft <= 0) { 
-      clearInterval(adInterval); 
-      showResult(type); 
+  if (!userInfo) {
+    goto('input'); 
+  } else {
+    // 마스터 리포트인 경우 결제창을 띄우고, 나머지는 대기 없이 즉시 결과 보기
+    if(type === 'full') {
+      document.getElementById('payment-modal').classList.add('show');
+    } else {
+      showResult(type);
     }
-  }, 1000);
+  }
+}
+
+function closePaymentModal(e) {
+  if(e) e.preventDefault();
+  document.getElementById('payment-modal').classList.remove('show');
+}
+
+function processPaymentAndShowResult() {
+  closePaymentModal();
+  // 실제 결제 API 연동 로직이 들어갈 곳
+  alert("결제가 완료되었습니다. (테스트)");
+  showResult('full');
+}
+
+function proceedToAdOrResult() {
+  // 정보 입력 후 로딩이 끝나면 바로 결과 화면으로 넘어갑니다 (대기 없음)
+  if(currentReadingType === 'full') {
+    document.getElementById('payment-modal').classList.add('show');
+  } else {
+    showResult(currentReadingType);
+  }
 }
 
 function calculateRealSaju(dateStr, timeStr) {
@@ -1134,9 +1133,21 @@ function showResult(type) {
       extraHtml += `<div class="report-section"><div class="honey-drip"></div><div class="report-label">${sData.t}</div><div class="deep-text">${sData.b}</div></div>`;
   }
 
-  const adBoxHTML = `<div class="ad-placeholder">🍯 꿀벌의 스폰서 광고 자리 (AdSense) 🍯</div>`;
-  document.getElementById('result-title').innerText = getT('r_' + type + '_title');
-  
+// 구글 애드센스 반응형 배너 광고 코드 삽입
+  // 주의: data-ad-slot 에는 애드센스에서 발급받은 실제 광고 단위 ID 숫자를 꼭 넣으셔야 광고가 나옵니다.
+  const adBoxHTML = `
+    <div style="margin: 30px 0; min-height: 250px; text-align: center;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4394607454861717"
+           data-ad-slot="여기에_광고단위_ID를_넣으세요"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  `;
   // 1. 만세력 표 (항상 표시)
   let html = generateManseryeokHTMLForReport();
 
