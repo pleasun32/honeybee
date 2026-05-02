@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-
-
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>사주 스토리텔링 - K-Saju Analysis</title>
@@ -180,7 +178,7 @@
   .m-col { display: flex; flex-direction: column; gap: 6px; align-items: center; height: 100%; }
   .m-label { font-size: 11px; font-weight: 800; color: var(--text-muted); font-family: 'Jua', sans-serif; }
   .m-char { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; background: var(--bg-color); border: 2px solid var(--ink); border-radius: 10px; padding: 8px 0; gap: 4px; margin-top: auto; } 
-  .m-emoji { font-size: 20px; line-height: 1; }
+  .m-emoji { font-size: 20px; line-height: 1; margin-bottom: 2px; }
   .m-hangul { font-family: 'Jua', sans-serif; font-size: 19px; color: var(--ink); line-height: 1; }
   .m-text { font-family: 'Nunito', sans-serif; font-size: 12px; color: var(--text-muted); font-weight: 700; }
 
@@ -297,22 +295,14 @@
   <div class="img-wrap" style="min-height: 120px;"><img src="https://cdn-icons-png.flaticon.com/512/1206/1206584.png" alt="honeypot" class="bee-img-small anim-hover"></div>
   <div class="center mb-sm"><h1 data-t="hub_pick_title">어떤 이야기가 궁금하신가요?</h1></div>
   
-  <!-- 허브 페이지 카카오 애드핏 (한국 트래픽 최적화 보조망) -->
-  <div class="ad-banner mb-sm" style="background:#FAFAFA; border:1px solid #EEE;">
+  <!-- 허브 페이지 카카오 애드핏 (한국 트래픽 최적화 보조망) - 깔끔하게 복구 완료! -->
+  <div class="ad-banner mb-sm" style="background:#FAFAFA; border:1px solid #EEE; min-height: 50px;">
     <span class="ad-label">Kakao AdFit</span>
-    <div style="padding: 20px; color: #888; font-size: 13px;">카카오 애드핏 320x50 배너 영역<br><small>
-     <ins class="kakao_ad_area" style="display:none;"
-data-ad-unit = "DAN-s256ngjMi7N3zxEq"
-data-ad-width = "320"
-data-ad-height = "50"></ins>
-<script type="text/javascript" src="//t1.kakaocdn.net/kas/static/ba.min.js" async></script>
-    
-    </small></div>
-    <!-- 실제 적용 시 아래 주석 해제 및 data-ad-unit 교체 -->
-    <!-- 
-    <ins class="kakao_ad_area" style="display:none;" data-ad-unit = "DAN-XXXXXXXXXXXXXX" data-ad-width = "320" data-ad-height = "50"></ins> 
-    <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
-    -->
+    <ins class="kakao_ad_area" style="display:none;"
+         data-ad-unit="DAN-s256ngjMi7N3zxEq"
+         data-ad-width="320"
+         data-ad-height="50"></ins>
+    <script type="text/javascript" src="//t1.kakaocdn.net/kas/static/ba.min.js" async></script>
   </div>
 
   <div class="menu-grid">
@@ -654,6 +644,15 @@ function submitInput() {
   }, 2000);
 }
 
+// ==== 천간/지지에 맞는 귀여운 이모티콘 매핑 함수 복구 ====
+function getEmoji(char) {
+  const map = {
+    '甲':'🌳', '乙':'🌿', '丙':'☀️', '丁':'🕯️', '戊':'⛰️', '己':'🪴', '庚':'🪨', '辛':'💎', '壬':'🌊', '癸':'🌧️',
+    '子':'🐭', '丑':'🐮', '寅':'🐯', '卯':'🐰', '辰':'🐲', '巳':'🐍', '午':'🐴', '未':'🐑', '申':'🐵', '酉':'🐔', '戌':'🐶', '亥':'🐷', '?':'☁️'
+  };
+  return map[char] || '✨';
+}
+
 function generateManseryeokHTML() {
   const c = currentSaju.chars || { yearGan: '?', yearZhi: '?', monthGan: '?', monthZhi: '?', dayGan: '?', dayZhi: '?', timeGan: '?', timeZhi: '?' };
   return `
@@ -663,10 +662,10 @@ function generateManseryeokHTML() {
         <div class="m-text" style="font-size:11px; margin-top:4px;">${getT('m_desc')}</div>
       </div>
       <div class="m-grid">
-        <div class="m-col"><div class="m-label">${getT('m_time')}</div><div class="m-char"><span class="m-hangul">${c.timeGan}</span></div><div class="m-char"><span class="m-hangul">${c.timeZhi}</span></div></div>
-        <div class="m-col"><div class="m-label">${getT('m_day')}</div><div class="m-char" style="border-color:var(--btn-red); background:#FFF5F5;"><span class="m-hangul" style="color:var(--btn-red);">${c.dayGan}</span></div><div class="m-char"><span class="m-hangul">${c.dayZhi}</span></div></div>
-        <div class="m-col"><div class="m-label">${getT('m_month')}</div><div class="m-char"><span class="m-hangul">${c.monthGan}</span></div><div class="m-char"><span class="m-hangul">${c.monthZhi}</span></div></div>
-        <div class="m-col"><div class="m-label">${getT('m_year')}</div><div class="m-char"><span class="m-hangul">${c.yearGan}</span></div><div class="m-char"><span class="m-hangul">${c.yearZhi}</span></div></div>
+        <div class="m-col"><div class="m-label">${getT('m_time')}</div><div class="m-char"><span class="m-emoji">${getEmoji(c.timeGan)}</span><span class="m-hangul">${c.timeGan}</span></div><div class="m-char"><span class="m-emoji">${getEmoji(c.timeZhi)}</span><span class="m-hangul">${c.timeZhi}</span></div></div>
+        <div class="m-col"><div class="m-label">${getT('m_day')}</div><div class="m-char" style="border-color:var(--btn-red); background:#FFF5F5;"><span class="m-emoji">${getEmoji(c.dayGan)}</span><span class="m-hangul" style="color:var(--btn-red);">${c.dayGan}</span></div><div class="m-char"><span class="m-emoji">${getEmoji(c.dayZhi)}</span><span class="m-hangul">${c.dayZhi}</span></div></div>
+        <div class="m-col"><div class="m-label">${getT('m_month')}</div><div class="m-char"><span class="m-emoji">${getEmoji(c.monthGan)}</span><span class="m-hangul">${c.monthGan}</span></div><div class="m-char"><span class="m-emoji">${getEmoji(c.monthZhi)}</span><span class="m-hangul">${c.monthZhi}</span></div></div>
+        <div class="m-col"><div class="m-label">${getT('m_year')}</div><div class="m-char"><span class="m-emoji">${getEmoji(c.yearGan)}</span><span class="m-hangul">${c.yearGan}</span></div><div class="m-char"><span class="m-emoji">${getEmoji(c.yearZhi)}</span><span class="m-hangul">${c.yearZhi}</span></div></div>
       </div>
     </div>
   `;
@@ -1005,7 +1004,7 @@ const SAJU_DATA = {
       gen_year: "<p>올 한 해는 답답하게 정체되어 있던 곳을 완전히 벗어나, 굽이치는 강물처럼 역동적인 이동과 폭발적인 확장이 일어나는 희망찬 1년이 될 거예요.</p><p>이사, 이직, 부서 이동, 혹은 글로벌한 무대로의 진출 등 삶의 반경이 엄청나게 넓어집니다. 변화의 거센 파도를 두려워하지 말고 윈드서핑을 하듯 짜릿하게 즐겨보세요. 더 넓은 세상이 당신을 기다립니다.</p>",
       wm_style: "<p>당신은 전 세계를 굽이쳐 흐르는 거대한 강물이자 깊고 넓은 바다 같은 사람이에요. 옹졸하게 돈을 한 곳에 묶어두기보다는, 돈이 크게 흘러가는 길목을 영리하게 선점하여 부를 긁어모으는 스케일 큰 방식을 타고났어요.</p><p>스펀지처럼 방대한 지식과 글로벌한 정보력을 쫙쫙 빨아들여, 남들은 보지 못하는 거시적인 안목으로 큰 흐름에 베팅하여 대성공을 거두는 투자의 귀재입니다. 유통, 플랫폼, 무역 등 경계가 없는 곳에서 막대한 부를 창출해냅니다.</p>",
       wm_ladder: "<p><strong>1단계 · 무한 정보 흡수기</strong><br>세상의 온갖 다양한 지식과 트렌드, 고급 정보들을 편식 없이 방대하게 흡수하고 공부합니다.</p><p><strong>2단계 · 거시적 흐름 파악</strong><br>모은 조각들을 바탕으로 시대가 어디로 흘러가는지 정확한 맥락을 짚어내어 돈의 물길을 찾습니다.</p><p><strong>3단계 · 유연한 물꼬 트기</strong><br>작은 시도로 길을 테스트하며 유통망이나 파이프라인의 기초를 막힘없이 뚫어냅니다.</p><p><strong>4단계 · 스케일업 대규모 투자</strong><br>확신이 섰을 때 주저하지 않고 글로벌한 스케일의 투자와 사업 확장을 단행합니다.</p><p><strong>5단계 · 전 세계를 굽이치는 바다</strong><br>수입원이 전방위적으로 확대되며, 국경과 경계가 없는 끝을 알 수 없는 거대한 부의 바다를 완성합니다.</p>",
-      wm_job: "<p><strong>🥇 1순위: 글로벌 무역·유통·플랫폼</strong><br>막힌 곳 없이 세계를 넘나들며 물자나 정보를 교류하게 만드는 일에서 독보적인 재능을 발휘합니다.</p><p><strong>🥈 2순위: 전략 기획·외교·컨설팅</strong><br>판 전체를 조망하는 거시적 안목으로 유연하게 문제를 해결하고 최적의 전략을 짜내는 천재적인 브레인이에요.</p><p><strong>🥉 3순위: 교육·아이디어 뱅크</strong><br>반복되는 일상 업무는 당신을 시들게 합니다. 무한한 상상력을 펼치는 연구나 창작 분야가 가슴을 뛰게 해요.</p>",
+      wm_job: "<p><strong>🥇 1순위: 글로벌 무역·유통·플랫폼</strong><br>막힌 곳 없이 세계를 넘나들며 물자나 정보를 교류하게 만드는 일에서 독보적인 재능을 발휘합니다.</p><p><strong>🥈 2순위: 전략 기획·외교·컨설팅</strong><br>판 전체 조망하는 거시적 안목으로 유연하게 문제를 해결하고 최적의 전략을 짜내는 천재적인 브레인이에요.</p><p><strong>🥉 3순위: 교육·아이디어 뱅크</strong><br>반복되는 일상 업무는 당신을 시들게 합니다. 무한한 상상력을 펼치는 연구나 창작 분야가 가슴을 뛰게 해요.</p>",
       wm_trap: "<p><strong>🚫 들어오는 만큼 새나가는 둑</strong><br>스케일이 커서 버는 단위도 크지만, 그만큼 구멍이 뚫리면 엄청난 돈이 한 번에 쓸려 나갑니다. 자산을 단단하게 묶어둘 든든한 댐(부동산, 신탁)이 생명줄이에요.</p><p><strong>🚫 지루함을 견디지 못하는 변덕</strong><br>시작은 창대하지만, 똑같은 일상이 반복되면 금방 흥미를 잃고 다른 우물을 파려 합니다. 끝까지 버티는 끈기가 필요해요.</p><p><strong>🚫 너무 깊은 생각의 늪</strong><br>행동하기 전에 생각을 너무 깊고 넓게 하느라 정작 타이밍을 놓쳐버리기 십상입니다. 생각은 짧게, 행동은 가볍게 하세요.</p>",
       lv_lang: "<p>당신의 사랑 언어는 상대방의 허물조차 넉넉하게 안아주는 '끝없는 포용과 이해심'이에요. 속을 쉽게 알 수 없는 깊은 바다처럼 신비롭고 묘한 매력으로 상대방을 완전히 홀려버리는 마성의 로맨티스트랍니다.</p><p>틀에 박힌 데이트 코스보다는 함께 미지의 세계로 훌쩍 떠나는 즉흥적이고 자유로운 낭만을 가슴 깊이 갈망하고 있어요.</p>",
       lv_match: "<p><strong>💞 최고의 궁합:</strong> 당신의 넓은 바다를 반짝반짝 아름답게 빛내줄 수 있는 지적이고 세련된 보석(신금) 같은 사람이 잘 맞아요.</p><p><strong>💔 최악의 궁합:</strong> 자유롭게 흐르고 싶은 당신의 물길을 사방에서 꽉 막아버리고 구속하려는 답답한 큰 산(무토) 같은 분은 피하세요.</p>",
