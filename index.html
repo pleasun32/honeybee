@@ -630,13 +630,16 @@ function refreshKakaoAds() {
   setTimeout(() => {
     if (typeof window.adfit !== 'undefined') {
       try {
-        // 카카오 AdFit은 자동으로 페이지 내 ins 태그를 찾아 광고를 채워줌
-        // display:none을 풀어주는 방식
-        document.querySelectorAll('.kakao_ad_area').forEach(el => {
-          if (el.offsetParent !== null) {  // 화면에 보이는 것만
-            el.style.display = '';
-          }
-        });
+document.querySelectorAll('.kakao_ad_area').forEach(el => {
+  if (el.offsetParent !== null) {  // 화면에 보이는 것만
+    el.style.display = '';
+    // 추가할 코드: 요소를 보이게 한 후 명시적으로 렌더링을 지시
+    if (window.adfit) {
+      window.adfit.render();
+    }
+  }
+});
+      
       } catch(e) {}
     }
   }, 100);
