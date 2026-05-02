@@ -17,52 +17,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.min.js"></script>
 
-<!-- 구글 애드센스 공통 스크립트 (자동 광고 앵커 광고 사용 권장) -->
+<!-- 구글 애드센스 공통 스크립트 -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4394607454861717" crossorigin="anonymous"></script>
 
 <style>
-  * {
-    box-sizing: border-box;
-    word-break: keep-all; 
-    overflow-wrap: break-word;
-    margin: 0; padding: 0;
-    -webkit-tap-highlight-color: transparent;
-  }
+  * { box-sizing: border-box; word-break: keep-all; overflow-wrap: break-word; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   :root {
-    --ink: #1C3F2F;             
-    --white: #FFFFFF;
-    --btn-yellow: #F6CD46;      
-    --btn-blue: #4DAA80;        
-    --btn-red: #E08976;         
-    --btn-green: #74C6A3;       
-    --text-muted: #5B8470;      
-    --border-width: 2.5px; 
-    --shadow-depth: 4px;   
-    --glow: 0 0 15px rgba(246, 205, 70, 0.6); 
+    --ink: #1C3F2F; --white: #FFFFFF; --btn-yellow: #F6CD46; --btn-blue: #4DAA80;        
+    --btn-red: #E08976; --btn-green: #74C6A3; --text-muted: #5B8470;      
+    --border-width: 2.5px; --shadow-depth: 4px; --glow: 0 0 15px rgba(246, 205, 70, 0.6); 
   }
   
   body {
-    font-family: 'Nunito', 'Jua', sans-serif;
-    font-weight: 500;
+    font-family: 'Nunito', 'Jua', sans-serif; font-weight: 500;
     background: url('background.svg') no-repeat center center fixed; 
-    background-size: cover;
-    color: var(--ink);
-    min-height: 100vh;
-    overflow-x: hidden;
+    background-size: cover; color: var(--ink); min-height: 100vh; overflow-x: hidden;
     animation: softFadeIn 1.2s ease-in-out;
   }
   @keyframes softFadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
 
-  .app {
-    max-width: 480px; margin: 0 auto; padding: 20px 24px 80px;
-    min-height: 100vh; position: relative; z-index: 1;
-  }
+  .app { max-width: 480px; margin: 0 auto; padding: 20px 24px 80px; min-height: 100vh; position: relative; z-index: 1; }
   .screen { display: none; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
   .screen.active { display: flex; flex-direction: column; gap: 20px; }
-  @keyframes popIn {
-    0% { opacity: 0; transform: scale(0.96) translateY(10px); }
-    100% { opacity: 1; transform: scale(1) translateY(0); }
-  }
+  @keyframes popIn { 0% { opacity: 0; transform: scale(0.96) translateY(10px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
 
   h1 { font-family: 'Jua', sans-serif; font-size: 26px; color: var(--ink); letter-spacing: 0.5px; font-weight: normal; line-height: 1.3; }
   h2 { font-family: 'Jua', sans-serif; font-size: 22px; color: var(--ink); letter-spacing: 0.5px; font-weight: normal; }
@@ -92,6 +69,8 @@
   .btn-blue { background: var(--btn-blue); color: var(--white); }
   .btn-white { background: var(--white); color: var(--ink); }
   .btn-green { background: var(--btn-green); color: var(--white); }
+  .btn-coupang { background: #E63538; color: var(--white); font-size: 16px; padding: 14px; text-decoration: none; display: block; border-radius: 12px; font-family: 'Nunito', 'Jua', sans-serif; font-weight: 800; border: 2px solid #C42629; box-shadow: 0 4px 0 #C42629; margin-top: 16px; transition: all 0.1s; text-align: center; }
+  .btn-coupang:active { transform: translateY(4px); box-shadow: 0 0 0 #C42629; }
 
   .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin-top: 8px; }
   .nav-bar { display: flex; margin-bottom: 12px; }
@@ -105,12 +84,9 @@
   .tile-title { font-family: 'Jua', sans-serif; font-size: 17px; color: var(--ink); }
   .tile-sub { font-size: 12px; color: var(--text-muted); font-weight: 700; font-family: 'Nunito', sans-serif; }
   
-  .tile-price { position: absolute; top: -8px; right: -8px; background: var(--btn-green); color: var(--white); font-size: 11px; font-family: 'Jua', sans-serif; letter-spacing: 0.5px; padding: 4px 10px; border: 2px solid var(--ink); border-radius: 16px; white-space: nowrap; box-shadow: 0 2px 0 rgba(0,0,0,0.1); }
-  .badge-normal { background: var(--btn-blue); }
-  .badge-premium { background: var(--btn-red); }
+  .tile-price { position: absolute; top: -8px; right: -8px; background: var(--btn-blue); color: var(--white); font-size: 11px; font-family: 'Jua', sans-serif; letter-spacing: 0.5px; padding: 4px 10px; border: 2px solid var(--ink); border-radius: 16px; white-space: nowrap; box-shadow: 0 2px 0 rgba(0,0,0,0.1); }
   .tile-game.special { background: var(--ink); color: var(--white); }
   .tile-game.special .tile-title { color: var(--btn-yellow); }
-  .tile-game.special .tile-price { background: var(--btn-yellow); color: var(--ink); }
 
   .card-game { background: var(--white); border: var(--border-width) solid var(--ink); border-radius: 18px; padding: 24px; box-shadow: 0 var(--shadow-depth) 0 var(--ink); }
   .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
@@ -160,22 +136,16 @@
   .footer-links a { color: var(--text-muted); text-decoration: none; }
   .footer-copyright { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 12px; line-height: 1.5; }
   
-  /* 광고 공통 최적화 스타일 */
+  /* 광고 최적화 스타일 */
   .ad-banner {
     width: 100%; min-height: 100px; margin: 32px 0; display: flex; flex-direction: column; justify-content: center; align-items: center;
     background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.05); border-radius: 12px; overflow: hidden; text-align: center; position: relative;
-    padding-top: 15px; /* 라벨을 위한 상단 여백 */
+    padding-top: 15px;
   }
-  .ad-label { 
-    position: absolute; top: 0; left: 0; background: rgba(0,0,0,0.06); color: #777; 
-    font-size: 10px; font-family: 'Nunito', sans-serif; font-weight: 800; padding: 3px 8px; 
-    border-bottom-right-radius: 8px; z-index: 10; letter-spacing: 0.5px;
-  }
-  /* 쿠팡 파트너스 안내 문구 */
-  .coupang-disclaimer {
-    font-size: 11px; color: #888; margin-top: 12px; font-weight: 600; text-align: center; line-height: 1.4;
-  }
+  .ad-label { position: absolute; top: 0; left: 0; background: rgba(0,0,0,0.06); color: #777; font-size: 10px; font-family: 'Nunito', sans-serif; font-weight: 800; padding: 3px 8px; border-bottom-right-radius: 8px; z-index: 10; letter-spacing: 0.5px; }
+  .coupang-disclaimer { font-size: 10px; color: #999; margin-top: 10px; font-weight: 600; text-align: center; line-height: 1.4; }
 
+  /* 럭키 박스 (네이티브 광고 영역 겸용) */
   .lucky-box { background: #FFF5F5; border: var(--border-width) solid var(--btn-red); border-radius: 16px; padding: 24px 20px; margin-top: 24px; }
   .lucky-title { font-family: 'Jua', sans-serif; font-size: 20px; color: var(--btn-red); margin-bottom: 18px; text-align: center; }
   .lucky-grid { display: flex; flex-direction: column; gap: 12px; }
@@ -218,7 +188,6 @@
   </div>
   <button class="btn-game btn-white mt-sm" onclick="goto('hub')" data-t="cta_check_saju" style="border-color: var(--btn-blue); color: var(--btn-blue);">내 이야기 들으러 가기</button>
   
-  <!-- 랜딩 페이지 하단 광고 (애드센스) -->
   <div class="ad-banner mt-lg">
     <span class="ad-label">Sponsor</span>
     <ins class="adsbygoogle"
@@ -245,7 +214,6 @@
   </div>
   <div class="center mb-sm"><h1 data-t="hub_pick_title">어떤 이야기가 궁금하신가요?</h1></div>
   
-  <!-- 허브 페이지 카카오 애드핏 -->
   <div class="ad-banner mb-md" style="background:#FAFAFA; min-height: 80px;">
     <span class="ad-label">Kakao AdFit</span>
     <ins class="kakao_ad_area" style="display:none;"
@@ -257,7 +225,7 @@
 
   <div class="menu-grid">
     <div class="tile-game special" onclick="openReading('general')">
-      <div class="tile-price badge-premium" data-t="p_ad_premium">🔮 Today & Year</div>
+      <div class="tile-price badge-normal" data-t="p_ad_normal">🍯 무료 보기</div>
       <div class="tile-icon">🔮</div>
       <div class="tile-title" data-t="menu_general">종합 운세</div>
       <div class="tile-sub" style="color:var(--btn-yellow);" data-t="menu_general_sub">오늘과 올해의 기운</div>
@@ -329,7 +297,6 @@
     <button id="btn-submit-form" class="btn-game btn-blue mt-sm" onclick="submitInput()" data-t="onb_submit">사주 풍경화 그리기</button>
   </div>
 
-  <!-- 입력폼 하단 애드센스 -->
   <div class="ad-banner">
     <span class="ad-label">Sponsor</span>
     <ins class="adsbygoogle"
@@ -364,22 +331,9 @@
       <h1 id="result-title" style="color: var(--btn-blue);">결과가 도착했어요!</h1>
       <p data-t="your_saju_label">당신의 마음속 풍경을 보여드릴게요.</p>
     </div>
+    
     <div id="result-content"></div>
 
-    <!-- 쿠팡 파트너스 배너 및 명확한 면책 조항 (정책 준수) -->
-    <div class="ad-banner mt-md" style="background: #FFF; border: 2px solid #E63538; padding: 15px 10px 10px;">
-      <span class="ad-label" style="background: #E63538; color: #FFF;">Coupang</span>
-      <div style="color: #E63538; font-weight: 800; font-family: 'Nunito', 'Jua', sans-serif; font-size: 15px; margin-bottom: 10px;">
-        🎁 내 사주 기운을 보완해줄 행운의 아이템
-      </div>
-      <script src="https://ads-partners.coupang.com/g.js"></script>
-      <script>
-        new PartnersCoupang.G({"id":985560,"template":"carousel","trackingCode":"AF3527009","width":"100%","height":"140","tsource":""});
-      </script>
-      <div class="coupang-disclaimer">
-        이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br>이에 따른 일정액의 수수료를 제공받습니다.
-      </div>
-    </div>
   </div>
   
   <div class="share-wrapper">
@@ -387,7 +341,6 @@
     <button class="btn-game btn-blue" onclick="alert('클립보드에 복사되었습니다!')">💌 <span data-t="btn_share">공유</span></button>
   </div>
   
-  <!-- 결과창 하단 애드센스 -->
   <div class="ad-banner mt-md">
     <span class="ad-label">Sponsor</span>
     <ins class="adsbygoogle"
@@ -409,7 +362,6 @@
 </div>
 
 <script>
-// 번역, 운세 데이터, 기본 스크립트는 이전과 동일하게 유지됩니다.
 const TRANSLATIONS = {
   ko: {
     menu_general: "종합 운세", menu_general_sub: "오늘과 올해의 기운",
@@ -436,7 +388,7 @@ const TRANSLATIONS = {
     btn_save_img: "저장", btn_share: "공유", saving_img: "저장 중...", saved_img: "저장 완료!",
     m_title: "내 사주의 자연 기운", m_desc: "* 빨간 테두리가 당신을 대표하는 핵심 기운이에요.",
     m_year: "태어난 해", m_month: "태어난 달", m_day: "태어난 날", m_time: "태어난 시간", unknown_pillar: "모름", unknown_desc: "알수없음",
-    lucky_title: "🍀 행운 포인트", lucky_color: "행운의 색상", lucky_item: "행운의 패션 아이템", letter_title: "💌 꿀벌의 다정한 편지"
+    lucky_title: "🍀 나의 행운 소품", lucky_color: "행운의 색상", lucky_item: "오늘의 럭키 아이템", letter_title: "💌 꿀벌의 다정한 편지"
   },
   en: {
     menu_general: "General", menu_general_sub: "Today & This Year",
@@ -463,21 +415,21 @@ const TRANSLATIONS = {
     btn_save_img: "Save", btn_share: "Share", saving_img: "Saving...", saved_img: "Saved!",
     m_title: "My Nature Energy", m_desc: "* The red border is your core representative energy.",
     m_year: "Year", m_month: "Month", m_day: "Day", m_time: "Time", unknown_pillar: "Unknown", unknown_desc: "Unknown",
-    lucky_title: "🍀 Lucky Points", lucky_color: "Lucky Color", lucky_item: "Lucky Fashion Item", letter_title: "💌 Bee's Warm Letter"
+    lucky_title: "🍀 My Lucky Item", lucky_color: "Lucky Color", lucky_item: "Today's Lucky Pick", letter_title: "💌 Bee's Warm Letter"
   }
 };
 
 const LUCKY_DATA = {
-  0: { color: { ko: "초록색", en: "Green" }, item: { ko: "가죽 지갑", en: "Leather Wallet" } },
-  1: { color: { ko: "민트색", en: "Mint Green" }, item: { ko: "실크 스카프", en: "Silk Scarf" } },
-  2: { color: { ko: "빨간색", en: "Red" }, item: { ko: "선글라스", en: "Sunglasses" } },
-  3: { color: { ko: "보라색", en: "Purple" }, item: { ko: "펜던트 목걸이", en: "Pendant Necklace" } },
-  4: { color: { ko: "황토색", en: "Earthy Brown" }, item: { ko: "클래식한 가죽 벨트", en: "Classic Leather Belt" } },
-  5: { color: { ko: "베이지색", en: "Beige" }, item: { ko: "캔버스 에코백", en: "Canvas Eco Bag" } },
-  6: { color: { ko: "은색", en: "Silver" }, item: { ko: "메탈 손목시계", en: "Metal Wristwatch" } },
-  7: { color: { ko: "흰색", en: "White" }, item: { ko: "크리스탈 귀걸이", en: "Crystal Earrings" } },
-  8: { color: { ko: "검은색", en: "Black" }, item: { ko: "부드러운 캐시미어 머플러", en: "Soft Cashmere Muffler" } },
-  9: { color: { ko: "하늘색", en: "Sky Blue" }, item: { ko: "비즈 팔찌", en: "Beaded Bracelet" } }
+  0: { color: { ko: "초록색", en: "Green" }, item: { ko: "가벼운 향수", en: "Light Perfume" }, icon: "🌿" },
+  1: { color: { ko: "민트색", en: "Mint Green" }, item: { ko: "휴대용 텀블러", en: "Tumbler" }, icon: "🥤" },
+  2: { color: { ko: "빨간색", en: "Red" }, item: { ko: "촉촉한 립밤", en: "Lip Balm" }, icon: "💄" },
+  3: { color: { ko: "보라색", en: "Purple" }, item: { ko: "귀여운 키링", en: "Keyring" }, icon: "🔑" },
+  4: { color: { ko: "황토색", en: "Earthy Brown" }, item: { ko: "가죽 카드지갑", en: "Card Wallet" }, icon: "🪪" },
+  5: { color: { ko: "베이지색", en: "Beige" }, item: { ko: "캔버스 에코백", en: "Eco Bag" }, icon: "🛍️" },
+  6: { color: { ko: "은색", en: "Silver" }, item: { ko: "보습 핸드크림", en: "Hand Cream" }, icon: "🧴" },
+  7: { color: { ko: "흰색", en: "White" }, item: { ko: "무선 이어폰 케이스", en: "Earphone Case" }, icon: "🎧" },
+  8: { color: { ko: "검은색", en: "Black" }, item: { ko: "편안한 캡모자", en: "Ball Cap" }, icon: "🧢" },
+  9: { color: { ko: "하늘색", en: "Sky Blue" }, item: { ko: "스마트폰 그립톡", en: "Phone Grip" }, icon: "📱" }
 };
 
 const CATEGORY_MAP = {
@@ -487,122 +439,409 @@ const CATEGORY_MAP = {
   wellness: [{ t: "sec_wn_body_title", k: "wn_body" }, { t: "sec_wn_time_title", k: "wn_time" }, { t: "sec_wn_mind_title", k: "wn_mind" }, { t: "sec_wn_advice_title", k: "wn_advice" }]
 };
 
-let currentLang = 'ko';
-let currentSaju = { archIndex: 0 };
-let currentReadingType = 'general';
-
-function getT(key) { return TRANSLATIONS[currentLang][key] || key; }
-
-function updateUI() {
-  document.querySelectorAll('[data-t]').forEach(el => {
-    const key = el.getAttribute('data-t');
-    if (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key]) {
-      el.innerHTML = TRANSLATIONS[currentLang][key];
+// 100% 완전 복구된 상세 사주 데이터 객체 (0: 갑목 ~ 9: 계수)
+const SAJU_DATA = {
+  0: { 
+    counseling: {
+      ko: "당신은 척박한 땅에서도 곧게 자라나는 소나무 같은 사람이에요. 남들에게 기대기보다 스스로 일어서려는 독립심이 강하죠. 가끔은 너무 꼿꼿해서 혼자서만 힘든 짐을 지고 부러질까 걱정될 때가 있어요. 힘들 때는 주변의 부드러운 바람과 사람들에게 잠시 기대어 쉬어가는 연습을 해보는 게 좋아요. 그래도 괜찮답니다.",
+      en: "You are like a pine tree growing straight even in barren land. You have a strong independence. Sometimes you stand so rigid that you carry all the burdens alone. It's perfectly okay to lean on the gentle breeze and the people around you when you are tired. Practice resting."
+    },
+    ko: {
+      gen_today: "<p>오늘은 단단한 흙을 뚫고 작은 씨앗이 마침내 얼굴을 내미는 생명력 넘치는 날이에요. 오랫동안 마음속에만 품어두었던 생각이나 망설이던 계획이 있다면, 오늘이 바로 세상 밖으로 꺼내기 가장 좋은 타이밍이랍니다.</p><p>완벽하게 준비되지 않아도 괜찮아요. 위로 뻗어나가려는 당신의 본능적인 에너지가 길을 찾아줄 거니까요. 아주 작은 첫걸음이라도 오늘 꼭 시도해 보세요.</p>",
+      gen_month: "<p>이번 달은 당신의 가지를 사방으로 넓게 뻗어가는 확장과 성장의 시기예요. 새로운 만남, 뜻밖의 제안들이 당신의 좁았던 세계를 한 뼘 더 넓혀줄 거예요.</p><p>자신감이 넘치고 활력이 솟아나는 만큼, 들어오는 제안들을 두려워하지 말고 긍정적인 마음으로 수용해 보세요. 이 시기에 맺은 인연이 훗날 당신의 든든한 숲을 이루는 소중한 밑거름이 될 거랍니다.</p>",
+      gen_year: "<p>올해는 당신이라는 든든한 거목이 한 단계 더 굵어지고 단단해지는 아주 중요한 한 해예요. 혹시 남들보다 눈에 띄는 화려한 결과물이 당장 보이지 않는다고 해서 조급해할 필요는 전혀 없어요.</p><p>지금 당신은 거센 비바람도 흔들 수 없을 만큼 깊고 튼튼한 뿌리를 땅속 깊이 내리는 중이거든요. 올해의 묵묵한 인내와 성실함이 내년의 풍성하고 달콤한 열매를 반드시 보장해줄 거예요. 흔들리지 말고 당신의 길을 걸어가세요.</p>",
+      wm_style: "<p>당신은 봄에 새로 돋아나는 큰 나무 같은 사람이에요. 따뜻한 햇살을 받아 위로, 위로 쭉쭉 자라나는 생명력을 가지고 태어났거든요. 그래서 당신의 돈은 한 방에 터지는 큰돈이라기보다는, 시간이 지날수록 천천히, 그러나 절대로 무너지지 않고 확실하게 쌓이는 우직한 스타일이에요.</p><p>당신의 진정한 부는 '전문성의 깊이'에서 흘러나옵니다. 얕게 여러 우물을 파는 것보다, 한 분야를 깊이 파고들어 그 분야에서 감히 넘볼 수 없는 거목이 될 때 가장 거대한 부가 따라오는 사주예요. 조급해하지 마세요. 당신의 성공 시계는 남들보다 조금 천천히, 하지만 훨씬 거대하게 흐르고 있답니다.</p>",
+      wm_ladder: "<p><strong>1단계 · 씨앗기 (성장 준비)</strong><br>지금은 통장 잔고보다는 '나 자신에 대한 배움'에 투자할 시기예요. 자격증, 독서, 멘토와의 만남에 돈과 시간을 아끼지 마세요.</p><p><strong>2단계 · 뿌리기 (기반 다지기)</strong><br>생애 첫 번째 묵직한 자산을 마련하는 시기예요. 무리한 영끌 대출보다는 작더라도 내 자본 중심의 확실한 가치 투자(부동산 등)에 닻을 내리세요.</p><p><strong>3단계 · 줄기기 (수익 다각화)</strong><br>본격적으로 부가 튼튼한 가지처럼 뻗어나갑니다. 본업 외에도 강의, 컨설팅, 출판 등 당신의 전문성이 다양한 파이프라인으로 변모합니다.</p><p><strong>4단계 · 그늘기 (시스템 완성)</strong><br>당신이 키운 거목 아래로 사람들이 모여들어요. 직접 땀 흘려 일하지 않아도 자산이 자산을 부르는 든든한 시스템이 완성됩니다.</p><p><strong>5단계 · 숲기 (부의 정점)</strong><br>한 그루 나무가 아닌, 다음 세대까지 이어지는 거대한 숲을 이루며 인생 최고의 안정감과 명예를 동시에 누리게 됩니다.</p>",
+      wm_job: "<p><strong>🥇 1순위: 교육·컨설팅·멘토링</strong><br>당신은 천성적으로 누군가를 키우고 올바른 길로 가르치는 데 놀라운 재능이 있어요. 타인을 성장시키는 일이 당신의 본질과 가장 잘 맞습니다.</p><p><strong>🥈 2순위: 기획·전략·스타트업</strong><br>새로운 걸 시작하고 아무도 보지 못한 큰 그림을 그리는 데 탁월해요. 조직의 방향을 설정하는 리더나 기획자가 천직이에요.</p><p><strong>🥉 3순위: 전문직 (의료, 법률, 연구)</strong><br>주변에 휩쓸리지 않고 평생 한 우물을 깊이 파는 끈기가 필요한 직업에서 타의 추종을 불허하는 대성공을 거둡니다.</p>",
+      wm_trap: "<p><strong>🚫 단타 투자의 유혹</strong><br>코인이나 단기 주식 같은 빠른 돈을 쫓는 시도는 나무의 뿌리를 뽑는 것과 같아요. 친구가 두 배를 벌었다는 소식에 절대 흔들리지 마세요.</p><p><strong>🚫 너무 많이 벌리는 일</strong><br>시작하는 에너지가 너무 강해 일을 5~6개씩 벌여놓기 쉽습니다. 거목이 되어야지 잡목이 되면 안 돼요. 하나를 끝까지 마무리하는 끈기를 연습하세요.</p><p><strong>🚫 빚보증과 과도한 의리</strong><br>친한 사람의 부탁에 마음이 흔들려 보증을 서는 순간, 평생 쌓아온 나무가 한 번에 쓰러질 수 있어요. 금전거래는 단호하게 거절하는 연습이 필요해요.</p>",
+      lv_lang: "<p>당신의 사랑 언어는 '든든한 보호와 책임감'이에요. 말로 화려하게 사랑을 속삭이기보다는, 비바람이 칠 때 묵묵히 상대방의 우산이 되어주고 쉴 수 있는 단단한 어깨를 내어주는 멋진 로맨티스트랍니다.</p><p>사랑에 빠지는 속도는 조금 느릴지 몰라도, 한 번 당신의 울타리 안에 들어온 사람은 끝까지 포기하지 않고 지켜내는 굳건한 마음을 가졌어요.</p>",
+      lv_match: "<p><strong>💞 최고의 궁합:</strong> 당신의 성장을 촉진시켜주는 다정하고 따뜻한 태양(병화) 같은 사람이나, 마른 목을 축여주는 촉촉한 봄비(계수) 같은 사람이 당신에게 무한한 안정감을 줍니다.</p><p><strong>💔 최악의 궁합:</strong> 당신의 뻗어나가려는 가지를 사사건건 통제하고 잘라내려 간섭하는 날카로운 도끼(경금) 같은 사람은 자존감을 떨어뜨리니 피하는 게 좋아요.</p>",
+      lv_stage: "<p><strong>🌱 썸&시작:</strong> 너무 성급하게 마음을 열지 말고 조심스럽게 관찰하며 천천히 다가가세요. 당신에게는 속도보다 변함없는 신뢰가 훨씬 더 중요하니까요.</p><p><strong>🌿 연애기:</strong> 비바람에도 끄떡없는 소나무처럼 상대방의 든든한 버팀목이 되어주세요. 단, 무뚝뚝함은 오해를 부를 수 있으니 가끔은 따뜻한 애정 표현도 잊지 마세요.</p><p><strong>🌳 안정기:</strong> 상대방을 보호하고 책임지려는 당신의 깊은 마음이 자칫 '통제'나 '간섭'으로 느껴지지 않도록, 서로의 개인적인 시간과 자유를 존중해 주는 여유가 필요해요.</p>",
+      lv_family: "<p>가족과 친구들에게 당신은 언제나 기댈 수 있는 가장 크고 든든한 안식처 같은 나무예요. 큰 문제가 생기면 사람들은 당연하다는 듯 가장 먼저 당신을 찾고 의지하죠.</p><p>하지만 튼튼한 나무도 가끔은 기대어 쉴 다정한 바람이 필요하답니다. 너무 모든 짐을 혼자 짊어지려 하지 말고, 힘들 땐 곁에 있는 사랑하는 사람들에게 기대어 약한 모습을 보여주는 연습을 해보세요. 그것이 진짜 소통이랍니다.</p>",
+      wn_body: "<p>봄의 기운을 받아 위로 곧게 뻗어나가려는 꼿꼿한 에너지가 강해서, 자칫하면 뼈나 척추, 목 관절 등에 묵직한 무리가 가기 쉬운 체질이에요.</p><p>목석처럼 뻣뻣해지기 쉬운 몸을 부드럽고 유연하게 풀어주는 요가, 필라테스, 혹은 폼롤러 스트레칭 같은 운동이 그 어떤 값비싼 영양제보다 당신의 건강을 든든하게 지켜주는 최고의 보약이랍니다.</p>",
+      wn_time: "<p><strong>☀️ 아침의 자기관리:</strong> 잠자리에서 일어나자마자 크게 기지개를 켜며 가벼운 스트레칭으로 척추를 길게 늘려주며 맑은 산소를 들이마시세요.</p><p><strong>🌙 저녁의 자기관리:</strong> 하루 종일 당신의 무게를 버티느라 고생한 다리와 허리의 피로를 반신욕으로 부드럽게 풀고, 따뜻한 차 한 잔으로 복잡한 뇌를 쉬게 하세요.</p>",
+      wn_mind: "<p>항상 위로 뻗어나가야 하고 끊임없이 성장해야 한다는 무의식적인 강박과 압박감을 이제는 조용히 내려놓으셔도 괜찮아요.</p><p>차가운 겨울눈 속에 잎을 모두 떨어뜨리고 웅크려 쉬고 있는 나무처럼, 아무것도 하지 않고 멈춰 있는 시간조차 당신에게는 내년 봄의 눈부신 성장을 위한 가장 귀하고 소중한 양분이 된다는 사실을 꼭 기억하세요.</p>",
+      wn_advice: "<p>비바람과 폭풍우가 매섭게 몰아치는 날에는, 억지로 부러지지 않으려고 안간힘을 쓰며 꼿꼿하게 버티기보다는, 갈대처럼 잠시 몸을 낮추고 바람이 무사히 지나가길 기다리는 것도 훌륭하고 어른스러운 지혜랍니다.</p><p>당신은 굳이 완벽해지려 애쓰지 않아도 이미 그 존재 자체만으로 주변에 큰 그늘을 내어주는 충분히 훌륭하고 멋진 큰 나무니까요. 거울을 보며 매일 스스로를 다정하게 칭찬해주세요.</p>"
+    },
+    en: {
+      gen_today: "<p>Today is a dynamic day when a small seed breaks through the hard soil. If you have a plan you've been hesitating on, today is the best time to bring it out to the world. Start with a very small step.</p>",
+      gen_month: "<p>This month is a time of expansion, spreading your branches wide. New encounters and unexpected proposals will expand your world. Embrace incoming offers with a positive mind.</p>",
+      gen_year: "<p>This year is a crucial time for you to become a thicker, more solid tree. Don't be impatient if flashy results aren't visible immediately. You are putting down deep roots to withstand any storm. Your silent endurance will guarantee sweet fruits next year.</p>",
+      wm_style: "<p>You are like a big tree sprouting in spring. Your wealth builds up slowly but surely over time, rather than coming in as a one-time jackpot. Your true wealth flows from the 'depth of expertise'. Dig deep into one field to become a giant tree.</p>",
+      wm_ladder: "<p><strong>Step 1:</strong> Invest in learning and yourself.</p><p><strong>Step 2:</strong> Secure your first solid asset like real estate.</p><p><strong>Step 3:</strong> Diversify income streams based on your expertise.</p><p><strong>Step 4:</strong> Build a system where your assets generate more assets.</p><p><strong>Step 5:</strong> Form a massive forest of wealth that lasts generations.</p>",
+      wm_job: "<p>1. Education/Consulting: Naturally talented at nurturing others.</p><p>2. Strategy/Startup: Excellent at painting the big picture.</p><p>3. Professionals: Succeed immensely in fields requiring lifelong dedication.</p>",
+      wm_trap: "<p>1. Short-term investments: Cryptos or quick stocks can uproot you.</p><p>2. Starting too many things: Finish what you start to become a grand tree.</p><p>3. Co-signing loans: Never lend money or co-sign out of loyalty.</p>",
+      lv_lang: "<p>Your love language is 'reliable protection and responsibility'. You prove your affection by being a sturdy umbrella during storms rather than whispering flashy words.</p>",
+      lv_match: "<p>Best Match: Warm sun (Yang Fire) or moisturizing spring rain (Yin Water).</p><p>Worst Match: Sharp axe (Yang Metal) that tries to control your branches.</p>",
+      lv_stage: "<p>Approach slowly building trust. Be a steady support, and always respect each other's freedom without being overly controlling.</p>",
+      lv_family: "<p>You are a reliable haven for your family. But remember, even a strong tree needs the wind to lean on. Practice relying on your loved ones when you are tired.</p>",
+      wn_body: "<p>Your strong upward energy can strain your spine and joints. Flexibility exercises like yoga or Pilates are your best medicine.</p>",
+      wn_time: "<p>Morning: Start with stretches to lengthen your spine. Evening: Relieve your tired legs and relax your brain with warm tea.</p>",
+      wn_mind: "<p>Let go of the pressure to constantly grow. Even the time spent resting and doing nothing is essential nourishment for your next big leap.</p>",
+      wn_advice: "<p>During a severe storm, it's wise to bend like a reed rather than standing rigidly and breaking. You are already a wonderful tree. Praise yourself every day.</p>"
     }
-  });
-  const timeSelect = document.getElementById('input-time');
-  if(timeSelect && timeSelect.options[0]) timeSelect.options[0].text = getT('time_opt_placeholder');
-}
-
-function setLang(lang) {
-  currentLang = lang;
-  updateUI();
-  goto('landing');
-}
-
-function initAds(container) {
-  if (!container) return;
-  container.querySelectorAll('.adsbygoogle:not([data-ads-loaded])').forEach(ad => {
-    ad.setAttribute('data-ads-loaded', 'true');
-    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } 
-    catch (e) { console.warn("AdSense push error:", e); }
-  });
-}
-
-function goto(screenId) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  const targetScreen = document.getElementById('screen-' + screenId);
-  targetScreen.classList.add('active');
-  window.scrollTo(0, 0);
-  initAds(targetScreen);
-}
-
-function toggleTimeInput(checkbox) {
-  const timeSelect = document.getElementById('input-time');
-  timeSelect.disabled = checkbox.checked;
-  if (checkbox.checked) timeSelect.value = '';
-}
-
-function openReading(type) {
-  currentReadingType = type;
-  goto('input');
-}
-
-function submitInput() {
-  const name = document.getElementById('input-name').value;
-  const date = document.getElementById('input-date').value;
-  const time = document.getElementById('input-time').value;
-  const timeUnknown = document.getElementById('input-time-unknown').checked;
-  const errorMsg = document.getElementById('form-error');
-
-  if (!name) { errorMsg.innerText = getT('err_req_name'); errorMsg.style.display = 'block'; return; }
-  if (!date) { errorMsg.innerText = getT('err_req_date'); errorMsg.style.display = 'block'; return; }
-  if (!time && !timeUnknown) { errorMsg.innerText = getT('err_req_time'); errorMsg.style.display = 'block'; return; }
-
-  errorMsg.style.display = 'none';
-
-  const dateObj = new Date(date);
-  const timeMap = { ja: 0, chuk: 2, in: 4, myo: 6, jin: 8, sa: 10, o: 12, mi: 14, shin: 16, yu: 18, sul: 20, hae: 22 };
-  let hour = timeUnknown ? 12 : (timeMap[time] !== undefined ? timeMap[time] : 12);
-  let c = { yearGan: '?', yearZhi: '?', monthGan: '?', monthZhi: '?', dayGan: '?', dayZhi: '?', timeGan: '?', timeZhi: '?' };
-
-  try {
-    const solar = Solar.fromYmdHms(dateObj.getFullYear(), dateObj.getMonth() + 1, dateObj.getDate(), hour, 0, 0);
-    const lunar = solar.getLunar();
-    const baZi = lunar.getEightChar();
-    
-    c.yearGan = baZi.getYearGan(); c.yearZhi = baZi.getYearZhi();
-    c.monthGan = baZi.getMonthGan(); c.monthZhi = baZi.getMonthZhi();
-    c.dayGan = baZi.getDayGan(); c.dayZhi = baZi.getDayZhi();
-    if (!timeUnknown) { c.timeGan = baZi.getTimeGan(); c.timeZhi = baZi.getTimeZhi(); }
-  } catch (e) { console.warn("만세력 계산 오류", e); }
-
-  currentSaju.chars = c;
-  const ganToIndex = {'甲':0, '乙':1, '丙':2, '丁':3, '戊':4, '己':5, '庚':6, '辛':7, '壬':8, '癸':9};
-  currentSaju.archIndex = ganToIndex[c.dayGan] !== undefined ? ganToIndex[c.dayGan] : (dateObj.getDate() % 10);
-
-  goto('loading');
-  setTimeout(() => { showResult(currentReadingType); }, 2000);
-}
-
-function getEmoji(char) {
-  const map = {
-    '甲':'🌳', '乙':'🌿', '丙':'☀️', '丁':'🕯️', '戊':'⛰️', '己':'🪴', '庚':'🪨', '辛':'💎', '壬':'🌊', '癸':'🌧️',
-    '子':'🐭', '丑':'🐮', '寅':'🐯', '卯':'🐰', '辰':'🐲', '巳':'🐍', '午':'🐴', '未':'🐑', '申':'🐵', '酉':'🐔', '戌':'🐶', '亥':'🐷', '?':'☁️'
-  };
-  return map[char] || '✨';
-}
-
-function generateManseryeokHTML() {
-  const c = currentSaju.chars;
-  return `
-    <div class="manseryeok-box">
-      <div class="center" style="margin-bottom:12px;">
-        <div class="m-text" style="font-size:14px; color:var(--ink); font-family:'Jua', sans-serif;">${getT('m_title')}</div>
-        <div class="m-text" style="font-size:11px; margin-top:4px;">${getT('m_desc')}</div>
-      </div>
-      <div class="m-grid">
-        <div class="m-col"><div class="m-label">${getT('m_time')}</div><div class="m-char"><span class="m-emoji">${getEmoji(c.timeGan)}</span><span class="m-hangul">${c.timeGan}</span></div><div class="m-char"><span class="m-emoji">${getEmoji(c.timeZhi)}</span><span class="m-hangul">${c.timeZhi}</span></div></div>
-        <div class="m-col"><div class="m-label">${getT('m_day')}</div><div class="m-char" style="border-color:var(--btn-red); background:#FFF5F5;"><span class="m-emoji">${getEmoji(c.dayGan)}</span><span class="m-hangul" style="color:var(--btn-red);">${c.dayGan}</span></div><div class="m-char"><span class="m-emoji">${getEmoji(c.dayZhi)}</span><span class="m-hangul">${c.dayZhi}</span></div></div>
-        <div class="m-col"><div class="m-label">${getT('m_month')}</div><div class="m-char"><span class="m-emoji">${getEmoji(c.monthGan)}</span><span class="m-hangul">${c.monthGan}</span></div><div class="m-char"><span class="m-emoji">${getEmoji(c.monthZhi)}</span><span class="m-hangul">${c.monthZhi}</span></div></div>
-        <div class="m-col"><div class="m-label">${getT('m_year')}</div><div class="m-char"><span class="m-emoji">${getEmoji(c.yearGan)}</span><span class="m-hangul">${c.yearGan}</span></div><div class="m-char"><span class="m-emoji">${getEmoji(c.yearZhi)}</span><span class="m-hangul">${c.yearZhi}</span></div></div>
-      </div>
-    </div>
-  `;
-}
-
-// 사주 더미 데이터 (생략 없이 사용하시면 됩니다)
-const SAJU_DATA = { 0: { counseling: { ko: "...", en: "..." }, ko: { gen_today: "..." }, en: {} } /* ... 이전 코드와 동일 ... */ };
+  },
+  1: { 
+    counseling: {
+      ko: "당신은 어떤 시련에도 끈질기게 피어나는 들꽃 같은 사람이에요. 유연하고 친화력이 좋아서 주변에 늘 사람이 많죠. 하지만 남을 배려하느라 정작 내 마음을 돌보지 못할 때가 많아요. 가끔은 다른 사람의 부탁보다 '나 자신'을 1순위로 두고 거절하는 용기를 내는 것이 좋아요. 그래도 당신 곁에 남을 진짜 내 사람들은 떠나지 않는답니다.",
+      en: "You are like a wildflower blooming persistently through any trial. You are flexible and sociable, always surrounded by people. However, you often neglect your own feelings to accommodate others. Sometimes, you need to put 'yourself' first and have the courage to say no. Your true people will stay."
+    },
+    ko: {
+      gen_today: "<p>오늘은 부드러운 봄바람을 타고 당신의 매력이 멀리까지 향기롭게 퍼져나가는 기분 좋은 날이에요. 무리해서 혼자 모든 것을 해결하려 하기보다는, 주변 사람들에게 다정하게 미소 지으며 도움을 요청해 보세요.</p><p>당신의 유연함과 부드러운 태도가 굳게 닫혀 있던 사람들의 마음의 문을 활짝 열어줄 거랍니다. 먼저 건네는 따뜻한 인사 한마디가 행운의 열쇠가 될 거예요.</p>",
+      gen_month: "<p>이번 달은 당신을 둘러싼 사람들과의 인연이 그 어느 때보다 깊어지고 끈끈해지는 시기예요. 다양한 모임이나 소소한 대화 속에서 당신의 인생을 좋은 방향으로 이끌어줄 뜻밖의 귀인을 만나게 될 확률이 아주 높답니다.</p><p>사람들과 어울리는 자리를 피하지 말고 기꺼이 참여해 보세요. 당신 특유의 친화력이 엄청난 시너지 효과와 기회를 몰고 올 거예요.</p>",
+      gen_year: "<p>올해는 주변의 상황에 부드럽고 유연하게 적응하며, 마침내 당신만의 아름답고 독특한 매력을 화려하게 꽃피우는 성장의 한 해가 될 거예요.</p><p>강한 태풍이 불어와 굵은 나무들이 부러질 때도, 유연한 덩굴인 당신은 바람의 결을 타고 살아남아 더욱 단단하게 얽히며 위기를 기회로 만들어낼 수 있어요. 당신의 무서운 생존력과 적응력을 100% 믿으세요.</p>",
+      wm_style: "<p>당신은 바위틈이나 거친 벽조차 유연하게 타고 오르는 강인한 생명력을 지닌 덩굴 식물 같은 사람이에요. 그래서 당신의 부는 혼자 독불장군처럼 고립되어 일할 때가 아니라, 사람들과의 깊은 인연과 끈끈한 네트워크를 통해 자연스럽게 증식하는 사교적인 방식이랍니다.</p><p>세상의 트렌드를 누구보다 빠르게 읽어내고, 사람들의 니즈를 예리하게 파악하여 틈새시장을 공략하는 데 천부적인 재능이 있어요. '인맥이 곧 가장 확실한 현금 파이프라인'이라는 사실을 잊지 마세요.</p>",
+      wm_ladder: "<p><strong>1단계 · 관계 맺기</strong><br>다양한 사람들과 진심으로 교류하며 폭넓은 인적 네트워크를 형성하세요. 사람 부자가 먼저 되어야 합니다.</p><p><strong>2단계 · 마음 얻기</strong><br>당신이 타고 오를 수 있는 튼튼한 거목(귀인, 멘토)의 신뢰를 완벽하게 얻어내어 성장의 발판을 마련하세요.</p><p><strong>3단계 · 네트워크 연결</strong><br>서로 다른 사람과 사람, 아이디어와 아이디어를 부드럽게 연결하여 새로운 부가가치를 창출해냅니다.</p><p><strong>4단계 · 트렌드 선점</strong><br>유행의 흐름에 유연하게 올라타 남들보다 한발 앞서 달콤한 수익을 실현하는 단계입니다.</p><p><strong>5단계 · 부의 정원 완성</strong><br>당신을 중심으로 거대한 커뮤니티가 형성되며, 사람과 함께 끝없이 성장하는 눈부신 부의 정원이 완성됩니다.</p>",
+      wm_job: "<p><strong>🥇 1순위: 서비스·영업·상담</strong><br>상대방의 기분과 니즈를 기가 막히게 맞추는 공감 능력이 탁월하여 사람을 대하는 직업에서 연봉킹이 될 수 있어요.</p><p><strong>🥈 2순위: 기획·마케팅·디자인</strong><br>시대의 흐름과 트렌드를 본능적으로 캐치하여 감각적인 결과물을 만들어내는 일에 제격입니다.</p><p><strong>🥉 3순위: 문화예술·방송·인플루언서</strong><br>타고난 매력과 화려한 언변으로 많은 대중의 사랑과 관심을 한 몸에 받는 직업이 당신의 천직이에요.</p>",
+      wm_trap: "<p><strong>🚫 타인에 대한 과도한 의존</strong><br>주변 사람이나 멘토에게 너무 의지하다 보면 스스로 자립할 힘을 잃게 됩니다. 내 중심을 단단히 잡아야 해요.</p><p><strong>🚫 얇은 귀와 흔들리는 줏대</strong><br>남의 말에 쉽게 흔들려 충동적으로 투자하거나 계획을 변경하기 쉽습니다. 중요한 결정은 혼자만의 시간을 갖고 내리세요.</p><p><strong>🚫 감정적인 지출</strong><br>스트레스를 받거나 인간관계에서 상처를 받으면 홧김에 큰돈을 써버리는 경향이 있으니 지갑 관리에 각별히 유의하세요.</p>",
+      lv_lang: "<p>당신의 사랑 언어는 '다정하고 세심한 배려'예요. 사랑하는 사람의 일상적인 감정 변화나 아주 사소한 필요까지 놓치지 않고 섬세하게 챙겨주며 따뜻한 마음을 표현하는 천생 연애 고수랍니다.</p><p>상대방의 이야기에 깊이 공감해주고 함께 울고 웃어주는 당신의 부드러움은 그 어떤 거친 마음도 사르르 녹게 만드는 강력한 마법 같아요.</p>",
+      lv_match: "<p><strong>💞 최고의 궁합:</strong> 당신이 안심하고 타고 오를 수 있는 든든하고 크고 너른 나무(갑목) 같은 사람이 최고의 안식처가 되어줍니다.</p><p><strong>💔 최악의 궁합:</strong> 당신의 여린 줄기를 차갑고 날카롭게 잘라내버리는 매서운 가을 서리(신금) 같은 사람은 당신의 마음에 큰 상처를 남길 수 있어요.</p>",
+      lv_stage: "<p><strong>🌱 썸&시작:</strong> 무겁지 않은 가벼운 대화와 유머로 시작해서 자연스럽고 친근하게 서로의 일상에 살며시 스며드세요.</p><p><strong>🌿 연애기:</strong> 상대방을 세심하게 챙겨주되, 나의 모든 것을 맞추려다 스스로를 잃어버리지 않도록 적당한 밀당과 자기표현이 꼭 필요해요.</p><p><strong>🌳 안정기:</strong> 때로는 사랑스러운 질투나 애교 섞인 투정으로 관계에 기분 좋은 긴장감과 활력을 불어넣어 주는 것도 좋은 스파이스가 된답니다.</p>",
+      lv_family: "<p>가족과 친구들 사이에서 당신은 분위기를 부드럽게 만들고 웃음을 주는 없어서는 안 될 소중한 분위기 메이커 역할을 톡톡히 하고 있어요.</p><p>하지만 명심하세요. 당신이 사랑하는 모든 사람에게 완벽하게 '착한 사람'일 필요는 전혀 없답니다. 때로는 나를 힘들게 하는 무리한 부탁을 다정하지만 단호하게 거절하는 용기를 내보세요. 당신의 감정이 1순위예요.</p>",
+      wn_body: "<p>환경 변화에 아주 민감하게 반응하고 타인의 감정을 스펀지처럼 흡수하는 탓에, 신경계나 간 건강이 약해지기 쉬운 다소 예민한 체질이에요.</p><p>몸의 피로보다는 사람에게서 받는 '정신적인 스트레스'를 제때제때 건강하게 풀어주는 것이 당신의 건강을 지키는 가장 핵심적인 열쇠랍니다.</p>",
+      wn_time: "<p><strong>☀️ 아침의 자기관리:</strong> 기상 후 신선하고 향긋한 허브티를 마시며 하루의 에너지를 부드럽게 끌어올리세요.</p><p><strong>🌙 저녁의 자기관리:</strong> 조용한 공원을 가볍게 산책하며 뺨을 스치는 바람결에 오늘 하루 복잡했던 사람들의 이야기를 모두 날려 보내세요.</p>",
+      wn_mind: "<p>바람이 불 때 여린 꽃대나 덩굴이 흔들리는 것은 너무나 당연하고 자연스러운 이치랍니다. 남들보다 감정이 쉽게 요동친다고 해서 스스로를 나약하다고 자책하지 마세요.</p><p>격렬하게 흔들리면서도 결코 땅에서 뿌리를 뽑히거나 꺾이지 않는 당신 내면의 끈질기고 질긴 강인함을 스스로 온전히 믿고 사랑해 주세요.</p>",
+      wn_advice: "<p>인간관계에서 너무 많은 책임감과 감정의 짐을 혼자서만 짊어지려고 애쓰지 마세요. 당신이 누군가를 정성껏 돌봐주듯, 당신도 누군가에게 마음껏 기대고 투정 부릴 권리가 있답니다.</p><p>약한 모습을 보여주고 타인에게 다정하게 기대는 것 역시, 상대방을 깊이 신뢰하고 사랑한다는 것을 보여주는 또 다른 아름다운 방법이라는 것을 잊지 마세요.</p>"
+    },
+    en: {
+      gen_today: "<p>Today, your charm spreads beautifully like a gentle spring breeze. Instead of trying to solve everything alone, warmly ask for help with a smile.</p>",
+      gen_month: "<p>Your connections with people around you deepen this month. You have a high chance of meeting an unexpected benefactor who will guide your life positively.</p>",
+      gen_year: "<p>This year, you will flexibly adapt to situations and finally bloom your unique and beautiful charm. You will survive by riding the wind and turning crises into opportunities.</p>",
+      wm_style: "<p>You are like a vine with vital force. Your wealth grows naturally through deep connections and sticky networks, not by working in isolation.</p>",
+      wm_ladder: "<p>Step 1: Form a broad human network.</p><p>Step 2: Gain the trust of a strong mentor.</p><p>Step 3: Connect different people and ideas to create value.</p>",
+      wm_job: "<p>1. Service/Sales/Counseling.</p><p>2. Planning/Marketing/Design.</p><p>3. Arts/Broadcasting/Influencer.</p>",
+      wm_trap: "<p>1. Over-reliance on others.</p><p>2. Being easily swayed.</p><p>3. Emotional spending.</p>",
+      lv_lang: "<p>Your love language is 'affectionate and meticulous care'.</p>",
+      lv_match: "<p>Best Match: A large, reliable tree (Yang Wood).</p><p>Worst Match: Sharp autumn frost (Yin Metal).</p>",
+      lv_stage: "<p>Start naturally with light conversation. Care meticulously, but don't lose yourself trying to match everything.</p>",
+      lv_family: "<p>You are a vital mood maker among family and friends. But remember, you don't need to be a 'nice person' to everyone.</p>",
+      wn_body: "<p>You have a sensitive constitution that reacts keenly to environments. Releasing 'mental stress' from people timely is the key to your health.</p>",
+      wn_time: "<p>Morning: Sip fragrant herbal tea. Evening: Take a light walk in a quiet park.</p>",
+      wn_mind: "<p>It is natural for a tender flower to sway in the wind. Trust the resilient strength within you that never breaks.</p>",
+      wn_advice: "<p>Don't try to carry all emotional burdens in relationships alone. You have the right to lean on others.</p>"
+    }
+  },
+  2: { 
+    counseling: {
+      ko: "당신은 세상을 환하게 비추는 태양 같은 사람이에요. 열정이 넘치고 뒤끝이 없어서 모임에서 항상 활력을 불어넣어 주죠. 하지만 혼자서 세상 모든 어둠을 밝히려다 당신 스스로 번아웃이 올 수 있어요. 당신도 누군가에게는 위로받아야 할 따뜻한 사람이라는 걸 잊지 말고, 가끔은 구름 뒤에 숨어서 푹 쉬는 이기적인 연습도 꼭 필요하답니다.",
+      en: "You are like the sun shining brightly on the world. You are full of passion and give energy to many people. But trying to light up all the darkness alone can lead to burnout. Don't forget that you are also a warm person who needs comfort. Sometimes it's perfectly fine to hide behind the clouds and rest."
+    },
+    ko: {
+      gen_today: "<p>오늘은 세상을 비추는 태양처럼 당신의 밝고 눈부신 에너지가 최고조에 달하는 화려한 날이에요. 구석에 숨어있기보다는 자신감을 가지고 당당하게 무대의 한가운데로 걸어 나오세요.</p><p>사람들의 시선과 스포트라이트가 자연스럽게 당신에게 집중될 테니, 오늘만큼은 주저하지 말고 당신의 진짜 실력과 매력을 마음껏 뽐내보는 것이 좋습니다.</p>",
+      gen_month: "<p>그동안 보이지 않는 곳에서 남몰래 흘렸던 땀방울과 노력들이 마침내 환한 햇빛을 받아 반짝반짝 빛나는 성과로 세상에 드러나는 눈부신 시기랍니다.</p><p>당신을 인정하고 칭찬하는 사람들이 많아질 거예요. 쏟아지는 칭찬을 겸손이라는 이름으로 거절하지 말고, '감사합니다'라며 기쁘게 누리고 즐기는 여유를 가지세요.</p>",
+      gen_year: "<p>올 한 해는 당신의 이름 넉 자가 세상에 널리 알려지고 명예가 크게 높아지는, 인생에서 가장 화려하고 뜨거운 축제 같은 1년이 될 거예요.</p><p>크고 작은 성취들이 연이어 찾아오며 자존감이 하늘을 찌르게 됩니다. 다만, 빛이 강하면 그림자도 짙어지는 법이니, 화려함 이면에 놓칠 수 있는 작은 디테일과 주변 사람들의 마음을 한 번 더 살펴보는 세심함이 필요해요.</p>",
+      wm_style: "<p>당신은 어둠을 몰아내는 찬란한 태양처럼, 자신의 가치를 한껏 드높이고 그 유명세와 영향력을 통해 폭발적으로 부를 창출해내는 스케일 큰 방식을 타고났어요.</p><p>숨어서 남의 돈을 관리하기보다는, 당신 스스로가 하나의 훌륭한 '브랜드'가 되어 사람들을 끌어모을 때 엄청난 현금이 따라옵니다. 보여주는 겉모습과 품위 유지도 당신에게는 훌륭한 투자랍니다.</p>",
+      wm_ladder: "<p><strong>1단계 · 빛 발산기</strong><br>당신의 끼와 재능을 부끄러워하지 말고 최대한 많은 사람들에게 적극적으로 알리고 홍보하세요.</p><p><strong>2단계 · 브랜드 구축</strong><br>단순한 유명세를 넘어 당신만의 확실한 전문성과 신뢰를 바탕으로 견고한 퍼스널 브랜드를 완성하세요.</p><p><strong>3단계 · 대중의 사랑</strong><br>팬덤이나 충성 고객을 확보하여 흔들리지 않는 대중적인 지지와 기반을 단단히 다집니다.</p><p><strong>4단계 · 리더십 발휘</strong><br>해당 업계나 조직의 최정상 리더로 우뚝 서서 판을 판을 쥐고 흔드는 강력한 영향력을 행사합니다.</p><p><strong>5단계 · 명예와 부의 성</strong><br>존경받는 명예와 감당하기 힘들 만큼 거대한 부를 동시에 쟁취하는 눈부신 황금기를 맞이합니다.</p>",
+      wm_job: "<p><strong>🥇 1순위: 방송·연예·인플루언서</strong><br>타고난 쇼맨십과 시선을 잡아끄는 마력으로 대중의 뜨거운 사랑과 관심을 먹고 사는 일이 천직입니다.</p><p><strong>🥈 2순위: 교육·강연·정치</strong><br>어둠을 밝히는 태양처럼, 올바른 비전을 제시하고 많은 사람들을 열광시키며 이끌어가는 리더 역할이 완벽해요.</p><p><strong>🥉 3순위: 영업·마케팅·PR</strong><br>당신만의 화려한 언변과 긍정적인 에너지로 그 어떤 어려운 제품이나 아이디어도 매력적으로 포장해 냅니다.</p>",
+      wm_trap: "<p><strong>🚫 충동적인 과시형 지출</strong><br>기분이 좋아지면 크게 한턱 쏘거나 폼을 잡기 위해 불필요한 고가의 물건을 충동구매하기 쉬워요. 지갑의 끈을 단단히 묶어줄 꼼꼼한 파트너가 필요합니다.</p><p><strong>🚫 시작만 화려한 용두사미</strong><br>시작하는 순간의 열정은 전 우주 1등이지만, 금방 흥미를 잃고 마무리가 흐지부지될 수 있습니다. 끈기를 의식적으로 기르세요.</p><p><strong>🚫 급한 성미로 인한 구설수</strong><br>순간적으로 욱하는 마음에 뱉은 직선적인 말이 큰 오해와 구설수를 낳을 수 있으니 언제나 세 번 생각하고 말하는 습관을 들이세요.</p>",
+      lv_lang: "<p>당신의 사랑 언어는 '숨김없이 투명하고 열정적인 표현'이에요. 사랑에 빠지면 복잡하게 밀당하거나 감정을 재고 따지지 않고, 마음이 가는 대로 100% 솔직하게 직진하는 불도저 같은 로맨티스트랍니다.</p><p>당신의 뜨거운 눈빛과 애정 공세는 그 어떤 차가운 얼음장 같은 마음도 단숨에 녹여버릴 만큼 강력하고 매력적이에요.</p>",
+      lv_match: "<p><strong>💞 최고의 궁합:</strong> 당신의 활활 타오르는 열정에 아낌없이 땔감을 넣어주는 큰 나무(갑목) 같은 사람과 함께할 때 끝없이 솟아오릅니다.</p><p><strong>💔 최악의 궁합:</strong> 당신의 뜨거운 불꽃을 자꾸만 식히고 이성적으로만 따지려 드는 차가운 이슬비(계수) 같은 사람과는 자주 부딪히게 돼요.</p>",
+      lv_stage: "<p><strong>🌱 썸&시작:</strong> 뜨겁고 강렬하게 다가가는 것도 좋지만, 상대방의 속도와 템포도 배려하며 조금은 틈을 주는 여유를 가져보세요.</p><p><strong>🌿 연애기:</strong> 당신의 넘치는 열정이 자칫 상대방에게는 '집착'이나 '통제'로 느껴질 수 있어요. 불은 적당한 거리를 유지할 때 가장 따뜻하답니다.</p><p><strong>🌳 안정기:</strong> 초기처럼 활활 타오르지 않더라도, 잔잔하고 은은하게 관계의 온기를 유지하는 성숙한 노력이 관계를 오래가게 합니다.</p>",
+      lv_family: "<p>가족과 친구들 사이에서 당신은 없어서는 안 될 밝은 태양이며 든든한 중심축 역할을 하고 있어요. 당신이 없으면 모임이 칙칙해질 정도죠.</p><p>하지만 태양이 너무 가까우면 화상을 입듯, 당신의 강한 주장과 에너지가 때로는 주변 사람들을 지치게 만들 수도 있어요. 내가 먼저 말하기보다는 상대방의 작은 이야기에 조용히 귀 기울여주는 다정함을 발휘해 보세요.</p>",
+      wn_body: "<p>에너지를 외부로 폭발적으로 발산하는 데 익숙한 체질이라, 자칫하면 심장에 열이 오르고 안구가 건조해지는 등 상체 위주로 화기가 몰리기 쉽습니다.</p><p>심혈관계 질환이나 혈압에 주의해야 하며, 땀을 흠뻑 흘리는 격렬한 운동보다는 정적인 명상이나 수영처럼 몸의 열을 서서히 식혀주는 수(水) 기운의 관리가 절대적으로 필요해요.</p>",
+      wn_time: "<p><strong>☀️ 낮 시간의 관리:</strong> 하루 중 햇볕이 가장 뜨겁고 에너지가 넘치는 정오 무렵에는 시원한 그늘에서 시원한 물을 마시며 잠깐의 휴식을 취하세요.</p><p><strong>🌙 저녁의 자기관리:</strong> 잠들기 전 스마트폰 불빛을 완벽하게 차단하고, 눈에 따뜻한 수건을 올려 피로를 부드럽게 풀어주면 숙면에 큰 도움이 됩니다.</p>",
+      wn_mind: "<p>순간적으로 화가 치밀어 오를 때면, 바로 날카로운 말을 내뱉기 전에 마음속으로 아주 천천히 숫자 '3'을 세어보는 마법의 주문을 꼭 실천해 보세요.</p><p>당신은 감정의 기복이 겉으로 너무 뚜렷하게 드러나는 편이에요. 평정심을 잃지 않고 호흡을 깊게 가라앉히는 연습이 당신의 훌륭한 품격을 더욱 완성시켜 줄 거랍니다.</p>",
+      wn_advice: "<p>당신은 태생적으로 세상을 향해 언제나 밝고 긍정적인 에너지를 뿜어내야 한다는 일종의 강박감을 가지고 있을지도 몰라요.</p><p>하지만 항상 구름 한 점 없이 완벽하게 밝을 필요는 없답니다. 때로는 먹구름에 가려져 잠시 빛을 잃은 흐린 날의 태양도, 그 자체로 충분히 운치 있고 매력적이라는 사실을 받아들이세요. 우울하고 지친 감정이 들 때는 억지로 웃지 말고 솔직하게 안기세요.</p>"
+    },
+    en: {
+      gen_today: "<p>Today, your bright, dazzling energy peaks like the sun. Step confidently to the center of the stage.</p>",
+      gen_month: "<p>The sweat and efforts you secretly poured in are finally exposed to the bright sunlight, shining as brilliant achievements.</p>",
+      gen_year: "<p>This year will be like a hot festival where your name is widely known and your honor soars. Pay attention to small details behind the glamour.</p>",
+      wm_style: "<p>Like the radiant sun, you generate explosive wealth by elevating your value and using your fame.</p>",
+      wm_ladder: "<p>Step 1: Actively promote your talents.</p><p>Step 2: Build a solid personal brand.</p><p>Step 3: Secure strong public support.</p>",
+      wm_job: "<p>1. Broadcasting/Entertainment.</p><p>2. Education/Politics.</p><p>3. Sales/PR.</p>",
+      wm_trap: "<p>1. Showy impulsive spending.</p><p>2. Fizzling out quickly.</p><p>3. Gossip from quick temper.</p>",
+      lv_lang: "<p>Your love language is 'transparent and passionate expression'. You go straight like a bulldozer.</p>",
+      lv_match: "<p>Best Match: A large tree (Yang Wood).</p><p>Worst Match: Cold drizzle (Yin Water).</p>",
+      lv_stage: "<p>Approach passionately, but respect their tempo. Maintain a steady, warm glow in the stable phase.</p>",
+      lv_family: "<p>You are the indispensable bright sun. But don't let your strong energy exhaust others.</p>",
+      wn_body: "<p>Heat easily gathers in your heart and upper body. Manage heart health and cool down with quiet meditation.</p>",
+      wn_time: "<p>Daytime: Rest in the cool shade. Evening: Block smartphone light completely before sleep.</p>",
+      wn_mind: "<p>When sudden anger rises, count to '3' very slowly before spitting out sharp words.</p>",
+      wn_advice: "<p>You don't have to be perfectly bright all the time. A sun behind clouds is still beautiful.</p>"
+    }
+  },
+  3: { 
+    counseling: {
+      ko: "당신은 어둠 속을 은은하게 밝히는 아름다운 촛불 같은 사람이에요. 겉으론 조용해 보이지만, 마음속엔 타인을 향한 따뜻한 배려와 섬세한 감수성이 자리하고 있죠. 남의 아픔을 너무 깊이 공감하다 보면 어느새 내 마음이 까맣게 타들어 갈 수 있어요. 다른 사람의 감정 짐을 억지로 짊어지지 말고, 나 자신을 가장 먼저 다독여주는 시간을 꼭 가지세요.",
+      en: "You are like a beautiful candle gently illuminating the darkness. You seem quiet on the outside, but you have warm consideration and delicate sensitivity inside. Empathizing too deeply with others' pain can burn your own heart out. Do not forcefully carry others' emotional baggage; prioritize comforting yourself."
+    },
+    ko: {
+      gen_today: "<p>오늘은 당신의 마음속 깊은 곳에서 작지만 신비로운 영감이 반짝반짝 빛나는 조용하고 아름다운 날이에요. 바쁘게 움직이기보다는 조용히 내면의 소리에 귀를 기울여 보세요.</p><p>복잡한 논리나 데이터보다, 번뜩이는 당신의 직감과 예술적인 감각이 가장 정확한 정답을 가리키고 있을 거예요. 영감이 스칠 때 꼭 메모해두는 습관을 가져보세요.</p>",
+      gen_month: "<p>당신만의 다정하고 따뜻한 감성, 그리고 세련된 센스가 주변 사람들의 차가운 마음을 부드럽게 무장 해제시키고 뭉클하게 움직이는 감동적인 시기예요.</p><p>요란하게 소리 내어 당신을 포장하지 않아도, 은은한 촛불처럼 퍼져나가는 당신의 진정성이 굳게 닫혔던 중요한 계약이나 인간관계를 마법처럼 성사시켜 줄 거랍니다.</p>",
+      gen_year: "<p>올 한 해는 비록 작아 보일지라도 아주 확실하고 꺼지지 않는 불씨가 당신의 삶과 주변을 서서히, 하지만 완벽하게 데워가는 포근하고 내실 있는 1년이 될 거예요.</p><p>단기간에 모든 것을 뒤집는 드라마틱한 스케일의 대박보다는, 어제보다 오늘 더 따뜻해지고, 오늘보다 내일 더 빛나는 소박하지만 깊이 있는 성장을 온전히 만끽하세요.</p>",
+      wm_style: "<p>당신은 어둠 속에서 가장 밝게 빛나는 섬세한 촛불 같은 사람이에요. 남들이 다 하는 흔하고 뻔한 방식이 아니라, 섬세한 디테일과 당신만의 예술적 감각으로 아무도 흉내 낼 수 없는 대체 불가능한 가치를 만들어내는 방식입니다.</p><p>대중적으로 널리 퍼지는 것보다, 당신의 진가를 깊이 알아보는 소수의 열성적인 마니아층이나 VIP 고객을 사로잡을 때 상상 이상의 거대한 부가 쏟아지는 고급스러운 금전운을 가졌어요.</p>",
+      wm_ladder: "<p><strong>1단계 · 영감 발굴기</strong><br>일상의 아주 작은 부분에서도 남들이 놓치는 아름다움과 아이디어를 예리하게 발굴해냅니다.</p><p><strong>2단계 · 디테일 세공기</strong><br>찾아낸 아이디어를 특유의 완벽주의적이고 섬세한 감각으로 정교하게 다듬어 상품성을 부여합니다.</p><p><strong>3단계 · 감동과 공감</strong><br>완성된 결과물로 사람들의 마음 가장 깊은 곳을 울리고 진한 감동을 선사합니다.</p><p><strong>4단계 · 팬덤 형성기</strong><br>당신의 감각에 깊이 매료된 충성도 높은 나만의 팬덤과 마니아층이 견고하게 형성됩니다.</p><p><strong>5단계 · 감각의 현금화</strong><br>당신의 숨결이 닿은 모든 아이디어와 예술적 감각이 막대한 돈으로 환산되는 마법을 경험합니다.</p>",
+      wm_job: "<p><strong>🥇 1순위: 기획·디자인·문화예술</strong><br>타고난 심미안과 감수성으로 무에서 유를 창조하며 트렌드를 선도하는 일에 압도적인 재능이 있어요.</p><p><strong>🥈 2순위: 심리 상담·치료·명상</strong><br>상대방의 아픔을 꿰뚫어 보고 따뜻하게 어루만져 주는 영적인 통찰력과 치유의 힘이 탁월합니다.</p><p><strong>🥉 3순위: 전문 R&D·특수 기술직</strong><br>한 치의 오차도 허용하지 않는 고도의 집중력과 정밀함이 요구되는 분야에서 최고 전문가로 대우받습니다.</p>",
+      wm_trap: "<p><strong>🚫 감정 기복으로 인한 섣부른 판단</strong><br>기분이 우울하거나 예민해져 있을 때 감정적으로 내린 결정은 반드시 후회를 남깁니다. 중요한 계약이나 결단은 감정이 완전히 차분해졌을 때, 객관적인 조언을 듣고 내리세요.</p><p><strong>🚫 현실성 없는 무리한 확장</strong><br>이상향은 높으나 그것을 현실적인 숫자로 만들어내는 뒷심이 부족할 수 있습니다. 꼼꼼한 실무 파트너가 필요해요.</p><p><strong>🚫 스트레스로 인한 번아웃</strong><br>완벽주의 때문에 스스로를 너무 가혹하게 몰아붙이다가 어느 순간 촛불이 꺼지듯 완전히 탈진해버릴 수 있으니 페이스 조절이 필수예요.</p>",
+      lv_lang: "<p>당신의 사랑 언어는 '영혼을 울리는 섬세한 교감'이에요. 남들에게 보여주기식의 화려한 이벤트나 비싼 선물보다는, 고요한 밤에 눈을 맞추고 서로의 깊은 상처까지 보듬어주는 진심 어린 대화를 훨씬 더 갈구하고 소중하게 여긴답니다.</p><p>한 번 사랑에 빠지면 상대방을 위해 자신을 태워 빛을 내는 촛불처럼, 끝없는 희생과 헌신을 보여주는 가슴 시린 로맨티스트이기도 해요.</p>",
+      lv_match: "<p><strong>💞 최고의 궁합:</strong> 예민한 당신을 큰 품으로 넓게 안아주고 지지해 주는 부드럽고 유연한 덩굴(을목) 같은 사람이 최고의 짝이에요.</p><p><strong>💔 최악의 궁합:</strong> 당신의 작은 불씨를 거칠고 사납게 덮쳐서 꺼버리는 거센 파도(임수) 같은 사람은 당신의 마음을 몹시 불안하게 만듭니다.</p>",
+      lv_stage: "<p><strong>🌱 썸&시작:</strong> 상처받는 것을 두려워하여 방어벽을 높게 치는 경향이 있어요. 처음엔 조금 조심스럽게, 하지만 천천히 마음의 문을 열어보세요.</p><p><strong>🌿 연애기:</strong> 서로의 세계를 깊이 이해하고 존중하며, 밤을 새워도 대화가 끊이지 않는 따뜻하고 지적인 연인이 되어주세요.</p><p><strong>🌳 안정기:</strong> 상대방에 대한 과도한 희생이나 의존은 금물이에요. '나'라는 심지가 단단하게 서 있어야 사랑의 불꽃도 아름답게 오래 탈 수 있답니다.</p>",
+      lv_family: "<p>가족과 친구들의 미세한 표정 변화와 숨겨진 감정까지 귀신같이 알아채고 먼저 챙겨주는 무척 다정하고 섬세한 사람이에요.</p><p>하지만 남의 상처를 너무 깊이 공감하다 보면 정작 당신의 마음속이 시꺼멓게 타들어 갈 수 있어요. 타인의 문제를 나의 문제와 철저히 분리하는 연습을 하고, 가장 소중한 당신 자신의 상처부터 다정하게 보듬어주세요.</p>",
+      wn_body: "<p>시각과 청각 등 감각 기관이 남들보다 예민하게 발달해 있어서, 스트레스를 받으면 가장 먼저 깊은 잠을 이루지 못하는 불면증이나 편두통으로 증상이 나타나기 쉽습니다.</p><p>신경을 날카롭게 만드는 카페인을 줄이고, 중추신경을 부드럽게 이완시켜주는 캐모마일 차를 마시거나 라벤더 향을 맡는 것이 당신의 예민한 몸을 지키는 훌륭한 방법이에요.</p>",
+      wn_time: "<p><strong>☀️ 낮 시간의 관리:</strong> 에너지를 한꺼번에 쏟고 쉽게 방전될 수 있어요. 일하는 중간중간 의식적으로 눈을 감고 5분씩 뇌를 쉬게 해주세요.</p><p><strong>🌙 저녁의 자기관리:</strong> 조용한 밤 시간, 은은한 간접 조명 아래서 따뜻한 차 한 잔과 함께 명상을 하거나 일기를 쓰며 복잡한 하루를 차분히 정리하세요.</p>",
+      wn_mind: "<p>당신은 비록 작은 촛불일지 몰라도, 칠흑 같은 짙은 어둠 속에서는 그 어떤 거대한 태양보다도 길을 잃은 사람들에게 확실하고 따뜻한 위안이 되어줄 수 있는 존재랍니다.</p><p>스스로를 남과 비교하며 초라하게 여기지 마세요. 당신이 가진 특유의 따뜻함과 예술적인 감수성은 이 세상을 한층 더 아름답게 만드는, 감히 돈으로 환산할 수 없는 엄청난 가치를 지녔으니까요.</p>",
+      wn_advice: "<p>모든 사람의 기대를 완벽하게 충족시켜야 한다는 무거운 강박을 내려놓고, 누군가에게 상처받는 것에 대해 너무 깊은 두려움을 갖지 마세요.</p><p>당신의 그 예민함과 섬세함은 저주가 아니라, 남들이 보지 못하는 세상의 숨겨진 아름다움을 기가 막히게 포착해 내는 당신만의 가장 특별하고 훌륭한 레이더 안테나랍니다. 당신의 빛을 당당하게 사랑하세요.</p>"
+    },
+    en: {
+      gen_today: "<p>Today is a quiet, beautiful day when small but mysterious inspiration sparkles deep within you. Listen quietly to your inner voice.</p>",
+      gen_month: "<p>Your warm sensibility smoothly disarms people's cold hearts. Your sincerity will magically secure important relationships.</p>",
+      gen_year: "<p>This year will be a cozy and substantial year where a small but unfailing spark perfectly warms your life.</p>",
+      wm_style: "<p>You are like a delicate candle shining brightest in the dark. You create irreplaceable value through delicate details and artistic sense.</p>",
+      wm_ladder: "<p>Step 1: Keenly discover beauty and ideas others miss.</p><p>Step 2: Refine ideas with delicate senses.</p><p>Step 3: Deeply touch people's hearts.</p>",
+      wm_job: "<p>1. Planning/Design/Arts.</p><p>2. Counseling/Healing.</p><p>3. R&D/Tech.</p>",
+      wm_trap: "<p>1. Hasty decisions from mood swings.</p><p>2. Unrealistic expansion.</p><p>3. Burnout from perfectionism.</p>",
+      lv_lang: "<p>Your love language is 'delicate communion touching the soul'. You crave sincere, deep conversations.</p>",
+      lv_match: "<p>Best Match: A soft vine (Yin Wood).</p><p>Worst Match: Fierce waves (Yang Water).</p>",
+      lv_stage: "<p>Open your heart slowly. Become a warm intellectual lover. Do not sacrifice yourself excessively.</p>",
+      lv_family: "<p>You are a very sweet person who catches family's micro-expressions. Comfort your own wounds first.</p>",
+      wn_body: "<p>Highly developed senses make you prone to insomnia under stress. Relax your nervous system with chamomile tea.</p>",
+      wn_time: "<p>Daytime: Consciously rest your brain for 5 minutes periodically. Evening: Meditate under dim light.</p>",
+      wn_mind: "<p>As a small candle, you provide the most certain comfort in complete darkness. Your artistic sensitivity is invaluable.</p>",
+      wn_advice: "<p>Drop the compulsion to perfectly meet everyone's expectations. Your sensitivity is a special radar that catches hidden beauty.</p>"
+    }
+  },
+  4: { 
+    counseling: {
+      ko: "당신은 듬직하고 묵직한 태산 같은 사람이에요. 포용력이 넓어서 많은 사람들이 당신에게 기대는 걸 좋아하고, 한 번 믿음을 주면 끝까지 지켜내는 우직함이 최고죠. 하지만 너무 참기만 매번 감정을 잘 표현하지 않아서 혼자 속병이 날 때가 많아요. 가끔은 가까운 사람에게 철없는 아이처럼 투정도 부리고 '나도 힘들다'고 솔직하게 말하는 게 서로의 관계에 훨씬 더 좋답니다.",
+      en: "You are like a sturdy and heavy mountain. You have a broad capacity to embrace others, making people rely on you. However, you often bottle up your emotions, which can cause inner sickness. Sometimes, it's much better for relationships to honestly say 'I'm having a hard time too'."
+    },
+    ko: {
+      gen_today: "<p>오늘은 당신의 발밑에 거센 지진이 일어나거나 주변에서 어떤 시끄러운 소란이 발생하더라도, 흔들림 없이 굳건하게 당신만의 묵직한 중심을 지켜내는 어른스러운 날이에요.</p><p>가벼운 행동과 섣부른 말은 잠시 접어두세요. 태산처럼 변함없이 그 자리를 지키는 당신의 그 듬직함 자체가 누군가에게는 숨을 쉴 수 있는 가장 큰 위안이자 피난처가 될 거랍니다.</p>",
+      gen_month: "<p>이번 달은 길을 잃고 헤매는 주변 사람들이 당신에게 기대어 쉬기를 청하고, 어려운 문제에 대한 현명한 조언을 구하는 든든한 해결사 역할을 톡톡히 해내는 시기예요.</p><p>넓은 품으로 양극단에 서 있는 사람들의 의견을 넉넉하게 중재하고 포용해 주세요. 이 과정에서 당신에 대한 세상의 신뢰는 철옹성처럼 견고하게 쌓이게 될 것입니다.</p>",
+      gen_year: "<p>올 한 해는 그동안 당신이 땀 흘려 정성껏 다져온 비옥한 땅 위에, 비바람에도 끄떡없는 가장 튼튼하고 거대한 집을 짓는 안정과 축적의 1년이 될 거예요.</p><p>단기적인 요행이나 벼락부자를 바라기보다는, 묵묵하고 성실하게 흘린 땀방울 하나하나가 모여 절대 무너지지 않는 거대한 재산과 흔들림 없는 명예로 단단하게 굳어지는 뜻깊은 시간을 맞이할 것입니다.</p>",
+      wm_style: "<p>당신은 세상의 모든 비바람을 묵묵히 견뎌내는 웅장한 태산 같은 사람이에요. 남들처럼 일확천금을 노리고 빠르게 치고 빠지는 얄팍한 방식은 애초에 당신의 체질과 전혀 맞지 않습니다.</p><p>정직하게 땀 흘려 쌓아 올린 무거운 '신뢰'가 당신의 가장 강력한 무기입니다. 코인이나 단타 주식보다는, 한 번 묻어두면 시간이 지날수록 가치가 폭발적으로 불어나는 부동산이나 우량주 같은 묵직하고 장기적인 가치 투자가 당신을 진짜 거부로 만들어줍니다. 한 번 들어온 돈은 절대 내보내지 않는 무서운 금고를 가졌어요.</p>",
+      wm_ladder: "<p><strong>1단계 · 기반 다지기</strong><br>요행을 바라지 않고, 가장 밑바닥부터 탄탄하게 실력과 자본의 기초 공사를 시작합니다.</p><p><strong>2단계 · 신뢰 자본 축적</strong><br>특유의 변함없는 듬직함으로 주변 사람들과 시장으로부터 압도적인 신뢰를 획득합니다.</p><p><strong>3단계 · 굵직한 기회 포착</strong><br>그동안 쌓인 신뢰를 바탕으로 남들은 쉽게 만질 수 없는 거대한 계약이나 큰 기회를 끌어옵니다.</p><p><strong>4단계 · 자산의 요새화</strong><br>벌어들인 수익을 쉽게 팔지 않는 묵직한 실물 자산(부동산 등)으로 전환하여 흔들리지 않게 굳힙니다.</p><p><strong>5단계 · 거대한 태산의 완성</strong><br>경제적인 부유함은 물론, 사회적으로도 만인의 존경을 받는 흠결 없는 태산 같은 존재로 완성됩니다.</p>",
+      wm_job: "<p><strong>🥇 1순위: 부동산·건축·금융</strong><br>단단한 실물 자산을 다루거나 거대한 자본의 흐름을 묵묵히 관리하는 일에서 최고의 성과를 냅니다.</p><p><strong>🥈 2순위: 공직·행정·관리자</strong><br>흔들림 없는 원칙과 포용력으로 수많은 사람들을 아우르고 조직의 기강을 바로잡는 리더 역할이 완벽해요.</p><p><strong>🥉 3순위: 종교·철학·중재자</strong><br>갈등이 심한 곳에서 중심을 잡고 사람들의 마음을 평안하게 다독여주는 영적인 멘토가 될 수 있습니다.</p>",
+      wm_trap: "<p><strong>🚫 융통성 없는 고집불통</strong><br>한 번 옳다고 믿는 것은 누가 뭐래도 밀고 나가는 성향 때문에, 정작 새롭게 다가오는 좋은 트렌드나 기회를 걷어차 버릴 수 있으니 유연함을 한 스푼 더하세요.</p><p><strong>🚫 과도한 책임감으로 인한 병</strong><br>남들의 무거운 짐까지 모조리 내 어깨에 짊어지려다 뼈가 삭을 수 있습니다. 혼자 다 안고 가지 마세요.</p><p><strong>🚫 변화에 대한 두려움</strong><br>안정을 너무 추구한 나머지 익숙한 구렁텅이에 머물며 썩어갈 수 있습니다. 가끔은 판을 엎는 용기도 필요해요.</p>",
+      lv_lang: "<p>당신의 사랑 언어는 요란한 이벤트가 아닌 '조용하고 변함없는 헌신'이에요. 상대방이 힘들고 지칠 때 입에 발린 위로의 말을 건네기보다는, 그저 곁에서 말없이 쉴 수 있는 어깨를 묵묵히 내어주는 바위 같은 든든한 안식처랍니다.</p><p>당신의 겉모습은 무뚝뚝하고 차가워 보일지 몰라도, 그 속에는 한 번 마음을 준 사람을 끝까지 지키려는 뜨거운 마그마 같은 진심이 끓고 있어요.</p>",
+      lv_match: "<p><strong>💞 최고의 궁합:</strong> 당신의 메마르고 척박한 마음에 생기를 불어넣고 예쁜 꽃을 피워줄 맑은 봄비(계수) 같은 사람이 당신을 웃게 합니다.</p><p><strong>💔 최악의 궁합:</strong> 쉼 없이 당신의 흙을 파고들어 스트레스를 주는 강하고 집요한 덩굴(을목) 같은 사람은 피곤하게 느껴집니다.</p>",
+      lv_stage: "<p><strong>🌱 썸&시작:</strong> 감정 표현이 너무 서툴러서 상대가 당신의 마음을 오해할 수 있어요. 쑥스럽더라도 가끔은 직설적인 호감 표현이 필요합니다.</p><p><strong>🌿 연애기:</strong> 지금처럼 묵묵히 곁을 지키며 안도감을 주되, 기념일에는 예상치 못한 다정한 말 한마디와 작은 선물로 감동을 줘보세요.</p><p><strong>🌳 안정기:</strong> 너무 편해져서 대화가 단절되지 않도록 주의하세요. 마음속에 있는 생각들을 밖으로 꺼내어 소통하는 훈련을 해야 합니다.</p>",
+      lv_family: "<p>가족과 친구들에게 당신은 집안을 떠받치는 가장 굵고 튼튼한 기둥 역할을 훌륭하게 해내고 있어요. 모두가 당신의 듬직함에 의존하죠.</p><p>하지만 아무리 큰 산이라도 모든 사람의 짐을 혼자서 다 짊어질 수는 없답니다. 때로는 '나도 힘들다'고 솔직하게 털어놓고, 가장 무거운 짐은 과감하게 내려놓는 이기적인 연습을 해보세요. 당신이 살아야 산도 유지됩니다.</p>",
+      wn_body: "<p>본래 타고난 체골이 튼튼하지만, 스트레스를 밖으로 배출하지 않고 속으로 꾹꾹 눌러 참는 습관 때문에 위장과 소화기 계통에 묵직한 병이 생기기 아주 쉬운 체질이에요.</p><p>게다가 움직임이 적고 정적인 편이라 기초 대사량이 떨어지면 순식간에 살이 찔 수 있으니 체중과 하체 관리에 각별히 신경 써야 합니다.</p>",
+      wn_time: "<p><strong>☀️ 낮 시간의 관리:</strong> 앉아만 있지 말고 틈틈이 일어나 걷고, 주말에는 맑은 공기를 마시며 땀이 날 정도의 등산이나 하체 운동을 즐기세요.</p><p><strong>🌙 저녁의 자기관리:</strong> 과식이나 야식을 철저히 피하고, 위장을 편안하게 달래주는 단호박이나 양배추 따뜻하게 쪄서 속을 편안하게 비우세요.</p>",
+      wn_mind: "<p>세상의 모든 갈등과 무거운 짐을 오직 나 혼자서만 묵묵히 품어 안고 해결해야 한다는 엄청난 압박감과 책임감을 이제는 훌훌 털어버리세요.</p><p>당신은 그저 그 자리에 굳건히 존재하는 것만으로도 이미 주변 사람들에게 형언할 수 없는 큰 위로와 평안을 주고 있답니다. 무뚝뚝한 표정 뒤에 숨긴 당신의 따뜻한 진심은 분명 모두에게 통하고 있어요. 가끔은 거울을 보며 크게 미소 지어보세요.</p>",
+      wn_advice: "<p>어른스럽고 점잖게 굴어야 한다는 체면을 가끔은 완전히 뻔뻔하게 내려놓으셔도 괜찮습니다. 아무도 없는 곳에서 가장 좋아하는 음악을 틀고, 철없는 어린아이처럼 바보같이 크게 소리 내어 웃어보세요.</p><p>익숙하고 뻔한 길만을 고집하며 고인 물이 되기보다는, 한 달에 한 번쯤은 미지의 새로운 길을 탐험하며 당신의 웅장한 풍경을 다채롭게 바꿔보는 짜릿한 일탈을 즐기시길 바랍니다.</p>"
+    },
+    en: {
+      gen_today: "<p>Today, maintain your weighty center firmly without wavering. Your unchangeable reliability will be someone's greatest refuge.</p>",
+      gen_month: "<p>You play the role of a solid problem solver for lost people. The world's trust in you will build like an iron fortress.</p>",
+      gen_year: "<p>This year will be a year of stability and accumulation. Honest sweat will harden into immense wealth and unwavering honor.</p>",
+      wm_style: "<p>You are like a grand mountain. Heavy 'trust' built through honest sweat is your strongest weapon. Long-term value investments fit you.</p>",
+      wm_ladder: "<p>Step 1: Start foundation work honestly.</p><p>Step 2: Accumulate overwhelming trust.</p><p>Step 3: Draw huge contracts based on trust.</p>",
+      wm_job: "<p>1. Real Estate/Finance.</p><p>2. Public Office/Manager.</p><p>3. Religious/Philosophy.</p>",
+      wm_trap: "<p>1. Inflexible stubbornness.</p><p>2. Over-responsibility.</p><p>3. Fear of change.</p>",
+      lv_lang: "<p>Your love language is 'quiet, unwavering devotion'. A reliable rock offering a silent shoulder.</p>",
+      lv_match: "<p>Best Match: Clear spring rain (Yin Water).</p><p>Worst Match: Strong vine (Yin Wood).</p>",
+      lv_stage: "<p>Straightforward expressions are needed. Communicate thoughts to avoid disconnection.</p>",
+      lv_family: "<p>You excellently play the thickest pillar supporting your family. Practice putting down the heaviest bags.</p>",
+      wn_body: "<p>Naturally robust, but bottling up stress easily causes heavy stomach diseases. Pay attention to your lower body.</p>",
+      wn_time: "<p>Daytime: Walk often. Evening: Comfort your stomach with steamed pumpkin.</p>",
+      wn_mind: "<p>Shake off the pressure to solve all conflicts alone. Smile broadly in the mirror.</p>",
+      wn_advice: "<p>It's okay to boldly drop the facade of being mature. Laugh out loud like a foolish child in private.</p>"
+    }
+  },
+  5: { 
+    counseling: {
+      ko: "당신은 만물을 품고 길러내는 비옥한 정원 같은 사람이에요. 섬세하고 꼼꼼하게 주변 사람들을 알뜰하게 챙기는 엄마 같은 다정함이 정말 매력적이죠. 하지만 언제나 완벽하게 남을 배려하고 해내려는 강박 때문에 스스로를 너무 피곤하게 만들 때가 있어요. 때로는 조금 빈틈이 있고 엉성해도 괜찮으니, 스스로에게 조금만 더 너그러워지는 연습을 해보세요.",
+      en: "You are like a fertile garden that embraces and nurtures everything. Your mother-like warmth is truly attractive. However, your compulsion to always accommodate others perfectly often tires you out. It's okay to be a little clumsy sometimes; practice being more generous to yourself."
+    },
+    ko: {
+      gen_today: "<p>오늘은 당신의 타고난 따뜻함과 다정함이 예쁜 꽃으로 활짝 피어나 주변을 향기롭게 물들이는 기분 좋은 날이에요. 거창한 일이 아니어도 좋으니 주변 사람에게 작은 친절을 베풀어보세요.</p><p>당신이 건넨 따뜻한 말 한마디와 작은 미소가 누군가의 얼어붙은 하루를 녹이는 큰 기적이 될 수 있답니다. 오늘은 당신이 세상의 힐러 역할을 하는 날이에요.</p>",
+      gen_month: "<p>그동안 묵묵히 밭을 갈고 정성껏 뿌려둔 씨앗들이 마침내 속이 꽉 찬 알찬 열매를 맺기 시작하는 풍요롭고 기분 좋은 시기랍니다.</p><p>화려하고 거창한 이벤트가 빵빵 터지지는 않더라도, 일상 속에서 소박하지만 확실한 성과들이 연이어 나타나며 당신의 마음을 든든하게 채워줄 거예요. 수확의 기쁨을 온전히 누리세요.</p>",
+      gen_year: "<p>올 한 해는 남들에게 보여주기 위한 화려한 겉치레보다는, 당신의 진짜 실속과 내실을 꽉꽉 채우는 매우 현실적이고 유익한 1년이 될 거예요.</p><p>불필요한 지출과 낭비를 줄이고, 당신의 통장 잔고와 마음의 창고를 비옥하게 살찌우는 데 완벽하게 집중하세요. 화려하진 않아도 연말에는 가장 풍족하게 웃게 될 거랍니다.</p>",
+      wm_style: "<p>당신은 비옥하고 아름다운 정원처럼 모든 것을 쑥쑥 길러내는 생명력을 지녔어요. 남들에게 화려하게 뽐내거나 과시하지는 않지만, 10원짜리 하나도 허투루 쓰지 않는 꼼꼼한 관리와 무서운 저축력으로 티끌을 모아 거대한 태산을 만들어내는 진정한 알짜배기 부자의 표본입니다.</p><p>위험 부담이 큰 도박성 투기보다는, 자신이 완벽히 이해하고 통제할 수 있는 실용적이고 안정적인 분야에서 한 치의 오차도 없이 확실한 수익을 꼬박꼬박 챙겨가는 아주 영리한 재무 감각을 지녔어요.</p>",
+      wm_ladder: "<p><strong>1단계 · 세밀한 재무 계획</strong><br>가계부를 꼼꼼히 적으며 돈이 흐르는 길을 파악하고, 새는 돈의 구멍을 완벽하게 틀어막습니다.</p><p><strong>2단계 · 종잣돈의 무한 증식</strong><br>탁월한 절약 정신과 안전한 소규모 저축/투자를 반복하며 종잣돈을 눈덩이처럼 불려 나갑니다.</p><p><strong>3단계 · 실속형 가치 투자</strong><br>자신이 잘 아는 확실한 분야(부동산, 우량주)에 투자하여 안정적이고 짭짤한 수익 기반을 다집니다.</p><p><strong>4단계 · 주변과의 윈윈(Win-Win)</strong><br>당신의 재무 능력을 바탕으로 주변 사람들의 자산까지 함께 길러주며 견고한 부의 연대를 형성합니다.</p><p><strong>5단계 · 마르지 않는 비옥한 정원</strong><br>평생 돈 걱정 없이 풍요롭게 살며, 주변 사람들에게 아낌없이 베푸는 여유롭고 비옥한 정원을 완성합니다.</p>",
+      wm_job: "<p><strong>🥇 1순위: 회계·세무·재무 관리</strong><br>꼼꼼하고 치밀한 숫자 감각으로 실무를 완벽하게 오차 없이 처리해내는 분야의 마스터가 됩니다.</p><p><strong>🥈 2순위: 교육·인사·상담</strong><br>사람의 잠재력을 알아보고, 따뜻하게 품어 인재로 길러내는 완벽한 양육자의 기질을 발휘합니다.</p><p><strong>🥉 3순위: 요식업·농업·비서실장</strong><br>사람들에게 실질적인 양식을 제공하거나, 1인자를 완벽하게 보좌하며 실권을 쥐는 역할이 잘 맞아요.</p>",
+      wm_trap: "<p><strong>🚫 모든 것을 혼자 챙기려는 강박</strong><br>남을 믿지 못해 모든 실무를 직접 챙겨야 직성이 풀리는 탓에 늘 과로에 시달립니다. 타인을 믿고 업무를 위임하는 연습이 절실히 필요해요.</p><p><strong>🚫 착한 아이 콤플렉스와 희생</strong><br>거절을 못 해 남의 일을 떠안고 정작 내 일은 망칠 수 있습니다. 이기적으로 내 밥그릇부터 챙기세요.</p><p><strong>🚫 큰 물에서 노는 것에 대한 두려움</strong><br>작고 안전한 곳에만 머물려다 더 큰 부자로 도약할 기회를 놓칩니다. 때로는 스케일을 키워야 해요.</p>",
+      lv_lang: "<p>당신의 사랑 언어는 '일상 속 세심한 돌봄과 챙김'이에요. 기념일에 100송이 장미를 주기보다는, 상대방이 피곤할 때 따뜻한 찌개를 끓여주거나 흘리듯 말한 필요를 잊지 않고 조용히 챙겨주는 것으로 깊은 사랑을 증명하는 다정다감한 연인이랍니다.</p><p>자극적이고 불타는 연애보다는, 가장 친한 친구처럼 기대고 편안하게 쉴 수 있는 안정적인 관계를 추구해요.</p>",
+      lv_match: "<p><strong>💞 최고의 궁합:</strong> 당신의 헌신을 당연하게 여기지 않고, 당신의 가치를 알아주며 따뜻하게 데워주는 모닥불(정화) 같은 사람이 좋아요.</p><p><strong>💔 최악의 궁합:</strong> 평화로운 당신의 정원을 거칠게 휩쓸어버리고 예측 불가능하게 행동하는 거센 물(임수) 같은 사람은 당신을 몹시 지치게 해요.</p>",
+      lv_stage: "<p><strong>🌱 썸&시작:</strong> 부담스럽지 않은 편안한 친구처럼 다가가 자연스럽게 서로의 일상에 스며드는 연애를 시작해 보세요.</p><p><strong>🌿 연애기:</strong> 세심한 챙김도 좋지만, 엄마처럼 잔소리가 많아지면 로맨스가 식을 수 있어요. 연인의 역할에 충실하세요.</p><p><strong>🌳 안정기:</strong> 상대에게 너무 헌신하다가 정작 나 자신을 잃어버리고 속이 곪을 수 있습니다. 연애에서도 나만의 프라이버시와 영역을 확실히 지키세요.</p>",
+      lv_family: "<p>가족의 건강부터 사소한 기념일까지 하나하나 세세하게 챙기는 가족 내의 가장 다정한 엄마 같은 존재예요. 당신 덕분에 모두가 평안함을 누리죠.</p><p>하지만 남들의 필요를 챙기느라 정작 당신 마음의 정원이 바싹 메말라가게 방치하지는 마세요. 가족을 위해 들이는 정성의 반의반이라도 오직 나를 꾸미고 맛있는 것을 먹는 데 이기적으로 온전히 사용하세요.</p>",
+      wn_body: "<p>마음이 불안하거나 스트레스를 받으면 단 음식이나 탄수화물 폭식으로 감정을 달래려는 성향이 강해서, 순식간에 내장 지방이 쌓이고 당뇨나 위장 장애가 오기 쉬운 체질이에요.</p><p>밀가루와 찬 음식을 멀리하고, 규칙적인 식사와 걷기 운동으로 멈춰 있는 에너지를 밖으로 순환시키는 것이 건강의 핵심입니다.</p>",
+      wn_time: "<p><strong>☀️ 낮 시간의 관리:</strong> 앉아서 일하다가도 틈틈이 스트레칭을 하고, 허브티를 마시며 예민해진 위장을 편안하게 코팅해주세요.</p><p><strong>🌙 저녁의 자기관리:</strong> 저녁 식사 후 바로 눕지 말고, 동네를 30분 정도 가볍게 산책하며 하루 동안 쌓인 마음의 찌꺼기를 천천히 소화시켜 보세요.</p>",
+      wn_mind: "<p>항상 남들의 부탁을 들어주고 주변을 편안하게 맞춰주느라 정작 당신 자신의 감정은 뒷전으로 미루는 착한 아이 콤플렉스를 이제는 단호하게 내려놓으세요.</p><p>내 마음에 나쁜 감정의 잡초가 자라나는 것 같으면 망설이지 말고 가차 없이 싹둑 뽑아버려야 당신의 예쁜 정원이 지켜진답니다. 당신은 충분히 이기적이어도 괜찮고, 그럴 자격이 넘치는 사람이에요.</p>",
+      wn_advice: "<p>타인을 비옥하게 길러내는 당신의 능력은 우주 최고지만, 그 놀라운 능력의 첫 번째 수혜자는 반드시 '당신 자신'이 되어야만 합니다.</p><p>과거의 서운했던 기억이나 남들의 시선에 얽매이지 말고, 오직 당신이 행복해지는 일에만 철저하게 몰두해 보세요. 당신의 내면이 단단하게 채워질 때, 비로소 세상에 더 많은 다정함을 나누어 줄 수 있을 테니까요.</p>"
+    },
+    en: {
+      gen_today: "<p>Today, your natural warmth blooms into a pretty flower. Show small kindnesses to people; it can be a miracle.</p>",
+      gen_month: "<p>The seeds you silently planted finally begin to bear solid, substantial fruits. Enjoy the harvest.</p>",
+      gen_year: "<p>This year will be very realistic and beneficial, filling your true substance rather than showing off.</p>",
+      wm_style: "<p>Like a fertile garden, you possess the vitality to grow everything. You are a true rich person who builds a mountain from dust through meticulous management.</p>",
+      wm_ladder: "<p>Step 1: Write account books to block leaking money.</p><p>Step 2: Multiply seed money through savings.</p><p>Step 3: Invest in well-known areas for a solid profit base.</p>",
+      wm_job: "<p>1. Accounting/Tax.</p><p>2. Education/Counseling.</p><p>3. Food/Chief of Staff.</p>",
+      wm_trap: "<p>1. Compulsion to do everything alone.</p><p>2. Good child complex.</p><p>3. Fear of big waters.</p>",
+      lv_lang: "<p>Your love language is 'meticulous daily care'. You seek a stable, friend-like comfortable relationship.</p>",
+      lv_match: "<p>Best Match: A warm campfire (Yin Fire).</p><p>Worst Match: Fierce water (Yang Water).</p>",
+      lv_stage: "<p>Avoid becoming too nagging like a mother. Protect your privacy and boundaries firmly.</p>",
+      lv_family: "<p>You are the sweetest mother-like figure. Spend effort purely and selfishly on dressing yourself and eating delicious things.</p>",
+      wn_body: "<p>Prone to relieving stress with sweet foods. Circulate stagnant energy with regular meals and walking.</p>",
+      wn_time: "<p>Daytime: Coat your sensitive stomach with herbal tea. Evening: Digest mental waste with a 30-minute light walk.</p>",
+      wn_mind: "<p>Drop the 'good child' complex. If bad emotional weeds grow, ruthlessly pull them out.</p>",
+      wn_advice: "<p>The first beneficiary of your nurturing must be 'yourself'. Focus thoroughly only on what makes you happy.</p>"
+    }
+  },
+  6: { 
+    counseling: {
+      ko: "당신은 단단하게 제련된 쇳덩이 같은 멋진 사람이에요. 의리가 아주 깊고 결단력이 뛰어나며, 한 번 정한 원칙은 타협하지 않는 대쪽 같은 성품이 있죠. 하지만 가끔은 그 단호함이 타인에게 너무 날카롭게 느껴져서 오해를 살 때가 있어요. 날카로운 명검도 평소엔 칼집에 넣어두듯이, 주변 사람들에겐 조금 더 부드러운 미소와 여유를 겉으로 두르는 게 당신의 진짜 매력을 돋보이게 한답니다.",
+      en: "You are an amazing person like solidly forged steel. You have deep loyalty, excellent decisiveness, and unyielding principles. However, sometimes your firmness feels too sharp to others. Just as a sharp sword is kept in its sheath, showing a softer smile and relaxed attitude will highlight your charm."
+    },
+    ko: {
+      gen_today: "<p>오늘은 안개처럼 흐릿했던 상황들이 선명하게 걷히고, 당신의 예리하고 차가운 판단력이 빛을 발하는 결단의 날이에요. 그동안 미뤄왔던 힘든 결정이나, 끊어내야 할 불필요한 인간관계가 있다면 오늘이 바로 칼을 빼 들어야 할 최고의 타이밍이랍니다.</p><p>단호함은 결코 매정한 것이 아니에요. 나를 지키고 더 나은 내일로 나아가기 위한 가장 용기 있는 행동이라는 것을 명심하세요.</p>",
+      gen_month: "<p>이번 달은 당신의 발목을 잡고 있던 낡은 습관이나 군더더기를 과감하게 잘라내고, 새로운 목표를 향해 엄청난 가속도를 얻어 돌진하는 시기예요.</p><p>거추장스러운 짐을 버린 당신의 추진력은 그 누구도 막을 수 없습니다. 속도를 늦추지 말고 목표를 향해 곧게 뻗어나가며 당신의 압도적인 실력을 세상에 증명하세요.</p>",
+      gen_year: "<p>올 한 해는 수많은 담금질을 거쳐 투박했던 쇳덩이가 천하제일의 명검으로 완성되는, 당신 인생의 진정한 혁신과 제2의 도약이 일어나는 1년이 될 거예요.</p><p>과거의 안전지대와 낡은 껍질을 아프지만 과감하게 깨부수고 나와, 당신의 진짜 가치를 날카롭게 세워보세요. 뼈를 깎는 고통 뒤에는 당신이 그토록 원하던 권위와 타의 추종을 불허하는 확실한 성공이 기다리고 있습니다.</p>",
+      wm_style: "<p>당신은 부러질지언정 결코 굽히지 않는 단단한 강철이자 묵직한 바위 같은 사람이에요. 그래서 당신의 금전운은 얕은 잔머리나 요행이 아니라, 오직 남들이 쉽게 대체할 수 없는 고도의 '전문 기술'과 '라이센스'를 바탕으로 평생 마르지 않는 견고한 부의 파이프라인을 구축하는 방식입니다.</p><p>결단력이 무척 뛰어나 남들이 두려워하며 망설이는 위기의 순간에, 오히려 정확한 판단력으로 시장을 선점하고 과감하게 투자하여 가장 굵직한 부를 얻어내는 대범한 투자자의 기질도 숨어 있어요.</p>",
+      wm_ladder: "<p><strong>1단계 · 날카로운 기술 연마</strong><br>아무도 모방할 수 없는 나만의 압도적이고 독보적인 기술이나 자격증을 지독하게 연마합니다.</p><p><strong>2단계 · 과감한 시장 진입</strong><br>타이밍이 왔을 때 주저하지 않는 결단력으로 시장에 뛰어들어 단숨에 우위를 선점합니다.</p><p><strong>3단계 · 철저한 시스템 구축</strong><br>감정에 흔들리지 않고 원칙대로 굴러가는 수익 자동화 시스템이나 탄탄한 조직을 만들어냅니다.</p><p><strong>4단계 · 범접 불가한 권위 확보</strong><br>해당 분야에서 감히 누구도 반박할 수 없는 최고 권위자이자 철옹성 같은 리더로 인정받습니다.</p><p><strong>5단계 · 명검의 완성</strong><br>막대한 부를 축적함과 동시에 세상을 올바른 방향으로 이끄는 존경받는 리더로서 명예의 정점에 섭니다.</p>",
+      wm_job: "<p><strong>🥇 1순위: 법조·군경·의료</strong><br>원칙이 명확하고 정확한 판단력과 생사를 가르는 치열한 결단력이 요구되는 곳에서 당신의 진가가 폭발합니다.</p><p><strong>🥈 2순위: IT 개발·엔지니어</strong><br>한 치의 오차도 허용하지 않는 정밀한 논리와 기술력으로 승부하는 분야가 당신의 두뇌와 완벽하게 부합해요.</p><p><strong>🥉 3순위: 기업 총괄 리더·CEO</strong><br>강력한 카리스마와 돌파력으로 거대한 조직의 기강을 잡고 이끄는 강철 같은 리더십을 발휘합니다.</p>",
+      wm_trap: "<p><strong>🚫 의리로 인한 금전 사고</strong><br>겉으론 차가워 보이지만 속은 의리로 똘똘 뭉쳐 있어서, 지인의 부탁에 돈을 빌려주거나 보증을 서는 순간 평생 모은 재산이 날아갈 수 있습니다.</p><p><strong>🚫 흑백 논리와 독선</strong><br>세상을 맞다/틀리다로만 나누려다 보니 좋은 아군을 적으로 만들어버려 기회를 차단할 수 있습니다. 회색 지대도 인정하는 유연함이 필요해요.</p><p><strong>🚫 타인에 대한 지나친 엄격함</strong><br>나에게 엄격한 만큼 남에게도 완벽을 강요하여 주변을 숨 막히게 할 수 있으니, 칼끝을 부드럽게 감추는 법을 배우세요.</p>",
+      lv_lang: "<p>당신의 사랑 언어는 달콤한 말이 아닌 '끝까지 지켜주고 책임지는 묵직한 의리'예요. 겉으로는 무뚝뚝하고 차가운 철벽처럼 보이지만, 한 번 '내 사람'이라는 확신이 들면 무슨 일이 있어도 상대방을 보호하고 헌신하는 로맨틱한 순정파랍니다.</p><p>당신의 사랑은 쉽게 변하지 않는 굳건한 바위 같아서, 파트너에게 세상 가장 강력한 방패가 되어줍니다.</p>",
+      lv_match: "<p><strong>💞 최고의 궁합:</strong> 당신의 강하고 날카로운 에너지를 다치지 않게 둥글게 감싸 안아줄 수 있는 부드럽고 포근한 정원(기토) 같은 분이 당신을 평안하게 합니다.</p><p><strong>💔 최악의 궁합:</strong> 당신의 원칙을 자꾸만 자신의 방식대로 녹이려 들고 간섭하는 뜨거운 용광로(병화) 같은 사람과는 매일 찌르고 녹이는 전쟁을 치르게 됩니다.</p>",
+      lv_stage: "<p><strong>🌱 썸&시작:</strong> 너무 깐깐한 면접관처럼 상대를 평가하려 하지 말고, 사람 냄새 나는 따뜻한 틈을 보여주어야 상대가 다가올 수 있어요.</p><p><strong>🌿 연애기:</strong> 한 번 내 편이 된 사람에겐 무한한 신뢰를 주고, 데이트 코스 하나도 완벽하게 책임지는 든든한 연인이 되어주세요.</p><p><strong>🌳 안정기:</strong> 연인 간의 사소한 실수나 부족함에 너무 엄격한 잣대를 들이대며 정답을 강요하지 마세요. 사랑은 시시비비를 가리는 법정이 아니랍니다.</p>",
+      lv_family: "<p>가족을 외풍으로부터 완벽하게 지켜내는 철옹성 같은 든든한 방패 역할을 하고 있어요. 행동으로 보여주는 사랑은 100점 만점이죠.</p><p>하지만 때로는 목적 달성이나 문제 해결의 과정에서 내뱉은 당신의 너무 직설적이고 날카로운 말 한마디가 가족들의 가슴에 깊은 상처를 남길 수 있어요. 항상 말끝을 부드럽게 둥글리는 '쿠션어'를 사용하는 연습을 의식적으로 해야만 합니다.</p>",
+      wn_body: "<p>항상 긴장 상태를 유지하고 목표를 향해 달려가는 탓에, 몸의 근육과 관절이 뻣뻣하게 굳기 쉽고 폐와 대장 등 호흡기 계통이 남들보다 약한 편이에요.</p><p>근육 운동보다는 폼롤러나 요가를 통해 굳어있는 몸을 길고 부드럽게 늘려 이완시켜주고, 미세먼지를 피하며 맑은 공기를 들이마시는 숲길 걷기가 당신에게 최고의 휴식이 됩니다.</p>",
+      wn_time: "<p><strong>☀️ 낮 시간의 관리:</strong> 일하는 중간에 억지로라도 자리에서 일어나 딱딱해진 어깨와 목을 크게 돌려주며 관절의 윤활유를 돌게 하세요.</p><p><strong>🌙 저녁의 자기관리:</strong> 하루 일과를 마친 후 따뜻한 욕조에 몸을 담그고, 팽팽하게 당겨진 신경줄과 무쇠 같은 근육을 말랑말랑하게 완전히 녹여버리세요.</p>",
+      wn_mind: "<p>가장 훌륭하고 위대한 칼은 무엇이든 단번에 베어버리는 강한 칼이 아니라, 부러지지 않고 유연하게 휠 줄 아는 칼이라는 사실을 꼭 기억하세요.</p><p>모든 일에 칼날처럼 날을 세우고 전투태세를 갖추기보다는, 누군가의 실수나 흠결 앞에서도 너털웃음을 지으며 '그럴 수도 있지' 하고 부드럽게 넘겨주는 넓은 여유를 장착할 때, 당신은 진짜 범접할 수 없는 어른으로 성장하게 됩니다.</p>",
+      wn_advice: "<p>오직 저 멀리 있는 목표와 정상만을 바라보며 불도저처럼 달리느라, 지금 당신 곁에 스쳐 지나가는 아름다운 풍경과 소중한 인연들을 무심히 놓치고 있지는 않은지 돌아보세요.</p><p>목적지 없는 가벼운 산책을 즐기고, 당신의 날카로운 눈썰미를 남의 허점이 아닌 칭찬할 장점을 찾아내는 데 사용해 보세요. 부드러움이 언제나 강함을 이긴다는 우주의 진리를 믿고 당신의 모서리를 따뜻하게 다듬어가시길 바랍니다.</p>"
+    },
+    en: {
+      gen_today: "<p>Today, ambiguous situations clear up, and your sharp judgment shines brightly. Make bold decisions on delayed matters.</p>",
+      gen_month: "<p>A time to boldly cut off dragging habits and gain tremendous momentum towards new goals.</p>",
+      gen_year: "<p>This year will be a true innovation, forging a rough iron lump into a legendary sword through tempering.</p>",
+      wm_style: "<p>You are solid steel. Your wealth comes from irreplaceable, highly specialized skills and licenses.</p>",
+      wm_ladder: "<p>Step 1: Relentlessly hone unique skills.</p><p>Step 2: Enter the market boldly with decisive timing.</p><p>Step 3: Build an automated, principle-driven profit system.</p>",
+      wm_job: "<p>1. Law/Military/Medical.</p><p>2. IT Developer/Engineer.</p><p>3. CEO/Leader.</p>",
+      wm_trap: "<p>1. Financial accidents from loyalty.</p><p>2. Black-and-white logic.</p><p>3. Overly strict to others.</p>",
+      lv_lang: "<p>Your love language is 'heavy loyalty protecting to the end'. Your love is an unwavering rock.</p>",
+      lv_match: "<p>Best Match: A soft, cozy garden (Yin Earth).</p><p>Worst Match: A hot furnace (Yang Fire).</p>",
+      lv_stage: "<p>Don't evaluate them like a strict interviewer. Don't apply strict standards to minor mistakes.</p>",
+      lv_family: "<p>You act as an impregnable shield protecting family. Consciously practice using warm, cushioned words.</p>",
+      wn_body: "<p>Constant tension stiffens muscles and joints. Yoga or foam rolling and breathing clean forest air are best.</p>",
+      wn_time: "<p>Daytime: Roll your stiff shoulders and neck. Evening: Soak in a warm bath to melt taut nerves.</p>",
+      wn_mind: "<p>The greatest sword knows how to bend without breaking. Equip the leeway to laugh off others' mistakes.</p>",
+      wn_advice: "<p>Don't miss the beautiful scenery passing by while bulldozing towards the goal. Softness always beats strength.</p>"
+    }
+  },
+  7: { 
+    counseling: {
+      ko: "당신은 맑은 물에 깨끗하게 씻긴, 아주 예리하고 아름다운 보석 같은 사람이에요. 남다른 미적 감각과 완벽을 추구하는 성향 덕분에 맺고 끊음이 정말 확실하죠. 하지만 나만의 잣대와 기준이 너무 높다 보니 주변 사람들에게 혼자 실망하고 상처받을 때가 많아요. 세상에는 흠집 있는 보석도 나름의 사연과 매력이 있다는 걸 인정하고, 사람들을 조금만 더 둥글게 바라보는 여유를 가져보세요.",
+      en: "You are like a sharp, beautiful jewel washed in clear water. Thanks to your unique aesthetic sense and perfectionism, you are very decisive. However, your standards are so high that you often get disappointed by people. Acknowledge that even flawed jewels have their own charm."
+    },
+    ko: {
+      gen_today: "<p>오늘은 당신의 세련된 미적 감각과 예리하고 섬세한 통찰력이 마치 정교하게 세공된 보석처럼 반짝반짝 빛을 발하는 날이에요.</p><p>남들은 무심코 지나치는 아주 작은 디테일과 허점을 당신의 예리한 눈썰미로 완벽하게 잡아내어 문제를 해결할 수 있습니다. 당신의 높은 안목을 믿고 당당하게 의견을 제시해 보세요.</p>",
+      gen_month: "<p>어설프게 일을 대충 넘기지 않고 완벽을 기하는 당신의 치밀함이 마침내 주변 사람들의 진심 어린 찬사와 인정을 이끌어내는 멋진 시기랍니다.</p><p>당신의 정교한 솜씨가 가치를 인정받고, 그로 인해 고급스럽고 유익한 인맥들이 당신 곁으로 하나둘 모여들기 시작할 거예요. 우아한 미소로 그들을 맞이하세요.</p>",
+      gen_year: "<p>올 한 해는 모든 상황과 주변 사람들을 내 기준에 맞춰 완벽하게 통제하려는 피곤한 마음을 잠시 내려놓을 때, 비로소 여유로움 속에서 가장 큰 행운이 흘러들어오는 1년이 될 거예요.</p><p>때로는 계산기에서 벗어나 우연이 만들어내는 아름다운 변수들을 기꺼이 즐겨보세요. 힘을 뺄수록 당신이라는 보석의 광채는 더욱 멀리 퍼져나간답니다.</p>",
+      wm_style: "<p>당신은 맑은 물에 씻겨 찬란하게 빛나는, 정교하고 값비싼 보석 같은 사람이에요. 투박하게 몸으로 부딪치거나 흙먼지를 뒤집어쓰는 일보다는, 뛰어난 분석력과 미적 감각을 발휘하여 세상에 없던 세련된 부가가치를 창출하는 데서 돈의 물꼬가 터집니다.</p><p>주식, 부동산, 금융 상품의 미세한 흐름을 귀신같이 읽어내어 가장 정확한 타이밍에 칼같이 수익 실현하는 놀라운 재테크 감각을 가졌으며, 1원 단위까지 철저하게 통제하는 완벽한 재무 관리로 자산을 흠집 없이 지켜냅니다.</p>",
+      wm_ladder: "<p><strong>1단계 · 숨겨진 가치 발굴</strong><br>탁월한 심미안과 안목으로 흙 속에 진주처럼 숨겨진 저평가된 가치를 가장 먼저 찾아냅니다.</p><p><strong>2단계 · 정교한 데이터 분석</strong><br>감에만 의존하지 않고, 예리하고 치밀한 분석을 통해 수익 모델을 완벽하게 검증합니다.</p><p><strong>3단계 · 하이엔드 디테일 완성</strong><br>어설픈 퀄리티를 거부하고, 상위 1%를 만족시키는 세련되고 완벽한 디테일로 상품성을 극대화합니다.</p><p><strong>4단계 · 고급 네트워크 형성</strong><br>당신의 가치를 진정으로 알아보고 제값을 지불하는 고급스럽고 든든한 인맥(VIP)을 구축합니다.</p><p><strong>5단계 · 영원히 빛나는 보석함</strong><br>품위를 유지하며 돈이 돈을 버는 우아한 시스템을 완성하여, 세월이 흘러도 변치 않는 부를 누립니다.</p>",
+      wm_job: "<p><strong>🥇 1순위: 금융 분석·세무·회계</strong><br>숫자의 미세한 오차도 허용하지 않는 날카로운 판단력과 치밀함이 필수인 곳이 최고의 무대입니다.</p><p><strong>🥈 2순위: 뷰티·패션·디자인·귀금속</strong><br>타고난 세련미와 정교한 미적 감각으로 트렌드를 이끌고 최고의 미(美)를 창조하는 일에 제격이에요.</p><p><strong>🥉 3순위: 전문의·정밀 연구원</strong><br>현미경으로 들여다보듯 고도의 정밀함과 집중력이 요구되는 분야에서 독보적인 일인자가 됩니다.</p>",
+      wm_trap: "<p><strong>🚫 완벽주의가 부르는 자기 학대</strong><br>100점이 아니면 모두 0점이라고 생각하는 강박 때문에 일을 끝맺지 못하고 스스로를 너무 괴롭힙니다. 일의 80%만 완성되어도 훌륭하다고 타협하세요.</p><p><strong>🚫 촌철살인, 날카로운 독설</strong><br>화가 나거나 답답할 때 상대방의 뼈를 때리는 팩트 폭력으로 인간관계에 치명적인 금을 가게 할 수 있으니 말을 조심해야 합니다.</p><p><strong>🚫 스트레스로 인한 낭비</strong><br>자신의 품위를 지키고 스트레스를 푼다는 명목하에 분수에 맞지 않는 명품이나 고가의 물건을 충동 구매할 위험이 높습니다.</p>",
+      lv_lang: "<p>당신의 사랑 언어는 구질구질하고 거친 감정싸움이 배제된, '우아하고 세심한 지적 존중'이에요. 땀 흘리는 격렬한 데이트보다는, 깔끔하고 매너 있는 분위기 좋은 레스토랑에서 지적인 대화가 통하는 세련된 연애를 지향합니다.</p><p>자신의 프라이버시를 존중받기를 원하며, 상대방에게도 그에 걸맞은 수준 높은 매너와 센 센스를 은연중에 바라는 까다로운 로맨티스트랍니다.</p>",
+      lv_match: "<p><strong>💞 최고의 궁합:</strong> 당신의 예민하고 날카로운 경계선을 부드러운 유머로 사르르 녹여줄 수 있는 다정하고 깊은 바다(임수) 같은 분이 완벽한 짝입니다.</p><p><strong>💔 최악의 궁합:</strong> 당신의 반짝이는 빛을 덮어버리고 거칠게 몰아붙이는 투박한 모래바람(무토) 같은 사람은 당신의 숨을 막히게 해요.</p>",
+      lv_stage: "<p><strong>🌱 썸&시작:</strong> 겉으론 차갑고 도도해 보여 접근하기 어려워요. 호감이 있다면 먼저 가벼운 미소와 지적인 대화 주제를 던져 분위기를 풀어주세요.</p><p><strong>🌿 연애기:</strong> 서로의 취향과 선을 완벽하게 지키는 우아한 연애를 하되, 가끔은 흐트러진 모습이나 솔직한 빈틈을 보여주어 인간미를 더해보세요.</p><p><strong>🌳 안정기:</strong> 서운한 일이 생길수록 더욱 부드럽고 다정한 언어로 표현하려 노력하세요. 날 선 한마디가 되돌릴 수 없는 상처를 줍니다.</p>",
+      lv_family: "<p>가족 사이에서도 예의와 적당한 거리를 중시하며, 각자의 독립적인 공간을 존중해 주기를 바라는 쿨하고 세련된 가족 구성원이에요.</p><p>하지만 이런 성향이 때로는 가족들에게 차갑고 정 없게 느껴질 수도 있답니다. 집 안에서만큼은 화려한 보석의 장식을 내려놓고, 조금은 허술하고 빈틈 많고 애교 있는 진짜 당신의 모습을 편안하게 보여주어도 괜찮습니다.</p>",
+      wn_body: "<p>마치 투명하고 깨지기 쉬운 유리 몸처럼 건조함에 매우 취약하고, 신경계통이 상상 이상으로 예민하게 발달해 있는 체질이에요.</p><p>호흡기나 피부에 트러블이 생기기 쉬우니 항상 주변의 습도를 촉촉하게 유지하고, 비타민이 풍부한 신선한 생과일과 물을 수시로 섭취하여 속부터 수분을 채워주어야 합니다.</p>",
+      wn_time: "<p><strong>☀️ 낮 시간의 관리:</strong> 미세한 빛이나 소리에도 스트레스를 받을 수 있으니, 점심시간에는 완벽하게 소음이 차단된 곳에서 눈을 감고 휴식하세요.</p><p><strong>🌙 저녁의 자기관리:</strong> 수면의 질이 당신의 다음 날을 좌우합니다. 부드러운 실크 잠옷과 완벽한 암막 커튼, 따뜻한 족욕으로 신경줄을 말랑하게 풀어주세요.</p>",
+      wn_mind: "<p>주변 사람들의 어설픈 일 처리나 부족한 점이 당신의 예리한 눈에는 너무나도 선명하게 잘 보여서 답답하고 화가 날 때가 참 많을 거예요.</p><p>하지만 모든 사람이 당신처럼 정밀한 잣대를 가지고 살아갈 수는 없답니다. 마음에 들지 않는 상황을 마주하더라도 심호흡을 크게 한 번 하고, 입가에 여유로운 미소를 띠며 '그럴 수도 있지'라는 마법의 주문을 외워보는 연습을 매일 해보세요.</p>",
+      wn_advice: "<p>당신은 남들이 가지지 못한 기가 막힌 심미안과 예리함을 타고난, 이미 존재 자체로 눈부시게 빛나고 있는 완벽한 보석이랍니다.</p><p>스스로를 조금 더 완벽하게 만들겠다고 끊임없이 자신을 깎아내고 채찍질하며 스스로를 그만 괴롭히세요. 세상에 흠집 하나 없는 보석은 가짜뿐입니다. 당신이 가진 작은 흠집마저도 당신을 유일무이하게 만들어주는 눈물겹게 아름다운 매력이라는 것을 꼭 깨달으시길 바라요.</p>"
+    },
+    en: {
+      gen_today: "<p>Today, your sophisticated sense and keen insight shine like a finely crafted jewel. Present your opinions confidently.</p>",
+      gen_month: "<p>Your meticulousness in striving for perfection will finally draw sincere praise and recognition. High-class networks will gather.</p>",
+      gen_year: "<p>This year will bring the biggest luck when you temporarily drop the tiring desire to perfectly control all situations.</p>",
+      wm_style: "<p>You are like a precious jewel. Wealth flows from creating sophisticated value-added items using your excellent analysis.</p>",
+      wm_ladder: "<p>Step 1: Discover undervalued assets.</p><p>Step 2: Perfectly verify profit models.</p><p>Step 3: Maximize commercial value with sophisticated details.</p>",
+      wm_job: "<p>1. Financial Analysis/Tax.</p><p>2. Beauty/Fashion/Jewelry.</p><p>3. Medical Specialist/Researcher.</p>",
+      wm_trap: "<p>1. Self-abuse from perfectionism.</p><p>2. Sharp, hurtful words.</p><p>3. Stress spending.</p>",
+      lv_lang: "<p>Your love language is 'elegant and meticulous intellectual respect'. You aim for sophisticated romance.</p>",
+      lv_match: "<p>Best Match: A sweet, deep ocean (Yang Water).</p><p>Worst Match: Rough sandstorms (Yang Earth).</p>",
+      lv_stage: "<p>Throw a light smile first. Maintain elegant romance but occasionally show clumsy flaws for a human touch.</p>",
+      lv_family: "<p>A cool family member valuing manners and distance. At home, drop the flashy decorations and show your truly affectionate self.</p>",
+      wn_body: "<p>A glass body highly vulnerable to dryness. Keep humidity high and drink water with fresh fruits daily.</p>",
+      wn_time: "<p>Daytime: Rest in complete silence. Evening: Melt nerves with silk pajamas and a warm foot bath.</p>",
+      wn_mind: "<p>Take a deep breath, smile, and practice chanting 'It is what it is' when others' clumsiness frustrates you.</p>",
+      wn_advice: "<p>Stop torturing yourself by constantly chipping away to be more perfect. A jewel without a single scratch is fake.</p>"
+    }
+  },
+  8: { 
+    counseling: {
+      ko: "당신은 세상의 모든 것을 포용하며 굽이쳐 흐르는 큰 바다 같은 사람이에요. 지혜가 무척 깊고 스케일도 커서, 유연하게 상황에 대처하는 능력이 아주 탁월하죠. 하지만 당신의 그 깊은 생각의 바다에 너무 깊이 빠지면 속을 알 수 없는 사람처럼 보이고, 스스로 우울감에 빠지기 쉽답니다. 혼자만의 심해에 오래 머물지 말고, 밖으로 나와 햇볕을 쬐며 당신의 멋진 생각들을 가볍게 비워내는 게 좋아요.",
+      en: "You are like a vast ocean flowing and embracing everything. You are deeply wise and possess an excellent ability to flexibly handle situations. However, diving too deeply into your sea of thoughts can make you prone to depression. Don't stay in the deep sea alone; come out and get some sun."
+    },
+    ko: {
+      gen_today: "<p>오늘은 오랫동안 꽉 막혀있던 생각과 고민들이 속 시원하게 뚫리면서, 깊은 바다처럼 지혜가 맑게 솟아나는 역동적인 날이에요. 억지로 상황을 통제하려 들지 말고 물 흐르듯 자연스럽게 대처하세요.</p><p>작은 웅덩이에 고여있기보다는, 더 넓은 세상의 흐름을 읽고 유연하게 움직이는 것이 오늘 당신에게 최고의 행운을 가져다줄 것입니다.</p>",
+      gen_month: "<p>당신이 완전히 새롭고 낯선 환경에 덩그러니 던져지더라도, 물이 그릇의 모양에 맞춰 변하듯 놀랍도록 빠르게 적응하며 마침내 큰 바다로 나아가는 진취적이고 멋진 시기예요.</p><p>안전지대에만 머물지 말고, 그동안 미뤄두었던 새로운 공부, 이직, 혹은 여행 등 당신의 경계를 허무는 멋진 도전을 과감하게 시작해 보세요.</p>",
+      gen_year: "<p>올 한 해는 답답하게 정체되어 있던 곳을 완전히 벗어나, 굽이치는 강물처럼 역동적인 이동과 폭발적인 확장이 일어나는 희망찬 1년이 될 거예요.</p><p>이사, 이직, 부서 이동, 혹은 글로벌한 무대로의 진출 등 삶의 반경이 엄청나게 넓어집니다. 변화의 거센 파도를 두려워하지 말고 윈드서핑을 하듯 짜릿하게 즐겨보세요. 더 넓은 세상이 당신을 기다립니다.</p>",
+      wm_style: "<p>당신은 전 세계를 굽이쳐 흐르는 거대한 강물이자 깊고 넓은 바다 같은 사람이에요. 옹졸하게 돈을 한 곳에 묶어두기보다는, 돈이 크게 흘러가는 길목을 영리하게 선점하여 부를 긁어모으는 스케일 큰 방식을 타고났어요.</p><p>스펀지처럼 방대한 지식과 글로벌한 정보력을 쫙쫙 빨아들여, 남들은 보지 못하는 거시적인 안목으로 큰 흐름에 베팅하여 대성공을 거두는 투자의 귀재입니다. 유통, 플랫폼, 무역 등 경계가 없는 곳에서 막대한 부를 창출해냅니다.</p>",
+      wm_ladder: "<p><strong>1단계 · 무한 정보 흡수기</strong><br>세상의 온갖 다양한 지식과 트렌드, 고급 정보들을 편식 없이 방대하게 흡수하고 공부합니다.</p><p><strong>2단계 · 거시적 흐름 파악</strong><br>모은 조각들을 바탕으로 시대가 어디로 흘러가는지 정확한 맥락을 짚어내어 돈의 물길을 찾습니다.</p><p><strong>3단계 · 유연한 물꼬 트기</strong><br>작은 시도로 길을 테스트하며 유통망이나 파이프라인의 기초를 막힘없이 뚫어냅니다.</p><p><strong>4단계 · 스케일업 대규모 투자</strong><br>확신이 섰을 때 주저하지 않고 글로벌한 스케일의 투자와 사업 확장을 단행합니다.</p><p><strong>5단계 · 전 세계를 굽이치는 바다</strong><br>수입원이 전방위적으로 확대되며, 국경과 경계가 없는 끝을 알 수 없는 거대한 부의 바다를 완성합니다.</p>",
+      wm_job: "<p><strong>🥇 1순위: 글로벌 무역·유통·플랫폼</strong><br>막힌 곳 없이 세계를 넘나들며 물자나 정보를 교류하게 만드는 일에서 독보적인 재능을 발휘합니다.</p><p><strong>🥈 2순위: 전략 기획·외교·컨설팅</strong><br>판 전체를 조망하는 거시적 안목으로 유연하게 문제를 해결하고 최적의 전략을 짜내는 천재적인 브레인이에요.</p><p><strong>🥉 3순위: 교육·아이디어 뱅크</strong><br>반복되는 일상 업무는 당신을 시들게 합니다. 무한한 상상력을 펼치는 연구나 창작 분야가 가슴을 뛰게 해요.</p>",
+      wm_trap: "<p><strong>🚫 들어오는 만큼 새나가는 둑</strong><br>스케일이 커서 버는 단위도 크지만, 그만큼 구멍이 뚫리면 엄청난 돈이 한 번에 쓸려 나갑니다. 자산을 단단하게 묶어둘 든든한 댐(부동산, 신탁)이 생명줄이에요.</p><p><strong>🚫 지루함을 견디지 못하는 변덕</strong><br>시작은 창대하지만, 똑같은 일상이 반복되면 금방 흥미를 잃고 다른 우물을 파려 합니다. 끝까지 버티는 끈기가 필요해요.</p><p><strong>🚫 너무 깊은 생각의 늪</strong><br>행동하기 전에 생각을 너무 깊고 넓게 하느라 정작 타이밍을 놓쳐버리기 십상입니다. 생각은 짧게, 행동은 가볍게 하세요.</p>",
+      lv_lang: "<p>당신의 사랑 언어는 상대방의 허물조차 넉넉하게 안아주는 '끝없는 포용과 이해심'이에요. 속을 쉽게 알 수 없는 깊은 바다처럼 신비롭고 묘한 매력으로 상대방을 완전히 홀려버리는 마성의 로맨티스트랍니다.</p><p>틀에 박힌 데이트 코스보다는 함께 미지의 세계로 훌쩍 떠나는 즉흥적이고 자유로운 낭만을 가슴 깊이 갈망하고 있어요.</p>",
+      lv_match: "<p><strong>💞 최고의 궁합:</strong> 당신의 넓은 바다를 반짝반짝 아름답게 빛내줄 수 있는 지적이고 세련된 보석(신금) 같은 사람이 잘 맞아요.</p><p><strong>💔 최악의 궁합:</strong> 자유롭게 흐르고 싶은 당신의 물길을 사방에서 꽉 막아버리고 구속하려는 답답한 큰 산(무토) 같은 분은 피하세요.</p>",
+      lv_stage: "<p><strong>🌱 썸&시작:</strong> 신비주의도 좋지만 속을 너무 안 보여주면 상대가 불안해합니다. 맑은 시냇물처럼 당신의 감정을 투명하게 조금씩 보여주세요.</p><p><strong>🌿 연애기:</strong> 자유를 사랑하는 특유의 유연함으로 상대를 숨 막히지 않게 배려해 주어 세상에서 가장 편안한 안식처가 되어줍니다.</p><p><strong>🌳 안정기:</strong> 내 마음을 말 안 해도 알겠지라는 착각은 금물이에요. 주기적으로 당신의 속마음을 찰랑이는 파도처럼 언어로 다정하게 표현해 주어야 관계가 유지됩니다.</p>",
+      lv_family: "<p>가족과 친구들 사이에서 당신은 무엇이든 털어놓고 의지할 수 있는 포용력 끝판왕, 만능 비밀 상담소 역할을 하고 있어요.</p><p>하지만 남들의 온갖 오염된 고민을 다 받아주다 보면 당신의 맑은 바다가 시커멓게 탁해질 수 있답니다. 깊은 바다는 필연적으로 외로운 법이에요. 그 깊은 고독감을 회피하려 타인에게 휩쓸리지 말고, 명상이나 예술 활동으로 건강하게 승화시키세요.</p>",
+      wn_body: "<p>체내의 수분 밸런스와 혈액 순환에 매우 민감하게 반응하며, 부종이 잘 생기고 신장이나 방광, 비뇨기 계통의 기능이 약해지기 쉬운 체질이에요.</p><p>몸을 차갑게 하는 아이스 음료를 피하고, 하체의 근원적인 에너지를 튼튼하게 펌핑해주는 스쿼트나 걷기 운동을 꾸준히 해주어야 온몸에 맑은 에너지가 핑핑 돕니다. 짠 음식은 당신에게 절대 쥐약이에요.</p>",
+      wn_time: "<p><strong>☀️ 아침의 자기관리:</strong> 아침에 눈을 뜨자마자 체온과 비슷한 따뜻한 물 한 잔을 마셔 밤새 굳어있던 몸속의 흐름을 맑게 깨워주세요.</p><p><strong>🌙 저녁의 자기관리:</strong> 하루 종일 부어있던 하체를 반신욕으로 따뜻하게 덥혀주고 다리를 심장보다 높게 올려 수분 대사를 원활하게 해주세요.</p>",
+      wn_mind: "<p>생각의 바다가 너무 깊어지다 못해 종종 우울의 심해로 끝없이 가라앉아 버리는 날들이 있을 거예요. 그럴 땐 방안에 틀어박혀 있지 말고 무조건 밖으로 나가셔야 합니다.</p><p>흐르지 않는 물은 썩기 마련이거든요. 사람들을 만나고 땀을 흘리며 몸을 움직일 때, 당신의 우울했던 웅덩이는 어느새 다시 경쾌하게 굽이치는 맑고 쾌활한 강물로 되살아날 거랍니다.</p>",
+      wn_advice: "<p>호기심이 너무 방대해서 한 우물을 파기보다는 이곳저곳 참견하고 건드려보는 산만한 재능의 소유자예요. 하지만 당신이 정말 세상에 큰 족적을 남기고 싶다면, 단 하나의 뾰족한 목표를 정해 1년 이상 지독하게 몰두하는 훈련이 반드시 필요합니다.</p><p>당신 안에 잠재된 거대한 쓰나미 같은 잠재력을 믿어보세요. 물길이 하나로 모이는 순간, 그 무엇도 당신을 막아설 수 없을 것입니다.</p>"
+    },
+    en: {
+      gen_today: "<p>Today, blocked thoughts and worries clear up refreshingly. Do not try to forcefully control situations; respond naturally as water flows.</p>",
+      gen_month: "<p>You adapt incredibly fast like water taking the shape of its container. Take on exciting challenges like moving or studying.</p>",
+      gen_year: "<p>This year will be a dynamic, hopeful year of movement and explosive expansion. Enjoy the fierce waves of change like windsurfing.</p>",
+      wm_style: "<p>You naturally monopolize money paths and rake in wealth on a large scale. You are an investment genius succeeding in macro-flows.</p>",
+      wm_ladder: "<p>Step 1: Broadly absorb knowledge.</p><p>Step 2: Grasp macro-flows to find where money heads.</p><p>Step 3: Open channels flexibly with small tests.</p>",
+      wm_job: "<p>1. Global Trade/Platform.</p><p>2. Strategy/Consulting.</p><p>3. Education/Idea Bank.</p>",
+      wm_trap: "<p>1. Leaking dam.</p><p>2. Inconsistent boredom.</p><p>3. Swamp of deep thoughts.</p>",
+      lv_lang: "<p>Your love language is 'endless embrace and understanding'. A romantic with a mysterious charm like an inscrutable deep sea.</p>",
+      lv_match: "<p>Best Match: An intellectual, sophisticated jewel (Yin Metal).</p><p>Worst Match: A frustrating big mountain (Yang Earth).</p>",
+      lv_stage: "<p>Show your transparent emotions gradually. Express your heart verbally like lapping waves to maintain relationships.</p>",
+      lv_family: "<p>You act as the ultimate all-rounder secret counselor for family. Sublimate loneliness into artistic inspiration.</p>",
+      wn_body: "<p>Highly sensitive to water balance. Pumping lower body energy with squats or walking circulates clear energy.</p>",
+      wn_time: "<p>Morning: Drink a glass of warm water. Evening: Warm your swollen lower body with a half-bath.</p>",
+      wn_mind: "<p>When the sea of thoughts deepens into the abyss of depression, you must go outside. Stagnant water rots.</p>",
+      wn_advice: "<p>To leave a great mark, strictly commit to a single sharp goal for over a year. Trust your dormant tsunami-like potential.</p>"
+    }
+  },
+  9: { 
+    counseling: {
+      ko: "당신은 만물을 촉촉하게 적시는 따뜻한 봄비 같은 사람이에요. 예리한 직관력과 풍부한 감수성을 지녀서 사람들의 마음에 어디든 다정하게 잘 스며들죠. 하지만 남들의 작은 감정 변화나 스트레스에도 워낙 민감하게 반응하다 보니 당신의 마음이 쉽게 지치고 다칠 수 있어요. 비 갠 뒤 맑은 하늘의 무지개처럼 가급적 밝고 긍정적인 생각만 하려 노력하고, 따뜻한 차 한 잔으로 당신을 먼저 위로해 주세요.",
+      en: "You are like warm spring rain that moistens everything. With sharp intuition and rich sensitivity, you gently seep into people's hearts. However, because you react so sensitively to small emotional changes, your heart easily gets exhausted. Try to focus on bright thoughts and comfort yourself first."
+    },
+    ko: {
+      gen_today: "<p>오늘은 머리를 쥐어짜는 복잡한 논리나 이성보다는, 가슴속에서 우러나오는 당신의 번뜩이는 직관이 100% 완벽한 정답을 가리키는 묘한 날이에요.</p><p>중요한 결정을 내려야 한다면 데이터에 의존하기보다는, 눈을 감고 마음의 소리에 조용히 귀를 기울여 보세요. 첫눈에 '이거다!'라고 느껴지는 찌릿한 그 감각이 바로 행운의 나침반이랍니다.</p>",
+      gen_month: "<p>메마른 대지를 촉촉하게 적시는 봄비처럼, 메말랐던 주변 상황에 활력을 불어넣고 사람들을 미소 짓게 만드는 기분 좋은 시기예요.</p><p>당신 머릿속에서 끊임없이 솟아나는 기발하고 독특한 아이디어들이 반짝반짝 빛을 발하며 중요한 프로젝트의 실마리를 제공할 것입니다. 당신의 상상력을 부끄러워하지 말고 마음껏 입 밖으로 내어보세요.</p>",
+      gen_year: "<p>올 한 해는 높은 장벽을 무식하게 정면으로 돌파하기보다는, 물방울이 바위틈을 스며들듯 특유의 부드럽고 우회적인 당신만의 지혜를 십분 발휘하여 결국 원하는 것을 조용히 쟁취해 내는 아주 영리한 1년이 될 거예요.</p><p>소란 피우지 않고도 실속을 챙기는 당신의 처세술이 정점에 달하게 됩니다. 외유내강의 진수를 보여주며 크게 도약하게 될 것입니다.</p>",
+      wm_style: "<p>당신은 만물을 소생시키는 투명한 이슬이나 마르지 않는 옹달샘 같은 사람이에요. 남들처럼 거칠게 몸으로 부딪쳐 돈을 벌기보다는, 남들이 무심코 지나치는 고급 정보와 데이터를 스펀지처럼 빨아들여 조용하고 치밀하게 부자가 되는 천재적인 방식을 타고났어요.</p><p>풍부한 상상력과 탁월한 기획력으로 당신 머릿속에 있는 아이디어를 지식재산권, 특허, 혹은 컨설팅 비용으로 변환하여 하늘에서 부드럽게 내리는 금비(金雨)를 만들어냅니다. 무리한 대출이나 리스크를 절대 질색하는 최고로 안전한 투자자이기도 해요.</p>",
+      wm_ladder: "<p><strong>1단계 · 통찰력의 충전</strong><br>다양한 분야의 책과 지식을 조용히 흡수하며 남들이 보지 못하는 통찰력의 옹달샘을 채웁니다.</p><p><strong>2단계 · 아이디어 기획</strong><br>머릿속에 파편화된 영감들을 연결하여 세상에 없던 기발하고 독특한 아이디어로 기획해 냅니다.</p><p><strong>3단계 · 저위험 테스트</strong><br>리스크를 최소화한 소규모 테스트를 통해 자신의 직관이 맞는지 영리하게 시장을 검증합니다.</p><p><strong>4단계 · 지식의 자산화</strong><br>검증된 아이디어를 특허, 저작권, 시스템 등으로 현금화하여 일하지 않아도 돈이 들어오는 구조를 만듭니다.</p><p><strong>5단계 · 소리 없이 내리는 금비</strong><br>요란하게 과시하지 않으면서도, 조용히 막대한 지적 수익을 끌어들이며 우아하게 부를 누립니다.</p>",
+      wm_job: "<p><strong>🥇 1순위: 기획·연구·IT 데이터 분석</strong><br>조용히 데이터를 다루고 머리를 쓰며 당신의 지적 호기심을 무한대로 충족할 수 있는 곳이 최고의 무대예요.</p><p><strong>🥈 2순위: 교육·상담·철학·작가</strong><br>인간 내면을 깊이 통찰하고 지혜를 전달하며 사람들의 굳은 마음을 촉촉하게 적셔주는 천직입니다.</p><p><strong>🥉 3순위: 참모·비서·브레인</strong><br>전면에 나서기보다는 1인자의 뒤에서 판을 짜고 완벽한 전략을 세워주는 대체 불가능한 제갈량 같은 인재예요.</p>",
+      wm_trap: "<p><strong>🚫 완벽주의가 부르는 실행력 부족</strong><br>생각이 너무 깊고 치밀해서, 완벽한 계획이 서기 전까지는 첫발을 떼지 못해 좋은 기회를 남에게 뺏기기 십상입니다. 엉성해도 일단 시작하는 용기가 필요해요.</p><p><strong>🚫 위험 0%만 추구하는 함정</strong><br>돌다리를 천 번 두드리다 정작 건너지 못합니다. 적당한 리스크를 안아야 큰 돈이 들어오는 법이에요.</p><p><strong>🚫 부정적 감정의 늪</strong><br>스트레스를 받으면 한없이 비관적이고 냉소적으로 변해 스스로 기운을 깎아먹습니다. 긍정적인 사람 곁에 머무르세요.</p>",
+      lv_lang: "<p>당신의 사랑 언어는 구구절절한 말 한마디 없이 눈빛만으로도 상대방의 속마음을 기가 막히게 알아채고 어루만져 주는 '섬세한 감정의 극적인 교감'이에요.</p><p>이 세상의 험난함에서 서로를 지켜주는 유일하고 완벽한 영혼의 피난처가 되기를 깊이 갈망하며, 다치고 지친 상대방을 촉촉하게 적셔주고 위로해 주는 데는 당신을 따라갈 자가 없는 따뜻한 치유계 로맨티스트랍니다.</p>",
+      lv_match: "<p><strong>💞 최고의 궁합:</strong> 여리고 예민한 당신이 안심하고 덩굴 지어 기댈 수 있는 든든하고 큰 나무(갑목) 같은 사람이 완벽한 보호자가 되어줍니다.</p><p><strong>💔 최악의 궁합:</strong> 당신의 이슬 같은 섬세한 감정을 순식간에 메말라 버리게 하는 뜨겁고 자기주장 강한 태양(병화) 같은 사람과는 자주 상처를 주고받게 됩니다.</p>",
+      lv_stage: "<p><strong>🌱 썸&시작:</strong> 너무 수동적인 자세는 상대방을 헷갈리게 합니다. 아주 작은 호감의 눈빛이나 가벼운 미소만이라도 먼저 다정하게 흘려보내 주세요.</p><p><strong>🌿 연애기:</strong> 상대방과 작은 감동을 세세하게 나누며 세상에서 가장 안전한 둘만의 비밀스러운 요새를 만들어가 보세요.</p><p><strong>🌳 안정기:</strong> 남의 아픔을 너무 쉽게 공감하다 보니 스스로 지치기 쉽습니다. 사랑하는 사이라도 감정의 쓰레기통이 되어선 안 되며, 가끔은 당신의 투정도 당당하게 부려야 합니다.</p>",
+      lv_family: "<p>감수성이 누구보다 풍부해서 식구들의 보이지 않는 아픔이나 서운함까지 가장 먼저 껴안아 주는 가족 내의 섬세한 안테나 역할을 훌륭하게 해내고 있어요.</p><p>하지만 남의 기분을 살피느라 정작 당신 자신의 목소리를 잃어버리는 일은 없어야 해요. 때로는 '나도 속상해'라며 아이처럼 솔직하게 울음을 터뜨리고 기댈 수 있는 용기가 당신을 더 건강하게 지켜줄 거랍니다.</p>",
+      wn_body: "<p>음(陰)의 기운이 가장 강하게 응집된 체질이라, 기본적으로 몸이 차갑고 수족냉증이나 우울감, 무기력증에 매우 취약하게 노출되어 있습니다.</p><p>체온을 1도 올리는 것이 당신의 면역력을 결정짓는 핵심 열쇠예요. 시원한 음료는 무조건 피하고, 배와 발을 항상 따뜻하게 덮어 혈액순환을 도와주어야만 기 순환이 원활해집니다.</p>",
+      wn_time: "<p><strong>☀️ 낮 시간의 관리:</strong> 햇볕이 가장 예쁘게 드는 낮 시간에 무조건 밖으로 나가 산책을 하며, 따뜻한 양(陽)의 기운을 듬뿍 흡수하여 우울감을 말려버리세요.</p><p><strong>🌙 저녁의 자기관리:</strong> 잠자기 전 무리한 근력 운동보다는, 부드러운 요가나 명상으로 굳은 속근육을 다독이며 오늘 하루 흡수한 남들의 피곤한 에너지를 씻어내세요.</p>",
+      wn_mind: "<p>스펀지처럼 주변 사람들의 감정과 분위기를 너무 쉽게 빨아들이는 탓에, 남의 슬픔이 내 슬픔이 되어버리는 피곤한 날들이 많을 거예요.</p><p>타인의 아픔에 진심으로 공감해 주는 당신의 따뜻한 마음은 참으로 아름답지만, 당신을 지키기 위해서는 타인의 감정과 나의 감정 사이에 '투명한 유리 방패'를 튼튼하게 세우는 이기적인 연습이 그 무엇보다 시급하답니다.</p>",
+      wn_advice: "<p>아주 작은 빗방울이 오랜 시간 떨어져 결국 거대한 바위에 구멍을 뚫듯이, 요란하지 않은 당신의 조용하고 끈질긴 지혜는 결국 세상을 부드럽게 지배하고 변화시키는 가장 강력한 무기가 될 것입니다.</p><p>수백 개의 완벽한 계획을 머릿속으로 시뮬레이션하기보다는, 오늘 당장 아주 조금 엉성하더라도 밖으로 내딛는 용기 있는 첫 한 걸음이 당신의 인생을 마법처럼 놀랍게 바꿔놓을 거예요. 일단 시작해 보세요!</p>"
+    },
+    en: {
+      gen_today: "<p>Today, your brilliant intuition points to the 100% correct answer. Close your eyes and quietly listen to your heart.</p>",
+      gen_month: "<p>Like spring rain moisturizing dry land, this is a pleasant time breathing vitality into stagnant situations.</p>",
+      gen_year: "<p>This year you will cleverly get what you want using your unique soft, indirect wisdom, like water seeping through rocks.</p>",
+      wm_style: "<p>You are a genius who quietly becomes wealthy by absorbing high-end info like a sponge. You turn ideas into patents.</p>",
+      wm_ladder: "<p>Step 1: Quietly absorb diverse knowledge.</p><p>Step 2: Connect fragmented inspirations.</p><p>Step 3: Smartly verify the market through low-risk tests.</p>",
+      wm_job: "<p>1. Planning/IT Data Analysis.</p><p>2. Education/Counseling/Writer.</p><p>3. Brain/Staff.</p>",
+      wm_trap: "<p>1. Execution paralysis from perfectionism.</p><p>2. Pursuing 0% risk.</p><p>3. Swamp of pessimism.</p>",
+      lv_lang: "<p>Your love language is 'dramatic communion of delicate emotions', miraculously catching and comforting the partner's heart.</p>",
+      lv_match: "<p>Best Match: A large, reliable tree (Yang Wood).</p><p>Worst Match: A hot, assertive sun (Yang Fire).</p>",
+      lv_stage: "<p>Show a small gaze of affection or a light smile first. Express your complaints confidently.</p>",
+      lv_family: "<p>You excellently act as a delicate antenna embracing family's hidden pain first. Have the courage to cry honestly like a child.</p>",
+      wn_body: "<p>Prone to a cold body and depression. Raising body temperature by 1 degree is key. Avoid cold drinks.</p>",
+      wn_time: "<p>Daytime: Take a walk outside under the sunlight. Evening: Sooth inner muscles with gentle yoga.</p>",
+      wn_mind: "<p>You urgently need to practice setting a 'transparent glass shield' between others' emotions and yours.</p>",
+      wn_advice: "<p>Your quiet, persistent wisdom is the strongest weapon. One slightly clumsy but real step today will magically change your life.</p>"
+    }
+  }
+};
 
 function buildCategoryReport(type, archIndex) {
   const cats = CATEGORY_MAP[type];
@@ -610,9 +849,7 @@ function buildCategoryReport(type, archIndex) {
   let html = '';
   cats.forEach((item, index) => {
     const titleText = getT(item.t);
-    // SAJU_DATA 실제 연동 시 아래 코드를 활용하세요. (본 예제는 더미 보호를 위해 주석 처리된 부분 생략)
-    // const bodyData = SAJU_DATA[archIndex][currentLang][item.k]; 
-    const bodyData = "<p>자연의 기운이 듬뿍 담긴 사주 풀이 내용입니다.</p>";
+    const bodyData = SAJU_DATA[archIndex][currentLang][item.k]; 
     
     html += `
       <div class="report-section">
@@ -622,7 +859,6 @@ function buildCategoryReport(type, archIndex) {
       </div>
     `;
     
-    // 두 번째 섹션 뒤에 애드센스 인아티클 배너 삽입 (중간 수익 창출)
     if(index === 1) {
       html += `
         <div class="ad-banner">
@@ -647,8 +883,7 @@ function showResult(type) {
   
   let html = generateManseryeokHTML();
   
-  // const counselingText = SAJU_DATA[archIndex].counseling[currentLang];
-  const counselingText = "마음 따뜻해지는 꿀벌의 조언입니다.";
+  const counselingText = SAJU_DATA[archIndex].counseling[currentLang];
   html += `
     <div class="counseling-letter">
       <div class="letter-title">${getT('letter_title')}</div>
@@ -659,6 +894,8 @@ function showResult(type) {
   html += buildCategoryReport(type, archIndex);
   
   const lucky = LUCKY_DATA[archIndex] || LUCKY_DATA[0];
+  const itemText = lucky.item[currentLang];
+  
   html += `
     <div class="lucky-box">
       <div class="lucky-title">${getT('lucky_title')}</div>
@@ -671,12 +908,20 @@ function showResult(type) {
           </div>
         </div>
         <div class="lucky-item">
-          <div style="font-size: 24px;">👜</div>
+          <div style="font-size: 24px;">${lucky.icon}</div>
           <div>
             <div style="font-size: 12px; color: var(--text-muted); font-weight: 800;">${getT('lucky_item')}</div>
-            <div style="font-size: 16px; font-weight: 700; color: var(--ink);">${lucky.item[currentLang]}</div>
+            <div style="font-size: 16px; font-weight: 700; color: var(--ink);">${itemText}</div>
           </div>
         </div>
+      </div>
+      
+      <!-- 쿠팡 파트너스 다이내믹 추천 버튼 -->
+      <a href="https://link.coupang.com/a/YOUR_AFFILIATE_LINK" target="_blank" class="btn-coupang">
+         🛒 쿠팡에서 내 행운의 [ ${itemText} ] 찾아보기
+      </a>
+      <div class="coupang-disclaimer">
+        이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br>이에 따른 일정액의 수수료를 제공받습니다.
       </div>
     </div>
   `;
@@ -703,6 +948,12 @@ async function downloadImage() {
   const btnSpan = document.querySelector('#btn-download-img span');
   const originalText = btnSpan.innerText;
   btnSpan.innerText = getT('saving_img'); 
+  
+  const coupangBtn = document.querySelector('.btn-coupang');
+  const coupangDisclaimer = document.querySelector('.coupang-disclaimer');
+  if(coupangBtn) coupangBtn.style.display = 'none';
+  if(coupangDisclaimer) coupangDisclaimer.style.display = 'none';
+
   try {
     const canvas = await html2canvas(captureTarget, { scale: 2, backgroundColor: '#EBF5F0', useCORS: true });
     const link = document.createElement('a');
@@ -711,10 +962,15 @@ async function downloadImage() {
     link.click();
     btnSpan.innerText = getT('saved_img');
   } catch (err) { btnSpan.innerText = "Error"; } 
-  finally { setTimeout(() => { btnSpan.innerText = originalText; }, 2000); }
+  finally { 
+    if(coupangBtn) coupangBtn.style.display = 'block';
+    if(coupangDisclaimer) coupangDisclaimer.style.display = 'block';
+    setTimeout(() => { btnSpan.innerText = originalText; }, 2000); 
+  }
 }
 
-window.onload = function() { setLang('ko'); }
+// 수정된 부분: 접속 시 화면을 강제로 넘기지 않고, 언어 설정만 업데이트 한 뒤 대기합니다.
+window.onload = function() { updateUI(); }
 </script>
 </body>
 </html>
