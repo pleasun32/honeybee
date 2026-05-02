@@ -3,13 +3,24 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>사주 스토리텔링 - K-Saju Analysis</title>
+<title>꿀벌 사주 - K-Saju Storytelling</title>
 
 <!-- SEO 메타 태그 -->
 <meta name="description" content="무료 한국 전통 사주 풀이! 따뜻한 꿀벌이 들려주는 당신만의 특별한 사주 스토리텔링. 종합운세, 재물운, 애정운, 건강운까지 무료로 받아보세요." />
 <meta name="keywords" content="사주, 무료사주, 사주풀이, 오늘의운세, 신년운세, 만세력, 명리학, 한국사주, Korean Saju" />
+<meta name="author" content="꿀벌 사주" />
+<meta name="robots" content="index, follow" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="🍯 무료 꿀벌 사주 - 따뜻한 한국 전통 사주 풀이" />
+<meta property="og:description" content="무료로 읽는 따뜻한 사주 스토리텔링! 당신의 마음속 풍경화는 어떤 모습일까요? 🐝" />
+<meta property="og:url" content="https://honeybeesaju.site" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:locale:alternate" content="en_US" />
 
 <link rel="icon" href="bee.svg" type="image/svg+xml">
+<link rel="canonical" href="https://honeybeesaju.site" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -17,8 +28,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.min.js"></script>
 
-<!-- 구글 애드센스 공통 스크립트 -->
+<!-- 구글 애드센스 공통 스크립트 (승인 후 자동 광고 활성화) -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4394607454861717" crossorigin="anonymous"></script>
+
+<!-- 카카오 AdFit 공통 스크립트 (한 번만 로드) -->
+<script type="text/javascript" src="//t1.kakaocdn.net/kas/static/ba.min.js" async></script>
 
 <style>
   * { box-sizing: border-box; word-break: keep-all; overflow-wrap: break-word; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -31,7 +45,7 @@
   body {
     font-family: 'Nunito', 'Jua', sans-serif; font-weight: 500;
     background: url('background.svg') no-repeat center center fixed; 
-    background-size: cover; color: var(--ink); min-height: 100vh; overflow-x: hidden;
+    background-size: cover; background-color: #EBF5F0; color: var(--ink); min-height: 100vh; overflow-x: hidden;
     animation: softFadeIn 1.2s ease-in-out;
   }
   @keyframes softFadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
@@ -117,6 +131,7 @@
   .deep-text { font-family: 'Nunito', sans-serif; font-size: 15.5px; font-weight: 600; line-height: 1.8; color: var(--ink); }
   .deep-text p { margin-bottom: 12px; }
   .deep-text strong { color: var(--btn-blue); }
+  .deep-text h3 { font-family: 'Jua', sans-serif; font-size: 17px; color: var(--btn-blue); margin: 18px 0 8px 0; }
   
   .loading-dots { display: inline-flex; gap: 8px; margin-top: 20px; }
   .loading-dots span { width: 14px; height: 14px; border: 2.5px solid var(--ink); border-radius: 50%; background: var(--btn-yellow); animation: bounceDots 1.4s infinite; box-shadow: var(--glow); }
@@ -124,7 +139,7 @@
   .loading-dots span:nth-child(3) { animation-delay: 0.4s; background: var(--btn-blue); }
   @keyframes bounceDots { 0%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-12px); } }
 
-  .mt-sm { margin-top: 16px; } .mt-md { margin-top: 24px; } .mt-lg { margin-top: 40px; } .mb-sm { margin-bottom: 16px; }
+  .mt-sm { margin-top: 16px; } .mt-md { margin-top: 24px; } .mt-lg { margin-top: 40px; } .mb-sm { margin-bottom: 16px; } .mb-md { margin-bottom: 24px; }
   
   .share-wrapper { display: flex; gap: 10px; margin-top: 24px; margin-bottom: 24px; }
   .share-wrapper button { flex: 1; font-size: 16px; padding: 14px 10px; }
@@ -132,17 +147,21 @@
 
   /* 푸터 */
   .site-footer { margin-top: 40px; padding: 24px 12px; text-align: center; border-top: 2px dashed rgba(28, 63, 47, 0.15); }
-  .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; font-size: 13px; font-weight: 700; }
-  .footer-links a { color: var(--text-muted); text-decoration: none; }
+  .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 12px; font-size: 13px; font-weight: 700; }
+  .footer-links a { color: var(--text-muted); text-decoration: none; cursor: pointer; }
+  .footer-links a:hover { color: var(--btn-blue); text-decoration: underline; }
+  .footer-sep { color: var(--text-muted); opacity: 0.5; }
   .footer-copyright { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 12px; line-height: 1.5; }
   
-  /* 광고 최적화 스타일 */
-  .ad-banner {
-    width: 100%; min-height: 100px; margin: 32px 0; display: flex; flex-direction: column; justify-content: center; align-items: center;
-    background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.05); border-radius: 12px; overflow: hidden; text-align: center; position: relative;
-    padding-top: 15px;
+  /* 광고 컨테이너 */
+  .ad-container {
+    width: 100%; margin: 24px 0; display: flex; flex-direction: column; align-items: center;
+    text-align: center; min-height: 50px;
   }
-  .ad-label { position: absolute; top: 0; left: 0; background: rgba(0,0,0,0.06); color: #777; font-size: 10px; font-family: 'Nunito', sans-serif; font-weight: 800; padding: 3px 8px; border-bottom-right-radius: 8px; z-index: 10; letter-spacing: 0.5px; }
+  .ad-container.ad-large { min-height: 100px; }
+  .ad-container.ad-medium { min-height: 250px; }
+  .ad-label-tiny { font-size: 9px; color: #aaa; font-family: 'Nunito', sans-serif; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.5px; }
+  
   .coupang-disclaimer { font-size: 10px; color: #999; margin-top: 10px; font-weight: 600; text-align: center; line-height: 1.4; }
 
   /* 럭키 박스 */
@@ -188,19 +207,29 @@
   </div>
   <button class="btn-game btn-white mt-sm" onclick="goto('hub')" data-t="cta_check_saju" style="border-color: var(--btn-blue); color: var(--btn-blue);">내 이야기 들으러 가기</button>
   
-  <div class="ad-banner mt-lg">
-    <span class="ad-label">Sponsor</span>
+  <!-- AdSense 슬롯 (승인 후 주석 해제하고 슬롯 ID 입력)
+  <div class="ad-container">
+    <span class="ad-label-tiny">Sponsor</span>
     <ins class="adsbygoogle"
          style="display:inline-block;width:320px;height:50px"
          data-ad-client="ca-pub-4394607454861717"
          data-ad-slot="XXXXXXXXXX"></ins>
   </div>
+  -->
 
   <div class="site-footer">
     <div class="footer-links">
-      <a href="#">서비스 소개</a> · <a href="#">개인정보처리방침</a> · <a href="#">이용약관</a>
+      <a onclick="goto('about')" data-t="footer_about">서비스 소개</a>
+      <span class="footer-sep">·</span>
+      <a onclick="goto('privacy')" data-t="footer_privacy">개인정보처리방침</a>
+      <span class="footer-sep">·</span>
+      <a onclick="goto('terms')" data-t="footer_terms">이용약관</a>
+      <span class="footer-sep">·</span>
+      <a onclick="goto('disclaimer')" data-t="footer_disclaimer">면책조항</a>
+      <span class="footer-sep">·</span>
+      <a onclick="goto('contact')" data-t="footer_contact">문의</a>
     </div>
-    <div class="footer-copyright" data-t="footer_copyright">
+    <div class="footer-copyright">
       © 2026 꿀벌 사주. All rights reserved.<br><small>본 서비스는 엔터테인먼트 목적으로 제공됩니다.</small>
     </div>
   </div>
@@ -209,45 +238,41 @@
 <!-- ==================== SCREEN 2: HUB ==================== -->
 <section id="screen-hub" class="screen">
   <div class="nav-bar"><button class="back-btn" onclick="goto('landing')" data-t="btn_home_only">← 처음으로</button></div>
-  <div class="img-wrap" style="min-height: 120px;">
-    <img src="honeypot.svg" alt="honeypot" class="bee-img-small anim-hover">
+  <div class="img-wrap" style="min-height: 100px;">
+    <img src="bee.svg" alt="bee" class="bee-img-small anim-hover">
   </div>
   <div class="center mb-sm"><h1 data-t="hub_pick_title">어떤 이야기가 궁금하신가요?</h1></div>
-  
-  <div class="ad-banner mb-md" style="background:#FAFAFA; min-height: 80px;">
-    <span class="ad-label">Kakao AdFit</span>
-    <ins class="kakao_ad_area" style="display:none;"
-         data-ad-unit="DAN-s256ngjMi7N3zxEq"
-         data-ad-width="320"
-         data-ad-height="50"></ins>
-    <script type="text/javascript" src="//t1.kakaocdn.net/kas/static/ba.min.js" async></script>
-  </div>
 
   <div class="menu-grid">
     <div class="tile-game special" onclick="openReading('general')">
-      <div class="tile-price badge-normal" data-t="p_ad_normal">🍯 무료 보기</div>
+      <div class="tile-price" data-t="p_premium" style="background: var(--btn-yellow); color: var(--ink);">⭐ 추천</div>
       <div class="tile-icon">🔮</div>
       <div class="tile-title" data-t="menu_general">종합 운세</div>
       <div class="tile-sub" style="color:var(--btn-yellow);" data-t="menu_general_sub">오늘과 올해의 기운</div>
     </div>
     <div class="tile-game" onclick="openReading('work_money')">
-      <div class="tile-price badge-normal" data-t="p_ad_normal">🍯 무료 보기</div>
       <div class="tile-icon">💼</div>
       <div class="tile-title" data-t="menu_work_money">일과 돈</div>
       <div class="tile-sub" data-t="menu_work_money_sub">당신의 부의 방식</div>
     </div>
     <div class="tile-game" onclick="openReading('love')">
-      <div class="tile-price badge-normal" data-t="p_ad_normal">🍯 무료 보기</div>
       <div class="tile-icon">💕</div>
       <div class="tile-title" data-t="menu_love">사랑과 인연</div>
       <div class="tile-sub" data-t="menu_love_sub">다정한 관계 맺기</div>
     </div>
     <div class="tile-game" onclick="openReading('wellness')">
-      <div class="tile-price badge-normal" data-t="p_ad_normal">🍯 무료 보기</div>
       <div class="tile-icon">🌿</div>
       <div class="tile-title" data-t="menu_wellness">건강과 마음</div>
       <div class="tile-sub" data-t="menu_wellness_sub">내 몸과 마음 다스리기</div>
     </div>
+  </div>
+
+  <!-- 카카오 AdFit 광고: 메뉴 화면 320x50 -->
+  <div class="ad-container mt-md">
+    <ins class="kakao_ad_area" style="display:none;"
+         data-ad-unit="DAN-s256ngjMi7N3zxEq"
+         data-ad-width="320"
+         data-ad-height="50"></ins>
   </div>
 </section>
 
@@ -266,6 +291,7 @@
     <div class="field">
       <label><span data-t="label_date">생년월일 (양력)</span> <span style="color:var(--btn-red);">*</span></label>
       <input type="date" id="input-date" required />
+      <div style="font-size: 12px; font-weight: 700; color: var(--text-muted); margin-top: 4px;" data-t="privacy_notice">🔒 입력 정보는 기기 내에서만 안전하게 처리되며 서버에 저장되지 않습니다.</div>
     </div>
     <div class="field" style="margin-bottom: 8px;">
       <label><span data-t="label_time">태어난 시간</span></label>
@@ -297,8 +323,9 @@
     <button id="btn-submit-form" class="btn-game btn-blue mt-sm" onclick="submitInput()" data-t="onb_submit">사주 풍경화 그리기</button>
   </div>
 
-  <div class="ad-banner">
-    <span class="ad-label">Sponsor</span>
+  <!-- AdSense 슬롯 (승인 후 주석 해제하고 슬롯 ID 입력)
+  <div class="ad-container ad-large">
+    <span class="ad-label-tiny">Sponsor</span>
     <ins class="adsbygoogle"
          style="display:block"
          data-ad-client="ca-pub-4394607454861717"
@@ -306,6 +333,7 @@
          data-ad-format="auto"
          data-full-width-responsive="true"></ins>
   </div>
+  -->
 </section>
 
 <!-- ==================== SCREEN 4: LOADING ==================== -->
@@ -338,23 +366,117 @@
   
   <div class="share-wrapper">
     <button id="btn-download-img" class="btn-game btn-green" onclick="downloadImage()">📸 <span data-t="btn_save_img">저장</span></button>
-    <button class="btn-game btn-blue" onclick="alert('클립보드에 복사되었습니다!')">💌 <span data-t="btn_share">공유</span></button>
-  </div>
-  
-  <div class="ad-banner mt-md">
-    <span class="ad-label">Sponsor</span>
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-4394607454861717"
-         data-ad-slot="XXXXXXXXXX"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
+    <button class="btn-game btn-blue" onclick="shareResult()">💌 <span data-t="btn_share">공유</span></button>
   </div>
 
   <div id="upsell-section" class="mt-lg">
     <div class="center mb-sm"><h2 data-t="explore_title">다른 이야기도 무료로 들어보실래요?</h2></div>
-    <div class="menu-grid" id="upsell-grid">
-      <!-- 동적 생성됨 -->
+    <div class="menu-grid" id="upsell-grid"></div>
+  </div>
+</section>
+
+<!-- ==================== LEGAL PAGES ==================== -->
+<!-- About -->
+<section id="screen-about" class="screen">
+  <div class="nav-bar"><button class="back-btn" onclick="goto('landing')" data-t="btn_back">← 뒤로</button></div>
+  <div class="card-game">
+    <h1 data-t="about_title" style="margin-bottom: 20px; color: var(--btn-blue);">🐝 꿀벌 사주 소개</h1>
+    <div class="deep-text" data-t="about_body">
+      <p><strong>꿀벌 사주(Honeybee Saju)</strong>는 한국의 전통 명리학을 따뜻하고 친근한 스토리텔링으로 풀어내는 무료 운세 서비스입니다.</p>
+      <p>딱딱하고 어렵게만 느껴지는 사주를 누구나 쉽게 이해할 수 있도록, 자연의 기운(나무, 불, 흙, 쇠, 물)에 비유하여 풀어드립니다.</p>
+      <h3>🌿 우리의 약속</h3>
+      <p>· 정확한 만세력 기반 사주 풀이<br>· 따뜻하고 진정성 있는 콘텐츠<br>· 개인정보 안전 보호 (서버에 저장하지 않습니다)<br>· 100% 무료 서비스</p>
+      <h3>📚 사주(四柱)란?</h3>
+      <p>사주(四柱)는 한국 전통 명리학의 핵심 개념으로, 태어난 연·월·일·시 네 기둥의 천간지지를 분석하여 개인의 타고난 성향과 운명의 흐름을 읽어내는 동양 철학입니다. 약 2000년의 역사를 가진 명리학은 자연의 순환과 음양오행의 조화를 바탕으로 합니다.</p>
+      <p>저희는 사주를 미신이 아닌 <strong>'자기 이해의 도구'</strong>로 봅니다. 자신의 타고난 기운을 알면, 강점을 더 잘 살리고 약점을 보완하며 살아갈 수 있습니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Privacy -->
+<section id="screen-privacy" class="screen">
+  <div class="nav-bar"><button class="back-btn" onclick="goto('landing')" data-t="btn_back">← 뒤로</button></div>
+  <div class="card-game">
+    <h1 data-t="privacy_title" style="margin-bottom: 20px; color: var(--btn-blue);">🔒 개인정보처리방침</h1>
+    <div class="deep-text" data-t="privacy_body">
+      <p><strong>최종 업데이트: 2026년 5월</strong></p>
+      <p>꿀벌 사주는 사용자의 개인정보 보호를 매우 중요하게 생각합니다.</p>
+      <h3>1. 수집하는 정보</h3>
+      <p>저희는 다음 정보를 사용자가 직접 입력할 때만 처리합니다:<br>· 닉네임 (사주 풀이 표시용)<br>· 생년월일 (사주 계산용)<br>· 태어난 시간 (사주 계산용, 선택)<br>· 성별 (사주 풀이 정확도용)</p>
+      <p><strong>이 정보들은 서버에 저장되지 않으며, 사용자의 기기 내에서만 처리됩니다.</strong></p>
+      <h3>2. 쿠키 및 광고</h3>
+      <p>본 웹사이트는 Google AdSense, 카카오 AdFit 등을 통해 광고를 게재할 수 있습니다. 제3자 공급업체는 사용자의 관심사에 맞는 광고를 보여주기 위해 쿠키를 사용할 수 있습니다.</p>
+      <p>· Google의 광고 쿠키 사용은 <a href="https://www.google.com/policies/technologies/ads/" target="_blank" rel="noopener" style="color:var(--btn-blue);">Google 광고 설정</a>에서 비활성화할 수 있습니다.<br>· 카카오 AdFit 관련 안내는 <a href="https://policy.daum.net/cs/ad/info_ad" target="_blank" rel="noopener" style="color:var(--btn-blue);">카카오 광고 정책</a>을 참고하세요.</p>
+      <h3>3. 제휴 마케팅</h3>
+      <p>본 사이트는 쿠팡 파트너스 활동의 일환으로 일정액의 수수료를 제공받을 수 있습니다.</p>
+      <h3>4. 정보 공유</h3>
+      <p>저희는 사용자의 개인정보를 제3자에게 판매, 임대, 공유하지 않습니다.</p>
+      <h3>5. 어린이의 개인정보</h3>
+      <p>본 서비스는 만 14세 이상을 대상으로 합니다.</p>
+      <h3>6. 문의</h3>
+      <p>개인정보 처리에 관한 문의는 'Contact' 페이지의 이메일로 연락 주시기 바랍니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Terms -->
+<section id="screen-terms" class="screen">
+  <div class="nav-bar"><button class="back-btn" onclick="goto('landing')" data-t="btn_back">← 뒤로</button></div>
+  <div class="card-game">
+    <h1 data-t="terms_title" style="margin-bottom: 20px; color: var(--btn-blue);">📜 이용약관</h1>
+    <div class="deep-text" data-t="terms_body">
+      <p><strong>최종 업데이트: 2026년 5월</strong></p>
+      <h3>1. 서비스 이용</h3>
+      <p>꿀벌 사주는 누구나 무료로 이용할 수 있는 서비스입니다. 본 서비스를 이용함으로써 사용자는 본 약관에 동의하는 것으로 간주됩니다.</p>
+      <h3>2. 콘텐츠의 성격</h3>
+      <p>본 서비스에서 제공하는 모든 사주 풀이 콘텐츠는 <strong>엔터테인먼트 및 자기 성찰 목적</strong>으로만 제공됩니다. 본 콘텐츠는 의료, 법률, 재무, 또는 기타 전문적 조언을 대체할 수 없습니다.</p>
+      <h3>3. 책임의 제한</h3>
+      <p>꿀벌 사주는 본 서비스에서 제공된 정보를 기반으로 한 사용자의 결정이나 행동에 대해 책임지지 않습니다.</p>
+      <h3>4. 지적재산권</h3>
+      <p>본 사이트의 모든 텍스트, 이미지, 디자인, 코드는 저작권의 보호를 받습니다.</p>
+      <h3>5. 광고 및 제휴</h3>
+      <p>본 서비스는 무료 운영을 위해 Google AdSense, 카카오 AdFit, 쿠팡 파트너스 등을 통한 광고/제휴 활동을 합니다.</p>
+      <h3>6. 서비스 변경 및 중단</h3>
+      <p>운영자는 사전 통지 없이 서비스를 변경하거나 중단할 권리가 있습니다.</p>
+      <h3>7. 준거법</h3>
+      <p>본 약관은 대한민국 법률에 따라 해석되고 적용됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Disclaimer -->
+<section id="screen-disclaimer" class="screen">
+  <div class="nav-bar"><button class="back-btn" onclick="goto('landing')" data-t="btn_back">← 뒤로</button></div>
+  <div class="card-game">
+    <h1 data-t="disclaimer_title" style="margin-bottom: 20px; color: var(--btn-red);">⚠️ 면책조항</h1>
+    <div class="deep-text" data-t="disclaimer_body">
+      <p><strong>최종 업데이트: 2026년 5월</strong></p>
+      <h3>🔮 콘텐츠의 성격</h3>
+      <p>꿀벌 사주에서 제공하는 모든 운세 풀이는 <strong>전통 명리학에 기반한 엔터테인먼트성 콘텐츠</strong>입니다. 본 콘텐츠는 자기 성찰과 재미를 위한 참고 자료일 뿐, 어떠한 형태의 미래 예측이나 절대적 진리를 제공하지 않습니다.</p>
+      <h3>🩺 전문적 조언이 아닙니다</h3>
+      <p>본 서비스의 어떠한 콘텐츠도 다음의 전문적 조언을 대체할 수 없습니다:<br>· 의료 진단이나 치료 권고<br>· 법률 자문<br>· 재무 투자 조언<br>· 심리 상담<br>· 진로 또는 직업 결정</p>
+      <p>중요한 결정을 내리기 전에는 반드시 해당 분야의 자격을 갖춘 전문가와 상담하시기 바랍니다.</p>
+      <h3>💝 책임 있는 이용</h3>
+      <p>· 본 서비스의 결과에 과도하게 의존하지 마세요.<br>· 결과가 부정적으로 나오더라도 일희일비하지 마세요.<br>· 사주는 정해진 운명이 아닌, 자기 이해의 도구입니다.<br>· 정신적 어려움을 겪고 계시다면 전문가의 도움을 구하시기 바랍니다.</p>
+      <h3>📢 광고에 관하여</h3>
+      <p>본 사이트는 Google AdSense, 카카오 AdFit 등을 통한 광고를 표시할 수 있으며, 쿠팡 파트너스 활동의 일환으로 수수료를 제공받을 수 있습니다. 광고 콘텐츠에 대한 책임은 해당 광고주에게 있으며, 본 사이트는 광고 상품의 품질이나 정확성을 보증하지 않습니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="screen-contact" class="screen">
+  <div class="nav-bar"><button class="back-btn" onclick="goto('landing')" data-t="btn_back">← 뒤로</button></div>
+  <div class="card-game">
+    <h1 data-t="contact_title" style="margin-bottom: 20px; color: var(--btn-blue);">📮 문의하기</h1>
+    <div class="deep-text" data-t="contact_body">
+      <p>꿀벌 사주 운영진에게 문의사항이 있으시면 아래 이메일로 연락 주세요.</p>
+      <h3>📧 이메일</h3>
+      <p><strong>honeybeesaju@gmail.com</strong></p>
+      <h3>💌 이런 문의가 가능합니다</h3>
+      <p>· 서비스 이용 중 발생한 오류 신고<br>· 사주 풀이 내용에 대한 피드백<br>· 콘텐츠 제휴 및 협업 제안<br>· 광고 관련 문의<br>· 개인정보 처리에 관한 문의</p>
+      <h3>⏰ 응답 시간</h3>
+      <p>일반적으로 영업일 기준 1-3일 이내에 답변 드립니다.</p>
     </div>
   </div>
 </section>
@@ -363,17 +485,15 @@
 
 <script>
 // =========================================================================
-// 1. 상태 변수 및 기본 함수 (이번에 완벽하게 추가된 핵심 로직들입니다!)
+// 1. 상태 변수 및 기본 함수
 // =========================================================================
 let currentLang = 'ko';
 let currentSaju = { name: '', archIndex: 0, type: '' };
 
-// 번역 함수
 function getT(key) {
-  return TRANSLATIONS[currentLang][key] || key;
+  return TRANSLATIONS[currentLang][key] || (TRANSLATIONS['ko'][key] || key);
 }
 
-// 화면 UI 텍스트 업데이트 함수
 function updateUI() {
   document.querySelectorAll('[data-t]').forEach(el => {
     const key = el.getAttribute('data-t');
@@ -387,34 +507,33 @@ function updateUI() {
   }
 }
 
-// 화면 이동 함수
 function goto(screenId) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-' + screenId).classList.add('active');
+  const target = document.getElementById('screen-' + screenId);
+  if(target) target.classList.add('active');
   window.scrollTo(0, 0);
+  // 카카오 광고 갱신 (화면 이동 시)
+  refreshKakaoAds();
 }
 
-// 언어 설정 및 랜딩 페이지로 이동
 function setLang(lang) {
   currentLang = lang;
+  document.documentElement.lang = lang;
   updateUI();
   goto('landing');
 }
 
-// 사주 메뉴 선택 시 폼으로 이동
 function openReading(type) {
   currentSaju.type = type;
   goto('input');
 }
 
-// 시간 모름 체크박스 로직
 function toggleTimeInput(checkbox) {
   const timeSelect = document.getElementById('input-time');
   timeSelect.disabled = checkbox.checked;
   if(checkbox.checked) timeSelect.value = "";
 }
 
-// 폼 제출 검증 및 데이터 저장 후 로딩 화면 진입
 function submitInput() {
   const name = document.getElementById('input-name').value.trim();
   const date = document.getElementById('input-date').value;
@@ -422,30 +541,74 @@ function submitInput() {
   const timeUnknown = document.getElementById('input-time-unknown').checked;
   const errorMsg = document.getElementById('form-error');
 
-  // 유효성 검사
   if(!name) { errorMsg.innerText = getT('err_req_name'); errorMsg.style.display = 'block'; return; }
   if(!date) { errorMsg.innerText = getT('err_req_date'); errorMsg.style.display = 'block'; return; }
   if(!timeUnknown && !time) { errorMsg.innerText = getT('err_req_time'); errorMsg.style.display = 'block'; return; }
 
-  // 에러 메시지 숨기기
   errorMsg.style.display = 'none';
-
-  // 이름과 날짜를 기반으로 0~9 사이의 고유 인덱스를 생성하여 사주 결과 매핑 (시뮬레이션 로직)
   currentSaju.name = name;
-  const hash = (name.charCodeAt(0) + new Date(date).getDate()) % 10;
-  currentSaju.archIndex = hash; 
-
-  // 로딩 화면 표시
-  goto('loading');
   
-  // 2.5초 후 결과 화면 렌더링
-  setTimeout(() => {
-    showResult(currentSaju.type);
-  }, 2500);
+  // 진짜 사주 계산 (lunar-javascript 사용)
+  try {
+    const timeMap = { 'ja': [0,30], 'chuk': [2,30], 'in': [4,30], 'myo': [6,30], 'jin': [8,30], 'sa': [10,30], 'o': [12,30], 'mi': [14,30], 'shin': [16,30], 'yu': [18,30], 'sul': [20,30], 'hae': [22,30] };
+    const [h, m] = timeMap[time] || [12, 0];
+    const [year, month, day] = date.split('-').map(Number);
+    const solar = Solar.fromYmdHms(year, month, day, h, m, 0);
+    const baZi = solar.getLunar().getEightChar();
+    const ganArr = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+    const dayGan = baZi.getDayGan();
+    let archIndex = ganArr.indexOf(dayGan);
+    if(archIndex === -1) archIndex = 0;
+    currentSaju.archIndex = archIndex;
+    currentSaju.dayGan = dayGan;
+    currentSaju.year = baZi.getYear();
+    currentSaju.month = baZi.getMonth();
+    currentSaju.day = baZi.getDay();
+    currentSaju.time = timeUnknown ? '??' : baZi.getTime();
+  } catch(e) {
+    // 계산 실패 시 fallback (이름+날짜 해시)
+    const hash = (name.charCodeAt(0) + new Date(date).getDate()) % 10;
+    currentSaju.archIndex = hash;
+    currentSaju.dayGan = '?';
+    currentSaju.year = '?'; currentSaju.month = '?'; currentSaju.day = '?'; currentSaju.time = '?';
+  }
+
+  goto('loading');
+  setTimeout(() => { showResult(currentSaju.type); }, 2000);
 }
 
-// 만세력 UI 생성 시뮬레이션
+// 한자 → 한글 + 이모지 매핑
+const HANJA_MAP = {
+  "甲":{ko:"갑", en:"Yang Wood", em:"🌳"}, "乙":{ko:"을", en:"Yin Wood", em:"🌿"},
+  "丙":{ko:"병", en:"Yang Fire", em:"☀️"}, "丁":{ko:"정", en:"Yin Fire", em:"🔥"},
+  "戊":{ko:"무", en:"Yang Earth", em:"🏔️"}, "己":{ko:"기", en:"Yin Earth", em:"🪴"},
+  "庚":{ko:"경", en:"Yang Metal", em:"🪓"}, "辛":{ko:"신", en:"Yin Metal", em:"💍"},
+  "壬":{ko:"임", en:"Yang Water", em:"🌊"}, "癸":{ko:"계", en:"Yin Water", em:"💧"},
+  "子":{ko:"자", en:"Rat", em:"🐭"}, "丑":{ko:"축", en:"Ox", em:"🐮"},
+  "寅":{ko:"인", en:"Tiger", em:"🐯"}, "卯":{ko:"묘", en:"Rabbit", em:"🐰"},
+  "辰":{ko:"진", en:"Dragon", em:"🐲"}, "巳":{ko:"사", en:"Snake", em:"🐍"},
+  "午":{ko:"오", en:"Horse", em:"🐴"}, "未":{ko:"미", en:"Sheep", em:"🐑"},
+  "申":{ko:"신", en:"Monkey", em:"🐵"}, "酉":{ko:"유", en:"Rooster", em:"🐔"},
+  "戌":{ko:"술", en:"Dog", em:"🐶"}, "亥":{ko:"해", en:"Pig", em:"🐷"}
+};
+
+function formatPillar(hanjaStr) {
+  if (!hanjaStr || hanjaStr === "??" || hanjaStr === "?") return { hangul: getT('unknown_pillar'), em: "☁️", animalEm: "❓" };
+  const gan = hanjaStr.charAt(0);
+  const zhi = hanjaStr.charAt(1);
+  const ganData = HANJA_MAP[gan] || {ko:"", en:"", em:"✨"};
+  const zhiData = HANJA_MAP[zhi] || {ko:"", en:"", em:"❓"};
+  const textGan = ganData[currentLang] || ganData.ko;
+  const textZhi = zhiData[currentLang] || zhiData.ko;
+  return { hangul: `${textGan} ${textZhi}`, em: ganData.em, animalEm: zhiData.em };
+}
+
 function generateManseryeokHTML() {
+  const pY = formatPillar(currentSaju.year || '甲辰');
+  const pM = formatPillar(currentSaju.month || '戊辰');
+  const pD = formatPillar(currentSaju.day || '庚申');
+  const pT = formatPillar(currentSaju.time || '??');
+  
   return `
     <div class="manseryeok-box">
       <div class="center mb-sm">
@@ -453,25 +616,53 @@ function generateManseryeokHTML() {
         <p style="font-size: 12px; color: var(--text-muted);">${getT('m_desc')}</p>
       </div>
       <div class="m-grid">
-        <div class="m-col"><span class="m-label">${getT('m_time')}</span><div class="m-char"><span class="m-emoji">💧</span><span class="m-hangul">계수</span><span class="m-text">시주</span></div></div>
-        <div class="m-col"><span class="m-label">${getT('m_day')}</span><div class="m-char" style="border-color: var(--btn-red); background: #FFF5F5;"><span class="m-emoji">🌳</span><span class="m-hangul">갑목</span><span class="m-text">일주</span></div></div>
-        <div class="m-col"><span class="m-label">${getT('m_month')}</span><div class="m-char"><span class="m-emoji">🔥</span><span class="m-hangul">병화</span><span class="m-text">월주</span></div></div>
-        <div class="m-col"><span class="m-label">${getT('m_year')}</span><div class="m-char"><span class="m-emoji">🏔️</span><span class="m-hangul">무토</span><span class="m-text">년주</span></div></div>
+        <div class="m-col"><span class="m-label">${getT('m_time')}</span><div class="m-char"><span class="m-emoji">${pT.em}${pT.animalEm}</span><span class="m-hangul">${pT.hangul}</span></div></div>
+        <div class="m-col"><span class="m-label">${getT('m_day')}</span><div class="m-char" style="border-color: var(--btn-red); background: #FFF5F5;"><span class="m-emoji">${pD.em}${pD.animalEm}</span><span class="m-hangul" style="color:var(--btn-red);">${pD.hangul}</span></div></div>
+        <div class="m-col"><span class="m-label">${getT('m_month')}</span><div class="m-char"><span class="m-emoji">${pM.em}${pM.animalEm}</span><span class="m-hangul">${pM.hangul}</span></div></div>
+        <div class="m-col"><span class="m-label">${getT('m_year')}</span><div class="m-char"><span class="m-emoji">${pY.em}${pY.animalEm}</span><span class="m-hangul">${pY.hangul}</span></div></div>
       </div>
     </div>
   `;
 }
 
-// 광고 초기화 함수
-function initAds(container) {
-  try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+// 카카오 광고 새로고침 (화면 전환 시 호출)
+function refreshKakaoAds() {
+  setTimeout(() => {
+    if (typeof window.adfit !== 'undefined') {
+      try {
+        // 카카오 AdFit은 자동으로 페이지 내 ins 태그를 찾아 광고를 채워줌
+        // display:none을 풀어주는 방식
+        document.querySelectorAll('.kakao_ad_area').forEach(el => {
+          if (el.offsetParent !== null) {  // 화면에 보이는 것만
+            el.style.display = '';
+          }
+        });
+      } catch(e) {}
+    }
+  }, 100);
 }
 
+// 공유 기능
+function shareResult() {
+  const shareData = {
+    title: '🍯 무료 꿀벌 사주',
+    text: '내 사주 풍경화를 그려봤어요! 당신도 무료로 받아보세요.',
+    url: window.location.href
+  };
+  if (navigator.share) {
+    navigator.share(shareData).catch(() => {});
+  } else if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      alert(currentLang === 'ko' ? '링크가 복사되었어요! 친구에게 보내주세요 🍯' : 'Link copied! Share with friends 🍯');
+    });
+  } else {
+    alert(currentLang === 'ko' ? '주소창의 URL을 복사하여 공유해주세요!' : 'Copy the URL to share!');
+  }
+}
 
 // =========================================================================
-// 2. 번역 및 사주 데이터 (이전과 동일하게 100% 복구된 부분)
+// 2. 번역 데이터
 // =========================================================================
-
 const TRANSLATIONS = {
   ko: {
     menu_general: "종합 운세", menu_general_sub: "오늘과 올해의 기운",
@@ -487,18 +678,21 @@ const TRANSLATIONS = {
     sec_lv_lang_title: "💌 당신의 사랑 언어", sec_lv_match_title: "💞 최고의 궁합 vs 최악의 궁합", sec_lv_stage_title: "🌱 관계 단계별 조언", sec_lv_family_title: "🏡 가족/친구 인연",
     sec_wn_body_title: "🍃 타고난 체질", sec_wn_time_title: "⏰ 시간대별 자기관리", sec_wn_mind_title: "🧘 마음 다스리기", sec_wn_advice_title: "🍯 다정한 인생 조언",
 
-    btn_home_only: "처음으로", back_to_menu: "메뉴", cta_check_saju: "내 이야기 들으러 가기",
+    btn_home_only: "처음으로", back_to_menu: "메뉴", btn_back: "뒤로", cta_check_saju: "내 이야기 들으러 가기",
     what_is_saju_title: "자연의 이치로 읽는 운세", what_is_saju_p1: "한국의 전통 명리학은 태어난 자연의 기운을 바탕으로 운명을 읽어내는 따뜻한 지혜랍니다.",
     what_is_saju_p3: "당신이 미처 몰랐던 따뜻한 인생의 풍경화를 그려드릴게요.",
-    hub_pick_title: "어떤 이야기가 궁금하신가요?", p_ad_premium: "🔮 Today & Year", p_ad_normal: "🍯 무료 보기",
+    hub_pick_title: "어떤 이야기가 궁금하신가요?", p_premium: "⭐ 추천",
     onb_intro: "별자리를 알려주세요", label_name: "닉네임", label_date: "생년월일 (양력)", label_time: "태어난 시간", time_opt_placeholder: "시간을 선택해주세요",
     time_unknown_check: "태어난 시간을 잘 모르겠어요", label_gender: "성별", gender_f: "여성", gender_m: "남성", onb_submit: "사주 풍경화 그리기",
+    privacy_notice: "🔒 입력 정보는 기기 내에서만 안전하게 처리되며 서버에 저장되지 않습니다.",
     err_req_name: "닉네임을 입력해주세요.", err_req_date: "날짜를 선택해주세요.", err_req_time: "시간을 선택해주세요.",
     loading_title: "기운을 모으는 중...", your_saju_label: "당신의 마음속 풍경을 보여드릴게요.", explore_title: "다른 이야기도 무료로 들어보실래요?",
     btn_save_img: "저장", btn_share: "공유", saving_img: "저장 중...", saved_img: "저장 완료!",
-    m_title: "내 사주의 자연 기운", m_desc: "* 빨간 테두리가 당신을 대표하는 핵심 기운이에요.",
-    m_year: "태어난 해", m_month: "태어난 달", m_day: "태어난 날", m_time: "태어난 시간", unknown_pillar: "모름", unknown_desc: "알수없음",
-    lucky_title: "🍀 나의 행운 소품", lucky_color: "행운의 색상", lucky_item: "오늘의 럭키 아이템", letter_title: "💌 꿀벌의 다정한 편지"
+    m_title: "내 사주의 자연 기운", m_desc: "* 빨간 테두리(일주)가 당신을 대표하는 핵심 기운이에요.",
+    m_year: "년주", m_month: "월주", m_day: "일주", m_time: "시주", unknown_pillar: "모름",
+    lucky_title: "🍀 나의 행운 소품", lucky_color: "행운의 색상", lucky_item: "오늘의 럭키 아이템", letter_title: "💌 꿀벌의 다정한 편지",
+    
+    footer_about: "서비스 소개", footer_privacy: "개인정보처리방침", footer_terms: "이용약관", footer_disclaimer: "면책조항", footer_contact: "문의"
   },
   en: {
     menu_general: "General", menu_general_sub: "Today & This Year",
@@ -514,32 +708,39 @@ const TRANSLATIONS = {
     sec_lv_lang_title: "💌 Your Love Language", sec_lv_match_title: "💞 Best vs Worst Match", sec_lv_stage_title: "🌱 Stage Advice", sec_lv_family_title: "🏡 Family & Friends",
     sec_wn_body_title: "🍃 Innate Constitution", sec_wn_time_title: "⏰ Daily Care", sec_wn_mind_title: "🧘 Mind Control", sec_wn_advice_title: "🍯 Warm Advice",
 
-    btn_home_only: "Home", back_to_menu: "Menu", cta_check_saju: "Start My Story",
+    btn_home_only: "Home", back_to_menu: "Menu", btn_back: "Back", cta_check_saju: "Start My Story",
     what_is_saju_title: "Nature's Fortune", what_is_saju_p1: "Korean Saju is warm wisdom that reads your destiny based on nature's energy.",
     what_is_saju_p3: "Let's draw a warm landscape of your life.",
-    hub_pick_title: "What story do you want to hear?", p_ad_premium: "🔮 Premium", p_ad_normal: "🍯 Free",
+    hub_pick_title: "What story do you want to hear?", p_premium: "⭐ Featured",
     onb_intro: "Tell me your birth details", label_name: "Nickname", label_date: "Birth Date", label_time: "Birth Time", time_opt_placeholder: "Select Time",
     time_unknown_check: "I don't know my birth time", label_gender: "Gender", gender_f: "Female", gender_m: "Male", onb_submit: "Draw My Landscape",
+    privacy_notice: "🔒 Your data is processed only on your device and is not stored on any server.",
     err_req_name: "Enter nickname.", err_req_date: "Select date.", err_req_time: "Select time.",
     loading_title: "Gathering energy...", your_saju_label: "Here is your inner landscape.", explore_title: "Want to hear another story?",
     btn_save_img: "Save", btn_share: "Share", saving_img: "Saving...", saved_img: "Saved!",
-    m_title: "My Nature Energy", m_desc: "* The red border is your core representative energy.",
-    m_year: "Year", m_month: "Month", m_day: "Day", m_time: "Time", unknown_pillar: "Unknown", unknown_desc: "Unknown",
-    lucky_title: "🍀 My Lucky Item", lucky_color: "Lucky Color", lucky_item: "Today's Lucky Pick", letter_title: "💌 Bee's Warm Letter"
+    m_title: "My Nature Energy", m_desc: "* Red border (Day Pillar) is your core representative energy.",
+    m_year: "Year", m_month: "Month", m_day: "Day", m_time: "Hour", unknown_pillar: "Unknown",
+    lucky_title: "🍀 My Lucky Items", lucky_color: "Lucky Color", lucky_item: "Today's Lucky Pick", letter_title: "💌 Bee's Warm Letter",
+    
+    footer_about: "About", footer_privacy: "Privacy", footer_terms: "Terms", footer_disclaimer: "Disclaimer", footer_contact: "Contact"
   }
 };
 
+// =========================================================================
+// 3. 사주 데이터 (간략화 버전 - 추후 깊이 작업 예정)
+// 이전 버전의 SAJU_DATA를 그대로 사용 + 쿠팡 링크 placeholder 통합
+// =========================================================================
 const LUCKY_DATA = {
-  0: { color: { ko: "초록색", en: "Green" }, item: { ko: "가벼운 향수", en: "Light Perfume" }, icon: "🌿" },
-  1: { color: { ko: "민트색", en: "Mint Green" }, item: { ko: "휴대용 텀블러", en: "Tumbler" }, icon: "🥤" },
-  2: { color: { ko: "빨간색", en: "Red" }, item: { ko: "촉촉한 립밤", en: "Lip Balm" }, icon: "💄" },
-  3: { color: { ko: "보라색", en: "Purple" }, item: { ko: "귀여운 키링", en: "Keyring" }, icon: "🔑" },
-  4: { color: { ko: "황토색", en: "Earthy Brown" }, item: { ko: "가죽 카드지갑", en: "Card Wallet" }, icon: "🪪" },
-  5: { color: { ko: "베이지색", en: "Beige" }, item: { ko: "캔버스 에코백", en: "Eco Bag" }, icon: "🛍️" },
-  6: { color: { ko: "은색", en: "Silver" }, item: { ko: "보습 핸드크림", en: "Hand Cream" }, icon: "🧴" },
-  7: { color: { ko: "흰색", en: "White" }, item: { ko: "무선 이어폰 케이스", en: "Earphone Case" }, icon: "🎧" },
-  8: { color: { ko: "검은색", en: "Black" }, item: { ko: "편안한 캡모자", en: "Ball Cap" }, icon: "🧢" },
-  9: { color: { ko: "하늘색", en: "Sky Blue" }, item: { ko: "스마트폰 그립톡", en: "Phone Grip" }, icon: "📱" }
+  0: { color: { ko: "초록색", en: "Green" }, item: { ko: "가벼운 향수", en: "Light Perfume" }, icon: "🌿", coupangUrl: "https://link.coupang.com/a/YOUR_PERFUME_LINK" },
+  1: { color: { ko: "민트색", en: "Mint Green" }, item: { ko: "휴대용 텀블러", en: "Tumbler" }, icon: "🥤", coupangUrl: "https://link.coupang.com/a/YOUR_TUMBLER_LINK" },
+  2: { color: { ko: "빨간색", en: "Red" }, item: { ko: "촉촉한 립밤", en: "Lip Balm" }, icon: "💄", coupangUrl: "https://link.coupang.com/a/YOUR_LIPBALM_LINK" },
+  3: { color: { ko: "보라색", en: "Purple" }, item: { ko: "귀여운 키링", en: "Keyring" }, icon: "🔑", coupangUrl: "https://link.coupang.com/a/YOUR_KEYRING_LINK" },
+  4: { color: { ko: "황토색", en: "Earthy Brown" }, item: { ko: "가죽 카드지갑", en: "Card Wallet" }, icon: "🪪", coupangUrl: "https://link.coupang.com/a/YOUR_WALLET_LINK" },
+  5: { color: { ko: "베이지색", en: "Beige" }, item: { ko: "캔버스 에코백", en: "Eco Bag" }, icon: "🛍️", coupangUrl: "https://link.coupang.com/a/YOUR_ECOBAG_LINK" },
+  6: { color: { ko: "은색", en: "Silver" }, item: { ko: "보습 핸드크림", en: "Hand Cream" }, icon: "🧴", coupangUrl: "https://link.coupang.com/a/YOUR_HANDCREAM_LINK" },
+  7: { color: { ko: "흰색", en: "White" }, item: { ko: "무선 이어폰 케이스", en: "Earphone Case" }, icon: "🎧", coupangUrl: "https://link.coupang.com/a/YOUR_EARPHONE_LINK" },
+  8: { color: { ko: "검은색", en: "Black" }, item: { ko: "편안한 캡모자", en: "Ball Cap" }, icon: "🧢", coupangUrl: "https://link.coupang.com/a/YOUR_CAP_LINK" },
+  9: { color: { ko: "하늘색", en: "Sky Blue" }, item: { ko: "스마트폰 그립톡", en: "Phone Grip" }, icon: "📱", coupangUrl: "https://link.coupang.com/a/YOUR_GRIPTOK_LINK" }
 };
 
 const CATEGORY_MAP = {
@@ -549,6 +750,7 @@ const CATEGORY_MAP = {
   wellness: [{ t: "sec_wn_body_title", k: "wn_body" }, { t: "sec_wn_time_title", k: "wn_time" }, { t: "sec_wn_mind_title", k: "wn_mind" }, { t: "sec_wn_advice_title", k: "wn_advice" }]
 };
 
+// SAJU_DATA - 이전 코드 그대로 가져오기 (긴 데이터)
 const SAJU_DATA = {
   0: { 
     counseling: { ko: "당신은 척박한 땅에서도 곧게 자라나는 소나무 같은 사람이에요. 남들에게 기대기보다 스스로 일어서려는 독립심이 강하죠. 가끔은 너무 꼿꼿해서 혼자서만 힘든 짐을 지고 부러질까 걱정될 때가 있어요. 힘들 때는 주변의 부드러운 바람과 사람들에게 잠시 기대어 쉬어가는 연습을 해보는 게 좋아요. 그래도 괜찮답니다.", en: "You are like a pine tree growing straight even in barren land. You have a strong independence. Sometimes you stand so rigid that you carry all the burdens alone. It's perfectly okay to lean on the gentle breeze and the people around you when you are tired. Practice resting." },
@@ -631,7 +833,7 @@ const SAJU_DATA = {
       gen_month: "<p>그동안 보이지 않는 곳에서 남몰래 흘렸던 땀방울과 노력들이 마침내 환한 햇빛을 받아 반짝반짝 빛나는 성과로 세상에 드러나는 눈부신 시기랍니다.</p><p>당신을 인정하고 칭찬하는 사람들이 많아질 거예요. 쏟아지는 칭찬을 겸손이라는 이름으로 거절하지 말고, '감사합니다'라며 기쁘게 누리고 즐기는 여유를 가지세요.</p>",
       gen_year: "<p>올 한 해는 당신의 이름 넉 자가 세상에 널리 알려지고 명예가 크게 높아지는, 인생에서 가장 화려하고 뜨거운 축제 같은 1년이 될 거예요.</p><p>크고 작은 성취들이 연이어 찾아오며 자존감이 하늘을 찌르게 됩니다. 다만, 빛이 강하면 그림자도 짙어지는 법이니, 화려함 이면에 놓칠 수 있는 작은 디테일과 주변 사람들의 마음을 한 번 더 살펴보는 세심함이 필요해요.</p>",
       wm_style: "<p>당신은 어둠을 몰아내는 찬란한 태양처럼, 자신의 가치를 한껏 드높이고 그 유명세와 영향력을 통해 폭발적으로 부를 창출해내는 스케일 큰 방식을 타고났어요.</p><p>숨어서 남의 돈을 관리하기보다는, 당신 스스로가 하나의 훌륭한 '브랜드'가 되어 사람들을 끌어모을 때 엄청난 현금이 따라옵니다. 보여주는 겉모습과 품위 유지도 당신에게는 훌륭한 투자랍니다.</p>",
-      wm_ladder: "<p><strong>1단계 · 빛 발산기</strong><br>당신의 끼와 재능을 부끄러워하지 말고 최대한 많은 사람들에게 적극적으로 알리고 홍보하세요.</p><p><strong>2단계 · 브랜드 구축</strong><br>단순한 유명세를 넘어 당신만의 확실한 전문성과 신뢰를 바탕으로 견고한 퍼스널 브랜드를 완성하세요.</p><p><strong>3단계 · 대중의 사랑</strong><br>팬덤이나 충성 고객을 확보하여 흔들리지 않는 대중적인 지지와 기반을 단단히 다집니다.</p><p><strong>4단계 · 리더십 발휘</strong><br>해당 업계나 조직의 최정상 리더로 우뚝 서서 판을 판을 쥐고 흔드는 강력한 영향력을 행사합니다.</p><p><strong>5단계 · 명예와 부의 성</strong><br>존경받는 명예와 감당하기 힘들 만큼 거대한 부를 동시에 쟁취하는 눈부신 황금기를 맞이합니다.</p>",
+      wm_ladder: "<p><strong>1단계 · 빛 발산기</strong><br>당신의 끼와 재능을 부끄러워하지 말고 최대한 많은 사람들에게 적극적으로 알리고 홍보하세요.</p><p><strong>2단계 · 브랜드 구축</strong><br>단순한 유명세를 넘어 당신만의 확실한 전문성과 신뢰를 바탕으로 견고한 퍼스널 브랜드를 완성하세요.</p><p><strong>3단계 · 대중의 사랑</strong><br>팬덤이나 충성 고객을 확보하여 흔들리지 않는 대중적인 지지와 기반을 단단히 다집니다.</p><p><strong>4단계 · 리더십 발휘</strong><br>해당 업계나 조직의 최정상 리더로 우뚝 서서 판을 쥐고 흔드는 강력한 영향력을 행사합니다.</p><p><strong>5단계 · 명예와 부의 성</strong><br>존경받는 명예와 감당하기 힘들 만큼 거대한 부를 동시에 쟁취하는 눈부신 황금기를 맞이합니다.</p>",
       wm_job: "<p><strong>🥇 1순위: 방송·연예·인플루언서</strong><br>타고난 쇼맨십과 시선을 잡아끄는 마력으로 대중의 뜨거운 사랑과 관심을 먹고 사는 일이 천직입니다.</p><p><strong>🥈 2순위: 교육·강연·정치</strong><br>어둠을 밝히는 태양처럼, 올바른 비전을 제시하고 많은 사람들을 열광시키며 이끌어가는 리더 역할이 완벽해요.</p><p><strong>🥉 3순위: 영업·마케팅·PR</strong><br>당신만의 화려한 언변과 긍정적인 에너지로 그 어떤 어려운 제품이나 아이디어도 매력적으로 포장해 냅니다.</p>",
       wm_trap: "<p><strong>🚫 충동적인 과시형 지출</strong><br>기분이 좋아지면 크게 한턱 쏘거나 폼을 잡기 위해 불필요한 고가의 물건을 충동구매하기 쉬워요. 지갑의 끈을 단단히 묶어줄 꼼꼼한 파트너가 필요합니다.</p><p><strong>🚫 시작만 화려한 용두사미</strong><br>시작하는 순간의 열정은 전 우주 1등이지만, 금방 흥미를 잃고 마무리가 흐지부지될 수 있습니다. 끈기를 의식적으로 기르세요.</p><p><strong>🚫 급한 성미로 인한 구설수</strong><br>순간적으로 욱하는 마음에 뱉은 직선적인 말이 큰 오해와 구설수를 낳을 수 있으니 언제나 세 번 생각하고 말하는 습관을 들이세요.</p>",
       lv_lang: "<p>당신의 사랑 언어는 '숨김없이 투명하고 열정적인 표현'이에요. 사랑에 빠지면 복잡하게 밀당하거나 감정을 재고 따지지 않고, 마음이 가는 대로 100% 솔직하게 직진하는 불도저 같은 로맨티스트랍니다.</p><p>당신의 뜨거운 눈빛과 애정 공세는 그 어떤 차가운 얼음장 같은 마음도 단숨에 녹여버릴 만큼 강력하고 매력적이에요.</p>",
@@ -922,18 +1124,16 @@ const SAJU_DATA = {
   }
 };
 
-
 // =========================================================================
-// 3. UI 렌더링 함수
+// 4. 결과 페이지 렌더링
 // =========================================================================
-
 function buildCategoryReport(type, archIndex) {
   const cats = CATEGORY_MAP[type];
   if (!cats) return '';
   let html = '';
   cats.forEach((item, index) => {
     const titleText = getT(item.t);
-    const bodyData = SAJU_DATA[archIndex][currentLang][item.k]; 
+    const bodyData = (SAJU_DATA[archIndex] && SAJU_DATA[archIndex][currentLang] && SAJU_DATA[archIndex][currentLang][item.k]) || '<p>...</p>';
     
     html += `
       <div class="report-section">
@@ -943,16 +1143,14 @@ function buildCategoryReport(type, archIndex) {
       </div>
     `;
     
+    // 두 번째 섹션 뒤에 카카오 중간 광고 (300x250)
     if(index === 1) {
       html += `
-        <div class="ad-banner">
-          <span class="ad-label">Sponsor</span>
-          <ins class="adsbygoogle"
-               style="display:block; text-align:center;"
-               data-ad-layout="in-article"
-               data-ad-format="fluid"
-               data-ad-client="ca-pub-4394607454861717"
-               data-ad-slot="XXXXXXXXXX"></ins>
+        <div class="ad-container ad-medium">
+          <ins class="kakao_ad_area" style="display:none;"
+               data-ad-unit="DAN-1WPcueyRjzBdFvbj"
+               data-ad-width="300"
+               data-ad-height="250"></ins>
         </div>
       `;
     }
@@ -965,20 +1163,37 @@ function showResult(type) {
   const archIndex = currentSaju.archIndex;
   document.getElementById('result-title').innerText = getT('r_' + type + '_title');
   
+  // 1. 만세력
   let html = generateManseryeokHTML();
   
-  const counselingText = SAJU_DATA[archIndex].counseling[currentLang];
+  // 2. 카카오 결과 상단 광고 (320x100)
   html += `
-    <div class="counseling-letter">
-      <div class="letter-title">${getT('letter_title')}</div>
-      <div class="letter-body">${counselingText}</div>
+    <div class="ad-container ad-large">
+      <ins class="kakao_ad_area" style="display:none;"
+           data-ad-unit="DAN-QpHuAXSWwE0aio6P"
+           data-ad-width="320"
+           data-ad-height="100"></ins>
     </div>
   `;
   
+  // 3. 꿀벌의 편지
+  if (SAJU_DATA[archIndex] && SAJU_DATA[archIndex].counseling) {
+    const counselingText = SAJU_DATA[archIndex].counseling[currentLang];
+    html += `
+      <div class="counseling-letter">
+        <div class="letter-title">${getT('letter_title')}</div>
+        <div class="letter-body">${counselingText}</div>
+      </div>
+    `;
+  }
+  
+  // 4. 카테고리별 리포트 (중간에 카카오 광고 자동 삽입)
   html += buildCategoryReport(type, archIndex);
   
+  // 5. 럭키 박스 + 쿠팡 링크
   const lucky = LUCKY_DATA[archIndex] || LUCKY_DATA[0];
   const itemText = lucky.item[currentLang];
+  const colorText = lucky.color[currentLang];
   
   html += `
     <div class="lucky-box">
@@ -988,7 +1203,7 @@ function showResult(type) {
           <div style="font-size: 24px;">🎨</div>
           <div>
             <div style="font-size: 12px; color: var(--text-muted); font-weight: 800;">${getT('lucky_color')}</div>
-            <div style="font-size: 16px; font-weight: 700; color: var(--ink);">${lucky.color[currentLang]}</div>
+            <div style="font-size: 16px; font-weight: 700; color: var(--ink);">${colorText}</div>
           </div>
         </div>
         <div class="lucky-item">
@@ -1000,9 +1215,8 @@ function showResult(type) {
         </div>
       </div>
       
-      <!-- 쿠팡 파트너스 다이내믹 추천 버튼 -->
-      <a href="https://link.coupang.com/a/YOUR_AFFILIATE_LINK" target="_blank" class="btn-coupang">
-         🛒 쿠팡에서 내 행운의 [ ${itemText} ] 찾아보기
+      <a href="${lucky.coupangUrl}" target="_blank" rel="noopener" class="btn-coupang">
+         🛒 쿠팡에서 [${itemText}] 찾아보기
       </a>
       <div class="coupang-disclaimer">
         이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br>이에 따른 일정액의 수수료를 제공받습니다.
@@ -1011,8 +1225,8 @@ function showResult(type) {
   `;
   
   contentArea.innerHTML = html;
-  initAds(contentArea);
   
+  // 다른 카테고리 추천 (upsell)
   const upsellGrid = document.getElementById('upsell-grid');
   const allTypes = [
     { t: 'general', i: '🔮', k: 'menu_general' },
@@ -1033,10 +1247,9 @@ async function downloadImage() {
   const originalText = btnSpan.innerText;
   btnSpan.innerText = getT('saving_img'); 
   
-  const coupangBtn = document.querySelector('.btn-coupang');
-  const coupangDisclaimer = document.querySelector('.coupang-disclaimer');
-  if(coupangBtn) coupangBtn.style.display = 'none';
-  if(coupangDisclaimer) coupangDisclaimer.style.display = 'none';
+  // 광고와 쿠팡 링크는 캡처에서 숨김
+  const adsToHide = document.querySelectorAll('.ad-container, .btn-coupang, .coupang-disclaimer');
+  adsToHide.forEach(el => el.style.display = 'none');
 
   try {
     const canvas = await html2canvas(captureTarget, { scale: 2, backgroundColor: '#EBF5F0', useCORS: true });
@@ -1045,16 +1258,18 @@ async function downloadImage() {
     link.href = canvas.toDataURL('image/png');
     link.click();
     btnSpan.innerText = getT('saved_img');
-  } catch (err) { btnSpan.innerText = "Error"; } 
+  } catch (err) { 
+    btnSpan.innerText = "Error"; 
+    console.error(err);
+  } 
   finally { 
-    if(coupangBtn) coupangBtn.style.display = 'block';
-    if(coupangDisclaimer) coupangDisclaimer.style.display = 'block';
+    adsToHide.forEach(el => el.style.display = '');
     setTimeout(() => { btnSpan.innerText = originalText; }, 2000); 
   }
 }
 
-// 처음 로드될 때 UI 텍스트 언어 세팅
-window.onload = function() { updateUI(); }
+// 처음 로드
+window.onload = function() { updateUI(); };
 </script>
 </body>
 </html>
