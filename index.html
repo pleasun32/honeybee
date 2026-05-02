@@ -373,7 +373,15 @@
     <button id="btn-download-img" class="btn-game btn-green" onclick="downloadImage()">📸 <span data-t="btn_save_img">저장</span></button>
     <button class="btn-game btn-blue" onclick="shareResult()">💌 <span data-t="btn_share">공유</span></button>
   </div>
-
+<!-- 다른 사람 사주 보기 버튼 -->
+  <div class="center" style="margin-top: 32px; padding: 20px; background: #FFF9E6; border-radius: 12px; border: 2px dashed var(--btn-yellow);">
+    <p style="font-size: 14px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px;" data-t="reset_question">
+      🐝 친구나 가족의 사주도 봐보고 싶으신가요?
+    </p>
+    <button class="btn-game btn-white" onclick="resetInfo()" style="font-size: 15px; padding: 10px 20px; border-color: var(--btn-blue); color: var(--btn-blue);" data-t="reset_btn">
+      🔄 다른 사람 사주 보기
+    </button>
+  </div>
   <div id="upsell-section" class="mt-lg">
     <div class="center mb-sm"><h2 data-t="explore_title">다른 이야기도 무료로 들어보실래요?</h2></div>
     <div class="menu-grid" id="upsell-grid"></div>
@@ -652,24 +660,23 @@ function generateManseryeokHTML() {
   `;
 }
 
-// 카카오 광고 새로고침 (화면 전환 시 호출)
+// 카카오 광고 새로고침 (화면 전환 + 동적 삽입 시 호출)
 function refreshKakaoAds() {
+  // 화면에 보이는 모든 kakao_ad_area를 찾아서 처리
   setTimeout(() => {
-    if (typeof window.adfit !== 'undefined') {
-      try {
-document.querySelectorAll('.kakao_ad_area').forEach(el => {
-  if (el.offsetParent !== null) {  // 화면에 보이는 것만
-    el.style.display = '';
-    // 추가할 코드: 요소를 보이게 한 후 명시적으로 렌더링을 지시
-    if (window.adfit) {
-      window.adfit.render();
-    }
-  }
-});
-      
-      } catch(e) {}
-    }
-  }, 100);
+    const adAreas = document.querySelectorAll('.kakao_ad_area');
+    adAreas.forEach(el => {
+      // 화면에 보이는 광고만 (display:none이 아닌 부모 안에 있는 것만)
+      if (el.offsetParent !== null && !el.dataset.adInitialized) {
+        el.dataset.adInitialized = 'true';  // 중복 초기화 방지
+        // 카카오 스크립트 재실행: 새 script 태그를 추가하면 카카오가 자동으로 스캔
+        const script = document.createElement('script');
+        script.src = '//t1.kakaocdn.net/kas/static/ba.min.js';
+        script.async = true;
+        document.body.appendChild(script);
+      }
+    });
+  }, 200);
 }
 
 // 공유 기능
@@ -699,7 +706,10 @@ const TRANSLATIONS = {
     menu_work_money: "일과 돈", menu_work_money_sub: "당신의 부의 방식",
     menu_love: "사랑과 인연", menu_love_sub: "다정한 관계 맺기",
     menu_wellness: "건강과 마음", menu_wellness_sub: "내 몸과 마음 다스리기",
-    
+    reset_question: "🐝 친구나 가족의 사주도 봐보고 싶으신가요?",
+    reset_btn: "🔄 다른 사람 사주 보기",
+   reset_question: "🐝 Want to read fortune for a friend or family?",
+    reset_btn: "🔄 Read for Another Person",
     r_general_title: "🔮 종합 운세 리포트", r_work_money_title: "💼 일과 돈 리포트", 
     r_love_title: "💕 사랑과 인연 리포트", r_wellness_title: "🌿 건강과 마음 리포트",
     
@@ -1274,34 +1284,51 @@ function showResult(type) {
   `;
   
   contentArea.innerHTML = html;
+
+   // 🔧 추가: 결과 페이지 안의 카카오 광고 강제 초기화
+  refreshKakaoAds();
+
   
-  // --- 쿠팡 다이나믹 배너 자동 렌더링 스크립트 ---
-  if (!document.getElementById('coupang-g-script')) {
-      const gScript = document.createElement('script');
-      gScript.id = 'coupang-g-script';
-      gScript.src = "https://ads-partners.coupang.com/g.js";
-      document.head.appendChild(gScript);
+// --- 쿠팡 다이나믹 배너 자동 렌더링 (안전한 버전) ---
+  function renderCoupangAd() {
+    const adZone = document.getElementById('coupang-ad-zone');
+    if (!adZone || typeof PartnersCoupang === 'undefined') return false;
+    
+    adZone.innerHTML = ''; // 이전 광고 초기화
+    try {
+      new PartnersCoupang.G({
+        "id": 985560,
+        "template": "carousel",
+        "trackingCode": "AF3527009",
+        "width": "100%",
+        "height": "140",
+        "tsource": "",
+        "keyword": itemText
+      });
+      return true;
+    } catch(e) {
+      console.warn('Coupang ad failed:', e);
+      return false;
+    }
   }
 
-  setTimeout(() => {
-      const adZone = document.getElementById('coupang-ad-zone');
-      if(adZone) {
-          adZone.innerHTML = ''; // 이전 광고 초기화
-          const script = document.createElement('script');
-          script.text = `
-              new PartnersCoupang.G({
-                  "id": 985560,
-                  "template": "carousel",
-                  "trackingCode": "AF3527009",
-                  "width": "100%",
-                  "height": "140",
-                  "tsource": "",
-                  "keyword": "${itemText}"
-              });
-          `;
-          adZone.appendChild(script);
-      }
-  }, 500);
+  // 쿠팡 스크립트 로드 (한 번만)
+  if (!document.getElementById('coupang-g-script')) {
+    const gScript = document.createElement('script');
+    gScript.id = 'coupang-g-script';
+    gScript.src = "https://ads-partners.coupang.com/g.js";
+    gScript.onload = () => renderCoupangAd();  // 로드 완료 시 즉시 렌더
+    document.head.appendChild(gScript);
+  } else {
+    // 이미 로드돼있으면 바로 렌더 시도 (재시도 포함)
+    let attempts = 0;
+    const tryRender = () => {
+      if (renderCoupangAd() || attempts >= 5) return;
+      attempts++;
+      setTimeout(tryRender, 300);
+    };
+    tryRender();
+  }
 
   // 다른 카테고리 추천 (upsell)
   const upsellGrid = document.getElementById('upsell-grid');
