@@ -49,14 +49,12 @@
     100% { opacity: 1; }
   }
   
-  /* 배경 SVG 설정 */
+  /* 배경 SVG 설정 (초록색 배경 삭제 및 background.svg 단독 적용) */
   body {
     font-family: 'Nunito', 'Jua', sans-serif;
     font-weight: 500;
-    background-color: #EBF5F0; 
-    background-image: url('background.svg'); 
-    background-attachment: fixed;
-    background-size: cover; /* 배경이 꽉 차게 조절, 필요시 pattern 적용으로 변경 가능 */
+    background: url('background.svg') no-repeat center center fixed; 
+    background-size: cover;
     color: var(--ink);
     min-height: 100vh;
     overflow-x: hidden;
@@ -301,7 +299,8 @@
 <section id="screen-hub" class="screen">
   <div class="nav-bar"><button class="back-btn" onclick="goto('landing')" data-t="btn_home_only">← 처음으로</button></div>
   <div class="img-wrap" style="min-height: 120px;">
-    <img src="honeyjar.svg" alt="honeypot" class="bee-img-small anim-hover">
+    <!-- 꿀단지 파일명 honeypot.svg로 수정 완료 -->
+    <img src="honeypot.svg" alt="honeypot" class="bee-img-small anim-hover">
   </div>
   <div class="center mb-sm"><h1 data-t="hub_pick_title">어떤 이야기가 궁금하신가요?</h1></div>
   
@@ -1085,7 +1084,7 @@ const SAJU_DATA = {
       lv_stage: "Being too passive confuses the partner. Show a small gaze of affection or a light smile first. Build the safest secret fortress by sharing detailed moments. Don't become an emotional trash can; express your complaints confidently.",
       lv_family: "With abundant sensitivity, you excellently act as a delicate antenna embracing family's hidden pain first. But don't lose your own voice while checking others' moods. Have the courage to cry honestly like a child; it protects you healthier.",
       wn_body: "With the strongest condensed Yin energy, you are prone to a cold body, cold extremities, and depression. Raising body temperature by 1 degree is key. Avoid cold drinks, cover belly/feet warmly to aid blood and Qi circulation.",
-      wn_time: "Daytime: Unconditionally take a walk outside under the prettiest sunlight to absorb warm Yang energy and dry up depression. Evening: Soothe inner muscles with gentle yoga instead of heavy lifting, washing away others' tired energy.",
+      wn_time: "Daytime: Unconditionally take a walk outside under the prettiest sunlight to absorb warm Yang energy and dry up depression. Evening: Sooth inner muscles with gentle yoga instead of heavy lifting, washing away others' tired energy.",
       wn_mind: "Like a sponge, you absorb others' moods too easily, turning their sadness into yours. Your empathy is beautiful, but you urgently need to practice setting a 'transparent glass shield' between others' emotions and yours.",
       wn_advice: "Just as small raindrops eventually pierce a rock, your quiet, persistent wisdom is the strongest weapon to softly rule the world. Rather than 100 perfect plans in your head, one slightly clumsy but real step today will magically change your life. Just start!"
     }
