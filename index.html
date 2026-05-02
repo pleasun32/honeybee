@@ -237,7 +237,12 @@
 
 <!-- ==================== SCREEN 2: HUB ==================== -->
 <section id="screen-hub" class="screen">
-  <div class="nav-bar"><button class="back-btn" onclick="goto('landing')" data-t="btn_home_only">← 처음으로</button></div>
+<div class="nav-bar">
+  <button class="back-btn" onclick="goto('landing')" data-t="btn_home_only">← 처음으로</button>
+  <!-- 우측 정렬된 정보 초기화 버튼 추가 -->
+  <button class="back-btn" onclick="resetInfo()" style="margin-left: auto; color: var(--btn-red); border-color: var(--btn-red); box-shadow: 0 3px 0 var(--btn-red);">🔄 정보 초기화</button>
+</div>
+ 
   <div class="img-wrap" style="min-height: 100px;">
     <img src="bee.svg" alt="bee" class="bee-img-small anim-hover">
   </div>
@@ -525,9 +530,31 @@ function setLang(lang) {
 
 function openReading(type) {
   currentSaju.type = type;
-  goto('input');
+  
+  // 🐝 이름이 이미 저장되어 있다면(기존 입력 기록이 있다면) 
+  // 입력창(input)을 건너뛰고 바로 로딩 화면으로 직행!
+  if (currentSaju.name && currentSaju.name !== '') {
+    goto('loading');
+    setTimeout(() => { showResult(currentSaju.type); }, 2000);
+  } else {
+    // 저장된 정보가 없으면 평소처럼 입력창으로 이동
+    goto('input');
+  }
 }
 
+// 🐝 새로운 사람의 사주를 보기 위해 정보를 초기화하는 함수
+function resetInfo() {
+  currentSaju = { name: '', archIndex: 0, type: '' };
+  document.getElementById('input-name').value = '';
+  document.getElementById('input-date').value = '';
+  document.getElementById('input-time').value = '';
+  document.getElementById('input-time-unknown').checked = false;
+  document.getElementById('input-time').disabled = false;
+  
+  // 초기화 후 바로 새로운 정보 입력창으로 이동
+  goto('input');
+}
+ 
 function toggleTimeInput(checkbox) {
   const timeSelect = document.getElementById('input-time');
   timeSelect.disabled = checkbox.checked;
