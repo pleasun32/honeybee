@@ -409,7 +409,15 @@
     <div id="result-content"></div>
 
   </div>
-  
+
+  <!-- 카카오 결과 페이지 하단 띠광고 (수익 극대화) -->
+  <div class="ad-container">
+    <ins class="kakao_ad_area" style="display:none;"
+         data-ad-unit="DAN-s256ngjMi7N3zxEq"
+         data-ad-width="320"
+         data-ad-height="50"></ins>
+  </div>
+ 
   <div class="share-wrapper">
     <button id="btn-download-img" class="btn-game btn-green" onclick="downloadImage()">📸 <span data-t="btn_save_img">저장</span></button>
     <button class="btn-game btn-blue" onclick="shareResult()">💌 <span data-t="btn_share">공유</span></button>
@@ -1356,8 +1364,8 @@ function showResult(type) {
         </div>
       </div>
       
-      <!-- 쿠팡 검색 위젯이 렌더링될 빈 공간 -->
-      <div id="coupang-ad-zone" style="margin-top: 16px; min-height: 140px; border-radius: 12px; overflow: hidden; display: flex; justify-content: center;"></div>
+<!-- 쿠팡 검색 위젯이 iframe으로 격리되어 렌더링됨 -->
+      <div id="coupang-ad-zone" style="margin-top: 16px; min-height: 140px; border-radius: 12px; overflow: hidden;"></div>
 
       <div class="coupang-disclaimer">
         이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br>이에 따른 일정액의 수수료를 제공받습니다.
@@ -1371,47 +1379,9 @@ function showResult(type) {
   refreshKakaoAds();
 
   
-// --- 쿠팡 다이나믹 배너 자동 렌더링 (안전한 버전) ---
-  function renderCoupangAd() {
-    const adZone = document.getElementById('coupang-ad-zone');
-    if (!adZone || typeof PartnersCoupang === 'undefined') return false;
-    
-    adZone.innerHTML = ''; // 이전 광고 초기화
-    try {
-      new PartnersCoupang.G({
-        "id": 985560,
-        "template": "carousel",
-        "trackingCode": "AF3527009",
-        "width": "100%",
-        "height": "140",
-        "tsource": "",
-        "keyword": itemText
-      });
-      return true;
-    } catch(e) {
-      console.warn('Coupang ad failed:', e);
-      return false;
-    }
-  }
-
-  // 쿠팡 스크립트 로드 (한 번만)
-  if (!document.getElementById('coupang-g-script')) {
-    const gScript = document.createElement('script');
-    gScript.id = 'coupang-g-script';
-    gScript.src = "https://ads-partners.coupang.com/g.js";
-    gScript.onload = () => renderCoupangAd();  // 로드 완료 시 즉시 렌더
-    document.head.appendChild(gScript);
-  } else {
-    // 이미 로드돼있으면 바로 렌더 시도 (재시도 포함)
-    let attempts = 0;
-    const tryRender = () => {
-      if (renderCoupangAd() || attempts >= 5) return;
-      attempts++;
-      setTimeout(tryRender, 300);
-    };
-    tryRender();
-  }
-
+  // --- 쿠팡 다이나믹 배너 (iframe 격리 버전 - 중복 방지) ---
+  renderCoupangBannerIframe(itemText);
+ 
   // 다른 카테고리 추천 (upsell)
   const upsellGrid = document.getElementById('upsell-grid');
   const allTypes = [
@@ -1427,6 +1397,54 @@ function showResult(type) {
   goto('result');
 }
 
+// 쿠팡 다이나믹 배너 - iframe 격리 방식 (중복 방지)
+function renderCoupangBannerIframe(keyword) {
+  const adZone = document.getElementById('coupang-ad-zone');
+  if (!adZone) return;
+  
+  // 1. 기존 iframe 완전 제거 (중복 방지의 핵심)
+  adZone.innerHTML = '';
+  
+  // 2. 새 iframe 생성
+  const iframe = document.createElement('iframe');
+  iframe.style.width = '100%';
+  iframe.style.height = '140px';
+  iframe.style.border = 'none';
+  iframe.style.borderRadius = '12px';
+  iframe.scrolling = 'no';
+  iframe.setAttribute('frameborder', '0');
+  
+  // 3. iframe 내부 HTML 구성 (쿠팡 스크립트 포함)
+  const safeKeyword = String(keyword).replace(/"/g, '\\"').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const iframeContent = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{margin:0;padding:0;font-family:'Nunito',sans-serif;}</style></head><body>
+<div id="cp-ad-inner"></div>
+<script src="https://ads-partners.coupang.com/g.js"><\/script>
+<script>
+  setTimeout(function() {
+    try {
+      new PartnersCoupang.G({
+        "id": 985560,
+        "template": "carousel",
+        "trackingCode": "AF3527009",
+        "width": "100%",
+        "height": "140",
+        "tsource": "",
+        "keyword": "${safeKeyword}"
+      });
+    } catch(e) { console.warn('Coupang iframe error:', e); }
+  }, 100);
+<\/script>
+</body></html>`;
+  
+  adZone.appendChild(iframe);
+  
+  // 4. iframe 내부에 콘텐츠 주입
+  const idoc = iframe.contentDocument || iframe.contentWindow.document;
+  idoc.open();
+  idoc.write(iframeContent);
+  idoc.close();
+}
+ 
 async function downloadImage() {
   const captureTarget = document.getElementById('capture-container');
   const btnSpan = document.querySelector('#btn-download-img span');
