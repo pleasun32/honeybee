@@ -213,8 +213,12 @@
   .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-size: 12px; font-weight: 700; }
   .footer-links a { color: var(--text-muted); text-decoration: none; }
   .footer-copyright { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 10px; }
-
-  /* 애드센스 배너 스타일 */
+<div class="footer-copyright" data-t="footer_copyright">
+  © 2026 꿀벌 사주. All rights reserved.<br><small>본 서비스는 엔터테인먼트 목적으로 제공됩니다.</small><br>
+  <small style="color: #999;">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</small>
+</div>
+  
+ /* 애드센스 배너 스타일 */
   .ad-banner {
     width: 100%; min-height: 100px; margin: 24px 0; display: flex; justify-content: center; align-items: center;
     background: rgba(0,0,0,0.03); border-radius: 12px; overflow: hidden; text-align: center; position: relative;
@@ -1118,9 +1122,10 @@ function buildCategoryReport(type, archIndex) {
             <small style="color: #888; font-weight: 500;">(쿠팡 파트너스 배너 스크립트를 여기에 삽입하세요)</small>
           </div>
           <!-- 실제 적용 시 아래 주석 해제 및 쿠팡 스크립트 삽입 -->
-          <!-- <script src="https://ads-partners.coupang.com/g.js"></script><script>new PartnersCoupang.G({"id":XXXXX,"template":"carousel","trackingCode":"AFXXXXXXX","width":"100%","height":"140"});</script> -->
-        </div>
-      `;
+          <script src="https://ads-partners.coupang.com/g.js"></script>
+<script>
+	new PartnersCoupang.G({"id":985560,"template":"carousel","trackingCode":"AF3527009","width":"100","height":"140","tsource":""});
+</script>
     }
   });
   return html;
