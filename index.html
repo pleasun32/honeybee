@@ -1193,7 +1193,7 @@ function showResult(type) {
   // 4. 카테고리별 리포트 (중간에 카카오 광고 자동 삽입)
   html += buildCategoryReport(type, archIndex);
   
-  // 5. 럭키 박스 + 쿠팡 링크
+  // 5. 럭키 박스 + 쿠팡 다이나믹 배너 (자동화 버전)
   const lucky = LUCKY_DATA[archIndex] || LUCKY_DATA[0];
   const itemText = lucky.item[currentLang];
   const colorText = lucky.color[currentLang];
@@ -1218,9 +1218,9 @@ function showResult(type) {
         </div>
       </div>
       
-      <a href="${lucky.coupangUrl}" target="_blank" rel="noopener" class="btn-coupang">
-         🛒 쿠팡에서 [${itemText}] 찾아보기
-      </a>
+      <!-- 쿠팡 검색 위젯이 렌더링될 빈 공간 -->
+      <div id="coupang-ad-zone" style="margin-top: 16px; min-height: 140px; border-radius: 12px; overflow: hidden; display: flex; justify-content: center;"></div>
+
       <div class="coupang-disclaimer">
         이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br>이에 따른 일정액의 수수료를 제공받습니다.
       </div>
@@ -1229,6 +1229,34 @@ function showResult(type) {
   
   contentArea.innerHTML = html;
   
+  // --- 쿠팡 다이나믹 배너 자동 렌더링 스크립트 ---
+  if (!document.getElementById('coupang-g-script')) {
+      const gScript = document.createElement('script');
+      gScript.id = 'coupang-g-script';
+      gScript.src = "https://ads-partners.coupang.com/g.js";
+      document.head.appendChild(gScript);
+  }
+
+  setTimeout(() => {
+      const adZone = document.getElementById('coupang-ad-zone');
+      if(adZone) {
+          adZone.innerHTML = ''; // 이전 광고 초기화
+          const script = document.createElement('script');
+          script.text = `
+              new PartnersCoupang.G({
+                  "id": 985560,
+                  "template": "carousel",
+                  "trackingCode": "AF3527009",
+                  "width": "100%",
+                  "height": "140",
+                  "tsource": "",
+                  "keyword": "${itemText}"
+              });
+          `;
+          adZone.appendChild(script);
+      }
+  }, 500);
+
   // 다른 카테고리 추천 (upsell)
   const upsellGrid = document.getElementById('upsell-grid');
   const allTypes = [
