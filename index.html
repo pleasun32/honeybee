@@ -541,10 +541,25 @@ function openReading(type) {
   
   // 🐝 이름이 이미 저장되어 있다면(기존 입력 기록이 있다면) 
   // 입력창(input)을 건너뛰고 바로 로딩 화면으로 직행!
-  if (currentSaju.name && currentSaju.name !== '') {
+ if (currentSaju.name && currentSaju.name !== '') {
     goto('loading');
+    // 따뜻한 로딩 메시지
+    const loadingMessages = currentLang === 'ko' ? [
+      "🐝 꿀벌이 당신의 별자리를 찾고 있어요...",
+      "🌸 봄, 여름, 가을, 겨울의 기운을 모으는 중...",
+      "🍯 따뜻한 풍경화를 그리는 중이에요..."
+    ] : [
+      "🐝 The bee is finding your stars...",
+      "🌸 Gathering the energy of all seasons...",
+      "🍯 Painting your warm landscape..."
+    ];
+    const loadingTitle = document.getElementById('loading-title-el');
+    if (loadingTitle) loadingTitle.innerText = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+    
     setTimeout(() => { showResult(currentSaju.type); }, 2000);
-  } else {
+  } 
+ 
+ else {
     // 저장된 정보가 없으면 평소처럼 입력창으로 이동
     goto('input');
   }
@@ -608,7 +623,26 @@ function submitInput() {
     currentSaju.year = '?'; currentSaju.month = '?'; currentSaju.day = '?'; currentSaju.time = '?';
   }
 
-  goto('loading');
+ goto('loading');
+  
+  // 🐝 따뜻한 로딩 메시지 랜덤 표시
+  const loadingMessages = currentLang === 'ko' ? [
+    "🐝 꿀벌이 당신의 별자리를 찾고 있어요...",
+    "🌸 봄, 여름, 가을, 겨울의 기운을 모으는 중...",
+    "🍯 따뜻한 풍경화를 그리는 중이에요...",
+    "✨ 당신만의 특별한 이야기를 준비하고 있어요...",
+    "🌳 사주 나무에서 결과를 따오는 중..."
+  ] : [
+    "🐝 The bee is finding your stars...",
+    "🌸 Gathering the energy of all seasons...",
+    "🍯 Painting your warm landscape...",
+    "✨ Preparing your unique story...",
+    "🌳 Plucking results from the Saju tree..."
+  ];
+  const randomMsg = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+  const loadingTitle = document.getElementById('loading-title-el');
+  if (loadingTitle) loadingTitle.innerText = randomMsg;
+  
   setTimeout(() => { showResult(currentSaju.type); }, 2000);
 }
 
