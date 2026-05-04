@@ -35,7 +35,7 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4394607454861717" crossorigin="anonymous"></script>
 
 <!-- 카카오 AdFit 공통 스크립트 (한 번만 로드) -->
-<script type="text/javascript" src="//t1.kakaocdn.net/kas/static/ba.min.js" async></script>
+<!-- Kakao AdFit is loaded lazily after a visible ad slot is rendered. -->
 
 <style>
   * { box-sizing: border-box; word-break: keep-all; overflow-wrap: break-word; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -384,6 +384,8 @@
   .ad-container.ad-large { min-height: 100px; }
   .ad-container.ad-medium { min-height: 250px; }
   .ad-label-tiny { font-size: 9px; color: #aaa; font-family: 'Nunito', sans-serif; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.5px; }
+  .ad-container .adsbygoogle,
+  .ad-container .kakao-ad-placeholder { display: block; width: 100%; }
   
   .coupang-disclaimer { font-size: 10px; color: #999; margin-top: 10px; font-weight: 600; text-align: center; line-height: 1.4; }
 
@@ -439,10 +441,7 @@
   
   <!-- 카카오 랜딩 띠광고 -->
   <div class="ad-container mt-md">
-    <ins class="kakao_ad_area" style="display:block;"
-         data-ad-unit="DAN-s256ngjMi7N3zxEq"
-         data-ad-width="320"
-         data-ad-height="50"></ins>
+    <div class="kakao-ad-placeholder" data-ad-unit="DAN-s256ngjMi7N3zxEq" data-ad-width="320" data-ad-height="50"></div>
   </div>
 
 <!-- 심사 로봇이 읽고 통과시켜 줄 사주 설명 텍스트 (필수) -->
@@ -466,9 +465,6 @@
          data-ad-slot="8540460877"
          data-ad-format="auto"
          data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
   </div>
 
   <div class="site-footer">
@@ -528,10 +524,7 @@
 
 <!-- 카카오 AdFit 광고: 메뉴 화면 320x50 -->
   <div class="ad-container mt-md">
-    <ins class="kakao_ad_area" style="display:block;"
-         data-ad-unit="DAN-s256ngjMi7N3zxEq"
-         data-ad-width="320"
-         data-ad-height="50"></ins>
+    <div class="kakao-ad-placeholder" data-ad-unit="DAN-s256ngjMi7N3zxEq" data-ad-width="320" data-ad-height="50"></div>
   </div>
 </section>
 
@@ -625,10 +618,7 @@
 
 <!-- 카카오 결과 페이지 하단 띠광고 (수익 극대화) -->
   <div class="ad-container">
-    <ins class="kakao_ad_area" style="display:block;"
-         data-ad-unit="DAN-s256ngjMi7N3zxEq"
-         data-ad-width="320"
-         data-ad-height="50"></ins>
+    <div class="kakao-ad-placeholder" data-ad-unit="DAN-s256ngjMi7N3zxEq" data-ad-width="320" data-ad-height="50"></div>
   </div>
  
   <div class="share-wrapper">
@@ -821,10 +811,9 @@ function goto(screenId) {
   targetScreen.style.display = 'flex';
   window.scrollTo(0, 0);
 
-  // 5. 카카오 광고 리프레시 (함수가 정의되어 있는 경우에만)
-  if (typeof refreshKakaoAds === "function") {
-    refreshKakaoAds();
-  }
+  // 5. 광고는 보이는 화면의 슬롯만 초기화
+  if (typeof refreshKakaoAds === "function") refreshKakaoAds();
+  if (typeof refreshAdsenseAds === "function") refreshAdsenseAds();
 }
 
 
@@ -993,23 +982,82 @@ function generateManseryeokHTML() {
   `;
 }
 
+function getAdAvailableWidth(el) {
+  if (!el) return 0;
+  const rect = el.getBoundingClientRect();
+  if (rect.width > 0) return rect.width;
+  const container = el.closest('.ad-container') || el.parentElement;
+  return container ? container.getBoundingClientRect().width : 0;
+}
+
+function isVisibleAdElement(el) {
+  return !!(el && el.offsetParent !== null && getAdAvailableWidth(el) > 0);
+}
+
+function loadExternalScript(src) {
+  const script = document.createElement('script');
+  script.src = src;
+  script.async = true;
+  document.body.appendChild(script);
+}
+
 // 카카오 광고 새로고침 (화면 전환 + 동적 삽입 시 호출)
 function refreshKakaoAds() {
-  // 화면에 보이는 모든 kakao_ad_area를 찾아서 처리
   setTimeout(() => {
-    const adAreas = document.querySelectorAll('.kakao_ad_area');
-    adAreas.forEach(el => {
-      // 화면에 보이는 광고만 (display:none이 아닌 부모 안에 있는 것만)
-      if (el.offsetParent !== null && !el.dataset.adInitialized) {
-        el.dataset.adInitialized = 'true';  // 중복 초기화 방지
-        // 카카오 스크립트 재실행: 새 script 태그를 추가하면 카카오가 자동으로 스캔
-        const script = document.createElement('script');
-        script.src = '//t1.kakaocdn.net/kas/static/ba.min.js';
-        script.async = true;
-        document.body.appendChild(script);
+    const placeholders = document.querySelectorAll('.kakao-ad-placeholder');
+    const renderedUnits = new Set();
+    let shouldLoadScript = false;
+
+    placeholders.forEach(slot => {
+      const unit = slot.dataset.adUnit;
+      const width = slot.dataset.adWidth;
+      const height = slot.dataset.adHeight;
+
+      if (!unit || !width || !height || !isVisibleAdElement(slot)) {
+        slot.innerHTML = '';
+        slot.dataset.adLoaded = '';
+        return;
+      }
+
+      slot.style.maxWidth = `${width}px`;
+      slot.style.minHeight = `${height}px`;
+
+      // AdFit은 같은 data-ad-unit이 한 페이지에 동시에 있으면 오류를 냅니다.
+      if (renderedUnits.has(unit)) {
+        slot.innerHTML = '';
+        slot.dataset.adLoaded = '';
+        return;
+      }
+      renderedUnits.add(unit);
+
+      if (slot.dataset.adLoaded === 'true' && slot.querySelector('.kakao_ad_area')) return;
+
+      slot.innerHTML = `<ins class="kakao_ad_area" style="display:block;" data-ad-unit="${unit}" data-ad-width="${width}" data-ad-height="${height}"></ins>`;
+      slot.dataset.adLoaded = 'true';
+      shouldLoadScript = true;
+    });
+
+    if (shouldLoadScript) {
+      loadExternalScript('https://t1.kakaocdn.net/kas/static/ba.min.js');
+    }
+  }, 250);
+}
+
+// 애드센스는 숨겨진 화면에서 실행하면 availableWidth=0 오류가 나므로 보이는 슬롯만 초기화합니다.
+function refreshAdsenseAds() {
+  setTimeout(() => {
+    document.querySelectorAll('.adsbygoogle').forEach(ad => {
+      const slotId = ad.getAttribute('data-ad-slot');
+      if (!slotId || slotId === 'XXXXXXXXXX' || ad.dataset.adInitialized === 'true' || !isVisibleAdElement(ad)) return;
+
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        ad.dataset.adInitialized = 'true';
+      } catch (err) {
+        console.warn('AdSense skipped until the slot has a visible width.', err);
       }
     });
-  }, 200);
+  }, 250);
 }
 
 // 공유 기능
@@ -1586,10 +1634,7 @@ function buildCategoryReport(type, archIndex, seed = 0) {
     if(index === 1) {
       html += `
         <div class="ad-container ad-medium">
-          <ins class="kakao_ad_area" style="display:block;"
-               data-ad-unit="DAN-1WPcueyRjzBdFvbj"
-               data-ad-width="300"
-               data-ad-height="250"></ins>
+          <div class="kakao-ad-placeholder" data-ad-unit="DAN-1WPcueyRjzBdFvbj" data-ad-width="300" data-ad-height="250"></div>
         </div>
       `;
     }
@@ -1608,10 +1653,7 @@ function showResult(type) {
 // 2. 카카오 결과 상단 광고 (320x100)
   html += `
     <div class="ad-container ad-large">
-      <ins class="kakao_ad_area" style="display:block;"
-           data-ad-unit="DAN-QpHuAXSWwE0aio6P"
-           data-ad-width="320"
-           data-ad-height="100"></ins>
+      <div class="kakao-ad-placeholder" data-ad-unit="DAN-QpHuAXSWwE0aio6P" data-ad-width="320" data-ad-height="100"></div>
     </div>
   `;
   
