@@ -1177,6 +1177,88 @@ const CATEGORY_MAP = {
   wellness: [{ t: "sec_wn_body_title", k: "wn_body" }, { t: "sec_wn_time_title", k: "wn_time" }, { t: "sec_wn_mind_title", k: "wn_mind" }, { t: "sec_wn_advice_title", k: "wn_advice" }]
 };
 
+const DAY_ENERGY_LABELS = [
+  { ko: "큰 나무 같은 기운", en: "Great Tree energy" },
+  { ko: "작은 꽃나무 같은 기운", en: "Flowering Vine energy" },
+  { ko: "태양 같은 기운", en: "Sun energy" },
+  { ko: "촛불 같은 기운", en: "Candlelight energy" },
+  { ko: "큰 산 같은 기운", en: "Mountain energy" },
+  { ko: "정원 흙 같은 기운", en: "Garden Soil energy" },
+  { ko: "무쇠 같은 기운", en: "Forged Metal energy" },
+  { ko: "보석 같은 기운", en: "Gemstone energy" },
+  { ko: "넓은 바다 같은 기운", en: "Ocean energy" },
+  { ko: "봄비 같은 기운", en: "Spring Rain energy" }
+];
+
+const CATEGORY_LETTER_TITLES = {
+  general: {
+    ko: "💌 꿀벌의 흐름 편지",
+    en: "💌 Bee's Flow Letter"
+  },
+  work_money: {
+    ko: "💌 꿀벌의 일과 돈 편지",
+    en: "💌 Bee's Career & Wealth Letter"
+  },
+  love: {
+    ko: "💌 꿀벌의 인연 편지",
+    en: "💌 Bee's Relationship Letter"
+  },
+  wellness: {
+    ko: "💌 꿀벌의 회복 편지",
+    en: "💌 Bee's Wellness Letter"
+  }
+};
+
+const CATEGORY_LETTERS = {
+  general: {
+    ko: "<p>{name} 이번 종합 운세에서는 {energy}이 오늘의 작은 선택, 이번 달의 리듬, 올해의 큰 방향 속에서 어떻게 움직이는지 먼저 살펴볼게요.</p><p>지금 필요한 건 모든 일을 한꺼번에 해석하려는 조급함보다, 하루에 하나씩 운의 결을 확인하며 중심을 잃지 않는 태도예요. 좋은 기운은 요란하게 오기보다 반복되는 작은 신호로 먼저 다가옵니다.</p>",
+    en: "<p>{name}, in this general reading, the bee is looking at how your {energy} moves through today's small choices, this month's rhythm, and the larger shape of the year.</p><p>The message here is not to decode everything at once. Follow the small repeating signals, keep your center, and let the fortune reveal itself one layer at a time.</p>"
+  },
+  work_money: {
+    ko: "<p>{name} 일과 돈의 영역에서 {energy}은 어디에 힘을 쓰면 가치가 쌓이고, 어디서 에너지가 조용히 새는지를 알려주는 나침반이 됩니다.</p><p>오늘의 조언은 성과를 재촉하기보다 당신만의 전문성, 신뢰, 루틴을 돈이 머무는 구조로 바꾸는 데 있어요. 작게라도 기록하고 정리한 실력은 나중에 훨씬 큰 보상으로 돌아옵니다.</p>",
+    en: "<p>{name}, in career and wealth, your {energy} becomes a compass for where value can accumulate and where your effort may quietly leak away.</p><p>The advice is to turn your skill, trust, and routine into a structure that money can stay inside. Even small records, systems, and refined expertise can return later as much larger rewards.</p>"
+  },
+  love: {
+    ko: "<p>{name} 사랑과 인연에서는 {energy}이 마음을 열고 닫는 방식, 끌리는 사람의 온도, 오래 가는 관계의 호흡을 보여줘요.</p><p>이번 편지는 상대를 더 잘 맞히기 위한 점괘보다, 당신이 어떤 순간에 외로워지고 어떤 말에 안전함을 느끼는지 알아차리라는 초대에 가까워요. 다정함은 참는 것이 아니라 서로의 리듬을 알려주는 데서 시작됩니다.</p>",
+    en: "<p>{name}, in love and relationships, your {energy} shows how your heart opens, what kind of warmth you are drawn to, and what rhythm allows a bond to last.</p><p>This letter is less about predicting another person and more about noticing when you feel lonely, safe, seen, or misunderstood. Tenderness begins when you can name your rhythm instead of simply enduring.</p>"
+  },
+  wellness: {
+    ko: "<p>{name} 건강과 마음의 리포트에서 {energy}은 몸이 보내는 신호와 마음이 지치는 패턴을 섬세하게 비춰주는 거울입니다.</p><p>지금은 더 강하게 버티는 법보다, 회복의 속도를 존중하는 법이 중요해요. 수면, 온도, 식사, 혼자 있는 시간처럼 사소해 보이는 것들이 당신의 운을 다시 맑게 정돈하는 가장 현실적인 처방이 됩니다.</p>",
+    en: "<p>{name}, in wellness, your {energy} works like a mirror for the signals of the body and the patterns that tire the mind.</p><p>The key is not to force yourself to endure more. Respect the pace of recovery. Sleep, warmth, food, movement, and quiet time may look ordinary, but they are the most practical medicine for clearing your fortune again.</p>"
+  }
+};
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function getLetterName() {
+  const safeName = escapeHtml(currentSaju.name || '');
+  if (currentLang === 'ko') return safeName ? `${safeName}님,` : '당신,';
+  return safeName || 'You';
+}
+
+function getCategoryLetterTitle(type) {
+  const titleSet = CATEGORY_LETTER_TITLES[type];
+  return (titleSet && titleSet[currentLang]) || getT('letter_title');
+}
+
+function getCategoryLetter(type, archIndex) {
+  const letterSet = CATEGORY_LETTERS[type] || CATEGORY_LETTERS.general;
+  const energySet = DAY_ENERGY_LABELS[archIndex] || DAY_ENERGY_LABELS[0];
+  const energy = currentLang === 'ko' ? energySet.ko : energySet.en;
+  const rawLetter = letterSet[currentLang] || letterSet.ko;
+  return rawLetter
+    .replace(/\{name\}/g, getLetterName())
+    .replace(/\{energy\}/g, energy);
+}
+
 // SAJU_DATA - 이전 코드 그대로 가져오기 (긴 데이터)
 const SAJU_DATA = {
 0: { 
@@ -1658,15 +1740,13 @@ function showResult(type) {
   `;
   
   // 3. 꿀벌의 편지
-  if (SAJU_DATA[archIndex] && SAJU_DATA[archIndex].counseling) {
-    const counselingText = SAJU_DATA[archIndex].counseling[currentLang];
-    html += `
-      <div class="counseling-letter">
-        <div class="letter-title">${getT('letter_title')}</div>
-        <div class="letter-body">${counselingText}</div>
-      </div>
-    `;
-  }
+  const counselingText = getCategoryLetter(type, archIndex);
+  html += `
+    <div class="counseling-letter">
+      <div class="letter-title">${getCategoryLetterTitle(type)}</div>
+      <div class="letter-body">${counselingText}</div>
+    </div>
+  `;
   
 // 매달 다른 결과를 보여주기 위해 연도와 월을 조합한 '시크릿 숫자' 생성
 const now = new Date();
