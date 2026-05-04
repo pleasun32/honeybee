@@ -782,7 +782,6 @@ function updateUI() {
     nameInput.placeholder = currentLang === 'ko' ? "예) 꿀벌" : "e.g., Honey Bee";
   }
 }
-  });
  
 // 페이지 순서 정의 (앞뒤 관계를 파악하기 위함)
 const SCREEN_ORDER = ['lang', 'landing', 'hub', 'input', 'loading', 'result', 'about', 'privacy', 'terms', 'disclaimer', 'contact'];
@@ -1545,7 +1544,7 @@ const SAJU_DATA = {
 // 4. 결과 페이지 렌더링
 // =========================================================================
 function buildCategoryReport(type, archIndex, seed = 0) {
-  const cats = CATEGORY_MAP[type];[cite: 1]
+  const cats = CATEGORY_MAP[type];
   if (!cats) return '';
   let html = '';
 
@@ -1565,8 +1564,8 @@ function buildCategoryReport(type, archIndex, seed = 0) {
   ];
 
   cats.forEach((item, index) => {
-    const titleText = getT(item.t);[cite: 1]
-    let bodyData = (SAJU_DATA[archIndex] && SAJU_DATA[archIndex][currentLang] && SAJU_DATA[archIndex][currentLang][item.k]) || '<p>...</p>';[cite: 1]
+    const titleText = getT(item.t);
+    let bodyData = (SAJU_DATA[archIndex] && SAJU_DATA[archIndex][currentLang] && SAJU_DATA[archIndex][currentLang][item.k]) || '<p>...</p>';
 
     // 🐝 이번 달 운세(gen_month)일 때만 문장 끝에 랜덤 멘트를 하나 섞어줍니다.
     if (item.k === 'gen_month' && seed > 0) {
@@ -1582,7 +1581,7 @@ function buildCategoryReport(type, archIndex, seed = 0) {
         <div class="report-label">${titleText}</div>
         <div class="deep-text" style="margin-top:10px;">${bodyData}</div>
       </div>
-    `;[cite: 1]
+    `;
     
     if(index === 1) {
       html += `
@@ -1592,7 +1591,7 @@ function buildCategoryReport(type, archIndex, seed = 0) {
                data-ad-width="300"
                data-ad-height="250"></ins>
         </div>
-      `;[cite: 1]
+      `;
     }
   });
   return html;
