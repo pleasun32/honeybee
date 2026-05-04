@@ -787,19 +787,46 @@ function updateUI() {
 const SCREEN_ORDER = ['lang', 'landing', 'hub', 'input', 'loading', 'result', 'about', 'privacy', 'terms', 'disclaimer', 'contact'];
 
 function goto(screenId) {
-  const currentScreen = document.querySelector('.screen[style*="display: flex"], .screen.active, .screen.slide-next, .screen.slide-back');
+  const screens = document.querySelectorAll('.screen');
   const targetScreen = document.getElementById('screen-' + screenId);
   
+  // 이동할 대상이 없으면 중단
   if (!targetScreen) return;
 
-  // 현재 화면의 ID 추출
-  const currentId = currentScreen ? currentScreen.id.replace('screen-', '') : '';
-  
-  // 모든 화면에서 애니메이션 클래스 제거 및 숨김
-  document.querySelectorAll('.screen').forEach(s => {
+  // 1. 현재 켜져 있는 화면의 ID를 안전하게 찾기
+  let currentId = '';
+  screens.forEach(s => {
+    if (window.getComputedStyle(s).display !== 'none') {
+      currentId = s.id.replace('screen-', '');
+    }
+  });
+
+  // 2. 모든 화면의 애니메이션 클래스를 지우고 숨김
+  screens.forEach(s => {
     s.classList.remove('active', 'slide-next', 'slide-back');
     s.style.display = 'none';
   });
+
+  // 3. 페이지 순서에 맞춰 애니메이션 방향 정하기
+  // (스크립트 상단에 SCREEN_ORDER 배열이 정의되어 있어야 합니다)
+  const currentIndex = (typeof SCREEN_ORDER !== 'undefined') ? SCREEN_ORDER.indexOf(currentId) : -1;
+  const targetIndex = (typeof SCREEN_ORDER !== 'undefined') ? SCREEN_ORDER.indexOf(screenId) : -1;
+
+  if (currentIndex === -1 || currentIndex < targetIndex) {
+    targetScreen.classList.add('slide-next'); // 다음으로 넘어가는 효과
+  } else {
+    targetScreen.classList.add('slide-back'); // 이전으로 돌아가는 효과
+  }
+
+  // 4. 대상 화면 보여주기
+  targetScreen.style.display = 'flex';
+  window.scrollTo(0, 0);
+
+  // 5. 카카오 광고 리프레시 (함수가 있는 경우에만)
+  if (typeof refreshKakaoAds === "function") {
+    refreshKakaoAds();
+  }
+}
 
   // 페이지 순서에 따라 애니메이션 방향 결정
   const currentIndex = SCREEN_ORDER.indexOf(currentId);
