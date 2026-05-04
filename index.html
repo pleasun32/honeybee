@@ -786,9 +786,6 @@ function updateUI() {
 // 페이지 순서 정의 (앞뒤 관계를 파악하기 위함)
 const SCREEN_ORDER = ['lang', 'landing', 'hub', 'input', 'loading', 'result', 'about', 'privacy', 'terms', 'disclaimer', 'contact'];
 
-// 페이지 순서 정의 (앞뒤 관계를 파악하기 위함)
-const SCREEN_ORDER = ['lang', 'landing', 'hub', 'input', 'loading', 'result', 'about', 'privacy', 'terms', 'disclaimer', 'contact'];
-
 function goto(screenId) {
   const screens = document.querySelectorAll('.screen');
   const targetScreen = document.getElementById('screen-' + screenId);
@@ -830,23 +827,7 @@ function goto(screenId) {
   }
 }
 
-  // 페이지 순서에 따라 애니메이션 방향 결정
-  const currentIndex = SCREEN_ORDER.indexOf(currentId);
-  const targetIndex = SCREEN_ORDER.indexOf(screenId);
 
-  if (currentIndex === -1 || currentIndex < targetIndex) {
-    // 다음 페이지로 이동 (오른쪽 -> 왼쪽)
-    targetScreen.classList.add('slide-next');
-  } else {
-    // 이전 페이지로 이동 (왼쪽 -> 오른쪽)
-    targetScreen.classList.add('slide-back');
-  }
-
-  targetScreen.style.display = 'flex';
-  window.scrollTo(0, 0);
-  // 카카오 광고 갱신
-  refreshKakaoAds();
-}
 
 function setLang(lang) {
   currentLang = lang;
