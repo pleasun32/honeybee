@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>꿀벌 사주 - K-Saju Storytelling</title>
+<title>꿀벌 사주 | Free Korean Saju Reading</title>
 
 <!-- SEO 메타 태그 -->
-<meta name="description" content="무료 한국 전통 사주 풀이! 따뜻한 꿀벌이 들려주는 당신만의 특별한 사주 스토리텔링. 종합운세, 재물운, 애정운, 건강운까지 무료로 받아보세요." />
-<meta name="keywords" content="사주, 무료사주, 사주풀이, 오늘의운세, 신년운세, 만세력, 명리학, 한국사주, Korean Saju" />
+<meta name="description" content="무료 한국 사주 사이트 꿀벌 사주. 생년월일로 종합운세, 일과 돈, 사랑과 인연, 건강과 마음을 따뜻한 스토리텔링으로 확인해보세요. Free Korean Saju reading site with warm life insights." />
+<meta name="keywords" content="사주, 무료사주, 사주풀이, 오늘의운세, 신년운세, 만세력, 명리학, 한국사주, free saju, free Korean saju, Korean Saju reading, Four Pillars" />
 <meta name="author" content="꿀벌 사주" />
 <meta name="robots" content="index, follow" />
 
 <!-- Open Graph -->
-<meta property="og:title" content="🍯 무료 꿀벌 사주 - 따뜻한 한국 전통 사주 풀이" />
-<meta property="og:description" content="무료로 읽는 따뜻한 사주 스토리텔링! 당신의 마음속 풍경화는 어떤 모습일까요? 🐝" />
+<meta property="og:title" content="🍯 꿀벌 사주 | Free Korean Saju Reading" />
+<meta property="og:description" content="무료 사주 사이트에서 나만의 사주 풍경화를 받아보세요. Get a warm free Korean Saju reading in Korean or English. 🐝" />
 <meta property="og:url" content="https://honeybeesaju.site" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="ko_KR" />
@@ -364,9 +364,22 @@
 
   .mt-sm { margin-top: 16px; } .mt-md { margin-top: 24px; } .mt-lg { margin-top: 40px; } .mb-sm { margin-bottom: 16px; } .mb-md { margin-bottom: 24px; }
   
-  .share-wrapper { display: flex; gap: 10px; margin-top: 24px; margin-bottom: 24px; }
-  .share-wrapper button { flex: 1; font-size: 16px; padding: 14px 10px; }
+  .share-wrapper { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 24px; margin-bottom: 10px; }
+  .share-wrapper button { width: 100%; min-height: 54px; font-size: 16px; padding: 14px 10px; }
+  .share-status {
+    min-height: 22px;
+    margin-bottom: 24px;
+    text-align: center;
+    font-family: 'Nunito', 'Jua', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
   #capture-container { padding: 20px; background-color: rgba(255, 255, 255, 0.95); border-radius: 20px; margin: -20px; padding-bottom: 40px; }
+  @media (max-width: 360px) {
+    .share-wrapper { grid-template-columns: 1fr; }
+  }
 
   /* 푸터 */
   .site-footer { margin-top: 40px; padding: 24px 12px; text-align: center; border-top: 2px dashed rgba(28, 63, 47, 0.15); }
@@ -592,7 +605,7 @@
 <section id="screen-loading" class="screen">
   <div class="center" style="margin-top: 25vh;">
     <div class="img-wrap" style="gap: 20px;">
-      <img src="bee2.svg" alt="bee" class="bee-img-small anim-hover">
+      <img src="honeypot.svg" alt="honey pot" class="bee-img-small anim-hover">
     </div>
     <h2 class="mt-lg" id="loading-title-el" data-t="loading_title">기운을 모으는 중...</h2>
     <div class="loading-dots"><span></span><span></span><span></span></div>
@@ -623,8 +636,9 @@
  
   <div class="share-wrapper">
     <button id="btn-download-img" class="btn-game btn-green" onclick="downloadImage()">📸 <span data-t="btn_save_img">저장</span></button>
-    <button class="btn-game btn-blue" onclick="shareResult()">💌 <span data-t="btn_share">공유</span></button>
+    <button id="btn-share-link" class="btn-game btn-blue" onclick="shareResult()">💌 <span data-t="btn_share">공유</span></button>
   </div>
+  <div id="share-status" class="share-status" data-t="share_status_ready">무료 사주 사이트 링크가 공유돼요 · Free Saju site link</div>
 <!-- 다른 사람 사주 보기 버튼 -->
   <div class="center" style="margin-top: 32px; padding: 20px; background: #FFF9E6; border-radius: 12px; border: 2px dashed var(--btn-yellow);">
     <p style="font-size: 14px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px;" data-t="reset_question">
@@ -1061,21 +1075,87 @@ function refreshAdsenseAds() {
 }
 
 // 공유 기능
-function shareResult() {
-  const shareData = {
-    title: '🍯 무료 꿀벌 사주',
-    text: '내 사주 풍경화를 그려봤어요! 당신도 무료로 받아보세요.',
-    url: window.location.href
-  };
-  if (navigator.share) {
-    navigator.share(shareData).catch(() => {});
-  } else if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(window.location.href).then(() => {
-      alert(currentLang === 'ko' ? '링크가 복사되었어요! 친구에게 보내주세요 🍯' : 'Link copied! Share with friends 🍯');
-    });
-  } else {
-    alert(currentLang === 'ko' ? '주소창의 URL을 복사하여 공유해주세요!' : 'Copy the URL to share!');
+function getShareUrl() {
+  const canonical = document.querySelector('link[rel="canonical"]');
+  const baseUrl = (canonical && canonical.href) || window.location.href;
+
+  try {
+    const url = new URL(baseUrl, window.location.href);
+    url.searchParams.set('utm_source', 'share');
+    url.searchParams.set('utm_medium', 'social');
+    url.searchParams.set('utm_campaign', 'free_saju');
+    url.searchParams.set('lang', currentLang);
+    return url.toString();
+  } catch (err) {
+    return window.location.href;
   }
+}
+
+function getShareData() {
+  return {
+    title: '🍯 꿀벌 사주 | Free Korean Saju Reading',
+    text: [
+      '무료 사주 사이트에서 내 마음속 사주 풍경화를 받아봤어요.',
+      'I got a warm free Korean Saju reading here.',
+      '한국어/English 모두 무료로 볼 수 있어요.',
+      'Try your free Saju story:'
+    ].join('\n'),
+    url: getShareUrl()
+  };
+}
+
+function setShareStatus(key) {
+  const statusEl = document.getElementById('share-status');
+  if (statusEl) statusEl.innerText = getT(key);
+}
+
+async function copyShareMessage(message) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    try {
+      await navigator.clipboard.writeText(message);
+      return true;
+    } catch (err) {}
+  }
+
+  const textArea = document.createElement('textarea');
+  textArea.value = message;
+  textArea.setAttribute('readonly', '');
+  textArea.style.position = 'fixed';
+  textArea.style.top = '-9999px';
+  textArea.style.left = '-9999px';
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  let copied = false;
+  try {
+    copied = document.execCommand('copy');
+  } catch (err) {
+    copied = false;
+  }
+
+  document.body.removeChild(textArea);
+  return copied;
+}
+
+async function shareResult() {
+  const shareData = getShareData();
+
+  if (navigator.share) {
+    try {
+      if (!navigator.canShare || navigator.canShare(shareData)) {
+        await navigator.share(shareData);
+        setShareStatus('share_status_shared');
+        return;
+      }
+    } catch (err) {
+      if (err && err.name === 'AbortError') return;
+    }
+  }
+
+  const message = `${shareData.title}\n\n${shareData.text}\n${shareData.url}`;
+  const copied = await copyShareMessage(message);
+  setShareStatus(copied ? 'share_status_copied' : 'share_status_unavailable');
 }
 
 // =========================================================================
@@ -1106,7 +1186,11 @@ const TRANSLATIONS = {
     privacy_notice: "🔒 입력 정보는 기기 내에서만 안전하게 처리되며 서버에 저장되지 않습니다.",
     err_req_name: "닉네임을 입력해주세요.", err_req_date: "날짜를 선택해주세요.", err_req_time: "시간을 선택해주세요.",
     loading_title: "기운을 모으는 중...", your_saju_label: "당신의 마음속 풍경을 보여드릴게요.", explore_title: "다른 이야기도 무료로 들어보실래요?",
-    btn_save_img: "저장", btn_share: "공유", saving_img: "저장 중...", saved_img: "저장 완료!",
+    btn_save_img: "저장", btn_share: "무료 사주 공유 / Free Saju", saving_img: "저장 중...", saved_img: "저장 완료!",
+    share_status_ready: "무료 사주 사이트 링크가 공유돼요 · Free Saju site link",
+    share_status_shared: "공유 창이 열렸어요 · Share sheet opened",
+    share_status_copied: "공유 문구와 링크를 복사했어요 · Message copied",
+    share_status_unavailable: "공유가 막혀 있어요. 주소창 링크를 복사해주세요 · Copy the address bar link",
     m_title: "내 사주의 자연 기운", m_desc: "* 빨간 테두리(일주)가 당신을 대표하는 핵심 기운이에요.",
     m_year: "년주", m_month: "월주", m_day: "일주", m_time: "시주", unknown_pillar: "모름",
     lucky_title: "🍀 나의 행운 소품", lucky_color: "행운의 색상", lucky_item: "오늘의 럭키 아이템", letter_title: "💌 꿀벌의 다정한 편지",
@@ -1142,7 +1226,11 @@ const TRANSLATIONS = {
     privacy_notice: "🔒 Your data is processed only on your device and is not stored on any server.",
     err_req_name: "Enter nickname.", err_req_date: "Select date.", err_req_time: "Select time.",
     loading_title: "Gathering energy...", your_saju_label: "Here is your inner landscape.", explore_title: "Want to hear another story?",
-    btn_save_img: "Save", btn_share: "Share", saving_img: "Saving...", saved_img: "Saved!",
+    btn_save_img: "Save", btn_share: "Share Free Saju / 무료 사주", saving_img: "Saving...", saved_img: "Saved!",
+    share_status_ready: "Free Saju site link · 무료 사주 사이트 링크",
+    share_status_shared: "Share sheet opened · 공유 창이 열렸어요",
+    share_status_copied: "Message and link copied · 공유 문구와 링크를 복사했어요",
+    share_status_unavailable: "Sharing is blocked. Copy the address bar link · 주소창 링크를 복사해주세요",
     m_title: "My Nature Energy", m_desc: "* Red border (Day Pillar) is your core representative energy.",
     m_year: "Year", m_month: "Month", m_day: "Day", m_time: "Hour", unknown_pillar: "Unknown",
     lucky_title: "🍀 My Lucky Items", lucky_color: "Lucky Color", lucky_item: "Today's Lucky Pick", letter_title: "💌 Bee's Warm Letter",
@@ -1808,6 +1896,8 @@ html += buildCategoryReport(type, archIndex, monthlySeed);
   upsellGrid.innerHTML = allTypes.filter(x => x.t !== type).map(x => 
     `<div class="tile-game" onclick="openReading('${x.t}')"><div class="tile-icon">${x.i}</div><div class="tile-title">${getT(x.k)}</div></div>`
   ).join('');
+
+  setShareStatus('share_status_ready');
 
   goto('result');
 }
