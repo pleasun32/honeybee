@@ -38,63 +38,6 @@
 <!-- Kakao AdFit is loaded lazily after a visible ad slot is rendered. -->
 
 <style>
-/* 🍯 1. 귀여운 윤기 좔좔 꿀 박스 */
-.cute-glossy-card {
-    background: linear-gradient(135deg, #FFDE59 0%, #FFBD59 100%);
-    border-radius: 35px; /* 아주 동글동글하게 */
-    border: 4px solid #FFF3B0; /* 밝은 테두리로 귀여움 강조 */
-    box-shadow: 
-        inset 0px 10px 15px rgba(255, 255, 255, 0.9), /* 위쪽 빵빵한 빛 반사 */
-        inset 0px -6px 10px rgba(230, 115, 0, 0.2), /* 아래쪽 둥근 입체감 */
-        0px 12px 25px rgba(255, 189, 89, 0.4); /* 바깥쪽 따뜻한 그림자 */
-    position: relative;
-    overflow: hidden;
-}
-
-/* 꿀방울 하이라이트 (박스 왼쪽 위에 반짝이는 느낌) */
-.cute-glossy-card::before {
-    content: '';
-    position: absolute;
-    top: 3%;
-    left: 4%;
-    width: 25%;
-    height: 12%;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 50px;
-    transform: rotate(-10deg);
-    filter: blur(1px);
-    pointer-events: none;
-}
-
-/* 🍯 2. 쫀득하고 통통한 꿀 버튼 */
-.cute-gooey-btn {
-    background: linear-gradient(to bottom, #FFD54F, #FF9800);
-    color: #4E342E; /* 진한 초코/갈색 글씨 */
-    font-weight: 900;
-    font-size: 1.25rem;
-    padding: 1rem 2rem;
-    border-radius: 50px;
-    border: 3px solid #FFF; /* 흰색 테두리로 깔끔하고 귀엽게 */
-    position: relative;
-    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
-        inset 0px 5px 6px rgba(255, 255, 255, 0.8), /* 버튼 위쪽 윤기 */
-        0px 6px 0px #E65100, /* 3D 두께 (진한 오렌지색) */
-        0px 10px 15px rgba(230, 81, 0, 0.4); /* 그림자 */
-    cursor: pointer;
-    text-shadow: 0px 1px 2px rgba(255,255,255,0.8); /* 글씨에 살짝 빛나는 효과 */
-}
-
-/* 버튼 눌렸을 때 (쫀득하게 꾹 눌리는 효과) */
-.cute-gooey-btn:active {
-    transform: translateY(6px); /* 아래로 내려감 */
-    box-shadow: 
-        inset 0px 2px 3px rgba(255, 255, 255, 0.8),
-        0px 0px 0px #E65100, /* 두께가 사라짐 */
-        0px 4px 6px rgba(230, 81, 0, 0.4);
-}
-
- 
   * { box-sizing: border-box; word-break: keep-all; overflow-wrap: break-word; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 :root {
     --ink: #1C3F2F; --white: #FFFFFF; --btn-yellow: #F6CD46; --btn-blue: #4DAA80;        
@@ -161,60 +104,17 @@
   .center { text-align: center; }
   
   .img-wrap { display: flex; justify-content: center; align-items: center; position: relative; min-height: 140px; width: fit-content; margin: 0 auto; }
-    .bee-img { 
-    width: 140px; height: 140px; max-width: 100%; object-fit: contain; position: relative; z-index: 2; 
-    filter: drop-shadow(0 0 25px rgba(255, 235, 130, 0.9)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.8));
-  }
-  .bee-img-small { 
-    width: 110px; height: 110px; object-fit: contain; position: relative; z-index: 2; 
-    filter: drop-shadow(0 0 20px rgba(255, 235, 130, 0.9)) drop-shadow(0 0 30px rgba(255, 255, 255, 0.8));
-  }
+  .bee-img { width: 140px; height: 140px; max-width: 100%; object-fit: contain; position: relative; z-index: 2; }
+  .bee-img-small { width: 110px; height: 110px; object-fit: contain; position: relative; z-index: 2; }
   
-  .sparkle { 
-    position: absolute; width: 14px; height: 14px; 
-    background-color: #FFF; border-radius: 50%; filter: blur(1px); 
-    animation: blink 1.5s infinite alternate ease-in-out; z-index: 1; 
-    box-shadow: 0 0 15px 5px rgba(246, 205, 70, 0.8), 0 0 30px 10px rgba(255, 255, 255, 0.6); 
-  }
- .s1 { top: 5px; right: -15px; } .s2 { bottom: 25px; left: -20px; width: 18px; height: 18px; animation-delay: 0.4s; filter: brightness(1.1); } .s3 { top: 50%; right: -30px; animation-delay: 0.8s; width: 12px; height: 12px; background-color: var(--white); box-shadow: 0 0 12px rgba(255,255,255,0.9); }
+  .sparkle { position: absolute; width: 14px; height: 14px; background-color: var(--btn-yellow); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); animation: blink 1.5s infinite alternate ease-in-out; z-index: 1; box-shadow: var(--glow); }
+  .s1 { top: 5px; right: -15px; } .s2 { bottom: 25px; left: -20px; width: 18px; height: 18px; animation-delay: 0.4s; filter: brightness(1.1); } .s3 { top: 50%; right: -30px; animation-delay: 0.8s; width: 12px; height: 12px; background-color: var(--white); box-shadow: 0 0 12px rgba(255,255,255,0.9); }
   
   @keyframes blink { 0% { opacity: 0.3; transform: scale(0.6) rotate(0deg); } 100% { opacity: 1; transform: scale(1.3) rotate(20deg); } }
   .anim-hover { animation: hover 3.5s ease-in-out infinite; }
   @keyframes hover { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
   
-.honey-drip {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 14px;
-  background: linear-gradient(180deg, #FFD96B 0%, #F6CD46 100%);
-  border-radius: 20px 20px 0 0;
-}
-
-.honey-drip::before,
-.honey-drip::after {
-  content: '';
-  position: absolute;
-  background: linear-gradient(180deg, #FFD96B 0%, #F6CD46 100%);
-  border-radius: 50%;
-}
-
-/* 큰 방울 */
-.honey-drip::before {
-  width: 16px;
-  height: 20px;
-  left: 25%;
-  top: 10px;
-}
-
-/* 작은 방울 */
-.honey-drip::after {
-  width: 10px;
-  height: 14px;
-  right: 28%;
-  top: 8px;
-}
+  .honey-drip { position: absolute; top: 0; left: 0; right: 0; height: 18px; background-color: var(--btn-yellow); border-radius: 13.5px 13.5px 0 0; z-index: 0; pointer-events: none; opacity: 0.95; }
 .speech-bubble {
     position: relative;
     background: var(--white);
@@ -230,41 +130,26 @@
 .btn-game {
     display: flex; justify-content: center; align-items: center; gap: 8px;
     width: 100%; padding: 17px 24px;
-    background: linear-gradient(135deg, #FFF1AC 0%, #F6CD46 50%, #FFD96B 100%);
+    background: linear-gradient(180deg, #FFD96B 0%, var(--btn-yellow) 100%);
     color: var(--ink);
-    border: 2px solid #FFFFFF;
-    border-radius: 25px; /* 기존보다 더 둥글둥글하게 */
+    border: var(--border-width) solid rgba(28, 63, 47, 0.85);
+    border-radius: 18px;
     font-family: 'Jua', sans-serif; font-size: 19px;
     cursor: pointer; text-align: center;
     transition: all 0.25s var(--ease-bounce);
-    box-shadow: 0 4px 15px rgba(246, 205, 70, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-soft);
     letter-spacing: 0.5px;
     position: relative;
-    overflow: hidden; /* 빛 반사를 버튼 안쪽으로 가둠 */
   }
-
-  /* 버튼 위를 지나가는 반짝이는 윤기 효과 */
-  .btn-game::before {
-    content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
-    transform: skewX(-25deg);
-    animation: fairy-shine 3s infinite;
-  }
-
-  @keyframes fairy-shine {
-    0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; }
-  }
-
   .btn-game:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 20px rgba(246, 205, 70, 0.7), inset 0 2px 5px rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft-hover);
   }
-
   .btn-game:active {
     transform: translateY(1px) scale(0.98);
-    box-shadow: 0 2px 8px rgba(246, 205, 70, 0.4);
+    box-shadow: var(--shadow-pressed);
+    transition: all 0.1s ease-out;
   }
- 
   .btn-game:disabled { opacity: 0.6; cursor: not-allowed; }
   .btn-blue {
     background: linear-gradient(180deg, #5BBE8E 0%, var(--btn-blue) 100%);
@@ -379,27 +264,27 @@
   }
   .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
   .field label { font-family: 'Jua', sans-serif; font-size: 17px; color: var(--ink); }
-  .field input, .field select { 
-    width: 100%; padding: 12px 14px; 
-    border: 2px solid rgba(246, 205, 70, 0.5); /* 꿀색 부드러운 테두리 */
-    border-radius: 20px; /* 더 동글동글하게 */
-    font-family: 'Nunito', 'Jua', sans-serif; font-size: 16px; font-weight: 700; 
-    background: rgba(255, 255, 255, 0.9); outline: none; box-sizing: border-box;
-    -webkit-appearance: none; -moz-appearance: none; appearance: none;
-    height: 50px; line-height: 1.4; transition: all 0.3s ease;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.03), 0 0 10px rgba(246, 205, 70, 0.1);
+.field input, .field select { 
+    width: 100%; 
+    padding: 12px 14px; 
+    border: 1.5px solid rgba(28, 63, 47, 0.5); 
+    border-radius: 14px; 
+    font-family: 'Nunito', 'Jua', sans-serif; 
+    font-size: 16px; 
+    font-weight: 700; 
+    background: #FAFBF9; 
+    outline: none;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 50px;
+    line-height: 1.4;
+    transition: all 0.2s ease;
   }
   .field input:hover, .field select:hover {
-    border-color: rgba(246, 205, 70, 0.8);
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.03), 0 0 15px rgba(246, 205, 70, 0.3);
+    border-color: rgba(28, 63, 47, 0.8);
   }  
-  .field input:focus, .field select:focus { 
-    background: var(--white); border-color: var(--btn-yellow);
-    /* 요정 가루처럼 은은하게 퍼지는 후광 효과 */
-    box-shadow: 0 0 0 4px rgba(246, 205, 70, 0.2), 0 0 15px rgba(246, 205, 70, 0.5), inset 0 1px 3px rgba(255, 255, 255, 0.8);
-    transform: translateY(-2px);
-  }  
-
   /* select 화살표 직접 그리기 (브라우저 기본 화살표 제거 후) */
   .field select {
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231C3F2F' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -529,14 +414,6 @@
  .lucky-title { font-family: 'Jua', sans-serif; font-size: 20px; color: var(--btn-red); margin-bottom: 18px; text-align: center; }
   .lucky-grid { display: flex; flex-direction: column; gap: 12px; }
   .lucky-item { display: flex; align-items: center; background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 14px 16px; gap: 12px; }
-  .adsbygoogle {
-    display: none !important;
-  }
-
-  .ad-container:has(.adsbygoogle) {
-    display: none;
-  }
-
 </style>
 </head>
 <body>
@@ -551,7 +428,7 @@
   </div>
   <div class="speech-bubble center">
     <div class="honey-drip"></div>
-    <h1 style="font-size: 22px; margin-bottom: 8px;">안녕하세요! <br> 꿀벌 사주에 오신 것을 환영합니다<br> Welcome to honeybee saju! </h1>
+    <h1 style="font-size: 22px; margin-bottom: 8px;">안녕하세요! <br> 꿀벌 사주에 오신 것을 환영합니다<br> Welcome! I'm Saju Bee</h1>
     <p>편안한 언어를 선택해 주세요.<br>Please select your language.</p>
   </div>
   <div class="lang-grid">
@@ -687,11 +564,9 @@
       <input type="text" id="input-name" />
     </div>
     <div class="field">
-        <label>달력 선택</label>
-  <div style="display:flex; gap:12px;">
-    <label><input type="radio" name="calendar" value="solar" checked> 양력</label>
-    <label><input type="radio" name="calendar" value="lunar"> 음력</label>
-   <div style="font-size: 12px; font-weight: 700; color: var(--text-muted); margin-top: 4px;" data-t="privacy_notice">🔒 입력 정보는 기기 내에서만 안전하게 처리되며 서버에 저장되지 않습니다.</div>
+      <label><span data-t="label_date">생년월일 (양력)</span> <span style="color:var(--btn-red);">*</span></label>
+      <input type="date" id="input-date" required />
+      <div style="font-size: 12px; font-weight: 700; color: var(--text-muted); margin-top: 4px;" data-t="privacy_notice">🔒 입력 정보는 기기 내에서만 안전하게 처리되며 서버에 저장되지 않습니다.</div>
     </div>
     <div class="field" style="margin-bottom: 8px;">
       <label><span data-t="label_time">태어난 시간</span></label>
@@ -998,7 +873,7 @@ function openReading(type) {
     goto('loading');
     // 따뜻한 로딩 메시지
     const loadingMessages = currentLang === 'ko' ? [
-      "🐝 꿀벌이 당신의 운명을 찾고 있어요...",
+      "🐝 꿀벌이 당신의 별자리를 찾고 있어요...",
       "🌸 봄, 여름, 가을, 겨울의 기운을 모으는 중...",
       "🍯 따뜻한 풍경화를 그리는 중이에요..."
     ] : [
@@ -1080,7 +955,7 @@ function submitInput() {
   
   // 🐝 따뜻한 로딩 메시지 랜덤 표시
   const loadingMessages = currentLang === 'ko' ? [
-    "🐝 꿀벌이 당신의 운명을 찾고 있어요...",
+    "🐝 꿀벌이 당신의 별자리를 찾고 있어요...",
     "🌸 봄, 여름, 가을, 겨울의 기운을 모으는 중...",
     "🍯 따뜻한 풍경화를 그리는 중이에요...",
     "✨ 당신만의 특별한 이야기를 준비하고 있어요...",
@@ -1332,7 +1207,7 @@ const TRANSLATIONS = {
     what_is_saju_title: "자연의 이치로 읽는 운세", what_is_saju_p1: "한국의 전통 명리학은 태어난 자연의 기운을 바탕으로 운명을 읽어내는 따뜻한 지혜랍니다.",
     what_is_saju_p3: "당신이 미처 몰랐던 따뜻한 인생의 풍경화를 그려드릴게요.",
     hub_pick_title: "어떤 이야기가 궁금하신가요?", p_premium: "⭐ 추천",
-    onb_intro: "생년월일을 알려주세요", label_name: "닉네임", label_date: "생년월일 (양력)", label_time: "태어난 시간", time_opt_placeholder: "시간을 선택해주세요",
+    onb_intro: "별자리를 알려주세요", label_name: "닉네임", label_date: "생년월일 (양력)", label_time: "태어난 시간", time_opt_placeholder: "시간을 선택해주세요",
     time_unknown_check: "태어난 시간을 잘 모르겠어요", label_gender: "성별", gender_f: "여성", gender_m: "남성", onb_submit: "사주 풍경화 그리기",
     privacy_notice: "🔒 입력 정보는 기기 내에서만 안전하게 처리되며 서버에 저장되지 않습니다.",
     err_req_name: "닉네임을 입력해주세요.", err_req_date: "날짜를 선택해주세요.", err_req_time: "시간을 선택해주세요.",
@@ -2467,7 +2342,7 @@ html += buildCategoryReport(type, archIndex, monthlySeed);
         <p style="font-size: 14.5px; font-weight: 700; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">${travel.ko.desc}</p>
         
         <!-- 블로그가 없으시므로 우선 아고다/스카이스캐너 같은 제휴 링크로 대체해두었습니다. -->
-        <a href="/" target="_blank" class="btn-game btn-blue" style="text-decoration: none; margin-bottom: 16px;">
+        <a href="https://www.agoda.com/" target="_blank" class="btn-game btn-blue" style="text-decoration: none; margin-bottom: 16px;">
           🍯 숙소 & 항공권 알아보러 가기
         </a>
         
@@ -2591,16 +2466,6 @@ async function downloadImage() {
   }
 }
 
-  // 🔽 여기쯤에 추가
-  document.querySelectorAll('input[name="calendar"]').forEach(el => {
-    el.addEventListener('change', () => {
-      const isLunar = document.querySelector('input[name="calendar"]:checked').value === 'lunar';
-      document.querySelector('[data-t="label_date"]').innerText = isLunar 
-        ? '생년월일 (음력)' 
-        : '생년월일 (양력)';
-    });
-  });
- 
 // 처음 로드
 window.onload = function() { updateUI(); };
 </script>
