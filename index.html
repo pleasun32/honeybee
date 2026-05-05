@@ -687,9 +687,11 @@
       <input type="text" id="input-name" />
     </div>
     <div class="field">
-      <label><span data-t="label_date">생년월일 (양력)</span> <span style="color:var(--btn-red);">*</span></label>
-      <input type="date" id="input-date" required />
-      <div style="font-size: 12px; font-weight: 700; color: var(--text-muted); margin-top: 4px;" data-t="privacy_notice">🔒 입력 정보는 기기 내에서만 안전하게 처리되며 서버에 저장되지 않습니다.</div>
+        <label>달력 선택</label>
+  <div style="display:flex; gap:12px;">
+    <label><input type="radio" name="calendar" value="solar" checked> 양력</label>
+    <label><input type="radio" name="calendar" value="lunar"> 음력</label>
+   <div style="font-size: 12px; font-weight: 700; color: var(--text-muted); margin-top: 4px;" data-t="privacy_notice">🔒 입력 정보는 기기 내에서만 안전하게 처리되며 서버에 저장되지 않습니다.</div>
     </div>
     <div class="field" style="margin-bottom: 8px;">
       <label><span data-t="label_time">태어난 시간</span></label>
@@ -2589,6 +2591,16 @@ async function downloadImage() {
   }
 }
 
+  // 🔽 여기쯤에 추가
+  document.querySelectorAll('input[name="calendar"]').forEach(el => {
+    el.addEventListener('change', () => {
+      const isLunar = document.querySelector('input[name="calendar"]:checked').value === 'lunar';
+      document.querySelector('[data-t="label_date"]').innerText = isLunar 
+        ? '생년월일 (음력)' 
+        : '생년월일 (양력)';
+    });
+  });
+ 
 // 처음 로드
 window.onload = function() { updateUI(); };
 </script>
