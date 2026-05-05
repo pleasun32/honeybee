@@ -547,8 +547,18 @@
   <div class="img-wrap" style="min-height: 100px;">
     <img src="bee2.svg" alt="bee" class="bee-img-small anim-hover">
   </div>
+  
+  <!-- 카카오 AdFit: 입력 폼 위 띠광고 -->
+  <div class="ad-container">
+    <ins class="kakao_ad_area" style="display:none;"
+         data-ad-unit="DAN-s256ngjMi7N3zxEq"
+         data-ad-width="320"
+         data-ad-height="50"></ins>
+  </div>
+  
   <div class="card-game">
-    <div class="center mb-md"><h2 data-t="onb_intro">별자리를 알려주세요</h2></div>
+   
+    <div class="center mb-md"><h2 data-t="onb_intro">생년월일을 알려주세요</h2></div>
     <div class="field">
       <label><span data-t="label_name">닉네임</span> <span style="color:var(--btn-red);">*</span></label>
       <input type="text" id="input-name" />
@@ -603,12 +613,20 @@
 
 <!-- ==================== SCREEN 4: LOADING ==================== -->
 <section id="screen-loading" class="screen">
-  <div class="center" style="margin-top: 25vh;">
+  <div class="center" style="margin-top: 15vh;">
     <div class="img-wrap" style="gap: 20px;">
-      <img src="honeypot.svg" alt="honey pot" class="bee-img-small anim-hover">
+      <img src="bee2.svg" alt="bee" class="bee-img-small anim-hover">
     </div>
     <h2 class="mt-lg" id="loading-title-el" data-t="loading_title">기운을 모으는 중...</h2>
     <div class="loading-dots"><span></span><span></span><span></span></div>
+    
+    <!-- 카카오 AdFit: 로딩 중 광고 (300x250) -->
+    <div class="ad-container ad-medium" style="margin-top: 40px;">
+      <ins class="kakao_ad_area" style="display:none;"
+           data-ad-unit="DAN-1WPcueyRjzBdFvbj"
+           data-ad-width="300"
+           data-ad-height="250"></ins>
+    </div>
   </div>
 </section>
 
@@ -634,11 +652,19 @@
     <div class="kakao-ad-placeholder" data-ad-unit="DAN-s256ngjMi7N3zxEq" data-ad-width="320" data-ad-height="50"></div>
   </div>
  
-  <div class="share-wrapper">
+<div class="share-wrapper">
     <button id="btn-download-img" class="btn-game btn-green" onclick="downloadImage()">📸 <span data-t="btn_save_img">저장</span></button>
-    <button id="btn-share-link" class="btn-game btn-blue" onclick="shareResult()">💌 <span data-t="btn_share">공유</span></button>
+    <button class="btn-game btn-blue" onclick="shareResult()">💌 <span data-t="btn_share">공유</span></button>
   </div>
-  <div id="share-status" class="share-status" data-t="share_status_ready">무료 사주 사이트 링크가 공유돼요 · Free Saju site link</div>
+  
+  <!-- 카카오 AdFit: 공유 버튼과 다른 사람 사주 보기 사이 광고 -->
+  <div class="ad-container">
+    <ins class="kakao_ad_area" style="display:none;"
+         data-ad-unit="DAN-s256ngjMi7N3zxEq"
+         data-ad-width="320"
+         data-ad-height="50"></ins>
+  </div>
+  
 <!-- 다른 사람 사주 보기 버튼 -->
   <div class="center" style="margin-top: 32px; padding: 20px; background: #FFF9E6; border-radius: 12px; border: 2px dashed var(--btn-yellow);">
     <p style="font-size: 14px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px;" data-t="reset_question">
