@@ -104,17 +104,44 @@
   .center { text-align: center; }
   
   .img-wrap { display: flex; justify-content: center; align-items: center; position: relative; min-height: 140px; width: fit-content; margin: 0 auto; }
-  .bee-img { width: 140px; height: 140px; max-width: 100%; object-fit: contain; position: relative; z-index: 2; }
-  .bee-img-small { width: 110px; height: 110px; object-fit: contain; position: relative; z-index: 2; }
+    .bee-img { 
+    width: 140px; height: 140px; max-width: 100%; object-fit: contain; position: relative; z-index: 2; 
+    filter: drop-shadow(0 0 25px rgba(255, 235, 130, 0.9)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.8));
+  }
+  .bee-img-small { 
+    width: 110px; height: 110px; object-fit: contain; position: relative; z-index: 2; 
+    filter: drop-shadow(0 0 20px rgba(255, 235, 130, 0.9)) drop-shadow(0 0 30px rgba(255, 255, 255, 0.8));
+  }
   
-  .sparkle { position: absolute; width: 14px; height: 14px; background-color: var(--btn-yellow); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); animation: blink 1.5s infinite alternate ease-in-out; z-index: 1; box-shadow: var(--glow); }
-  .s1 { top: 5px; right: -15px; } .s2 { bottom: 25px; left: -20px; width: 18px; height: 18px; animation-delay: 0.4s; filter: brightness(1.1); } .s3 { top: 50%; right: -30px; animation-delay: 0.8s; width: 12px; height: 12px; background-color: var(--white); box-shadow: 0 0 12px rgba(255,255,255,0.9); }
+  .sparkle { 
+    position: absolute; width: 14px; height: 14px; 
+    background-color: #FFF; border-radius: 50%; filter: blur(1px); 
+    animation: blink 1.5s infinite alternate ease-in-out; z-index: 1; 
+    box-shadow: 0 0 15px 5px rgba(246, 205, 70, 0.8), 0 0 30px 10px rgba(255, 255, 255, 0.6); 
+  }
+ .s1 { top: 5px; right: -15px; } .s2 { bottom: 25px; left: -20px; width: 18px; height: 18px; animation-delay: 0.4s; filter: brightness(1.1); } .s3 { top: 50%; right: -30px; animation-delay: 0.8s; width: 12px; height: 12px; background-color: var(--white); box-shadow: 0 0 12px rgba(255,255,255,0.9); }
   
   @keyframes blink { 0% { opacity: 0.3; transform: scale(0.6) rotate(0deg); } 100% { opacity: 1; transform: scale(1.3) rotate(20deg); } }
   .anim-hover { animation: hover 3.5s ease-in-out infinite; }
   @keyframes hover { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
   
-  .honey-drip { position: absolute; top: 0; left: 0; right: 0; height: 18px; background-color: var(--btn-yellow); border-radius: 13.5px 13.5px 0 0; z-index: 0; pointer-events: none; opacity: 0.95; }
+  .honey-drip { 
+    position: absolute; top: 0; left: 0; right: 0; height: 20px; 
+    background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, #F6CD46 30%, #E5A91A 100%); 
+    border-radius: 18px 18px 8px 8px; z-index: 0; pointer-events: none; 
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.9), 0 4px 10px rgba(246, 205, 70, 0.5);
+  }
+  /* 꿀이 방울방울 흘러내리는 모양 */
+  .honey-drip::after {
+    content: ''; position: absolute; bottom: -8px; left: 15%; width: 14px; height: 18px;
+    background: linear-gradient(180deg, #E5A91A 0%, #F6CD46 100%);
+    border-radius: 50%;
+    box-shadow: 
+      50px -5px 0 -2px #E5A91A, 
+      120px 2px 0 2px #F6CD46, 
+      210px -4px 0 -1px #E5A91A,
+      270px 1px 0 1px #F6CD46;
+  }
 .speech-bubble {
     position: relative;
     background: var(--white);
@@ -127,29 +154,40 @@
   .speech-bubble::after { content: ''; position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%); border-width: 16px 16px 0; border-style: solid; border-color: var(--ink) transparent transparent transparent; }
   .speech-bubble::before { content: ''; position: absolute; bottom: -11px; left: 50%; transform: translateX(-50%); border-width: 13px 13px 0; border-style: solid; border-color: var(--white) transparent transparent transparent; z-index: 1; }
 
-.btn-game {
+  .btn-game {
     display: flex; justify-content: center; align-items: center; gap: 8px;
     width: 100%; padding: 17px 24px;
-    background: linear-gradient(180deg, #FFD96B 0%, var(--btn-yellow) 100%);
+    background: linear-gradient(135deg, #FFF1AC 0%, #F6CD46 50%, #FFD96B 100%);
     color: var(--ink);
-    border: var(--border-width) solid rgba(28, 63, 47, 0.85);
-    border-radius: 18px;
+    border: 2px solid #FFFFFF;
+    border-radius: 25px; /* 더 둥글둥글하게 */
     font-family: 'Jua', sans-serif; font-size: 19px;
     cursor: pointer; text-align: center;
     transition: all 0.25s var(--ease-bounce);
-    box-shadow: var(--shadow-soft);
+    box-shadow: 0 4px 15px rgba(246, 205, 70, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.9);
     letter-spacing: 0.5px;
     position: relative;
+    overflow: hidden; /* 빛 반사를 버튼 안쪽으로 가둠 */
+  }
+  /* 버튼 위를 지나가는 반짝이는 윤기 효과 */
+  .btn-game::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    animation: fairy-shine 3s infinite;
+  }
+  @keyframes fairy-shine {
+    0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; }
   }
   .btn-game:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-soft-hover);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(246, 205, 70, 0.7), inset 0 2px 5px rgba(255, 255, 255, 1);
   }
   .btn-game:active {
     transform: translateY(1px) scale(0.98);
-    box-shadow: var(--shadow-pressed);
-    transition: all 0.1s ease-out;
+    box-shadow: 0 2px 8px rgba(246, 205, 70, 0.4);
   }
+
   .btn-game:disabled { opacity: 0.6; cursor: not-allowed; }
   .btn-blue {
     background: linear-gradient(180deg, #5BBE8E 0%, var(--btn-blue) 100%);
@@ -264,27 +302,27 @@
   }
   .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
   .field label { font-family: 'Jua', sans-serif; font-size: 17px; color: var(--ink); }
-.field input, .field select { 
-    width: 100%; 
-    padding: 12px 14px; 
-    border: 1.5px solid rgba(28, 63, 47, 0.5); 
-    border-radius: 14px; 
-    font-family: 'Nunito', 'Jua', sans-serif; 
-    font-size: 16px; 
-    font-weight: 700; 
-    background: #FAFBF9; 
-    outline: none;
-    box-sizing: border-box;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    height: 50px;
-    line-height: 1.4;
-    transition: all 0.2s ease;
+  .field input, .field select { 
+    width: 100%; padding: 12px 14px; 
+    border: 2px solid rgba(246, 205, 70, 0.5); /* 꿀색 부드러운 테두리 */
+    border-radius: 20px; /* 더 동글동글하게 */
+    font-family: 'Nunito', 'Jua', sans-serif; font-size: 16px; font-weight: 700; 
+    background: rgba(255, 255, 255, 0.9); outline: none; box-sizing: border-box;
+    -webkit-appearance: none; -moz-appearance: none; appearance: none;
+    height: 50px; line-height: 1.4; transition: all 0.3s ease;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.03), 0 0 10px rgba(246, 205, 70, 0.1);
   }
   .field input:hover, .field select:hover {
-    border-color: rgba(28, 63, 47, 0.8);
+    border-color: rgba(246, 205, 70, 0.8);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.03), 0 0 15px rgba(246, 205, 70, 0.3);
   }  
+  .field input:focus, .field select:focus { 
+    background: var(--white); border-color: var(--btn-yellow);
+    /* 요정 가루처럼 은은하게 퍼지는 후광 효과 */
+    box-shadow: 0 0 0 4px rgba(246, 205, 70, 0.2), 0 0 15px rgba(246, 205, 70, 0.5), inset 0 1px 3px rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
+  }  
+
   /* select 화살표 직접 그리기 (브라우저 기본 화살표 제거 후) */
   .field select {
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231C3F2F' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
