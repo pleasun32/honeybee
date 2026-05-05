@@ -183,28 +183,25 @@
   @keyframes hover { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
   
   .honey-drip {
-    position: absolute; top: 0; left: 0; right: 0; height: 20px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, #5BBE8E 30%, #4DAA80 100%);
-    border-radius: 18px 18px 8px 8px; z-index: 0; pointer-events: none;
-    box-shadow: inset 0 2px 4px rgba(255,255,255,0.9), 0 4px 10px rgba(77, 170, 128, 0.5);
+    position: absolute; top: 0; left: 0; right: 0; height: 22px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, #8EE5C0 14%, #4DAA80 52%, #357A5C 100%);
+    border-radius: 18px 18px 4px 4px;
+    z-index: 2; pointer-events: none; overflow: hidden;
+    box-shadow: inset 0 5px 10px rgba(255,255,255,0.75), inset 0 -4px 6px rgba(20,80,50,0.22), 0 4px 12px rgba(77,170,128,0.4);
   }
-  /* 방울방울 흘러내리는 모양 */
-  .honey-drip::after {
-    content: ''; position: absolute; bottom: -8px; left: 15%; width: 14px; height: 18px;
-    background: linear-gradient(180deg, #4DAA80 0%, #5BBE8E 100%);
-    border-radius: 50%;
-    box-shadow:
-      50px -5px 0 -2px #4DAA80,
-      120px 2px 0 2px #5BBE8E,
-      210px -4px 0 -1px #4DAA80,
-      270px 1px 0 1px #5BBE8E;
+  .honey-drip::before {
+    content: ''; position: absolute;
+    top: 3px; left: 5%; width: 36%; height: 9px;
+    background: rgba(255,255,255,0.62);
+    border-radius: 50px; filter: blur(2px);
   }
+  .honey-drip::after { display: none; }
 .speech-bubble {
     position: relative;
     background: var(--white);
     border: 2px solid var(--btn-blue);
     border-radius: 22px;
-    padding: 36px 24px 22px;
+    padding: 34px 24px 20px;
     margin-bottom: 24px;
     box-shadow: 0 0 20px rgba(246, 205, 70, 0.5), 0 6px 16px rgba(28, 63, 47, 0.08), 0 2px 4px rgba(28, 63, 47, 0.04);
   }  
@@ -444,7 +441,7 @@
     background: var(--white);
     border: 2px solid var(--btn-blue);
     border-radius: 20px;
-    padding: 38px 24px 28px;
+    padding: 34px 24px 22px;
     margin-bottom: 24px;
     box-shadow: 0 0 20px rgba(246, 205, 70, 0.5), 0 6px 16px rgba(28, 63, 47, 0.08), 0 2px 4px rgba(28, 63, 47, 0.04);
     position: relative;
@@ -490,7 +487,7 @@
   
   /* 광고 컨테이너 */
   .ad-container {
-    width: 100%; margin: 24px 0; display: flex; flex-direction: column; align-items: center;
+    width: 100%; margin: 6px 0; display: flex; flex-direction: column; align-items: center;
     text-align: center; min-height: 0;
   }
   .ad-container.ad-large { min-height: 0; }
@@ -2565,6 +2562,7 @@ async function downloadImage() {
   }
 }
 
+// 꿀 드립 SVG 주입
 // 전체 페이지 반짝이 스파클
 function initGlobalSparkles() {
   const wrap = document.createElement('div');
