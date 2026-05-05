@@ -38,6 +38,63 @@
 <!-- Kakao AdFit is loaded lazily after a visible ad slot is rendered. -->
 
 <style>
+/* 🍯 1. 귀여운 윤기 좔좔 꿀 박스 */
+.cute-glossy-card {
+    background: linear-gradient(135deg, #FFDE59 0%, #FFBD59 100%);
+    border-radius: 35px; /* 아주 동글동글하게 */
+    border: 4px solid #FFF3B0; /* 밝은 테두리로 귀여움 강조 */
+    box-shadow: 
+        inset 0px 10px 15px rgba(255, 255, 255, 0.9), /* 위쪽 빵빵한 빛 반사 */
+        inset 0px -6px 10px rgba(230, 115, 0, 0.2), /* 아래쪽 둥근 입체감 */
+        0px 12px 25px rgba(255, 189, 89, 0.4); /* 바깥쪽 따뜻한 그림자 */
+    position: relative;
+    overflow: hidden;
+}
+
+/* 꿀방울 하이라이트 (박스 왼쪽 위에 반짝이는 느낌) */
+.cute-glossy-card::before {
+    content: '';
+    position: absolute;
+    top: 3%;
+    left: 4%;
+    width: 25%;
+    height: 12%;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50px;
+    transform: rotate(-10deg);
+    filter: blur(1px);
+    pointer-events: none;
+}
+
+/* 🍯 2. 쫀득하고 통통한 꿀 버튼 */
+.cute-gooey-btn {
+    background: linear-gradient(to bottom, #FFD54F, #FF9800);
+    color: #4E342E; /* 진한 초코/갈색 글씨 */
+    font-weight: 900;
+    font-size: 1.25rem;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    border: 3px solid #FFF; /* 흰색 테두리로 깔끔하고 귀엽게 */
+    position: relative;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        inset 0px 5px 6px rgba(255, 255, 255, 0.8), /* 버튼 위쪽 윤기 */
+        0px 6px 0px #E65100, /* 3D 두께 (진한 오렌지색) */
+        0px 10px 15px rgba(230, 81, 0, 0.4); /* 그림자 */
+    cursor: pointer;
+    text-shadow: 0px 1px 2px rgba(255,255,255,0.8); /* 글씨에 살짝 빛나는 효과 */
+}
+
+/* 버튼 눌렸을 때 (쫀득하게 꾹 눌리는 효과) */
+.cute-gooey-btn:active {
+    transform: translateY(6px); /* 아래로 내려감 */
+    box-shadow: 
+        inset 0px 2px 3px rgba(255, 255, 255, 0.8),
+        0px 0px 0px #E65100, /* 두께가 사라짐 */
+        0px 4px 6px rgba(230, 81, 0, 0.4);
+}
+
+ 
   * { box-sizing: border-box; word-break: keep-all; overflow-wrap: break-word; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 :root {
     --ink: #1C3F2F; --white: #FFFFFF; --btn-yellow: #F6CD46; --btn-blue: #4DAA80;        
@@ -154,13 +211,13 @@
   .speech-bubble::after { content: ''; position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%); border-width: 16px 16px 0; border-style: solid; border-color: var(--ink) transparent transparent transparent; }
   .speech-bubble::before { content: ''; position: absolute; bottom: -11px; left: 50%; transform: translateX(-50%); border-width: 13px 13px 0; border-style: solid; border-color: var(--white) transparent transparent transparent; z-index: 1; }
 
-  .btn-game {
+.btn-game {
     display: flex; justify-content: center; align-items: center; gap: 8px;
     width: 100%; padding: 17px 24px;
     background: linear-gradient(135deg, #FFF1AC 0%, #F6CD46 50%, #FFD96B 100%);
     color: var(--ink);
     border: 2px solid #FFFFFF;
-    border-radius: 25px; /* 더 둥글둥글하게 */
+    border-radius: 25px; /* 기존보다 더 둥글둥글하게 */
     font-family: 'Jua', sans-serif; font-size: 19px;
     cursor: pointer; text-align: center;
     transition: all 0.25s var(--ease-bounce);
@@ -169,6 +226,7 @@
     position: relative;
     overflow: hidden; /* 빛 반사를 버튼 안쪽으로 가둠 */
   }
+
   /* 버튼 위를 지나가는 반짝이는 윤기 효과 */
   .btn-game::before {
     content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
@@ -176,18 +234,21 @@
     transform: skewX(-25deg);
     animation: fairy-shine 3s infinite;
   }
+
   @keyframes fairy-shine {
     0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; }
   }
+
   .btn-game:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 8px 20px rgba(246, 205, 70, 0.7), inset 0 2px 5px rgba(255, 255, 255, 1);
   }
+
   .btn-game:active {
     transform: translateY(1px) scale(0.98);
     box-shadow: 0 2px 8px rgba(246, 205, 70, 0.4);
   }
-
+ 
   .btn-game:disabled { opacity: 0.6; cursor: not-allowed; }
   .btn-blue {
     background: linear-gradient(180deg, #5BBE8E 0%, var(--btn-blue) 100%);
@@ -2380,7 +2441,7 @@ html += buildCategoryReport(type, archIndex, monthlySeed);
         <p style="font-size: 14.5px; font-weight: 700; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">${travel.ko.desc}</p>
         
         <!-- 블로그가 없으시므로 우선 아고다/스카이스캐너 같은 제휴 링크로 대체해두었습니다. -->
-        <a href="https://www.agoda.com/" target="_blank" class="btn-game btn-blue" style="text-decoration: none; margin-bottom: 16px;">
+        <a href="/" target="_blank" class="btn-game btn-blue" style="text-decoration: none; margin-bottom: 16px;">
           🍯 숙소 & 항공권 알아보러 가기
         </a>
         
