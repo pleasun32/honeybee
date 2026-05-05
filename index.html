@@ -401,8 +401,8 @@
   .share-wrapper { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 24px; margin-bottom: 10px; }
   .share-wrapper button { width: 100%; min-height: 54px; font-size: 16px; padding: 14px 10px; }
   .share-status {
-    min-height: 22px;
-    margin-bottom: 24px;
+    min-height: 0;
+    margin-bottom: 8px;
     text-align: center;
     font-family: 'Nunito', 'Jua', sans-serif;
     font-size: 12px;
@@ -701,7 +701,7 @@
   </div>
   
 <!-- 다른 사람 사주 보기 버튼 -->
-  <div class="center" style="margin-top: 32px; padding: 20px; background: #FFF9E6; border-radius: 12px; border: 2px dashed var(--btn-yellow);">
+  <div class="center" style="margin-top: 12px; padding: 20px; background: #FFF9E6; border-radius: 12px; border: 2px dashed var(--btn-yellow);">
     <p style="font-size: 14px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px;" data-t="reset_question">
       🐝 친구나 가족의 사주도 봐보고 싶으신가요?
     </p>
@@ -1095,7 +1095,6 @@ function refreshKakaoAds() {
       }
 
       slot.style.maxWidth = `${width}px`;
-      slot.style.minHeight = `${height}px`;
 
       // AdFit은 같은 data-ad-unit이 한 페이지에 동시에 있으면 오류를 냅니다.
       if (renderedUnits.has(unit)) {
@@ -2356,7 +2355,7 @@ html += buildCategoryReport(type, archIndex, monthlySeed);
       </div>
       
 <!-- 쿠팡 검색 위젯이 iframe으로 격리되어 렌더링됨 -->
-      <div id="coupang-ad-zone" style="margin-top: 16px; min-height: 140px; border-radius: 12px; overflow: hidden;"></div>
+      <div id="coupang-ad-zone" style="margin-top: 8px; border-radius: 12px; overflow: hidden;"></div>
 
       <div class="coupang-disclaimer">
         이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br>이에 따른 일정액의 수수료를 제공받습니다.
@@ -2382,7 +2381,7 @@ html += buildCategoryReport(type, archIndex, monthlySeed);
         </a>
         
         <!-- 여행 맞춤형 쿠팡 배너 -->
-        <div id="coupang-travel-zone" style="min-height: 140px; border-radius: 12px; overflow: hidden;"></div>
+        <div id="coupang-travel-zone" style="border-radius: 12px; overflow: hidden;"></div>
       </div>
     `;
   } else {
