@@ -2329,22 +2329,7 @@ html += buildCategoryReport(type, archIndex, monthlySeed);
     </div>
   `;
   // --- 이 위쪽은 기존 럭키박스(lucky-box) 코드 ---
-  // ✈️ 6. 여행지 추천 박스 추가 (100개 중 랜덤 추출)
-  const myElement = getElementByArchIndex(currentSaju.archIndex);
-  const travelArray = TRAVEL_DATA[myElement];
-  const travel = travelArray[Math.floor(Math.random() * travelArray.length)];
 
-  if (currentLang === 'ko') {
-    html += `
-      <div class="card-game mt-md" style="border-color: var(--btn-blue);">
-        <h3 style="font-family: 'Jua', sans-serif; font-size: 19px; color: var(--btn-blue); margin-bottom: 12px;">✈️ 꿀벌의 힐링 여행지 추천</h3>
-        <p style="font-size: 15px; margin-bottom: 16px; line-height: 1.5;">당신의 현재 기운을 시원하게 순환시켜 줄 추천 여행지는 <strong>${travel.ko.city}</strong>입니다.</p>
-        <p style="font-size: 14.5px; font-weight: 700; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">${travel.ko.desc}</p>
-        
-        <!-- 블로그가 없으시므로 우선 아고다/스카이스캐너 같은 제휴 링크로 대체해두었습니다. -->
-        <a href="https://www.agoda.com/" target="_blank" class="btn-game btn-blue" style="text-decoration: none; margin-bottom: 16px;">
-          🍯 숙소 & 항공권 알아보러 가기
-        </a>
         
         <!-- 여행 맞춤형 쿠팡 배너 -->
         <div id="coupang-travel-zone" style="min-height: 140px; border-radius: 12px; overflow: hidden;"></div>
