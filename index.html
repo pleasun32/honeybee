@@ -1374,6 +1374,424 @@ function getCategoryLetter(type, archIndex) {
 }
 
 // SAJU_DATA - 이전 코드 그대로 가져오기 (긴 데이터)
+const TRAVEL_DATA = {
+ // 🌳 목(木) 기운: 성장, 치유, 초록빛 자연과 평온한 휴식이 필요한 사람 (총 20개)
+  wood: [
+    {
+      ko: { city: "인도네시아 우붓 (Ubud, Bali)", desc: "울창한 열대 우림과 계단식 논이 빚어내는 완벽한 초록빛 힐링. 고요한 요가 리트리트와 건강한 로컬 푸드를 통해 메마른 감성을 촉촉하게 채워보세요.", keyword: "발리 우붓 리조트" },
+      en: { city: "Ubud, Bali, Indonesia", desc: "Perfect green healing created by lush tropical rainforests and terraced rice paddies. Recharge your dry emotions through quiet yoga retreats and healthy local food.", keyword: "Ubud resort" }
+    },
+    {
+      ko: { city: "태국 치앙마이 (Chiang Mai, Thailand)", desc: "느림의 미학이 살아 숨 쉬는 골목길. 세련된 로컬 상권의 카페에서 커피를 마시며 디지털 디톡스를 하고, 내면의 성장에 오롯이 집중할 수 있는 곳입니다.", keyword: "치앙마이 감성 숙소" },
+      en: { city: "Chiang Mai, Thailand", desc: "Alleys where the aesthetics of slowness breathe. A place for digital detox while drinking coffee in trendy local cafes, focusing entirely on inner growth.", keyword: "Chiang Mai hotel" }
+    },
+    {
+      ko: { city: "라오스 루앙프라방 (Luang Prabang, Laos)", desc: "메콩강의 고요한 물결과 승려들의 경건한 탁발 행렬이 마음에 큰 위안을 줍니다. 시간이 멈춘 듯한 숲속 폭포에서 생명력을 가득 충전해 보세요.", keyword: "라오스 투어" },
+      en: { city: "Luang Prabang, Laos", desc: "The calm waves of the Mekong River and the reverent alms-giving procession of monks offer great comfort. Recharge your vitality at forest waterfalls where time seems to have stopped.", keyword: "Laos tour" }
+    },
+    {
+      ko: { city: "미국 포틀랜드 (Portland, USA)", desc: "지구상에서 가장 친환경적이고 힙한 도시. 거대한 소나무 숲을 걷고, 독립 서점과 로컬 크래프트 맥주를 즐기며 자유롭고 유연한 사고를 되찾으세요.", keyword: "포틀랜드 에어비앤비" },
+      en: { city: "Portland, USA", desc: "The most eco-friendly and hip city on earth. Walk through giant pine forests, enjoy independent bookstores and local craft beer, and regain free and flexible thinking.", keyword: "Portland Airbnb" }
+    },
+    {
+      ko: { city: "스위스 인터라켄 (Interlaken, Switzerland)", desc: "알프스의 웅장한 대자연이 두 팔 벌려 당신을 안아주는 곳. 티 없이 맑은 공기와 빙하 호수를 바라보며 짓눌려 있던 가슴을 활짝 펴보세요.", keyword: "스위스 트래블 패스" },
+      en: { city: "Interlaken, Switzerland", desc: "A place where the magnificent nature of the Alps embraces you with open arms. Open your heavy chest wide while looking at the crystal-clear air and glacier lakes.", keyword: "Swiss travel pass" }
+    },
+    {
+      ko: { city: "일본 교토 (Kyoto, Japan)", desc: "수백 년 된 아라시야마 대나무 숲의 고요한 숨결. 철학자의 길을 걸으며 일상의 속도를 늦추고 부러지지 않는 유연한 지혜를 배워보세요.", keyword: "교토 료칸" },
+      en: { city: "Kyoto, Japan", desc: "The quiet breath of the centuries-old Arashiyama bamboo forest. Slow down your daily pace walking along the Philosopher's Path and learn flexible, unbreakable wisdom.", keyword: "Kyoto ryokan" }
+    },
+    {
+      ko: { city: "일본 야쿠시마 (Yakushima, Japan)", desc: "수천 년 된 삼나무들이 뿜어내는 짙은 피톤치드. 애니메이션 '원령공주'의 배경이 된 이끼 낀 원시림 속에서 태초의 생명력과 경이로움을 마주하세요.", keyword: "야쿠시마 투어" },
+      en: { city: "Yakushima, Japan", desc: "Deep phytoncide emitted by millennia-old cedar trees. Face primal vitality and wonder in the mossy primeval forest that inspired the animation 'Princess Mononoke'.", keyword: "Yakushima tour" }
+    },
+    {
+      ko: { city: "한국 담양 (Damyang, Korea)", desc: "하늘을 찌를 듯 솟아오른 짙푸른 죽녹원의 대나무 숲. 바람에 댓잎이 서걱거리는 소리를 들으며 복잡한 머릿속을 시원하게 비워내는 완벽한 휴식처입니다.", keyword: "담양 펜션" },
+      en: { city: "Damyang, Korea", desc: "The deep green bamboo forest of Juknokwon soaring into the sky. A perfect resting place to refreshingly clear your complex mind while listening to the rustling bamboo leaves in the wind.", keyword: "Damyang tour" }
+    },
+    {
+      ko: { city: "미국 시애틀 (Seattle, USA)", desc: "에버그린 스테이트라 불리는 상록수의 도시. 비 내리는 차분한 도심 속에서 따뜻한 커피 한 잔을 쥐고, 마음속 깊은 곳의 영감을 천천히 끌어올려 보세요.", keyword: "시애틀 항공권" },
+      en: { city: "Seattle, USA", desc: "The city of evergreens, known as the Evergreen State. Hold a warm cup of coffee in the calm, rainy downtown and slowly draw up the inspiration from deep within your heart.", keyword: "Seattle flight" }
+    },
+    {
+      ko: { city: "캐나다 밴쿠버 (Vancouver, Canada)", desc: "거대한 바다와 울창한 숲이 도시와 완벽하게 조화를 이루는 곳. 스탠리 파크의 거대한 나무들 사이를 자전거로 달리며 억눌렸던 에너지를 활기차게 순환시키세요.", keyword: "밴쿠버 호텔" },
+      en: { city: "Vancouver, Canada", desc: "A place where the massive ocean and lush forests perfectly harmonize with the city. Vigorously circulate your suppressed energy by cycling among the giant trees of Stanley Park.", keyword: "Vancouver hotel" }
+    },
+    {
+      ko: { city: "크로아티아 플리트비체 (Plitvice, Croatia)", desc: "요정이 살 것만 같은 에메랄드빛 호수와 폭포가 어우러진 숲. 수많은 나무가 물과 함께 호흡하는 대자연 속에서 영혼이 맑게 정화되는 경험을 누려보세요.", keyword: "플리트비체 국립공원" },
+      en: { city: "Plitvice, Croatia", desc: "A forest where fairy-like emerald lakes and waterfalls blend. Experience your soul being clearly purified in Mother Nature, where countless trees breathe with the water.", keyword: "Plitvice tour" }
+    },
+    {
+      ko: { city: "하와이 카우아이 (Kauai, Hawaii)", desc: "정원의 섬이라 불리는 하와이의 숨겨진 보석. 쥬라기 공원을 연상케 하는 압도적인 녹음과 원시 계곡 속에서 당신 안의 거대한 성장의 싹을 틔워보세요.", keyword: "카우아이 투어" },
+      en: { city: "Kauai, Hawaii, USA", desc: "The hidden gem of Hawaii, known as the Garden Isle. Sprout the massive seed of growth within you amidst the overwhelming greenery and primeval valleys reminiscent of Jurassic Park.", keyword: "Kauai tour" }
+    },
+    {
+      ko: { city: "한국 제주 곶자왈 (Gotjawal, Jeju, Korea)", desc: "화산 바위틈에서 뿌리를 내리고 살아가는 강인한 나무들의 숲. 어떤 척박한 환경에서도 기어이 생명을 피워내는 곶자왈의 강인한 생명력을 온몸으로 흡수해 보세요.", keyword: "제주도 렌트카" },
+      en: { city: "Gotjawal, Jeju, Korea", desc: "A forest of resilient trees taking root and surviving in the crevices of volcanic rocks. Absorb with your whole body the strong vitality of Gotjawal, which manages to bloom life in any barren environment.", keyword: "Jeju island tour" }
+    },
+    {
+      ko: { city: "베트남 사파 (Sapa, Vietnam)", desc: "구름 위에 맞닿은 고산 지대의 경이로운 초록빛 계단식 논. 소박한 소수 민족의 마을을 트래킹하며, 복잡한 현대 사회를 벗어나 순수한 안식을 찾아보세요.", keyword: "베트남 사파 투어" },
+      en: { city: "Sapa, Vietnam", desc: "Marvelous green terraced rice fields in the highlands touching the clouds. Trek through humble ethnic minority villages and find pure rest away from modern society.", keyword: "Sapa tour" }
+    },
+    {
+      ko: { city: "대만 아리산 (Alishan, Taiwan)", desc: "수천 년 수령의 편백나무들이 빼곡히 들어선 신성한 산. 피톤치드가 가득한 숲길을 걷고 붉은 일출을 맞이하며, 지쳐있던 몸과 마음의 뿌리를 단단하게 다시 내리세요.", keyword: "대만 아리산 기차" },
+      en: { city: "Alishan, Taiwan", desc: "A sacred mountain densely packed with millennia-old cypress trees. Walk the forest paths full of phytoncide, greet the red sunrise, and firmly replant the roots of your exhausted body and mind.", keyword: "Alishan tour" }
+    },
+    {
+      ko: { city: "독일 흑림 (Black Forest, Germany)", desc: "안데르센 동화의 무대가 된 빽빽하고 깊은 검은 숲. 햇빛조차 스며들기 힘든 고요한 숲속을 걸으며 나침반 없이도 내면의 길을 찾아내는 직관력을 기를 수 있습니다.", keyword: "독일 자동차 여행" },
+      en: { city: "Black Forest, Germany", desc: "The dense, deep black forest that served as the stage for Andersen's fairy tales. Walking through the quiet forest where even sunlight struggles to pierce, you can cultivate the intuition to find your inner path without a compass.", keyword: "Germany tour" }
+    },
+    {
+      ko: { city: "포르투갈 마데이라 (Madeira, Portugal)", desc: "대서양의 진주라 불리는 신비로운 화산섬. 안개 낀 월계수 원시림 사이를 걷는 레바다 트래킹을 통해, 팍팍한 일상에 지친 마음에 부드러운 초록빛 숨결을 불어넣으세요.", keyword: "마데이라 트래킹" },
+      en: { city: "Madeira, Portugal", desc: "A mystical volcanic island known as the pearl of the Atlantic. Breathe a soft green breath into your heart exhausted from dry daily life through a Levada trek walking among misty primeval laurel forests.", keyword: "Madeira travel" }
+    },
+    {
+      ko: { city: "싱가포르 보타닉 가든 (Botanic Gardens, Singapore)", desc: "도심 한가운데 끝없이 펼쳐진 거대하고 정교한 식물원. 뜨거운 태양 아래 생명력을 뽐내는 난초 정원을 거닐며, 도시의 편안함과 자연의 생기를 동시에 충전하세요.", keyword: "싱가포르 항공권" },
+      en: { city: "Botanic Gardens, Singapore", desc: "A massive, meticulously crafted botanical garden stretching endlessly in the middle of the city. Stroll through orchid gardens boasting vitality under the hot sun, recharging both urban comfort and nature's energy simultaneously.", keyword: "Singapore flight" }
+    },
+    {
+      ko: { city: "호주 타즈메이니아 (Tasmania, Australia)", desc: "지구상에서 가장 깨끗한 공기를 자랑하는 태고의 섬. 야생 동물이 뛰노는 원시림과 호수를 바라보며, 문명의 때가 묻지 않은 가장 순수한 당신의 본모습을 되찾아 보세요.", keyword: "타즈메이니아 투어" },
+      en: { city: "Tasmania, Australia", desc: "A primeval island boasting the cleanest air on earth. Looking at the primeval forests and lakes where wild animals roam, reclaim your purest true self untouched by the grime of civilization.", keyword: "Tasmania travel" }
+    },
+    {
+      ko: { city: "뉴질랜드 로토루아 (Rotorua, New Zealand)", desc: "거대한 레드우드 숲과 화산 지대가 빚어내는 역동적인 대자연. 하늘 높이 뻗은 붉은 나무들 사이를 걷고 따뜻한 지열 온천에 몸을 담그며 영혼의 온도를 높여보세요.", keyword: "뉴질랜드 북섬 투어" },
+      en: { city: "Rotorua, New Zealand", desc: "Dynamic Mother Nature created by massive Redwood forests and volcanic areas. Raise the temperature of your soul by walking among red trees stretching high into the sky and soaking in warm geothermal hot springs.", keyword: "New Zealand tour" }
+    }
+  ],
+ // 🔥 화(火) 기운: 열정, 에너지, 화려한 축제와 붉은 태양의 기운이 필요한 사람 (총 20개)
+  fire: [
+    {
+      ko: { city: "스페인 세비야 (Seville, Spain)", desc: "강렬한 태양 아래 끊임없이 이어지는 축제와 플라멩코의 정열. 심장 박동을 뛰게 하는 이 도시에서 당신 안의 숨겨진 열정의 불꽃을 다시 피워 올리세요.", keyword: "스페인 남부 투어" },
+      en: { city: "Seville, Spain", desc: "Endless festivals and the passion of Flamenco under the intense sun. Reignite the hidden spark of passion within you in this heart-pounding city.", keyword: "Spain tour" }
+    },
+    {
+      ko: { city: "브라질 리우데자네이루 (Rio de Janeiro, Brazil)", desc: "세계 최고의 카니발과 폭발적인 에너지가 넘치는 해변. 억눌렸던 감정을 코파카바나 해변의 파도에 던져버리고 자유롭게 환호해 보세요.", keyword: "브라질 투어" },
+      en: { city: "Rio de Janeiro, Brazil", desc: "The world's best carnival and a beach overflowing with explosive energy. Throw your suppressed emotions into the waves of Copacabana Beach and cheer freely.", keyword: "Rio de Janeiro tour" }
+    },
+    {
+      ko: { city: "쿠바 아바나 (Havana, Cuba)", desc: "빛바랜 파스텔톤 건물 사이로 흐르는 살사 음악. 낡은 올드카를 타고 말레콘 방파제를 달리며 세상에서 가장 낭만적이고 뜨거운 시간을 만끽하세요.", keyword: "쿠바 여행" },
+      en: { city: "Havana, Cuba", desc: "Salsa music flowing between faded pastel buildings. Enjoy the most romantic and passionate time riding a vintage car along the Malecon seawall.", keyword: "Havana travel" }
+    },
+    {
+      ko: { city: "멕시코 오아하카 (Oaxaca, Mexico)", desc: "원색의 강렬한 색채와 미식의 축제가 매일 열리는 예술의 도시. 미각을 자극하는 매콤한 요리와 화려한 로컬 예술이 당신의 오감을 강렬하게 일깨웁니다.", keyword: "멕시코 칸쿤 호텔" },
+      en: { city: "Oaxaca, Mexico", desc: "A city of art where vivid primary colors and culinary festivals are held every day. Spicy dishes and brilliant local art will intensely awaken your five senses.", keyword: "Mexico tour" }
+    },
+    {
+      ko: { city: "스페인 바르셀로나 (Barcelona, Spain)", desc: "가우디의 천재적인 예술혼이 도시 전체를 불태우는 곳. 쏟아지는 지중해의 햇살을 받으며 상상력의 한계를 깨고 폭발적인 창의력을 얻어 가세요.", keyword: "가우디 투어" },
+      en: { city: "Barcelona, Spain", desc: "A place where Gaudi's genius artistic soul burns through the entire city. Break the limits of your imagination and gain explosive creativity under the Mediterranean sun.", keyword: "Gaudi tour" }
+    },
+    {
+      ko: { city: "미국 호놀룰루 (Honolulu, USA)", desc: "대자연의 살아있는 화산 에너지와 알로하 스피릿. 뜨거운 모래사장 위에서 서핑을 즐기며 온몸의 세포 하나하나를 역동적으로 깨워보세요.", keyword: "하와이 항공권" },
+      en: { city: "Honolulu, Hawaii, USA", desc: "The living volcanic energy of Mother Nature and the Aloha spirit. Dynamically awaken every cell in your body while surfing on the hot sandy beach.", keyword: "Hawaii flight" }
+    },
+    {
+      ko: { city: "미국 라스베이거스 (Las Vegas, USA)", desc: "사막 한가운데서 24시간 꺼지지 않는 네온사인과 화려한 엔터테인먼트. 일상의 지루함을 날려버릴 가장 짜릿하고 화려한 일탈을 스스로에게 허락해 보세요.", keyword: "라스베이거스 호텔" },
+      en: { city: "Las Vegas, USA", desc: "Neon signs that never turn off 24/7 and glamorous entertainment in the middle of the desert. Allow yourself the most thrilling and brilliant deviation to blow away daily boredom.", keyword: "Las Vegas hotel" }
+    },
+    {
+      ko: { city: "아르헨티나 부에노스아이레스 (Buenos Aires, Argentina)", desc: "거리 곳곳에서 흘러나오는 관능적인 탱고 선율과 남미의 뜨거운 심장. 낯선 사람들과 어울려 춤을 추며 당신 안에 갇혀 있던 원초적인 열망을 분출하세요.", keyword: "부에노스아이레스 투어" },
+      en: { city: "Buenos Aires, Argentina", desc: "Sensual tango melodies flowing from every corner of the streets and the hot heart of South America. Mingle with strangers, dance, and unleash the primal desires trapped within you.", keyword: "Buenos Aires tour" }
+    },
+    {
+      ko: { city: "태국 방콕 (Bangkok, Thailand)", desc: "잠들지 않는 화려한 야경과 미각을 깨우는 강렬한 스파이스의 향연. 루프탑 바에서 도시의 불빛을 내려다보며 끓어오르는 젊음과 활기를 온몸으로 흡수하십시오.", keyword: "방콕 야시장 투어" },
+      en: { city: "Bangkok, Thailand", desc: "A brilliant night view that never sleeps and a feast of intense spices awakening your taste buds. Absorb the boiling youth and vitality looking down at the city lights from a rooftop bar.", keyword: "Bangkok tour" }
+    },
+    {
+      ko: { city: "미국 마이애미 (Miami, USA)", desc: "눈부신 태양과 끝없이 이어진 마이애미 비치의 역동적인 라틴 바이브. 야자수 아래서 트로피컬 칵테일을 마시며 인생의 가장 뜨겁고 화려한 순간을 즐겨보세요.", keyword: "마이애미 크루즈" },
+      en: { city: "Miami, USA", desc: "The dazzling sun and dynamic Latin vibes of the endless Miami Beach. Enjoy the hottest, most glamorous moments of your life drinking a tropical cocktail under palm trees.", keyword: "Miami cruise" }
+    },
+    {
+      ko: { city: "스페인 이비자 (Ibiza, Spain)", desc: "지중해의 푸른 바다와 세계 최고 수준의 비치 클럽에서 뿜어져 나오는 젊음의 열기. 음악과 춤에 온전히 취해 밤이 새도록 당신의 에너지를 하얗게 불태워 보십시오.", keyword: "이비자 클럽 투어" },
+      en: { city: "Ibiza, Spain", desc: "The heat of youth radiating from the blue Mediterranean sea and world-class beach clubs. Get completely drunk on music and dance, burning your energy white-hot all night long.", keyword: "Ibiza tour" }
+    },
+    {
+      ko: { city: "이탈리아 나폴리 (Naples, Italy)", desc: "이탈리아 특유의 다혈질적인 활기와 붉은 토마토, 강렬한 태양이 내리쬐는 열정의 항구. 시끌벅적한 골목길을 누비며 생동감 넘치는 사람들의 날것 그대로의 에너지를 받아 가세요.", keyword: "나폴리 피자 투어" },
+      en: { city: "Naples, Italy", desc: "A passionate port city where the intense sun beats down, filled with Italy's unique fiery vitality and red tomatoes. Navigate the boisterous alleys and take in the raw energy of lively people.", keyword: "Naples tour" }
+    },
+    {
+      ko: { city: "중국 마카오 (Macau, China)", desc: "동서양의 문화가 교차하는 화려한 불빛과 잠들지 않는 메가 리조트들의 뜨거운 유혹. 당신의 대담한 결단력과 승부사 기질을 시험해 볼 수 있는 가장 짜릿한 무대입니다.", keyword: "마카오 호텔 예약" },
+      en: { city: "Macau, China", desc: "The hot temptation of mega-resorts that never sleep and brilliant lights where Eastern and Western cultures cross. The most thrilling stage to test your bold determination and gambler's temperament.", keyword: "Macau hotel" }
+    },
+    {
+      ko: { city: "한국 부산 (Busan, Korea)", desc: "여름 바다의 뜨거운 열기와 펄떡이는 해산물 시장의 역동적인 에너지가 가득한 항구 도시. 탁 트인 바다를 곁에 두고 시원한 맥주잔을 부딪치며 묵은 체증을 날려버리세요.", keyword: "부산 해운대 호텔" },
+      en: { city: "Busan, Korea", desc: "A port city full of the hot heat of the summer sea and the dynamic energy of the pulsating seafood market. Blow away your frustrations clinking cool beer glasses with the wide-open sea beside you.", keyword: "Busan tour" }
+    },
+    {
+      ko: { city: "대만 타이베이 (Taipei, Taiwan)", desc: "붉은 홍등이 켜진 지우펀의 낭만과 밤새도록 활기가 넘치는 야시장의 뜨거운 열기. 왁자지껄한 인파 속에서 맛있는 길거리 음식을 탐험하며 삶의 소박한 열정을 되찾으세요.", keyword: "타이베이 야시장" },
+      en: { city: "Taipei, Taiwan", desc: "The romance of Jiufen illuminated by red lanterns and the hot excitement of the night markets lively all night. Regain simple passion for life exploring delicious street food amidst the bustling crowds.", keyword: "Taipei night market" }
+    },
+    {
+      ko: { city: "스페인 마드리드 (Madrid, Spain)", desc: "투우장의 거친 숨결과 늦은 밤까지 이어지는 타파스 골목의 시끌벅적한 열정. 스페인의 뜨거운 피가 흐르는 이 도시에서 당신의 심장 박동을 최고조로 끌어올리세요.", keyword: "마드리드 투어" },
+      en: { city: "Madrid, Spain", desc: "The rough breath of the bullring and the boisterous passion of the tapas alleys continuing late into the night. Raise your heartbeat to the max in this city where Spain's hot blood flows.", keyword: "Madrid tour" }
+    },
+    {
+      ko: { city: "베트남 호치민 (Ho Chi Minh City, Vietnam)", desc: "수백만 대의 오토바이가 뿜어내는 맹렬한 도시의 에너지와 끊임없이 변화하는 역동성. 무서운 속도로 성장하는 이 도시의 뜨거운 심장부에서 당신의 잠재력을 폭발시킬 자극을 받으세요.", keyword: "호치민 무이네 투어" },
+      en: { city: "Ho Chi Minh City, Vietnam", desc: "The fierce urban energy emitted by millions of motorcycles and constant dynamic change. Get the stimulation to explode your potential in the hot heart of this terrifyingly fast-growing city.", keyword: "Ho Chi Minh tour" }
+    },
+    {
+      ko: { city: "포르투갈 리스본 (Lisbon, Portugal)", desc: "눈부신 햇살을 머금은 붉은 지붕들과 골목길을 채우는 파두(Fado)의 짙은 호소력. 뜨거운 눈물과 진한 감동이 공존하는 이곳에서 메말랐던 감정의 샘을 붉게 채워 넣으세요.", keyword: "리스본 트램 투어" },
+      en: { city: "Lisbon, Portugal", desc: "Red roofs bathed in dazzling sunlight and the deep appeal of Fado filling the alleys. Fill your dried-up emotional spring warmly red in this place where hot tears and deep emotions coexist.", keyword: "Lisbon travel" }
+    },
+    {
+      ko: { city: "미국 로스앤젤레스 (Los Angeles, USA)", desc: "할리우드의 화려한 꿈과 자유분방한 에너지가 작열하는 캘리포니아의 눈부신 태양. 탁 트인 팜트리 가로수길을 오픈카로 달리며 세상의 주인공이 된 듯한 자신감을 되찾으십시오.", keyword: "로스앤젤레스 렌트카" },
+      en: { city: "Los Angeles, USA", desc: "The glamorous dreams of Hollywood and the dazzling California sun where free-spirited energy blazes. Regain the confidence of being the protagonist of the world driving an open-top car along wide palm tree-lined streets.", keyword: "LA tour" }
+    },
+    {
+      ko: { city: "태국 푸껫 (Phuket, Thailand)", desc: "뜨거운 열대의 태양 아래 펼쳐진 에메랄드빛 바다와 밤이 되면 더욱 달아오르는 해변의 파티. 일상의 모든 굴레를 던져버리고 화려하고 강렬한 휴양지의 낭만 속으로 뛰어드세요.", keyword: "푸껫 풀빌라" },
+      en: { city: "Phuket, Thailand", desc: "Emerald seas spread under the hot tropical sun and beach parties that heat up even more at night. Throw away all daily shackles and dive into the romance of a glamorous, intense resort.", keyword: "Phuket resort" }
+    }
+  ],
+ // 🏔️ 토(土) 기운: 안정, 포용력, 광활한 대지와 역사적 웅장함의 위로가 필요한 사람 (총 20개)
+  earth: [
+    {
+      ko: { city: "튀르키예 카파도키아 (Cappadocia, Turkey)", desc: "기암괴석 위로 수백 개의 열기구가 떠오르는 비현실적인 대지. 수천 년의 바람이 깎아낸 광활한 자연 앞에서 일상의 스트레스를 모래알처럼 날려버리세요.", keyword: "카파도키아 열기구" },
+      en: { city: "Cappadocia, Turkey", desc: "An unreal land where hundreds of hot air balloons rise over bizarre rock formations. Blow away daily stress like grains of sand before the vast nature carved by millennia of wind.", keyword: "Cappadocia balloon" }
+    },
+    {
+      ko: { city: "미국 세도나 (Sedona, USA)", desc: "지구의 강력한 자기장(볼텍스)이 흐르는 붉은 바위의 땅. 맨발로 대지를 디디며 내면의 흩어진 중심을 무겁고 단단하게 되찾을 수 있는 최고의 성지입니다.", keyword: "세도나 투어" },
+      en: { city: "Sedona, Arizona, USA", desc: "A land of red rocks where the earth's powerful magnetic vortexes flow. The ultimate sanctuary to firmly regain your scattered inner center by stepping barefoot on the earth.", keyword: "Sedona tour" }
+    },
+    {
+      ko: { city: "페루 쿠스코 (Cusco, Peru)", desc: "안데스산맥 깊은 곳에 자리한 잉카 제국의 신비. 고산 지대의 맑은 공기를 마시며, 거대한 돌벽에 담긴 시간의 무게를 통해 삶의 묵직한 안정감을 얻어보세요.", keyword: "마추픽추 투어" },
+      en: { city: "Cusco, Peru", desc: "The mystery of the Inca Empire nestled deep in the Andes Mountains. Gain a weighty sense of life's stability through the weight of time held in massive stone walls, breathing the clear mountain air.", keyword: "Machu Picchu tour" }
+    },
+    {
+      ko: { city: "모로코 마라케시 (Marrakech, Morocco)", desc: "끝없이 펼쳐진 사하라 사막의 관문이자 붉은 흙빛의 도시. 미로 같은 메디나의 활기찬 상권을 걷하며, 대지가 뿜어내는 원초적이고 강렬한 생명력을 느껴보세요.", keyword: "사하라 사막 투어" },
+      en: { city: "Marrakech, Morocco", desc: "The gateway to the endless Sahara Desert and a city of red terracotta. Feel the primal, intense vitality the earth exudes while walking through the lively commercial areas of the maze-like Medina.", keyword: "Morocco tour" }
+    },
+    {
+      ko: { city: "캄보디아 씨엠립 (Siem Reap, Cambodia)", desc: "거대한 나무뿌리가 사원을 둥글게 품어 안은 앙코르와트의 경이로움. 자연과 인간의 역사가 하나로 융합된 이 땅에서 완벽한 위안과 포용력을 배웁니다.", keyword: "앙코르와트 가이드" },
+      en: { city: "Siem Reap, Cambodia", desc: "The wonder of Angkor Wat, where massive tree roots roundly embrace the ancient temples. Learn perfect comfort and tolerance in this land where nature and human history fuse as one.", keyword: "Angkor Wat tour" }
+    },
+    {
+      ko: { city: "호주 울루루 (Uluru, Australia)", desc: "지구의 배꼽이라 불리는 붉고 거대한 단일 바위. 세상의 중심에 홀로 우뚝 선 울루루의 장엄한 일몰을 바라보며 흔들리지 않는 굳건함을 채워 넣으세요.", keyword: "호주 아웃백 투어" },
+      en: { city: "Uluru, Australia", desc: "A massive, red monolithic rock known as the navel of the earth. Fill yourself with unshakeable steadfastness while watching the majestic sunset of Uluru, standing alone at the center of the world.", keyword: "Uluru tour" }
+    },
+    {
+      ko: { city: "미국 그랜드 캐니언 (Grand Canyon, USA)", desc: "수억 년의 지층이 겹겹이 쌓인 광활한 대협곡. 압도적인 대자연의 스케일 앞에서 복잡한 고민을 내려놓고 흔들림 없는 중심을 잡으세요.", keyword: "그랜드 캐니언 투어" },
+      en: { city: "Grand Canyon, USA", desc: "A vast canyon layered with hundreds of millions of years of strata. Lay down your complex worries before the overwhelming scale of Mother Nature and secure an unshakeable center.", keyword: "Grand Canyon tour" }
+    },
+    {
+      ko: { city: "몽골 우란바토르 (Ulaanbaatar, Mongolia)", desc: "시야를 가리는 것 하나 없이 끝없이 펼쳐진 몽골의 대초원과 고비 사막. 대지의 광활한 품에 안겨 진정한 자유와 흔들림 없는 평온을 만끽하세요.", keyword: "몽골 고비사막 투어" },
+      en: { city: "Ulaanbaatar, Mongolia", desc: "The endless Mongolian steppes and Gobi Desert with nothing blocking your view. Embrace true freedom and unshakeable tranquility in the vast embrace of the earth.", keyword: "Mongolia tour" }
+    },
+    {
+      ko: { city: "볼리비아 우유니 (Uyuni, Bolivia)", desc: "하늘과 땅의 경계가 사라지는 거대한 소금 사막. 모든 것이 반사되는 무한한 평원 위에서 내면의 가장 깊고 단단한 진실을 마주하십시오.", keyword: "우유니 사막 투어" },
+      en: { city: "Uyuni, Bolivia", desc: "A massive salt flat where the boundary between sky and earth disappears. Face your deepest, most solid inner truth on an infinite plain where everything is reflected.", keyword: "Uyuni salt flats tour" }
+    },
+    {
+      ko: { city: "이탈리아 로마 (Rome, Italy)", desc: "수천 년 제국의 역사가 살아 숨 쉬는 영원의 도시. 묵직한 돌길과 고대 유적을 걸으며, 변치 않는 견고함과 위대한 인내의 가치를 배우십시오.", keyword: "로마 바티칸 투어" },
+      en: { city: "Rome, Italy", desc: "The Eternal City where thousands of years of imperial history breathe. Learn the value of unchanging solidity and great patience walking along heavy stone streets and ancient ruins.", keyword: "Rome tour" }
+    },
+    {
+      ko: { city: "요르단 페트라 (Petra, Jordan)", desc: "붉은 바위산을 깎아 만든 웅장한 고대 도시. 장구한 세월을 견뎌낸 바위의 침묵 속에서, 어떤 시련에도 깎이지 않는 내면의 굳건함을 얻어 가세요.", keyword: "요르단 투어" },
+      en: { city: "Petra, Jordan", desc: "A magnificent ancient city carved out of red rock mountains. In the silence of the rocks that endured long ages, gain an inner firmness that cannot be chipped away by any trial.", keyword: "Petra tour" }
+    },
+    {
+      ko: { city: "이집트 카이로 (Cairo, Egypt)", desc: "황량한 사막 위로 우뚝 솟은 피라미드와 스핑크스. 인류의 가장 위대하고 무거운 유산 앞에서, 세월을 이겨내는 압도적인 인내와 안정을 충전하세요.", keyword: "이집트 피라미드 투어" },
+      en: { city: "Cairo, Egypt", desc: "Pyramids and Sphinx towering over the desolate desert. Recharge overwhelming patience and stability that withstands time before humanity's greatest and heaviest heritage.", keyword: "Egypt tour" }
+    },
+    {
+      ko: { city: "그리스 아테네 (Athens, Greece)", desc: "고대 신들의 신전이 굳건히 버티고 선 서양 문명의 요람. 파르테논 신전의 거대한 대리석 기둥을 바라보며 인생의 든든한 기둥을 다시 세우십시오.", keyword: "아테네 투어" },
+      en: { city: "Athens, Greece", desc: "The cradle of Western civilization where ancient gods' temples stand firmly. Rebuild the reliable pillars of your life looking at the massive marble columns of the Parthenon.", keyword: "Athens tour" }
+    },
+    {
+      ko: { city: "멕시코 치첸이트사 (Chichen Itza, Mexico)", desc: "밀림 속에 숨겨진 마야 문명의 웅장한 피라미드. 천문학과 건축이 융합된 이 거대한 돌의 제단에서 대자연의 질서와 포용력을 호흡하세요.", keyword: "치첸이트사 투어" },
+      en: { city: "Chichen Itza, Mexico", desc: "The magnificent pyramids of the Mayan civilization hidden in the jungle. Breathe in the order and tolerance of Mother Nature at this massive stone altar where astronomy and architecture fuse.", keyword: "Chichen Itza tour" }
+    },
+    {
+      ko: { city: "네팔 카트만두 (Kathmandu, Nepal)", desc: "세계의 지붕, 히말라야의 품에 안긴 경건한 신들의 도시. 거대한 설산이 뿜어내는 장엄한 에너지를 받으며 세속의 무거운 짐을 가벼이 털어내십시오.", keyword: "네팔 트래킹" },
+      en: { city: "Kathmandu, Nepal", desc: "The pious city of gods embraced by the Himalayas, the roof of the world. Lightly shake off the heavy burdens of the secular world while receiving the majestic energy emitted by massive snowy mountains.", keyword: "Nepal trekking" }
+    },
+    {
+      ko: { city: "칠레 아타카마 (Atacama, Chile)", desc: "지구상에서 가장 건조하고 별이 쏟아지는 황량한 사막. 생명조차 숨죽인 이 고요하고 척박한 땅에서 오히려 가장 순수하고 강인한 생명력을 발견합니다.", keyword: "아타카마 투어" },
+      en: { city: "Atacama, Chile", desc: "The driest, most desolate desert on earth where stars pour down. Discover the purest and strongest vitality precisely in this quiet, barren land where even life holds its breath.", keyword: "Atacama tour" }
+    },
+    {
+      ko: { city: "한국 경주 (Gyeongju, Korea)", desc: "발길 닿는 곳마다 왕들의 무덤과 역사가 깃든 천년 고도. 너른 능선 위로 쏟아지는 부드럽햇살을 받으며 마음의 뿌리를 차분히 내려보세요.", keyword: "경주 황리단길 숙소" },
+      en: { city: "Gyeongju, Korea", desc: "A millennial ancient city where kings' tombs and history reside everywhere you step. Calmly put down the roots of your heart while receiving the soft sunlight pouring over broad ridges.", keyword: "Gyeongju tour" }
+    },
+    {
+      ko: { city: "이탈리아 마테라 (Matera, Italy)", desc: "절벽을 파서 만든 수천 년 된 고대 석굴 주거지. 돌담 사이로 스며드는 따뜻한 햇살을 맞으며, 단단한 바위처럼 묵묵히 버텨내는 삶의 지혜를 배웁니다.", keyword: "마테라 숙소" },
+      en: { city: "Matera, Italy", desc: "A millennia-old ancient cave dwelling carved into cliffs. Learn the wisdom of life silently enduring like solid rock while facing the warm sunlight seeping through stone walls.", keyword: "Matera travel" }
+    },
+    {
+      ko: { city: "영국 에든버러 (Edinburgh, UK)", desc: "바위산 위에 세워진 고풍스러운 성과 회색빛 화강암 건물들. 세월의 풍파를 묵묵히 이겨낸 견고한 성벽을 따라 걸으며 당신의 마음을 요새화하십시오.", keyword: "에든버러 투어" },
+      en: { city: "Edinburgh, UK", desc: "An antique castle and gray granite buildings built upon a rocky mountain. Fortify your mind walking along the solid castle walls that silently withstood the winds and waves of time.", keyword: "Edinburgh tour" }
+    },
+    {
+      ko: { city: "튀르키예 파묵칼레 (Pamukkale, Turkey)", desc: "층층이 쌓인 하얀 석회붕과 신비로운 온천수. 수만 년 동안 대지가 만들어낸 새하얀 테라스 위를 맨발로 걸으며 자연의 부드러운 위로를 받으세요.", keyword: "파묵칼레 투어" },
+      en: { city: "Pamukkale, Turkey", desc: "Layered white travertine terraces and mystical hot spring water. Receive nature's soft comfort walking barefoot on the pure white terraces created by the earth over tens of thousands of years.", keyword: "Pamukkale tour" }
+    }
+  ],
+ // 🪓 금(金) 기운: 세련됨, 정밀함, 세계적인 하이엔드(High-End) 인프라가 필요한 사람 (총 20개)
+  metal: [
+    {
+      ko: { city: "싱가포르 (Singapore)", desc: "완벽한 환대(Hospitality)와 정교하게 설계된 세계적인 리조트, 마리나 베이 샌즈의 인피니티 풀에서 화려한 스카이라인을 내려다보며 타협 없는 최고의 럭셔리를 누려보세요.", keyword: "마리나베이샌즈 예약" },
+      en: { city: "Singapore", desc: "Experience uncompromising ultimate luxury looking down at the glamorous skyline from the infinity pool of Marina Bay Sands, a meticulously designed world-class resort with perfect hospitality.", keyword: "Marina Bay Sands" }
+    },
+    {
+      ko: { city: "아랍에미리트 두바이 (Dubai, UAE)", desc: "인간의 한계를 뛰어넘은 아찔한 마천루와 압도적인 부의 상징. 사막 위를 날카롭게 찌르는 빌딩 숲 속에서 당신의 거대한 야망과 성공에 대한 열망을 예리하게 벼려보세요.", keyword: "두바이 호텔" },
+      en: { city: "Dubai, UAE", desc: "Dizzying skyscrapers that transcend human limits and the symbol of overwhelming wealth. Sharpen your massive ambition and desire for success amidst the forest of buildings piercing the desert sky.", keyword: "Dubai hotel" }
+    },
+    {
+      ko: { city: "미국 뉴욕 (New York, USA)", desc: "전 세계의 자본과 트렌드가 가장 차갑고 날카롭게 교차하는 심장. 타임스퀘어의 압도적인 네온사인 아래서 누구도 흉내 낼 수 없는 당신만의 대체 불가한 가치를 증명할 영감을 얻으세요.", keyword: "뉴욕 뮤지컬 예매" },
+      en: { city: "New York City, USA", desc: "The heart where the world's capital and trends cross most coldly and sharply. Gain inspiration to prove your irreplaceable value under the overwhelming neon signs of Times Square.", keyword: "New York travel" }
+    },
+    {
+      ko: { city: "이탈리아 밀라노 (Milan, Italy)", desc: "단 1mm의 오차도 허용하지 않는 세계적인 패션과 디자인의 메카. 우아하고 날 선 미적 감각이 도시 곳곳에 스며든 이곳에서 당신의 예민한 하이엔드 취향을 마음껏 충족시키세요.", keyword: "밀라노 투어" },
+      en: { city: "Milan, Italy", desc: "The mecca of global fashion and design that permits not even a 1mm margin of error. Satisfy your sensitive, high-end tastes in this city permeated with elegant, sharp aesthetics.", keyword: "Milan tour" }
+    },
+    {
+      ko: { city: "일본 도쿄 (Tokyo, Japan)", desc: "극한의 디테일과 완벽주의가 빚어낸 미식과 서비스의 정점. 미슐랭 레스토랑의 정교한 요리와 흠결 없는 매뉴얼화된 도심 속에서 정밀하고 세련된 자극을 받아보세요.", keyword: "도쿄 지하철 패스" },
+      en: { city: "Tokyo, Japan", desc: "The pinnacle of gastronomy and service crafted by extreme detail and perfectionism. Receive precise, sophisticated stimulation amidst the flawless, manualized city and exquisite dishes of Michelin restaurants.", keyword: "Tokyo pass" }
+    },
+    {
+      ko: { city: "영국 런던 (London, UK)", desc: "수백 년의 클래식한 전통과 현대적인 금융의 칼날이 공존하는 곳. 각 잡힌 수트처럼 우아하고 정돈된 런던의 거리를 걸으며 당신만의 품격 있는 권위를 재정립하세요.", keyword: "런던 아이 티켓" },
+      en: { city: "London, UK", desc: "A place where centuries of classic tradition coexist with the sharp blade of modern finance. Redefine your dignified authority while walking the elegant, organized streets of London, crisp like a tailored suit.", keyword: "London tour" }
+    },
+    {
+      ko: { city: "프랑스 파리 (Paris, France)", desc: "오뜨 꾸뛰르(Haute Couture)의 섬세한 미학과 럭셔리가 탄생한 예술의 중심지. 에펠탑의 정교한 철골 구조를 바라보며 당신의 삶을 가장 아름답고 가치 있는 예술품으로 세공하십시오.", keyword: "파리 뮤지엄 패스" },
+      en: { city: "Paris, France", desc: "The center of art where the delicate aesthetics and luxury of Haute Couture were born. Craft your life into the most beautiful and valuable artwork while looking at the intricate steel structure of the Eiffel Tower.", keyword: "Paris museum pass" }
+    },
+    {
+      ko: { city: "스위스 제네바 (Geneva, Switzerland)", desc: "세계 최고급 시계 장인들의 정밀함이 도시 전체에 흐르는 맑고 차가운 호반의 도시. 한 치의 오차도 없는 스위스의 정교함 속에서 복잡한 마음의 톱니바퀴를 완벽하게 재조립하세요.", keyword: "스위스 융프라우" },
+      en: { city: "Geneva, Switzerland", desc: "A clear, cold lakeside city where the precision of the world's finest watchmakers flows. Perfectly reassemble the complex gears of your mind amidst the flawless precision of Switzerland.", keyword: "Geneva tour" }
+    },
+    {
+      ko: { city: "모나코 (Monaco)", desc: "초호화 요트와 세계 최고 부호들의 완벽하고 은밀한 휴양지. 지중해의 눈부신 절벽 위를 달리는 스포츠카처럼, 거칠 것 없이 날카로운 당신의 부와 명예에 대한 욕망을 마음껏 발산하십시오.", keyword: "모나코 투어" },
+      en: { city: "Monaco", desc: "A perfect, secret resort for ultra-luxury yachts and the world's richest. Unleash your sharp desire for wealth and honor without hesitation, like a sports car racing along the dazzling Mediterranean cliffs.", keyword: "Monaco travel" }
+    },
+    {
+      ko: { city: "중국 상하이 (Shanghai, China)", desc: "푸둥의 미래지향적인 스카이라인과 날카로운 비즈니스 감각이 교차하는 메가시티. 하늘을 찌르는 동방명주의 불빛 아래서, 대륙을 집어삼킬 듯한 당신의 날 선 통찰력을 일깨우세요.", keyword: "상하이 디즈니랜드" },
+      en: { city: "Shanghai, China", desc: "A megacity where Pudong's futuristic skyline and sharp business sense cross. Awaken your keen insight ready to swallow the continent under the piercing lights of the Oriental Pearl Tower.", keyword: "Shanghai Disneyland" }
+    },
+    {
+      ko: { city: "독일 프랑크푸르트 (Frankfurt, Germany)", desc: "유럽 경제의 심장이자 차갑고 이성적인 철강과 유리의 도시. 감정에 흔들리지 않는 견고한 마천루 숲에서, 당신 삶의 재무적 구조와 원칙을 가장 냉철하게 설계해 보세요.", keyword: "프랑크푸르트 투어" },
+      en: { city: "Frankfurt, Germany", desc: "The heart of the European economy and a cold, rational city of steel and glass. Design the financial structure and principles of your life most cool-headedly in the solid forest of skyscrapers unswayed by emotions.", keyword: "Frankfurt hotel" }
+    },
+    {
+      ko: { city: "미국 시카고 (Chicago, USA)", desc: "근대 건축의 걸작들이 뽐내는 구조적 완벽함과 미시간호의 매서운 칼바람. 거대한 강철 뼈대로 지어진 빌딩 숲을 걸으며 꺾이지 않는 단단한 강직함을 채워 넣으세요.", keyword: "시카고 건축물 투어" },
+      en: { city: "Chicago, USA", desc: "The structural perfection boasted by masterpieces of modern architecture and the biting wind of Lake Michigan. Fill yourself with unbreakable, solid rigidity walking through a forest of buildings built with massive steel frames.", keyword: "Chicago architecture tour" }
+    },
+    {
+      ko: { city: "한국 서울 강남 (Gangnam, Seoul, Korea)", desc: "최첨단 IT 인프라와 트렌디한 뷰티, 패션이 가장 빠르게 회전하는 곳. 한 치의 뒤처짐도 허용하지 않는 치열하고 화려한 도심 속에서 당신만의 예리한 트렌드 감각을 벼려보세요.", keyword: "서울 호캉스" },
+      en: { city: "Gangnam, Seoul, Korea", desc: "A place where cutting-edge IT infrastructure and trendy beauty and fashion rotate the fastest. Sharpen your own keen sense of trends in a fierce, glamorous downtown that permits no lagging behind.", keyword: "Seoul staycation" }
+    },
+    {
+      ko: { city: "카타르 도하 (Doha, Qatar)", desc: "미래 도시를 연상케 하는 압도적인 건축물과 중동의 세련된 막대한 오일머니. 척박한 사막 위에 완벽하게 구축된 하이엔드 인프라를 누리며 불가능을 가능으로 만드는 결단력을 배우십시오.", keyword: "도하 사막 투어" },
+      en: { city: "Doha, Qatar", desc: "Overwhelming architecture reminiscent of a futuristic city and the sophisticated, massive oil money of the Middle East. Learn the determination to make the impossible possible while enjoying perfectly built high-end infrastructure on a barren desert.", keyword: "Doha tour" }
+    },
+    {
+      ko: { city: "오스트리아 빈 (Vienna, Austria)", desc: "잘 조율된 오케스트라처럼 한 치의 흐트러짐 없는 클래식한 우아함. 기품 있는 카페와 웅장한 궁전 사이를 걸으며 당신 내면의 거칠어진 칼날을 고결하고 우아하게 다듬어보세요.", keyword: "빈 음악회 예매" },
+      en: { city: "Vienna, Austria", desc: "Classical elegance without an inch of disarray, like a well-tuned orchestra. Refine the roughened blade within you nobly and elegantly while walking between dignified cafes and magnificent palaces.", keyword: "Vienna concert ticket" }
+    },
+    {
+      ko: { city: "덴마크 코펜하겐 (Copenhagen, Denmark)", desc: "북유럽 특유의 군더더기 없는 미니멀리즘 디자인과 날카로운 실용성. 불필요한 장식을 철저히 덜어낸 세련된 거리를 자전거로 달리며, 당신 삶의 복잡한 문제들을 명쾌하게 잘라내십시오.", keyword: "코펜하겐 디자인 투어" },
+      en: { city: "Copenhagen, Denmark", desc: "Nordic minimalism's signature clean design and sharp practicality. Clearly cut away the complex problems of your life while cycling through sophisticated streets thoroughly stripped of unnecessary decoration.", keyword: "Copenhagen tour" }
+    },
+    {
+      ko: { city: "아랍에미리트 아부다비 (Abu Dhabi, UAE)", desc: "루브르 아부다비의 정교한 돔과 막대한 자본이 구축한 완벽한 럭셔리. 차갑고 세련된 대리석과 금빛으로 장식된 호화로운 공간에서 당신의 품격에 맞는 최고의 예우를 받아보세요.", keyword: "아부다비 투어" },
+      en: { city: "Abu Dhabi, UAE", desc: "The intricate dome of the Louvre Abu Dhabi and perfect luxury built by massive capital. Receive the highest treatment fitting your dignity in luxurious spaces decorated with cold, sophisticated marble and gold.", keyword: "Abu Dhabi hotel" }
+    },
+    {
+      ko: { city: "스위스 취리히 (Zurich, Switzerland)", desc: "한 치의 오차도 허용하지 않는 스위스 금융의 중심이자 세상에서 가장 깨끗하고 정돈된 거리. 완벽하게 통제된 고요함 속에서 헝클어진 머릿속을 차갑고 이성적으로 정리할 수 있습니다.", keyword: "취리히 렌트카" },
+      en: { city: "Zurich, Switzerland", desc: "The center of Swiss finance that permits no margin of error, and the cleanest, most organized streets in the world. Coldly and rationally organize your tangled thoughts in perfectly controlled tranquility.", keyword: "Zurich travel" }
+    },
+    {
+      ko: { city: "호주 시드니 (Sydney, Australia)", desc: "오페라 하우스의 날렵한 곡선과 남반구 최고의 세련된 항구 도시. 반짝이는 바다를 가르는 요트들 사이에서, 잘 벼려진 칼날처럼 날카롭고 명쾌한 삶의 새로운 방향을 설정하세요.", keyword: "시드니 오페라하우스 투어" },
+      en: { city: "Sydney, Australia", desc: "The sleek curves of the Opera House and the Southern Hemisphere's most sophisticated port city. Set a new, clear direction for your life, sharp as a well-honed blade, among yachts slicing through the sparkling sea.", keyword: "Sydney tour" }
+    },
+    {
+      ko: { city: "홍콩 (Hong Kong)", desc: "빅토리아 하버를 둘러싼 빽빽하고 압도적인 마천루 빌딩 숲. 차가운 유리 틈새로 쏟아지는 날카로운 햇살과 숨 막히는 야경 속에서 당신 안의 거침없는 승부사 기질을 확인하세요.", keyword: "홍콩 야경 투어" },
+      en: { city: "Hong Kong", desc: "A dense, overwhelming forest of skyscrapers surrounding Victoria Harbour. Confirm the unstoppable gambler's temperament within you amidst the breathtaking night view and sharp sunlight pouring through the cold glass gaps.", keyword: "Hong Kong night tour" }
+    }
+  ],
+ // 🌊 수(水) 기운: 흐름, 정화, 휴식과 낭만, 깊은 바다의 위로가 필요한 사람 (총 20개)
+  water: [
+    {
+      ko: { city: "몰디브 (Maldives)", desc: "끝없이 투명하게 펼쳐진 에메랄드빛 인도양의 진주. 외부와 완벽히 단절된 프라이빗 리조트에서, 뇌의 스위치를 끄고 그저 물의 흐름에 온몸을 맡기는 궁극의 휴식을 경험하세요.", keyword: "몰디브 신혼여행" },
+      en: { city: "Maldives", desc: "The pearl of the Indian Ocean with endlessly transparent emerald waters. Experience ultimate relaxation in a private resort perfectly isolated from the outside world, turning off your brain and surrendering to the flow of water.", keyword: "Maldives resort" }
+    },
+    {
+      ko: { city: "이탈리아 베네치아 (Venice, Italy)", desc: "골목골목 수로가 이어지는 낭만적인 물의 도시. 곤돌라에 기대어 찰랑이는 물소리를 듣다 보면, 복잡하게 얽혀 있던 상념들이 씻은 듯이 맑게 풀리는 마법을 겪게 될 것입니다.", keyword: "베네치아 곤돌라" },
+      en: { city: "Venice, Italy", desc: "A romantic city of water where canals connect every alley. Listening to the splashing water while leaning in a gondola, you will experience the magic of your complex, tangled thoughts washing away clearly.", keyword: "Venice tour" }
+    },
+    {
+      ko: { city: "아이슬란드 레이캬비크 (Reykjavik, Iceland)", desc: "빙하와 뜨거운 온천이 공존하는 신비로운 심연의 땅. 블루라군의 우윳빛 온천수에 몸을 담그고, 머리 위로 쏟아지는 오로라를 보며 영혼의 가장 깊은 곳까지 말끔히 정화해 보세요.", keyword: "아이슬란드 오로라" },
+      en: { city: "Reykjavik, Iceland", desc: "A mystical land of the abyss where glaciers and hot springs coexist. Soak in the milky waters of the Blue Lagoon and completely purify the deepest parts of your soul while watching the aurora pour down overhead.", keyword: "Iceland Aurora" }
+    },
+    {
+      ko: { city: "프랑스 안시 (Annecy, France)", desc: "알프스의 만년설이 녹아 만들어진 세상에서 가장 맑고 잔잔한 호수 마을. 백조가 유유히 헤엄치는 고요한 물결을 바라보며, 탁해졌던 당신의 멘탈을 투명하게 씻어내십시오.", keyword: "프랑스 소도시 여행" },
+      en: { city: "Annecy, France", desc: "The clearest, calmest lake town in the world, formed by melting Alpine snow. Transparently wash away your murky mentality while watching the serene waves where swans swim leisurely.", keyword: "Annecy tour" }
+    },
+    {
+      ko: { city: "필리핀 팔라완 (Palawan, Philippines)", desc: "지하 강이 깊은 동굴 속을 흐르는 태초의 대자연. 인적이 드문 맑고 깊은 바다 속으로 다이빙하여, 세상의 모든 소음이 차단된 완벽한 무중력의 자유를 만끽하세요.", keyword: "팔라완 다이빙" },
+      en: { city: "Palawan, Philippines", desc: "Primal nature where an underground river flows through deep caves. Dive into the clear, deep sea away from crowds and enjoy perfect, weightless freedom where all the world's noise is blocked out.", keyword: "Palawan tour" }
+    },
+    {
+      ko: { city: "오스트리아 할슈타트 (Hallstatt, Austria)", desc: "거울처럼 매끄러운 호수 위에 그림처럼 떠 있는 동화 속 마을. 고요한 수면에 반사된 산의 반영을 바라보며, 복잡한 현실을 벗어나 깊고 평화로운 사색의 세계로 침잠해 보세요.", keyword: "할슈타트 기차표" },
+      en: { city: "Hallstatt, Austria", desc: "A fairytale village floating like a picture on a mirror-smooth lake. Looking at the mountain's reflection on the calm water surface, escape complex reality and submerge into a deep, peaceful world of contemplation.", keyword: "Hallstatt travel" }
+    },
+    {
+      ko: { city: "그리스 산토리니 (Santorini, Greece)", desc: "에게해의 짙푸른 바다와 눈부신 하얀 골목길. 끝없이 펼쳐진 파란 수평선을 하염없이 바라보며, 마음속을 어지럽히던 고민들을 투명하고 시원하게 씻어내세요.", keyword: "산토리니 호텔" },
+      en: { city: "Santorini, Greece", desc: "The deep blue Aegean Sea and dazzling white alleys. Look endlessly at the blue horizon stretching out and transparently wash away the worries that cluttered your mind.", keyword: "Santorini tour" }
+    },
+    {
+      ko: { city: "프랑스령 폴리네시아 보라보라 (Bora Bora, French Polynesia)", desc: "티 없이 맑은 라군 위에 떠 있는 프라이빗 수상 방갈로. 바다와 내가 하나가 되는 완벽한 물의 품에서 속세의 모든 스트레스와 단절되는 사치를 누리십시오.", keyword: "보라보라섬 리조트" },
+      en: { city: "Bora Bora, French Polynesia", desc: "Private overwater bungalows floating on a flawlessly clear lagoon. Enjoy the luxury of disconnecting from all worldly stress in the perfect embrace of water where you and the sea become one.", keyword: "Bora Bora resort" }
+    },
+    {
+      ko: { city: "캐나다 밴프 (Banff, Canada)", desc: "로키산맥의 거대한 빙하가 녹아 만들어낸 에메랄드빛 루이스 호수. 얼음처럼 차갑고 맑은 대자연의 물결 앞에서 영혼의 불순물까지 깨끗하게 정화할 수 있습니다.", keyword: "캐나다 로키 투어" },
+      en: { city: "Banff, Canada", desc: "The emerald-colored Lake Louise created by melting massive glaciers in the Rocky Mountains. You can cleanly purify even the impurities of your soul before the ice-cold, clear waves of Mother Nature.", keyword: "Banff tour" }
+    },
+    {
+      ko: { city: "베트남 하롱베이 (Ha Long Bay, Vietnam)", desc: "수천 개의 석회암 섬이 병풍처럼 떠 있는 신비로운 비취빛 바다. 잔잔한 물결 위를 유유히 미끄러지는 크루즈에 누워 멈춰진 시간의 흐름을 고요하게 느껴보세요.", keyword: "하롱베이 크루즈" },
+      en: { city: "Ha Long Bay, Vietnam", desc: "A mystical jade-green sea where thousands of limestone islands float like a folding screen. Calmly feel the stopped flow of time lying on a cruise leisurely gliding over the gentle waves.", keyword: "Ha Long Bay cruise" }
+    },
+    {
+      ko: { city: "네덜란드 암스테르담 (Amsterdam, Netherlands)", desc: "도시 전체를 핏줄처럼 연결하는 고요한 운하의 도시. 자전거를 타고 수로를 따라 천천히 달리며, 오랫동안 꽉 막혀 정체되어 있던 당신의 에너지를 부드럽게 순환시키세요.", keyword: "암스테르담 투어" },
+      en: { city: "Amsterdam, Netherlands", desc: "A quiet canal city connecting the whole city like blood vessels. Ride a bicycle slowly along the waterways and gently circulate your energy that has been tightly blocked and stagnant for a long time.", keyword: "Amsterdam tour" }
+    },
+    {
+      ko: { city: "일본 오타루 (Otaru, Japan)", desc: "하얀 눈이 소복이 쌓인 겨울 운하와 낭만적인 오르골 소리. 차가운 겨울 바다의 서늘한 풍경 속에서 오히려 내면의 가장 따뜻하고 순수한 감성을 회복할 수 있습니다.", keyword: "오타루 오르골" },
+      en: { city: "Otaru, Japan", desc: "A winter canal thickly covered with white snow and the romantic sound of music boxes. In the cool scenery of the cold winter sea, you can actually recover the warmest and purest sensibility of your inner self.", keyword: "Otaru travel" }
+    },
+    {
+      ko: { city: "이탈리아 코모 호수 (Lake Como, Italy)", desc: "짙은 물안개가 낀 새벽 호숫가의 몽환적인 신비로움. 알프스 산자락 아래 끝없이 깊은 호수를 응시하며, 내면의 깊은 심연과 마주하는 고독의 시간을 즐겨보세요.", keyword: "코모 호수 투어" },
+      en: { city: "Lake Como, Italy", desc: "The dreamy mystique of a foggy lakeside at dawn. Staring into the endlessly deep lake beneath the Alps, enjoy a time of solitude facing the deep abyss of your inner self.", keyword: "Lake Como tour" }
+    },
+    {
+      ko: { city: "뉴질랜드 밀포드 사운드 (Milford Sound, New Zealand)", desc: "빙하가 깎아낸 피오르드와 까마득한 절벽에서 쏟아지는 수만 개의 폭포. 압도적인 대자연의 거대한 물줄기를 온몸으로 맞으며 속이 뻥 뚫리는 카타르시스를 경험하세요.", keyword: "밀포드 사운드 크루즈" },
+      en: { city: "Milford Sound, New Zealand", desc: "Fjords carved by glaciers and tens of thousands of waterfalls pouring from dizzying cliffs. Experience a catharsis that clears your chest while taking the massive streams of Mother Nature with your whole body.", keyword: "Milford Sound cruise" }
+    },
+    {
+      ko: { city: "스위스 루체른 (Lucerne, Switzerland)", desc: "백조가 우아하게 노니는 맑은 호수와 알프스의 영봉들. 투명한 물비늘이 반짝이는 호숫가 벤치에 앉아 끝없이 맴돌며 나를 괴롭히던 생각의 꼬리를 툭 끊어내십시오.", keyword: "루체른 유람선" },
+      en: { city: "Lucerne, Switzerland", desc: "A clear lake where swans swim elegantly and the majestic peaks of the Alps. Sit on a lakeside bench where transparent water scales sparkle, and snap off the tail of thoughts that endlessly circled and tormented you.", keyword: "Lucerne tour" }
+    },
+    {
+      ko: { city: "몬테네그로 코토르 (Kotor, Montenegro)", desc: "굽이치는 아드리아해의 바닷물이 산속 깊숙이 들어와 만든 고요한 피오르드 만. 물속에 거울처럼 비친 중세 성벽을 보며 들떠있던 마음의 평온을 차분히 되찾으세요.", keyword: "코토르 투어" },
+      en: { city: "Kotor, Montenegro", desc: "A quiet fjord bay created by the winding Adriatic Sea water reaching deep into the mountains. Calmly regain your excited mind's peace while looking at the medieval castle walls reflected like a mirror in the water.", keyword: "Kotor tour" }
+    },
+    {
+      ko: { city: "미국/캐나다 나이아가라 폭포 (Niagara Falls, North America)", desc: "분당 수백만 리터의 물이 쏟아져 내리는 압도적인 대폭포. 귀를 찢을 듯한 거대한 물소리 속에 일상의 모든 분노와 스트레스를 시원하게 던져버리세요.", keyword: "나이아가라 폭포 투어" },
+      en: { city: "Niagara Falls, North America", desc: "An overwhelming massive waterfall where millions of liters of water pour down per minute. Refreshingly throw all your daily anger and stress into the deafening, massive sound of water.", keyword: "Niagara Falls tour" }
+    },
+    {
+      ko: { city: "한국 강릉 (Gangneung, Korea)", desc: "끝없이 밀려오는 동해의 짙푸른 파도 소리와 짙은 커피 향기. 서늘한 바닷바람을 온몸으로 맞으며, 텅 비어있던 마음을 파도 같은 낭만과 위로로 꽉 채워보세요.", keyword: "강릉 오션뷰 호텔" },
+      en: { city: "Gangneung, Korea", desc: "The sound of the deep blue waves of the East Sea rolling in endlessly and the rich scent of coffee. Fill your empty heart tightly with wave-like romance and comfort while facing the cool sea breeze with your whole body.", keyword: "Gangneung tour" }
+    },
+    {
+      ko: { city: "태국 끄라비 (Krabi, Thailand)", desc: "깎아지른 석회암 절벽에 둘러싸인 에메랄드빛 프라이빗 라군. 문명의 소음이 완벽하게 차단된 이곳에서 바다 한가운데 둥둥 떠 무중력의 완벽한 자유를 만끽하세요.", keyword: "끄라비 리조트" },
+      en: { city: "Krabi, Thailand", desc: "An emerald private lagoon surrounded by sheer limestone cliffs. Float in the middle of the sea in this place where the noise of civilization is perfectly blocked out, and enjoy the perfect freedom of weightlessness.", keyword: "Krabi tour" }
+    },
+    {
+      ko: { city: "세이셸 (Seychelles)", desc: "인도양의 거대한 화강암 바위와 투명한 바다가 만나는 태고의 자연. 오랜 세월 파도에 둥글게 깎인 바위들을 어루만지며, 날 서 있던 모난 마음을 부드럽게 깎아내세요.", keyword: "세이셸 여행" },
+      en: { city: "Seychelles", desc: "Primal nature where massive granite rocks of the Indian Ocean meet the transparent sea. Softly carve away your sharp, prickly heart while stroking the rocks rounded by waves over a long time.", keyword: "Seychelles travel" }
+    }
+  ]
+}; // <-- 여기서 TRAVEL_DATA 객체가 완벽하게 닫힙니다!
+ 
 const SAJU_DATA = {
 0: { 
     counseling: { 
@@ -1838,6 +2256,15 @@ function buildCategoryReport(type, archIndex, seed = 0) {
   return html;
 }
 
+ // 오행 판별 함수
+function getElementByArchIndex(index) {
+  if (index === 0 || index === 1) return 'wood';
+  if (index === 2 || index === 3) return 'fire';
+  if (index === 4 || index === 5) return 'earth';
+  if (index === 6 || index === 7) return 'metal';
+  return 'water';
+}
+ 
 function showResult(type) {
   const contentArea = document.getElementById('result-content');
   const archIndex = currentSaju.archIndex;
@@ -1901,7 +2328,43 @@ html += buildCategoryReport(type, archIndex, monthlySeed);
       </div>
     </div>
   `;
+  // --- 이 위쪽은 기존 럭키박스(lucky-box) 코드 ---
+  // ✈️ 6. 여행지 추천 박스 추가 (100개 중 랜덤 추출)
+  const myElement = getElementByArchIndex(currentSaju.archIndex);
+  const travelArray = TRAVEL_DATA[myElement];
+  const travel = travelArray[Math.floor(Math.random() * travelArray.length)];
+
+  if (currentLang === 'ko') {
+    html += `
+      <div class="card-game mt-md" style="border-color: var(--btn-blue);">
+        <h3 style="font-family: 'Jua', sans-serif; font-size: 19px; color: var(--btn-blue); margin-bottom: 12px;">✈️ 꿀벌의 힐링 여행지 추천</h3>
+        <p style="font-size: 15px; margin-bottom: 16px; line-height: 1.5;">당신의 현재 기운을 시원하게 순환시켜 줄 추천 여행지는 <strong>${travel.ko.city}</strong>입니다.</p>
+        <p style="font-size: 14.5px; font-weight: 700; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">${travel.ko.desc}</p>
+        
+        <!-- 블로그가 없으시므로 우선 아고다/스카이스캐너 같은 제휴 링크로 대체해두었습니다. -->
+        <a href="https://www.agoda.com/" target="_blank" class="btn-game btn-blue" style="text-decoration: none; margin-bottom: 16px;">
+          🍯 숙소 & 항공권 알아보러 가기
+        </a>
+        
+        <!-- 여행 맞춤형 쿠팡 배너 -->
+        <div id="coupang-travel-zone" style="min-height: 140px; border-radius: 12px; overflow: hidden;"></div>
+      </div>
+    `;
+  } else {
+    html += `
+      <div class="card-game mt-md" style="border-color: var(--btn-blue);">
+        <h3 style="font-family: 'Jua', sans-serif; font-size: 19px; color: var(--btn-blue); margin-bottom: 12px;">✈️ Bee's Healing Destination</h3>
+        <p style="font-size: 15px; margin-bottom: 16px; line-height: 1.5;">To refresh your energy, the bee recommends visiting <strong>${travel.en.city}</strong>.</p>
+        <p style="font-size: 14.5px; font-weight: 700; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">${travel.en.desc}</p>
+        
+        <a href="https://www.agoda.com/" target="_blank" class="btn-game btn-blue" style="text-decoration: none; margin-bottom: 16px;">
+          🍯 Find Accommodation & Flights
+        </a>
+      </div>
+    `;
+  }
   
+  // --- 이 아래쪽은 기존 contentArea.innerHTML = html; 코드가 이어집니다 ---
   contentArea.innerHTML = html;
 
    // 🔧 추가: 결과 페이지 안의 카카오 광고 강제 초기화
