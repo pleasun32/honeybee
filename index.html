@@ -433,8 +433,8 @@
   .ad-container.ad-large { min-height: 0; }
   .ad-container.ad-medium { min-height: 0; }
   .ad-label-tiny { font-size: 9px; color: #aaa; font-family: 'Nunito', sans-serif; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.5px; }
-  .ad-container .adsbygoogle,
-  .ad-container .kakao-ad-placeholder { display: block; width: 100%; }
+  .ad-container .adsbygoogle { display: block; width: 100%; }
+  .ad-container .kakao-ad-placeholder { display: flex; justify-content: center; width: 100%; overflow: hidden; }
   
   .coupang-disclaimer { font-size: 10px; color: #999; margin-top: 10px; font-weight: 600; text-align: center; line-height: 1.4; }
 
@@ -1230,8 +1230,6 @@ function refreshKakaoAds() {
         slot.dataset.adLoaded = '';
         return;
       }
-
-      slot.style.maxWidth = `${width}px`;
 
       // AdFit은 같은 data-ad-unit이 한 페이지에 동시에 있으면 오류를 냅니다.
       if (renderedUnits.has(unit)) {
